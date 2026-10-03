@@ -1,0 +1,94 @@
+site_name: Acceso a Datos - 2º DAM
+
+theme:
+  name: material
+  language: es
+
+nav:
+  - Inicio: index.md
+  - "UT1 · Ficheros y formatos de intercambio de datos":
+      - Guía de la unidad: ut1/index.md
+      - "1. Ficheros, flujos y excepciones":
+          - Introducción: ut1/01-ficheros/index.md
+          - File y directorios: ut1/01-ficheros/01-file-directorios.md
+          - Acceso secuencial y aleatorio: ut1/01-ficheros/02-acceso.md
+          - Flujos de bytes: ut1/01-ficheros/03-flujos-bytes.md
+          - Flujos de caracteres: ut1/01-ficheros/04-flujos-caracteres.md
+          - Excepciones: ut1/01-ficheros/05-excepciones.md
+          - Resumen: ut1/01-ficheros/06-resumen.md
+      - "2. Serialización de objetos":
+          - Introducción: ut1/02-serializacion/index.md
+          - Serializable y transient: ut1/02-serializacion/01-conceptos.md
+          - Serializar y deserializar: ut1/02-serializacion/02-un-objeto.md
+          - Varios objetos: ut1/02-serializacion/03-varios-objetos.md
+          - Añadir objetos - append: ut1/02-serializacion/04-append.md
+          - serialVersionUID: ut1/02-serializacion/05-versionado.md
+          - Resumen: ut1/02-serializacion/06-resumen.md
+      - "3. Formatos de intercambio":
+          - "Java y JSON":
+              - Introducción: ut1/03-intercambio/java-json/index.md
+              - "org.json":
+                  - Introducción: ut1/03-intercambio/java-json/org-json/index.md
+                  - Preparación: ut1/03-intercambio/java-json/org-json/01-preparacion.md
+                  - JSONObject: ut1/03-intercambio/java-json/org-json/02-jsonobject.md
+                  - JSONArray: ut1/03-intercambio/java-json/org-json/03-jsonarray.md
+                  - Guardar JSON: ut1/03-intercambio/java-json/org-json/04-guardar-json.md
+                  - Leer JSON y JSONTokener: ut1/03-intercambio/java-json/org-json/05-leer-json.md
+                  - Resumen: ut1/03-intercambio/java-json/org-json/06-resumen.md
+              - Gson:
+                  - Introducción: ut1/03-intercambio/java-json/gson/index.md
+                  - Preparación: ut1/03-intercambio/java-json/gson/01-preparacion.md
+                  - Serialización: ut1/03-intercambio/java-json/gson/02-serializacion.md
+                  - Deserialización: ut1/03-intercambio/java-json/gson/03-deserializacion.md
+                  - Colecciones y TypeToken: ut1/03-intercambio/java-json/gson/04-colecciones.md
+                  - Ficheros JSON: ut1/03-intercambio/java-json/gson/05-ficheros.md
+                  - Adaptadores: ut1/03-intercambio/java-json/gson/06-adaptadores.md
+                  - Resumen: ut1/03-intercambio/java-json/gson/07-resumen.md
+              - Jackson:
+                  - Introducción: ut1/03-intercambio/java-json/jackson/index.md
+                  - Preparación: ut1/03-intercambio/java-json/jackson/01-preparacion.md
+                  - Serialización: ut1/03-intercambio/java-json/jackson/02-serializacion.md
+                  - Deserialización: ut1/03-intercambio/java-json/jackson/03-deserializacion.md
+                  - Colecciones y TypeReference: ut1/03-intercambio/java-json/jackson/04-colecciones.md
+                  - Ficheros JSON: ut1/03-intercambio/java-json/jackson/05-ficheros.md
+                  - JsonNode y anotaciones: ut1/03-intercambio/java-json/jackson/06-jsonnode-anotaciones.md
+                  - Resumen: ut1/03-intercambio/java-json/jackson/07-resumen.md
+          - "Python y JSON":
+              - Introducción: ut1/03-intercambio/python-json/index.md
+              - Preparación: ut1/03-intercambio/python-json/01-preparacion.md
+              - dumps() y loads(): ut1/03-intercambio/python-json/02-dumps-loads.md
+              - Diccionarios y listas: ut1/03-intercambio/python-json/03-estructuras.md
+              - Ficheros JSON: ut1/03-intercambio/python-json/04-ficheros.md
+              - pathlib y rutas: ut1/03-intercambio/python-json/05-pathlib.md
+              - Tipos personalizados: ut1/03-intercambio/python-json/06-personalizacion.md
+              - Resumen: ut1/03-intercambio/python-json/07-resumen.md
+          - XML:
+              - Introducción: ut1/03-intercambio/xml/index.md
+              - Estructura y conceptos básicos: ut1/03-intercambio/xml/01-xml-basico.md
+      - "4. Analizadores XML":
+          - Introducción: ut1/04-analizadores/index.md
+          - DOM - Lectura: ut1/04-analizadores/01-dom.md
+          - DOM - Modificación y CRUD: ut1/04-analizadores/02-dom-crud.md
+          - SAX: ut1/04-analizadores/03-sax.md
+          - JAXB: ut1/04-analizadores/04-jaxb.md
+          - Comparativa: ut1/04-analizadores/05-comparativa.md
+      - "5. XPath":
+          - Introducción: ut1/05-xpath/index.md
+          - Rutas y selectores: ut1/05-xpath/01-rutas-selectores.md
+          - Predicados y filtros: ut1/05-xpath/02-predicados.md
+          - Funciones: ut1/05-xpath/03-funciones.md
+          - XPath desde Java: ut1/05-xpath/04-java.md
+          - Resumen: ut1/05-xpath/05-resumen.md
+      - "6. Conversión XML ↔ JSON":
+          - Introducción: ut1/06-conversion/index.md
+          - Enfoques: ut1/06-conversion/01-enfoques.md
+          - XML → JSON: ut1/06-conversion/02-xml-json.md
+          - JSON → XML: ut1/06-conversion/03-json-xml.md
+          - Conversión automática: ut1/06-conversion/04-automatica.md
+          - Resumen: ut1/06-conversion/05-resumen.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 3
