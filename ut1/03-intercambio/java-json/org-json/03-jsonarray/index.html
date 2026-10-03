@@ -1,0 +1,5983 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-jsonobject/">
+      
+      
+        <link rel="next" href="../04-guardar-json/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>JSONArray - Acceso a Datos - 2º DAM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jsonarray" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a Datos - 2º DAM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              JSONArray
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a Datos - 2º DAM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de la unidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Ficheros, flujos y excepciones
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Ficheros, flujos y excepciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/01-file-directorios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/02-acceso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso secuencial y aleatorio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/03-flujos-bytes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de bytes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/04-flujos-caracteres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de caracteres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/05-excepciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excepciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serialización de objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Serialización de objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/01-conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializable y transient
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/02-un-objeto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializar y deserializar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/03-varios-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varios objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/04-append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Añadir objetos - append
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/05-versionado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    serialVersionUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Formatos de intercambio
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Formatos de intercambio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    org.json
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    org.json
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-jsonobject/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONObject
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONArray
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONArray
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mapa-general-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Mapa general de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-jsonobject-frente-a-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. JSONObject frente a JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-y-operaciones-basicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación y operaciones básicas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación y operaciones básicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-crear-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Crear un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-anadir-elementos-con-put" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Añadir elementos con put()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tipos-de-datos-que-puede-contener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tipos de datos que puede contener
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-mostrar-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Mostrar un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceso a los datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acceso a los datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-acceder-a-los-elementos-de-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Acceder a los elementos de un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-metodos-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Métodos get...()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-acceso-mediante-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Acceso mediante get()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-numero-de-elementos-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Número de elementos: length()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-comprobar-si-un-array-esta-vacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Comprobar si un array está vacío
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorrido-y-modificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorrido y modificación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recorrido y modificación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-recorrer-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Recorrer un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-modificar-una-posicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Modificar una posición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-eliminar-un-elemento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Eliminar un elemento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-opcionales-y-valores-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos opcionales y valores null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Datos opcionales y valores null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-metodos-opt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Métodos opt...()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-valores-null-en-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Valores null en un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrays-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrays de objetos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arrays de objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18-jsonarray-de-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. JSONArray de JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-construir-un-array-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Construir un array de objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-recuperar-un-jsonobject-del-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Recuperar un JSONObject del array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-recorrer-un-array-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Recorrer un array de objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinacion-de-jsonobject-y-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinación de JSONObject y JSONArray
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Combinación de JSONObject y JSONArray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22-jsonarray-dentro-de-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. JSONArray dentro de JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-recuperar-el-jsonarray-contenido-en-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Recuperar el JSONArray contenido en un JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-arrays-dentro-de-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Arrays dentro de arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructuras-json-mas-completas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructuras JSON más completas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estructuras JSON más completas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-ejemplo-grupo-de-alumnos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Ejemplo: grupo de alumnos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-construccion-paso-a-paso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Construcción paso a paso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-recorrer-una-estructura-anidada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Recorrer una estructura anidada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-maven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto Maven
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto Maven">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#28-demojsonarrayjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. DemoJSONArray.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-jsonarrayanidadojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. JSONArrayAnidado.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metodos-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos principales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos principales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30-resumen-de-metodos-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. Resumen de métodos de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-confundir-jsonobject-y-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Confundir JSONObject y JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-intentar-acceder-mediante-una-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Intentar acceder mediante una clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-olvidar-que-los-indices-empiezan-en-cero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Olvidar que los índices empiezan en cero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-recorrer-incorrectamente-el-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. Recorrer incorrectamente el array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-utilizar-el-metodo-de-acceso-incorrecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. Utilizar el método de acceso incorrecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-confundir-el-nivel-de-la-estructura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. Confundir el nivel de la estructura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#37-esquema-general-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. Esquema general de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-jsonobject-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. JSONObject + JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-que-debemos-saber-antes-de-continuar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. ¿Qué debemos saber antes de continuar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#40-ejemplos-incluidos-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40. Ejemplos incluidos en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-guardar-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guardar JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-leer-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leer JSON y JSONTokener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeToken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/06-adaptadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adaptadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jackson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Jackson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeReference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/06-jsonnode-anotaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JsonNode y anotaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/02-dumps-loads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dumps() y loads()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/03-estructuras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diccionarios y listas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/04-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/05-pathlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pathlib y rutas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/06-personalizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos personalizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/01-xml-basico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analizadores XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Analizadores XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/01-dom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Lectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/02-dom-crud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Modificación y CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/03-sax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/04-jaxb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAXB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/05-comparativa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparativa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. XPath
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. XPath
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/01-rutas-selectores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rutas y selectores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/02-predicados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicados y filtros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/03-funciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/04-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XPath desde Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Conversión XML ↔ JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    6. Conversión XML ↔ JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/01-enfoques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enfoques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/02-xml-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML → JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/03-json-xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON → XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/04-automatica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversión automática
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mapa-general-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Mapa general de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-jsonobject-frente-a-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. JSONObject frente a JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-y-operaciones-basicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación y operaciones básicas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación y operaciones básicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-crear-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Crear un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-anadir-elementos-con-put" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Añadir elementos con put()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tipos-de-datos-que-puede-contener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tipos de datos que puede contener
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-mostrar-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Mostrar un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceso a los datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acceso a los datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-acceder-a-los-elementos-de-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Acceder a los elementos de un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-metodos-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Métodos get...()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-acceso-mediante-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Acceso mediante get()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-numero-de-elementos-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Número de elementos: length()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-comprobar-si-un-array-esta-vacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Comprobar si un array está vacío
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorrido-y-modificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorrido y modificación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recorrido y modificación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-recorrer-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Recorrer un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-modificar-una-posicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Modificar una posición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-eliminar-un-elemento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Eliminar un elemento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-opcionales-y-valores-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos opcionales y valores null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Datos opcionales y valores null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-metodos-opt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Métodos opt...()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-valores-null-en-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Valores null en un JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrays-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrays de objetos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arrays de objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18-jsonarray-de-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. JSONArray de JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-construir-un-array-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Construir un array de objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-recuperar-un-jsonobject-del-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Recuperar un JSONObject del array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-recorrer-un-array-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Recorrer un array de objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinacion-de-jsonobject-y-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinación de JSONObject y JSONArray
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Combinación de JSONObject y JSONArray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22-jsonarray-dentro-de-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. JSONArray dentro de JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-recuperar-el-jsonarray-contenido-en-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Recuperar el JSONArray contenido en un JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-arrays-dentro-de-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Arrays dentro de arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructuras-json-mas-completas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructuras JSON más completas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estructuras JSON más completas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-ejemplo-grupo-de-alumnos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Ejemplo: grupo de alumnos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-construccion-paso-a-paso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Construcción paso a paso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-recorrer-una-estructura-anidada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Recorrer una estructura anidada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-maven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto Maven
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto Maven">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#28-demojsonarrayjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. DemoJSONArray.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-jsonarrayanidadojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. JSONArrayAnidado.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metodos-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos principales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos principales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30-resumen-de-metodos-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. Resumen de métodos de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-confundir-jsonobject-y-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Confundir JSONObject y JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-intentar-acceder-mediante-una-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Intentar acceder mediante una clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-olvidar-que-los-indices-empiezan-en-cero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Olvidar que los índices empiezan en cero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-recorrer-incorrectamente-el-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. Recorrer incorrectamente el array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-utilizar-el-metodo-de-acceso-incorrecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. Utilizar el método de acceso incorrecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-confundir-el-nivel-de-la-estructura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. Confundir el nivel de la estructura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#37-esquema-general-de-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. Esquema general de JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-jsonobject-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. JSONObject + JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-que-debemos-saber-antes-de-continuar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. ¿Qué debemos saber antes de continuar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#40-ejemplos-incluidos-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40. Ejemplos incluidos en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="jsonarray">JSONArray<a class="headerlink" href="#jsonarray" title="Permanent link">&para;</a></h1>
+<h3 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h3>
+<p><code>JSONArray</code> es otra de las clases principales de la librería <strong>org.json</strong>.</p>
+<p>Mientras que <code>JSONObject</code> representa un objeto formado por pares <strong>clave-valor</strong>, <code>JSONArray</code> representa una <strong>colección ordenada de valores</strong>.</p>
+<p>En JSON, un array se representa mediante corchetes:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>Con <code>org.json</code>, esta estructura se representa mediante la clase:</p>
+<pre><code class="language-java">JSONArray
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray lenguajes = new JSONArray();
+
+lenguajes.put(&quot;Java&quot;);
+lenguajes.put(&quot;Python&quot;);
+lenguajes.put(&quot;Kotlin&quot;);
+</code></pre>
+<p>El resultado será:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">JSONArray representa un array JSON</p>
+<p>Cuando en un documento JSON encontramos una estructura delimitada por corchetes <code>[ ]</code>, estamos ante un <strong>array JSON</strong>.</p>
+<p>Con la librería <code>org.json</code>, este tipo de estructura se representa mediante la clase <code>JSONArray</code>.</p>
+</div>
+<hr />
+<h3 id="2-mapa-general-de-jsonarray">2. Mapa general de JSONArray<a class="headerlink" href="#2-mapa-general-de-jsonarray" title="Permanent link">&para;</a></h3>
+<p>El siguiente esquema resume las principales operaciones que podemos realizar con <code>JSONArray</code> y muestra cómo puede contener tanto valores simples como objetos y otros arrays.</p>
+<p><img alt="Mapa conceptual de JSONArray" src="../../../../../images/ut1/java-json/jsonarray-mapa.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Utiliza el mapa como guía</p>
+<p>Utiliza este esquema como referencia durante la lección.</p>
+<p>Recuerda especialmente la diferencia fundamental:</p>
+<p><code>text
+JSONObject → accedemos mediante claves
+JSONArray  → accedemos mediante posiciones</code></p>
+</div>
+<hr />
+<h3 id="3-jsonobject-frente-a-jsonarray">3. JSONObject frente a JSONArray<a class="headerlink" href="#3-jsonobject-frente-a-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Es fundamental distinguir las dos estructuras principales que hemos estudiado.</p>
+<h4 id="jsonobject">JSONObject<a class="headerlink" href="#jsonobject" title="Permanent link">&para;</a></h4>
+<p>Representa un objeto formado por propiedades:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;edad&quot;: 21
+}
+</code></pre>
+<p>Utiliza:</p>
+<pre><code class="language-text">{ }
+</code></pre>
+<p>y cada dato tiene una <strong>clave</strong>:</p>
+<pre><code class="language-text">&quot;nombre&quot; : &quot;Ana&quot;
+     ↑         ↑
+   clave     valor
+</code></pre>
+<p>Para recuperar un dato utilizamos su clave:</p>
+<pre><code class="language-java">String nombre = objeto.getString(&quot;nombre&quot;);
+</code></pre>
+<h4 id="jsonarray_1">JSONArray<a class="headerlink" href="#jsonarray_1" title="Permanent link">&para;</a></h4>
+<p>Representa una colección ordenada:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>Utiliza:</p>
+<pre><code class="language-text">[ ]
+</code></pre>
+<p>y sus elementos se identifican mediante una <strong>posición</strong>:</p>
+<pre><code class="language-text">        posición
+           ↓
+
+[ &quot;Java&quot;, &quot;Python&quot;, &quot;Kotlin&quot; ]
+     0        1         2
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">String lenguaje = array.getString(0);
+</code></pre>
+<p>Podemos resumirlo así:</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th><code>JSONObject</code></th>
+<th><code>JSONArray</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Símbolos JSON</td>
+<td><code>{ }</code></td>
+<td><code>[ ]</code></td>
+</tr>
+<tr>
+<td>Organización</td>
+<td>Clave-valor</td>
+<td>Posiciones</td>
+</tr>
+<tr>
+<td>Acceso</td>
+<td>Mediante clave</td>
+<td>Mediante índice</td>
+</tr>
+<tr>
+<td>Ejemplo</td>
+<td><code>"nombre"</code></td>
+<td><code>0</code>, <code>1</code>, <code>2</code></td>
+</tr>
+<tr>
+<td>Clase Java</td>
+<td><code>JSONObject</code></td>
+<td><code>JSONArray</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">Idea clave</p>
+<p>En un <code>JSONObject</code> buscamos información mediante una <strong>clave</strong>.</p>
+<p>En un <code>JSONArray</code> accedemos a los elementos mediante su <strong>posición</strong>.</p>
+</div>
+<hr />
+<h2 id="creacion-y-operaciones-basicas">Creación y operaciones básicas<a class="headerlink" href="#creacion-y-operaciones-basicas" title="Permanent link">&para;</a></h2>
+<h3 id="4-crear-un-jsonarray">4. Crear un JSONArray<a class="headerlink" href="#4-crear-un-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Para utilizar <code>JSONArray</code> debemos importar la clase:</p>
+<pre><code class="language-java">import org.json.JSONArray;
+</code></pre>
+<p>Después podemos crear un array vacío:</p>
+<pre><code class="language-java">JSONArray modulos = new JSONArray();
+</code></pre>
+<p>En ese momento representa:</p>
+<pre><code class="language-json">[]
+</code></pre>
+<p>Podemos comprobarlo:</p>
+<pre><code class="language-java">System.out.println(modulos);
+</code></pre>
+<hr />
+<h3 id="5-anadir-elementos-con-put">5. Añadir elementos con <code>put()</code><a class="headerlink" href="#5-anadir-elementos-con-put" title="Permanent link">&para;</a></h3>
+<p>El método principal para añadir elementos es:</p>
+<pre><code class="language-java">put(valor)
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray modulos = new JSONArray();
+
+modulos.put(&quot;Acceso a Datos&quot;);
+modulos.put(&quot;Desarrollo de Interfaces&quot;);
+modulos.put(&quot;Programación de Servicios&quot;);
+</code></pre>
+<p>El resultado será:</p>
+<pre><code class="language-json">[
+    &quot;Acceso a Datos&quot;,
+    &quot;Desarrollo de Interfaces&quot;,
+    &quot;Programación de Servicios&quot;
+]
+</code></pre>
+<p>Cada nuevo elemento se añade al final del array.</p>
+<p>Podemos visualizar el proceso:</p>
+<pre><code class="language-text">JSONArray modulos
+
+put(&quot;Acceso a Datos&quot;)
+
+[0] Acceso a Datos
+
+
+put(&quot;Desarrollo de Interfaces&quot;)
+
+[0] Acceso a Datos
+[1] Desarrollo de Interfaces
+
+
+put(&quot;Programación de Servicios&quot;)
+
+[0] Acceso a Datos
+[1] Desarrollo de Interfaces
+[2] Programación de Servicios
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">No indicamos una clave</p>
+<p>A diferencia de <code>JSONObject</code>, en un <code>JSONArray</code> normalmente no escribimos:</p>
+<p><code>java
+put("clave", valor)</code></p>
+<p>sino simplemente:</p>
+<p><code>java
+put(valor)</code></p>
+<p>La posición del elemento queda determinada por el orden en el que se añade.</p>
+</div>
+<hr />
+<h3 id="6-tipos-de-datos-que-puede-contener">6. Tipos de datos que puede contener<a class="headerlink" href="#6-tipos-de-datos-que-puede-contener" title="Permanent link">&para;</a></h3>
+<p>Un <code>JSONArray</code> puede contener distintos tipos de valores JSON.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray datos = new JSONArray();
+
+datos.put(&quot;Ana&quot;);
+datos.put(21);
+datos.put(8.35);
+datos.put(false);
+datos.put(JSONObject.NULL);
+</code></pre>
+<p>Representaría:</p>
+<pre><code class="language-json">[
+    &quot;Ana&quot;,
+    21,
+    8.35,
+    false,
+    null
+]
+</code></pre>
+<p>Por tanto, un array JSON puede contener:</p>
+<ul>
+<li>cadenas de texto;</li>
+<li>números;</li>
+<li>valores booleanos;</li>
+<li><code>null</code>;</li>
+<li>objetos JSON;</li>
+<li>otros arrays JSON.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">JSON permite mezclar tipos</p>
+<p>JSON permite que un mismo array contenga valores de diferentes tipos.</p>
+<p>Sin embargo, en aplicaciones reales suele ser conveniente mantener una estructura coherente.</p>
+<p>Por ejemplo, si un array representa alumnos, normalmente todos sus elementos serán objetos que representen alumnos.</p>
+</div>
+<hr />
+<h3 id="7-mostrar-un-jsonarray">7. Mostrar un JSONArray<a class="headerlink" href="#7-mostrar-un-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Al igual que con <code>JSONObject</code>, podemos utilizar:</p>
+<pre><code class="language-java">toString()
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">System.out.println(modulos.toString());
+</code></pre>
+<p>Obtendremos:</p>
+<pre><code class="language-json">[&quot;Acceso a Datos&quot;,&quot;Desarrollo de Interfaces&quot;,&quot;Programación de Servicios&quot;]
+</code></pre>
+<p>También podemos mostrarlo de forma indentada:</p>
+<pre><code class="language-java">System.out.println(modulos.toString(4));
+</code></pre>
+<p>Obtendremos:</p>
+<pre><code class="language-json">[
+    &quot;Acceso a Datos&quot;,
+    &quot;Desarrollo de Interfaces&quot;,
+    &quot;Programación de Servicios&quot;
+]
+</code></pre>
+<p>El número <code>4</code> indica el número de espacios utilizados para la indentación.</p>
+<div class="admonition tip">
+<p class="admonition-title">Durante el desarrollo</p>
+<p><code>toString(4)</code> resulta muy útil para comprobar visualmente la estructura del JSON que estamos construyendo.</p>
+</div>
+<hr />
+<h2 id="acceso-a-los-datos">Acceso a los datos<a class="headerlink" href="#acceso-a-los-datos" title="Permanent link">&para;</a></h2>
+<h3 id="8-acceder-a-los-elementos-de-un-jsonarray">8. Acceder a los elementos de un JSONArray<a class="headerlink" href="#8-acceder-a-los-elementos-de-un-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Los elementos de un array se identifican mediante su posición.</p>
+<p>Las posiciones comienzan en:</p>
+<pre><code class="language-text">0
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>tiene las siguientes posiciones:</p>
+<pre><code class="language-text">posición 0 → Java
+posición 1 → Python
+posición 2 → Kotlin
+</code></pre>
+<p>Podemos acceder a ellas mediante:</p>
+<pre><code class="language-java">String primero = lenguajes.getString(0);
+String segundo = lenguajes.getString(1);
+String tercero = lenguajes.getString(2);
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Los índices comienzan en 0</p>
+<p>Si un array tiene <code>3</code> elementos, sus posiciones son:</p>
+<p><code>text
+0
+1
+2</code></p>
+<p>Por tanto, la última posición válida siempre será:</p>
+<p><code>text
+length() - 1</code></p>
+</div>
+<hr />
+<h3 id="9-metodos-get">9. Métodos <code>get...()</code><a class="headerlink" href="#9-metodos-get" title="Permanent link">&para;</a></h3>
+<p>Al igual que ocurría con <code>JSONObject</code>, existen distintos métodos dependiendo del tipo de dato que queremos recuperar.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray datos = new JSONArray();
+
+datos.put(&quot;Ana&quot;);
+datos.put(21);
+datos.put(8.35);
+datos.put(false);
+</code></pre>
+<p>Podemos recuperar:</p>
+<pre><code class="language-java">String nombre = datos.getString(0);
+int edad = datos.getInt(1);
+double nota = datos.getDouble(2);
+boolean repetidor = datos.getBoolean(3);
+</code></pre>
+<p>Algunos de los métodos disponibles son:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getString(indice)</code></td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td><code>getInt(indice)</code></td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td><code>getLong(indice)</code></td>
+<td><code>long</code></td>
+</tr>
+<tr>
+<td><code>getDouble(indice)</code></td>
+<td><code>double</code></td>
+</tr>
+<tr>
+<td><code>getBoolean(indice)</code></td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td><code>getJSONObject(indice)</code></td>
+<td><code>JSONObject</code></td>
+</tr>
+<tr>
+<td><code>getJSONArray(indice)</code></td>
+<td><code>JSONArray</code></td>
+</tr>
+<tr>
+<td><code>get(indice)</code></td>
+<td><code>Object</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="10-acceso-mediante-get">10. Acceso mediante <code>get()</code><a class="headerlink" href="#10-acceso-mediante-get" title="Permanent link">&para;</a></h3>
+<p>Cuando no conocemos de antemano el tipo del elemento podemos utilizar:</p>
+<pre><code class="language-java">Object valor = datos.get(0);
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">for (int i = 0; i &lt; datos.length(); i++) {
+
+    Object valor = datos.get(i);
+
+    System.out.println(valor);
+}
+</code></pre>
+<p>Esto resulta especialmente útil cuando trabajamos con arrays cuyos elementos pueden ser de diferentes tipos.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray datos = new JSONArray();
+
+datos.put(&quot;Ana&quot;);
+datos.put(21);
+datos.put(true);
+
+for (int i = 0; i &lt; datos.length(); i++) {
+
+    Object valor = datos.get(i);
+
+    System.out.println(
+        valor + &quot; -&gt; &quot;
+        + valor.getClass().getSimpleName()
+    );
+}
+</code></pre>
+<hr />
+<h3 id="11-numero-de-elementos-length">11. Número de elementos: <code>length()</code><a class="headerlink" href="#11-numero-de-elementos-length" title="Permanent link">&para;</a></h3>
+<p>Para conocer el número de elementos de un array utilizamos:</p>
+<pre><code class="language-java">length()
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray modulos = new JSONArray();
+
+modulos.put(&quot;Acceso a Datos&quot;);
+modulos.put(&quot;Desarrollo de Interfaces&quot;);
+modulos.put(&quot;Programación de Servicios&quot;);
+
+System.out.println(modulos.length());
+</code></pre>
+<p>El resultado será:</p>
+<pre><code class="language-text">3
+</code></pre>
+<p>Podemos visualizarlo así:</p>
+<pre><code class="language-text">JSONArray
+│
+├── [0] Acceso a Datos
+├── [1] Desarrollo de Interfaces
+└── [2] Programación de Servicios
+
+length() → 3
+</code></pre>
+<hr />
+<h3 id="12-comprobar-si-un-array-esta-vacio">12. Comprobar si un array está vacío<a class="headerlink" href="#12-comprobar-si-un-array-esta-vacio" title="Permanent link">&para;</a></h3>
+<p>Podemos comprobar si un <code>JSONArray</code> no contiene elementos mediante:</p>
+<pre><code class="language-java">isEmpty()
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray modulos = new JSONArray();
+
+if (modulos.isEmpty()) {
+    System.out.println(&quot;No hay módulos&quot;);
+}
+</code></pre>
+<p>Después:</p>
+<pre><code class="language-java">modulos.put(&quot;Acceso a Datos&quot;);
+</code></pre>
+<p>el array ya no estará vacío.</p>
+<p>También podríamos realizar la comprobación mediante:</p>
+<pre><code class="language-java">if (modulos.length() == 0) {
+    System.out.println(&quot;No hay elementos&quot;);
+}
+</code></pre>
+<p>Pero:</p>
+<pre><code class="language-java">isEmpty()
+</code></pre>
+<p>expresa de forma más directa nuestra intención.</p>
+<hr />
+<h2 id="recorrido-y-modificacion">Recorrido y modificación<a class="headerlink" href="#recorrido-y-modificacion" title="Permanent link">&para;</a></h2>
+<h3 id="13-recorrer-un-jsonarray">13. Recorrer un JSONArray<a class="headerlink" href="#13-recorrer-un-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Una de las operaciones más habituales consiste en recorrer todos sus elementos.</p>
+<p>Podemos hacerlo mediante un bucle <code>for</code>.</p>
+<pre><code class="language-java">for (int i = 0; i &lt; modulos.length(); i++) {
+
+    String modulo = modulos.getString(i);
+
+    System.out.println(modulo);
+}
+</code></pre>
+<p>Observa la condición:</p>
+<pre><code class="language-java">i &lt; modulos.length()
+</code></pre>
+<p>Si tenemos tres elementos:</p>
+<pre><code class="language-text">length() = 3
+</code></pre>
+<p>sus posiciones serán:</p>
+<pre><code class="language-text">0
+1
+2
+</code></pre>
+<p>Por eso la última posición válida es:</p>
+<pre><code class="language-text">length() - 1
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Error frecuente</p>
+<p>No debemos escribir:</p>
+<p><code>java
+i &lt;= modulos.length()</code></p>
+<p>porque intentaríamos acceder a una posición que no existe.</p>
+<p>Utilizaremos:</p>
+<p><code>java
+i &lt; modulos.length()</code></p>
+</div>
+<hr />
+<h3 id="14-modificar-una-posicion">14. Modificar una posición<a class="headerlink" href="#14-modificar-una-posicion" title="Permanent link">&para;</a></h3>
+<p><code>JSONArray</code> también permite utilizar <code>put()</code> indicando una posición.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray lenguajes = new JSONArray();
+
+lenguajes.put(&quot;Java&quot;);
+lenguajes.put(&quot;Python&quot;);
+lenguajes.put(&quot;Kotlin&quot;);
+</code></pre>
+<p>Tenemos:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>Podemos sustituir el elemento de la posición <code>1</code>:</p>
+<pre><code class="language-java">lenguajes.put(1, &quot;C#&quot;);
+</code></pre>
+<p>Ahora tendremos:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;C#&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>Por tanto:</p>
+<pre><code class="language-java">put(valor)
+</code></pre>
+<p>añade normalmente un elemento al final.</p>
+<p>Mientras que:</p>
+<pre><code class="language-java">put(indice, valor)
+</code></pre>
+<p>permite establecer un valor en una posición determinada.</p>
+<hr />
+<h3 id="15-eliminar-un-elemento">15. Eliminar un elemento<a class="headerlink" href="#15-eliminar-un-elemento" title="Permanent link">&para;</a></h3>
+<p>Podemos eliminar un elemento utilizando:</p>
+<pre><code class="language-java">remove(indice)
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray lenguajes = new JSONArray();
+
+lenguajes.put(&quot;Java&quot;);
+lenguajes.put(&quot;Python&quot;);
+lenguajes.put(&quot;Kotlin&quot;);
+
+lenguajes.remove(1);
+</code></pre>
+<p>Antes:</p>
+<pre><code class="language-text">[0] Java
+[1] Python
+[2] Kotlin
+</code></pre>
+<p>Después:</p>
+<pre><code class="language-text">[0] Java
+[1] Kotlin
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Los índices cambian</p>
+<p>Cuando eliminamos un elemento, los elementos posteriores cambian de posición.</p>
+<p>En el ejemplo anterior, <code>Kotlin</code> estaba inicialmente en la posición <code>2</code>, pero después de eliminar <code>Python</code> pasa a ocupar la posición <code>1</code>.</p>
+</div>
+<hr />
+<h2 id="datos-opcionales-y-valores-null">Datos opcionales y valores null<a class="headerlink" href="#datos-opcionales-y-valores-null" title="Permanent link">&para;</a></h2>
+<h3 id="16-metodos-opt">16. Métodos <code>opt...()</code><a class="headerlink" href="#16-metodos-opt" title="Permanent link">&para;</a></h3>
+<p>Al igual que <code>JSONObject</code>, <code>JSONArray</code> dispone de métodos <code>opt...()</code>.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">String lenguaje = lenguajes.optString(10);
+</code></pre>
+<p>Si la posición no existe, evitamos realizar un acceso estricto mediante <code>getString()</code>.</p>
+<p>También podemos indicar un valor alternativo:</p>
+<pre><code class="language-java">String lenguaje =
+        lenguajes.optString(
+            10,
+            &quot;No disponible&quot;
+        );
+</code></pre>
+<p>Existen métodos como:</p>
+<pre><code class="language-text">optString()
+optInt()
+optLong()
+optDouble()
+optBoolean()
+optJSONObject()
+optJSONArray()
+</code></pre>
+<p>La idea es similar a la estudiada con <code>JSONObject</code>:</p>
+<pre><code class="language-text">get...() → esperamos que exista el dato
+
+opt...() → contemplamos que pueda no existir
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray datos = new JSONArray();
+
+datos.put(&quot;Java&quot;);
+datos.put(21);
+
+String lenguaje =
+        datos.optString(
+            0,
+            &quot;Desconocido&quot;
+        );
+
+String otroLenguaje =
+        datos.optString(
+            10,
+            &quot;No disponible&quot;
+        );
+
+System.out.println(lenguaje);
+System.out.println(otroLenguaje);
+</code></pre>
+<hr />
+<h3 id="17-valores-null-en-un-jsonarray">17. Valores <code>null</code> en un JSONArray<a class="headerlink" href="#17-valores-null-en-un-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Podemos almacenar explícitamente un valor nulo JSON mediante:</p>
+<pre><code class="language-java">JSONObject.NULL
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONArray datos = new JSONArray();
+
+datos.put(&quot;Ana&quot;);
+datos.put(JSONObject.NULL);
+datos.put(8.5);
+</code></pre>
+<p>El resultado será:</p>
+<pre><code class="language-json">[
+    &quot;Ana&quot;,
+    null,
+    8.5
+]
+</code></pre>
+<p>Podemos comprobar si una posición contiene <code>null</code> mediante:</p>
+<pre><code class="language-java">if (datos.isNull(1)) {
+    System.out.println(&quot;El valor es null&quot;);
+}
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">null en JSON</p>
+<p><code>JSONObject.NULL</code> representa explícitamente el valor:</p>
+<p><code>json
+null</code></p>
+<p>dentro de la estructura JSON.</p>
+</div>
+<hr />
+<h2 id="arrays-de-objetos">Arrays de objetos<a class="headerlink" href="#arrays-de-objetos" title="Permanent link">&para;</a></h2>
+<h3 id="18-jsonarray-de-jsonobject">18. JSONArray de JSONObject<a class="headerlink" href="#18-jsonarray-de-jsonobject" title="Permanent link">&para;</a></h3>
+<p>Hasta ahora hemos utilizado principalmente arrays de valores simples.</p>
+<p>Sin embargo, una de las estructuras más habituales en JSON es un <strong>array de objetos</strong>.</p>
+<p>Supongamos que queremos representar varios alumnos:</p>
+<pre><code class="language-json">[
+    {
+        &quot;id&quot;: 1,
+        &quot;nombre&quot;: &quot;Ana&quot;,
+        &quot;nota&quot;: 8.5
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nombre&quot;: &quot;Luis&quot;,
+        &quot;nota&quot;: 7.2
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;nombre&quot;: &quot;Marta&quot;,
+        &quot;nota&quot;: 9.1
+    }
+]
+</code></pre>
+<p>La estructura principal es:</p>
+<pre><code class="language-text">JSONArray
+│
+├── [0] JSONObject
+│       ├── id
+│       ├── nombre
+│       └── nota
+│
+├── [1] JSONObject
+│       ├── id
+│       ├── nombre
+│       └── nota
+│
+└── [2] JSONObject
+        ├── id
+        ├── nombre
+        └── nota
+</code></pre>
+<p>Este tipo de estructura será muy habitual cuando trabajemos con colecciones de información.</p>
+<hr />
+<h3 id="19-construir-un-array-de-objetos">19. Construir un array de objetos<a class="headerlink" href="#19-construir-un-array-de-objetos" title="Permanent link">&para;</a></h3>
+<p>Primero creamos los objetos:</p>
+<pre><code class="language-java">JSONObject alumno1 = new JSONObject();
+
+alumno1.put(&quot;id&quot;, 1);
+alumno1.put(&quot;nombre&quot;, &quot;Ana&quot;);
+alumno1.put(&quot;nota&quot;, 8.5);
+</code></pre>
+<p>Creamos otro:</p>
+<pre><code class="language-java">JSONObject alumno2 = new JSONObject();
+
+alumno2.put(&quot;id&quot;, 2);
+alumno2.put(&quot;nombre&quot;, &quot;Luis&quot;);
+alumno2.put(&quot;nota&quot;, 7.2);
+</code></pre>
+<p>Y otro:</p>
+<pre><code class="language-java">JSONObject alumno3 = new JSONObject();
+
+alumno3.put(&quot;id&quot;, 3);
+alumno3.put(&quot;nombre&quot;, &quot;Marta&quot;);
+alumno3.put(&quot;nota&quot;, 9.1);
+</code></pre>
+<p>Después creamos el array:</p>
+<pre><code class="language-java">JSONArray alumnos = new JSONArray();
+</code></pre>
+<p>y añadimos los objetos:</p>
+<pre><code class="language-java">alumnos.put(alumno1);
+alumnos.put(alumno2);
+alumnos.put(alumno3);
+</code></pre>
+<p>Finalmente:</p>
+<pre><code class="language-java">System.out.println(alumnos.toString(4));
+</code></pre>
+<p>mostrará:</p>
+<pre><code class="language-json">[
+    {
+        &quot;id&quot;: 1,
+        &quot;nombre&quot;: &quot;Ana&quot;,
+        &quot;nota&quot;: 8.5
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nombre&quot;: &quot;Luis&quot;,
+        &quot;nota&quot;: 7.2
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;nombre&quot;: &quot;Marta&quot;,
+        &quot;nota&quot;: 9.1
+    }
+]
+</code></pre>
+<hr />
+<h3 id="20-recuperar-un-jsonobject-del-array">20. Recuperar un JSONObject del array<a class="headerlink" href="#20-recuperar-un-jsonobject-del-array" title="Permanent link">&para;</a></h3>
+<p>Si sabemos que los elementos del array son objetos, podemos utilizar:</p>
+<pre><code class="language-java">getJSONObject(indice)
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONObject primerAlumno =
+        alumnos.getJSONObject(0);
+</code></pre>
+<p>Después podemos acceder a sus propiedades:</p>
+<pre><code class="language-java">String nombre =
+        primerAlumno.getString(&quot;nombre&quot;);
+
+double nota =
+        primerAlumno.getDouble(&quot;nota&quot;);
+</code></pre>
+<p>También podemos encadenar las operaciones:</p>
+<pre><code class="language-java">String nombre =
+        alumnos.getJSONObject(0)
+               .getString(&quot;nombre&quot;);
+</code></pre>
+<p>En este caso:</p>
+<pre><code class="language-text">alumnos
+   │
+   │ getJSONObject(0)
+   ▼
+JSONObject
+   │
+   │ getString(&quot;nombre&quot;)
+   ▼
+ &quot;Ana&quot;
+</code></pre>
+<hr />
+<h3 id="21-recorrer-un-array-de-objetos">21. Recorrer un array de objetos<a class="headerlink" href="#21-recorrer-un-array-de-objetos" title="Permanent link">&para;</a></h3>
+<p>Una operación muy habitual consiste en recorrer una colección de objetos.</p>
+<pre><code class="language-java">for (int i = 0; i &lt; alumnos.length(); i++) {
+
+    JSONObject alumno =
+            alumnos.getJSONObject(i);
+
+    int id =
+            alumno.getInt(&quot;id&quot;);
+
+    String nombre =
+            alumno.getString(&quot;nombre&quot;);
+
+    double nota =
+            alumno.getDouble(&quot;nota&quot;);
+
+    System.out.println(
+        id + &quot; - &quot;
+        + nombre
+        + &quot; - &quot;
+        + nota
+    );
+}
+</code></pre>
+<p>El proceso puede visualizarse así:</p>
+<pre><code class="language-text">JSONArray alumnos
+       │
+       ▼
+   posición i
+       │
+       ▼
+getJSONObject(i)
+       │
+       ▼
+JSONObject alumno
+       │
+       ├── getInt(&quot;id&quot;)
+       ├── getString(&quot;nombre&quot;)
+       └── getDouble(&quot;nota&quot;)
+</code></pre>
+<hr />
+<h2 id="combinacion-de-jsonobject-y-jsonarray">Combinación de JSONObject y JSONArray<a class="headerlink" href="#combinacion-de-jsonobject-y-jsonarray" title="Permanent link">&para;</a></h2>
+<h3 id="22-jsonarray-dentro-de-jsonobject">22. JSONArray dentro de JSONObject<a class="headerlink" href="#22-jsonarray-dentro-de-jsonobject" title="Permanent link">&para;</a></h3>
+<p>Ya vimos un ejemplo de este caso al estudiar <code>JSONObject</code>.</p>
+<p>Supongamos:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 1024,
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;modulos&quot;: [
+        &quot;Acceso a Datos&quot;,
+        &quot;Desarrollo de Interfaces&quot;,
+        &quot;Programación de Servicios&quot;
+    ]
+}
+</code></pre>
+<p>La estructura es:</p>
+<pre><code class="language-text">JSONObject alumno
+│
+├── id
+├── nombre
+│
+└── modulos
+        │
+        └── JSONArray
+              ├── [0]
+              ├── [1]
+              └── [2]
+</code></pre>
+<p>En Java:</p>
+<pre><code class="language-java">JSONObject alumno = new JSONObject();
+
+alumno.put(&quot;id&quot;, 1024);
+alumno.put(&quot;nombre&quot;, &quot;Ana&quot;);
+
+JSONArray modulos = new JSONArray();
+
+modulos.put(&quot;Acceso a Datos&quot;);
+modulos.put(&quot;Desarrollo de Interfaces&quot;);
+modulos.put(&quot;Programación de Servicios&quot;);
+
+alumno.put(&quot;modulos&quot;, modulos);
+</code></pre>
+<hr />
+<h3 id="23-recuperar-el-jsonarray-contenido-en-un-jsonobject">23. Recuperar el JSONArray contenido en un JSONObject<a class="headerlink" href="#23-recuperar-el-jsonarray-contenido-en-un-jsonobject" title="Permanent link">&para;</a></h3>
+<p>Podemos recuperar el array mediante:</p>
+<pre><code class="language-java">JSONArray modulos =
+        alumno.getJSONArray(&quot;modulos&quot;);
+</code></pre>
+<p>Y recorrerlo:</p>
+<pre><code class="language-java">for (int i = 0; i &lt; modulos.length(); i++) {
+
+    System.out.println(
+        modulos.getString(i)
+    );
+}
+</code></pre>
+<p>Observa la secuencia:</p>
+<pre><code class="language-text">JSONObject
+    │
+    │ getJSONArray(&quot;modulos&quot;)
+    ▼
+JSONArray
+    │
+    │ getString(i)
+    ▼
+ elemento
+</code></pre>
+<hr />
+<h3 id="24-arrays-dentro-de-arrays">24. Arrays dentro de arrays<a class="headerlink" href="#24-arrays-dentro-de-arrays" title="Permanent link">&para;</a></h3>
+<p>Un <code>JSONArray</code> también puede contener otros arrays.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-json">[
+    [&quot;Java&quot;, &quot;Kotlin&quot;],
+    [&quot;Python&quot;, &quot;JavaScript&quot;],
+    [&quot;HTML&quot;, &quot;CSS&quot;]
+]
+</code></pre>
+<p>Podemos construirlo así:</p>
+<pre><code class="language-java">JSONArray backend = new JSONArray();
+
+backend.put(&quot;Java&quot;);
+backend.put(&quot;Kotlin&quot;);
+
+
+JSONArray scripting = new JSONArray();
+
+scripting.put(&quot;Python&quot;);
+scripting.put(&quot;JavaScript&quot;);
+
+
+JSONArray frontend = new JSONArray();
+
+frontend.put(&quot;HTML&quot;);
+frontend.put(&quot;CSS&quot;);
+
+
+JSONArray tecnologias = new JSONArray();
+
+tecnologias.put(backend);
+tecnologias.put(scripting);
+tecnologias.put(frontend);
+</code></pre>
+<p>La estructura será:</p>
+<pre><code class="language-text">JSONArray tecnologias
+│
+├── [0] JSONArray
+│       ├── Java
+│       └── Kotlin
+│
+├── [1] JSONArray
+│       ├── Python
+│       └── JavaScript
+│
+└── [2] JSONArray
+        ├── HTML
+        └── CSS
+</code></pre>
+<p>Para recuperar el primer array:</p>
+<pre><code class="language-java">JSONArray primerGrupo =
+        tecnologias.getJSONArray(0);
+</code></pre>
+<p>Y su primer elemento:</p>
+<pre><code class="language-java">String lenguaje =
+        primerGrupo.getString(0);
+</code></pre>
+<p>También podríamos acceder directamente:</p>
+<pre><code class="language-java">String lenguaje =
+        tecnologias
+            .getJSONArray(0)
+            .getString(0);
+</code></pre>
+<hr />
+<h2 id="estructuras-json-mas-completas">Estructuras JSON más completas<a class="headerlink" href="#estructuras-json-mas-completas" title="Permanent link">&para;</a></h2>
+<h3 id="25-ejemplo-grupo-de-alumnos">25. Ejemplo: grupo de alumnos<a class="headerlink" href="#25-ejemplo-grupo-de-alumnos" title="Permanent link">&para;</a></h3>
+<p>Vamos a construir una estructura algo más próxima a un caso real.</p>
+<p>Queremos representar:</p>
+<pre><code class="language-json">{
+    &quot;ciclo&quot;: &quot;DAM&quot;,
+    &quot;curso&quot;: 2,
+    &quot;alumnos&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nombre&quot;: &quot;Ana&quot;,
+            &quot;modulos&quot;: [
+                &quot;Acceso a Datos&quot;,
+                &quot;Desarrollo de Interfaces&quot;
+            ]
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nombre&quot;: &quot;Luis&quot;,
+            &quot;modulos&quot;: [
+                &quot;Acceso a Datos&quot;,
+                &quot;Programación de Servicios&quot;
+            ]
+        }
+    ]
+}
+</code></pre>
+<p>Observa que tenemos varios niveles:</p>
+<pre><code class="language-text">JSONObject grupo
+│
+├── ciclo
+├── curso
+│
+└── alumnos ───────────── JSONArray
+       │
+       ├── [0] ────────── JSONObject
+       │      ├── id
+       │      ├── nombre
+       │      │
+       │      └── modulos ── JSONArray
+       │
+       └── [1] ────────── JSONObject
+              ├── id
+              ├── nombre
+              │
+              └── modulos ── JSONArray
+</code></pre>
+<hr />
+<h3 id="26-construccion-paso-a-paso">26. Construcción paso a paso<a class="headerlink" href="#26-construccion-paso-a-paso" title="Permanent link">&para;</a></h3>
+<h4 id="paso-1-crear-los-modulos-de-ana">Paso 1. Crear los módulos de Ana<a class="headerlink" href="#paso-1-crear-los-modulos-de-ana" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONArray modulosAna = new JSONArray();
+
+modulosAna.put(&quot;Acceso a Datos&quot;);
+modulosAna.put(&quot;Desarrollo de Interfaces&quot;);
+</code></pre>
+<h4 id="paso-2-crear-a-ana">Paso 2. Crear a Ana<a class="headerlink" href="#paso-2-crear-a-ana" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONObject ana = new JSONObject();
+
+ana.put(&quot;id&quot;, 1);
+ana.put(&quot;nombre&quot;, &quot;Ana&quot;);
+ana.put(&quot;modulos&quot;, modulosAna);
+</code></pre>
+<p>En este momento tenemos:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;modulos&quot;: [
+        &quot;Acceso a Datos&quot;,
+        &quot;Desarrollo de Interfaces&quot;
+    ]
+}
+</code></pre>
+<h4 id="paso-3-crear-los-modulos-de-luis">Paso 3. Crear los módulos de Luis<a class="headerlink" href="#paso-3-crear-los-modulos-de-luis" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONArray modulosLuis = new JSONArray();
+
+modulosLuis.put(&quot;Acceso a Datos&quot;);
+modulosLuis.put(&quot;Programación de Servicios&quot;);
+</code></pre>
+<h4 id="paso-4-crear-a-luis">Paso 4. Crear a Luis<a class="headerlink" href="#paso-4-crear-a-luis" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONObject luis = new JSONObject();
+
+luis.put(&quot;id&quot;, 2);
+luis.put(&quot;nombre&quot;, &quot;Luis&quot;);
+luis.put(&quot;modulos&quot;, modulosLuis);
+</code></pre>
+<h4 id="paso-5-crear-el-array-de-alumnos">Paso 5. Crear el array de alumnos<a class="headerlink" href="#paso-5-crear-el-array-de-alumnos" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONArray alumnos = new JSONArray();
+
+alumnos.put(ana);
+alumnos.put(luis);
+</code></pre>
+<p>Ahora tenemos:</p>
+<pre><code class="language-json">[
+    {
+        &quot;id&quot;: 1,
+        &quot;nombre&quot;: &quot;Ana&quot;,
+        &quot;modulos&quot;: [
+            &quot;Acceso a Datos&quot;,
+            &quot;Desarrollo de Interfaces&quot;
+        ]
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nombre&quot;: &quot;Luis&quot;,
+        &quot;modulos&quot;: [
+            &quot;Acceso a Datos&quot;,
+            &quot;Programación de Servicios&quot;
+        ]
+    }
+]
+</code></pre>
+<h4 id="paso-6-crear-el-objeto-principal">Paso 6. Crear el objeto principal<a class="headerlink" href="#paso-6-crear-el-objeto-principal" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">JSONObject grupo = new JSONObject();
+
+grupo.put(&quot;ciclo&quot;, &quot;DAM&quot;);
+grupo.put(&quot;curso&quot;, 2);
+grupo.put(&quot;alumnos&quot;, alumnos);
+</code></pre>
+<p>Finalmente:</p>
+<pre><code class="language-java">System.out.println(grupo.toString(4));
+</code></pre>
+<hr />
+<h3 id="27-recorrer-una-estructura-anidada">27. Recorrer una estructura anidada<a class="headerlink" href="#27-recorrer-una-estructura-anidada" title="Permanent link">&para;</a></h3>
+<p>Supongamos que queremos mostrar todos los alumnos y sus módulos.</p>
+<p>Primero obtenemos el array de alumnos:</p>
+<pre><code class="language-java">JSONArray alumnos =
+        grupo.getJSONArray(&quot;alumnos&quot;);
+</code></pre>
+<p>Después recorremos los alumnos:</p>
+<pre><code class="language-java">for (int i = 0; i &lt; alumnos.length(); i++) {
+
+    JSONObject alumno =
+            alumnos.getJSONObject(i);
+
+    System.out.println(
+        &quot;Alumno: &quot;
+        + alumno.getString(&quot;nombre&quot;)
+    );
+
+    JSONArray modulos =
+            alumno.getJSONArray(&quot;modulos&quot;);
+
+    for (int j = 0; j &lt; modulos.length(); j++) {
+
+        System.out.println(
+            &quot;  - &quot;
+            + modulos.getString(j)
+        );
+    }
+}
+</code></pre>
+<p>La salida será similar a:</p>
+<pre><code class="language-text">Alumno: Ana
+  - Acceso a Datos
+  - Desarrollo de Interfaces
+
+Alumno: Luis
+  - Acceso a Datos
+  - Programación de Servicios
+</code></pre>
+<p>Este ejemplo muestra una idea muy importante:</p>
+<pre><code class="language-text">JSONObject
+    ↓
+JSONArray alumnos
+    ↓
+JSONObject alumno
+    ↓
+JSONArray modulos
+    ↓
+String
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Leer JSON consiste en recorrer su estructura</p>
+<p>Cuando trabajamos con documentos JSON complejos debemos identificar qué tipo de estructura tenemos en cada nivel:</p>
+<ul>
+<li>si encontramos <code>{ }</code> → <code>JSONObject</code>;</li>
+<li>si encontramos <code>[ ]</code> → <code>JSONArray</code>;</li>
+<li>si encontramos un valor simple → utilizaremos el método <code>get...()</code> adecuado.</li>
+</ul>
+</div>
+<hr />
+<h2 id="ejemplos-del-proyecto-maven">Ejemplos del proyecto Maven<a class="headerlink" href="#ejemplos-del-proyecto-maven" title="Permanent link">&para;</a></h2>
+<h3 id="28-demojsonarrayjava">28. DemoJSONArray.java<a class="headerlink" href="#28-demojsonarrayjava" title="Permanent link">&para;</a></h3>
+<p>En el proyecto Maven del minicurso utilizaremos:</p>
+<pre><code class="language-text">DemoJSONArray.java
+</code></pre>
+<p>Este ejemplo reúne las operaciones fundamentales de <code>JSONArray</code>.</p>
+<pre><code class="language-java">package com.example;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class DemoJSONArray {
+
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. ARRAY DE VALORES SIMPLES
+        // ==========================================
+
+        JSONArray modulos = new JSONArray();
+
+        modulos.put(&quot;Acceso a Datos&quot;);
+        modulos.put(&quot;Desarrollo de Interfaces&quot;);
+        modulos.put(&quot;Programación de Servicios&quot;);
+
+        System.out.println(&quot;ARRAY DE MÓDULOS&quot;);
+        System.out.println(modulos.toString(4));
+
+
+        // ==========================================
+        // 2. ACCEDER A LOS ELEMENTOS
+        // ==========================================
+
+        System.out.println(&quot;\nPrimer módulo:&quot;);
+
+        System.out.println(
+            modulos.getString(0)
+        );
+
+
+        // ==========================================
+        // 3. RECORRER EL ARRAY
+        // ==========================================
+
+        System.out.println(&quot;\nLISTADO DE MÓDULOS&quot;);
+
+        for (int i = 0; i &lt; modulos.length(); i++) {
+
+            System.out.println(
+                i + &quot; -&gt; &quot;
+                + modulos.getString(i)
+            );
+        }
+
+
+        // ==========================================
+        // 4. CREAR OBJETOS
+        // ==========================================
+
+        JSONObject alumno1 = new JSONObject();
+
+        alumno1.put(&quot;id&quot;, 1);
+        alumno1.put(&quot;nombre&quot;, &quot;Ana&quot;);
+        alumno1.put(&quot;nota&quot;, 8.5);
+
+
+        JSONObject alumno2 = new JSONObject();
+
+        alumno2.put(&quot;id&quot;, 2);
+        alumno2.put(&quot;nombre&quot;, &quot;Luis&quot;);
+        alumno2.put(&quot;nota&quot;, 7.2);
+
+
+        JSONObject alumno3 = new JSONObject();
+
+        alumno3.put(&quot;id&quot;, 3);
+        alumno3.put(&quot;nombre&quot;, &quot;Marta&quot;);
+        alumno3.put(&quot;nota&quot;, 9.1);
+
+
+        // ==========================================
+        // 5. ARRAY DE OBJETOS
+        // ==========================================
+
+        JSONArray alumnos = new JSONArray();
+
+        alumnos.put(alumno1);
+        alumnos.put(alumno2);
+        alumnos.put(alumno3);
+
+        System.out.println(&quot;\nARRAY DE ALUMNOS&quot;);
+
+        System.out.println(
+            alumnos.toString(4)
+        );
+
+
+        // ==========================================
+        // 6. RECORRER ARRAY DE OBJETOS
+        // ==========================================
+
+        System.out.println(&quot;\nALUMNOS&quot;);
+
+        for (int i = 0; i &lt; alumnos.length(); i++) {
+
+            JSONObject alumno =
+                    alumnos.getJSONObject(i);
+
+            System.out.println(
+                alumno.getInt(&quot;id&quot;)
+                + &quot; - &quot;
+                + alumno.getString(&quot;nombre&quot;)
+                + &quot; - Nota: &quot;
+                + alumno.getDouble(&quot;nota&quot;)
+            );
+        }
+
+
+        // ==========================================
+        // 7. DATOS OPCIONALES
+        // ==========================================
+
+        JSONObject alumno =
+                alumnos.getJSONObject(0);
+
+        String email =
+                alumno.optString(
+                    &quot;email&quot;,
+                    &quot;No disponible&quot;
+                );
+
+        System.out.println(
+            &quot;\nEmail de &quot;
+            + alumno.getString(&quot;nombre&quot;)
+            + &quot;: &quot;
+            + email
+        );
+
+
+        // ==========================================
+        // 8. INFORMACIÓN DEL ARRAY
+        // ==========================================
+
+        System.out.println(
+            &quot;\nNúmero de alumnos: &quot;
+            + alumnos.length()
+        );
+
+        System.out.println(
+            &quot;¿Está vacío?: &quot;
+            + alumnos.isEmpty()
+        );
+    }
+}
+</code></pre>
+<hr />
+<h3 id="29-jsonarrayanidadojava">29. JSONArrayAnidado.java<a class="headerlink" href="#29-jsonarrayanidadojava" title="Permanent link">&para;</a></h3>
+<p>Para practicar estructuras más completas utilizaremos también:</p>
+<pre><code class="language-text">JSONArrayAnidado.java
+</code></pre>
+<p>En este ejemplo combinamos:</p>
+<pre><code class="language-text">JSONObject
+    ↓
+JSONArray
+    ↓
+JSONObject
+    ↓
+JSONArray
+</code></pre>
+<p>Código:</p>
+<pre><code class="language-java">package com.example;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class JSONArrayAnidado {
+
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. MÓDULOS DE ANA
+        // ==========================================
+
+        JSONArray modulosAna = new JSONArray();
+
+        modulosAna.put(&quot;Acceso a Datos&quot;);
+        modulosAna.put(&quot;Desarrollo de Interfaces&quot;);
+
+
+        // ==========================================
+        // 2. ALUMNA ANA
+        // ==========================================
+
+        JSONObject ana = new JSONObject();
+
+        ana.put(&quot;id&quot;, 1);
+        ana.put(&quot;nombre&quot;, &quot;Ana&quot;);
+        ana.put(&quot;modulos&quot;, modulosAna);
+
+
+        // ==========================================
+        // 3. MÓDULOS DE LUIS
+        // ==========================================
+
+        JSONArray modulosLuis = new JSONArray();
+
+        modulosLuis.put(&quot;Acceso a Datos&quot;);
+        modulosLuis.put(&quot;Programación de Servicios&quot;);
+
+
+        // ==========================================
+        // 4. ALUMNO LUIS
+        // ==========================================
+
+        JSONObject luis = new JSONObject();
+
+        luis.put(&quot;id&quot;, 2);
+        luis.put(&quot;nombre&quot;, &quot;Luis&quot;);
+        luis.put(&quot;modulos&quot;, modulosLuis);
+
+
+        // ==========================================
+        // 5. ARRAY DE ALUMNOS
+        // ==========================================
+
+        JSONArray alumnos = new JSONArray();
+
+        alumnos.put(ana);
+        alumnos.put(luis);
+
+
+        // ==========================================
+        // 6. OBJETO PRINCIPAL
+        // ==========================================
+
+        JSONObject grupo = new JSONObject();
+
+        grupo.put(&quot;ciclo&quot;, &quot;DAM&quot;);
+        grupo.put(&quot;curso&quot;, 2);
+        grupo.put(&quot;alumnos&quot;, alumnos);
+
+
+        // ==========================================
+        // 7. MOSTRAR JSON COMPLETO
+        // ==========================================
+
+        System.out.println(&quot;JSON COMPLETO&quot;);
+
+        System.out.println(
+            grupo.toString(4)
+        );
+
+
+        // ==========================================
+        // 8. RECORRER LA ESTRUCTURA
+        // ==========================================
+
+        JSONArray listaAlumnos =
+                grupo.getJSONArray(&quot;alumnos&quot;);
+
+        System.out.println(&quot;\nALUMNOS Y MÓDULOS&quot;);
+
+        for (int i = 0;
+             i &lt; listaAlumnos.length();
+             i++) {
+
+            JSONObject alumno =
+                    listaAlumnos.getJSONObject(i);
+
+            System.out.println(
+                &quot;\nAlumno: &quot;
+                + alumno.getString(&quot;nombre&quot;)
+            );
+
+            JSONArray modulos =
+                    alumno.getJSONArray(&quot;modulos&quot;);
+
+            for (int j = 0;
+                 j &lt; modulos.length();
+                 j++) {
+
+                System.out.println(
+                    &quot;  - &quot;
+                    + modulos.getString(j)
+                );
+            }
+        }
+    }
+}
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Dos ejemplos con objetivos diferentes</p>
+<p><code>DemoJSONArray.java</code> está pensado para aprender las <strong>operaciones fundamentales</strong> de la clase.</p>
+<p><code>JSONArrayAnidado.java</code> permite practicar la construcción y recorrido de <strong>estructuras JSON con varios niveles</strong>.</p>
+</div>
+<hr />
+<h2 id="metodos-principales">Métodos principales<a class="headerlink" href="#metodos-principales" title="Permanent link">&para;</a></h2>
+<h3 id="30-resumen-de-metodos-de-jsonarray">30. Resumen de métodos de JSONArray<a class="headerlink" href="#30-resumen-de-metodos-de-jsonarray" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Necesitamos...</th>
+<th>Método</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crear un array</td>
+<td><code>new JSONArray()</code></td>
+</tr>
+<tr>
+<td>Añadir al final</td>
+<td><code>put(valor)</code></td>
+</tr>
+<tr>
+<td>Establecer un valor en una posición</td>
+<td><code>put(indice, valor)</code></td>
+</tr>
+<tr>
+<td>Obtener un elemento genérico</td>
+<td><code>get(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un texto</td>
+<td><code>getString(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un entero</td>
+<td><code>getInt(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un <code>long</code></td>
+<td><code>getLong(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un decimal</td>
+<td><code>getDouble(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un booleano</td>
+<td><code>getBoolean(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un objeto</td>
+<td><code>getJSONObject(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener otro array</td>
+<td><code>getJSONArray(indice)</code></td>
+</tr>
+<tr>
+<td>Obtener un dato opcional</td>
+<td><code>opt...()</code></td>
+</tr>
+<tr>
+<td>Comprobar <code>null</code></td>
+<td><code>isNull(indice)</code></td>
+</tr>
+<tr>
+<td>Eliminar un elemento</td>
+<td><code>remove(indice)</code></td>
+</tr>
+<tr>
+<td>Número de elementos</td>
+<td><code>length()</code></td>
+</tr>
+<tr>
+<td>Comprobar si está vacío</td>
+<td><code>isEmpty()</code></td>
+</tr>
+<tr>
+<td>Convertir a texto</td>
+<td><code>toString()</code></td>
+</tr>
+<tr>
+<td>Mostrar indentado</td>
+<td><code>toString(4)</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="errores-frecuentes">Errores frecuentes<a class="headerlink" href="#errores-frecuentes" title="Permanent link">&para;</a></h2>
+<h3 id="31-confundir-jsonobject-y-jsonarray">31. Confundir JSONObject y JSONArray<a class="headerlink" href="#31-confundir-jsonobject-y-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Si tenemos:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;
+}
+</code></pre>
+<p>utilizamos:</p>
+<pre><code class="language-java">JSONObject
+</code></pre>
+<p>Si tenemos:</p>
+<pre><code class="language-json">[
+    &quot;Ana&quot;,
+    &quot;Luis&quot;,
+    &quot;Marta&quot;
+]
+</code></pre>
+<p>utilizamos:</p>
+<pre><code class="language-java">JSONArray
+</code></pre>
+<p>Recuerda:</p>
+<pre><code class="language-text">{ } → JSONObject
+
+[ ] → JSONArray
+</code></pre>
+<hr />
+<h3 id="32-intentar-acceder-mediante-una-clave">32. Intentar acceder mediante una clave<a class="headerlink" href="#32-intentar-acceder-mediante-una-clave" title="Permanent link">&para;</a></h3>
+<p>Un <code>JSONArray</code> no utiliza claves como:</p>
+<pre><code class="language-java">array.getString(&quot;nombre&quot;);
+</code></pre>
+<p>Accedemos mediante posiciones:</p>
+<pre><code class="language-java">array.getString(0);
+</code></pre>
+<p>Las claves pertenecen a los objetos <code>JSONObject</code>.</p>
+<hr />
+<h3 id="33-olvidar-que-los-indices-empiezan-en-cero">33. Olvidar que los índices empiezan en cero<a class="headerlink" href="#33-olvidar-que-los-indices-empiezan-en-cero" title="Permanent link">&para;</a></h3>
+<p>Para:</p>
+<pre><code class="language-json">[
+    &quot;Java&quot;,
+    &quot;Python&quot;,
+    &quot;Kotlin&quot;
+]
+</code></pre>
+<p>las posiciones son:</p>
+<pre><code class="language-text">Java   → 0
+Python → 1
+Kotlin → 2
+</code></pre>
+<p>No existe la posición <code>3</code>.</p>
+<hr />
+<h3 id="34-recorrer-incorrectamente-el-array">34. Recorrer incorrectamente el array<a class="headerlink" href="#34-recorrer-incorrectamente-el-array" title="Permanent link">&para;</a></h3>
+<p>Incorrecto:</p>
+<pre><code class="language-java">for (int i = 0; i &lt;= array.length(); i++) {
+</code></pre>
+<p>Correcto:</p>
+<pre><code class="language-java">for (int i = 0; i &lt; array.length(); i++) {
+</code></pre>
+<p>La razón es:</p>
+<pre><code class="language-text">length() = número de elementos
+
+última posición = length() - 1
+</code></pre>
+<hr />
+<h3 id="35-utilizar-el-metodo-de-acceso-incorrecto">35. Utilizar el método de acceso incorrecto<a class="headerlink" href="#35-utilizar-el-metodo-de-acceso-incorrecto" title="Permanent link">&para;</a></h3>
+<p>Si tenemos:</p>
+<pre><code class="language-json">[
+    {
+        &quot;nombre&quot;: &quot;Ana&quot;
+    }
+]
+</code></pre>
+<p>el elemento <code>0</code> no es un <code>String</code>.</p>
+<p>Es un objeto JSON.</p>
+<p>Por tanto, no utilizaríamos:</p>
+<pre><code class="language-java">alumnos.getString(0);
+</code></pre>
+<p>sino:</p>
+<pre><code class="language-java">JSONObject alumno =
+        alumnos.getJSONObject(0);
+</code></pre>
+<p>y después:</p>
+<pre><code class="language-java">String nombre =
+        alumno.getString(&quot;nombre&quot;);
+</code></pre>
+<hr />
+<h3 id="36-confundir-el-nivel-de-la-estructura">36. Confundir el nivel de la estructura<a class="headerlink" href="#36-confundir-el-nivel-de-la-estructura" title="Permanent link">&para;</a></h3>
+<p>Supongamos:</p>
+<pre><code class="language-json">{
+    &quot;alumnos&quot;: [
+        {
+            &quot;nombre&quot;: &quot;Ana&quot;
+        }
+    ]
+}
+</code></pre>
+<p>No podemos acceder directamente mediante:</p>
+<pre><code class="language-java">json.getString(&quot;nombre&quot;);
+</code></pre>
+<p>porque <code>nombre</code> no está en el objeto raíz.</p>
+<p>Debemos recorrer los niveles:</p>
+<pre><code class="language-java">JSONArray alumnos =
+        json.getJSONArray(&quot;alumnos&quot;);
+
+JSONObject alumno =
+        alumnos.getJSONObject(0);
+
+String nombre =
+        alumno.getString(&quot;nombre&quot;);
+</code></pre>
+<p>Es decir:</p>
+<pre><code class="language-text">JSONObject raíz
+      │
+      │ getJSONArray(&quot;alumnos&quot;)
+      ▼
+JSONArray
+      │
+      │ getJSONObject(0)
+      ▼
+JSONObject alumno
+      │
+      │ getString(&quot;nombre&quot;)
+      ▼
+    &quot;Ana&quot;
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Lee la estructura antes de programar</p>
+<p>Antes de escribir el código Java, observa el documento JSON e identifica:</p>
+<p><code>text
+{ } → JSONObject
+[ ] → JSONArray</code></p>
+<p>Después recorre la estructura nivel a nivel.</p>
+</div>
+<hr />
+<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
+<h3 id="37-esquema-general-de-jsonarray">37. Esquema general de JSONArray<a class="headerlink" href="#37-esquema-general-de-jsonarray" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">JSONArray
+│
+├── Crear
+│      └── new JSONArray()
+│
+├── Añadir
+│      ├── put(valor)
+│      └── put(indice, valor)
+│
+├── Consultar
+│      ├── get()
+│      ├── getString()
+│      ├── getInt()
+│      ├── getDouble()
+│      ├── getBoolean()
+│      ├── getJSONObject()
+│      └── getJSONArray()
+│
+├── Datos opcionales
+│      └── opt...()
+│
+├── Comprobar
+│      ├── isNull()
+│      ├── length()
+│      └── isEmpty()
+│
+├── Eliminar
+│      └── remove()
+│
+├── Recorrer
+│      └── for
+│
+├── Puede contener
+│      ├── valores simples
+│      ├── JSONObject
+│      └── JSONArray
+│
+└── Mostrar
+       ├── toString()
+       └── toString(4)
+</code></pre>
+<hr />
+<h3 id="38-jsonobject-jsonarray">38. JSONObject + JSONArray<a class="headerlink" href="#38-jsonobject-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Las dos clases se complementan:</p>
+<pre><code class="language-text">                   JSON
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+          ▼                   ▼
+     JSONObject           JSONArray
+          │                   │
+       { ... }              [ ... ]
+          │                   │
+     clave-valor          posiciones
+          │                   │
+          └─────────┬─────────┘
+                    │
+                    ▼
+           pueden contenerse
+             entre sí
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-json">{
+    &quot;grupo&quot;: &quot;2DAM&quot;,
+    &quot;alumnos&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nombre&quot;: &quot;Ana&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nombre&quot;: &quot;Luis&quot;
+        }
+    ]
+}
+</code></pre>
+<p>se interpreta como:</p>
+<pre><code class="language-text">JSONObject
+│
+├── grupo → String
+│
+└── alumnos → JSONArray
+                 │
+                 ├── JSONObject
+                 │      ├── id
+                 │      └── nombre
+                 │
+                 └── JSONObject
+                        ├── id
+                        └── nombre
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Idea clave</p>
+<p>Para trabajar correctamente con un documento JSON debemos ser capaces de reconocer su estructura.</p>
+<p>Cada vez que encontremos:</p>
+<p><code>text
+{ } → JSONObject
+[ ] → JSONArray</code></p>
+<p>A partir de ahí podremos decidir qué método necesitamos para avanzar por cada nivel del documento.</p>
+</div>
+<hr />
+<h3 id="39-que-debemos-saber-antes-de-continuar">39. ¿Qué debemos saber antes de continuar?<a class="headerlink" href="#39-que-debemos-saber-antes-de-continuar" title="Permanent link">&para;</a></h3>
+<p>Antes de avanzar a la lectura y escritura de ficheros JSON deberíamos ser capaces de:</p>
+<ul>
+<li>crear un <code>JSONArray</code>;</li>
+<li>añadir elementos mediante <code>put()</code>;</li>
+<li>recuperar valores mediante <code>get...()</code>;</li>
+<li>utilizar <code>length()</code> e <code>isEmpty()</code>;</li>
+<li>recorrer un array;</li>
+<li>trabajar con datos opcionales mediante <code>opt...()</code>;</li>
+<li>distinguir <code>JSONObject</code> y <code>JSONArray</code>;</li>
+<li>crear arrays de objetos;</li>
+<li>introducir un <code>JSONArray</code> dentro de un <code>JSONObject</code>;</li>
+<li>introducir objetos dentro de un <code>JSONArray</code>;</li>
+<li>trabajar con estructuras JSON anidadas;</li>
+<li>recorrer una estructura combinando <code>JSONObject</code> y <code>JSONArray</code>.</li>
+</ul>
+<p>Una vez dominadas estas operaciones estaremos preparados para el siguiente paso:</p>
+<pre><code class="language-text">JSONObject + JSONArray
+          ↓
+ convertir a texto JSON
+          ↓
+ guardar en un fichero
+          ↓
+ recuperar el contenido
+          ↓
+ JSONTokener
+          ↓
+ reconstruir JSONObject / JSONArray
+</code></pre>
+<h3 id="40-ejemplos-incluidos-en-el-proyecto">40. Ejemplos incluidos en el proyecto<a class="headerlink" href="#40-ejemplos-incluidos-en-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>Los ejemplos correspondientes a <code>JSONArray</code> están incluidos en el proyecto Maven descargable de <code>org.json</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Ejemplo</th>
+<th>Contenido que practica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DemoJSONArray.java</code></td>
+<td>Creación de un <code>JSONArray</code>, <code>put()</code>, acceso por posición, métodos <code>get...()</code>, <code>length()</code>, <code>isEmpty()</code>, modificación, eliminación y recorrido</td>
+</tr>
+<tr>
+<td><code>JSONArrayAnidado.java</code></td>
+<td>Estructuras JSON más complejas combinando <code>JSONObject</code> y <code>JSONArray</code> en varios niveles</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Proyecto de ejemplos</p>
+<p>Estos ejemplos forman parte del <strong>proyecto Maven común de <code>org.json</code></strong>.</p>
+<p>No es necesario descargar un proyecto diferente para cada apartado. El proyecto completo está disponible desde la página de <strong>Introducción a org.json</strong> y contiene todos los ejemplos que iremos utilizando durante el tema.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

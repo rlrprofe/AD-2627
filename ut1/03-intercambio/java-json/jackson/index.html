@@ -1,0 +1,4306 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../gson/07-resumen/">
+      
+      
+        <link rel="next" href="01-preparacion/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Introducción - Acceso a Datos - 2º DAM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jackson" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../../.." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a Datos - 2º DAM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introducción
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a Datos - 2º DAM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de la unidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Ficheros, flujos y excepciones
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Ficheros, flujos y excepciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/01-file-directorios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/02-acceso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso secuencial y aleatorio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/03-flujos-bytes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de bytes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/04-flujos-caracteres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de caracteres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/05-excepciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excepciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-ficheros/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serialización de objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Serialización de objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/01-conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializable y transient
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/02-un-objeto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializar y deserializar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/03-varios-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varios objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/04-append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Añadir objetos - append
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/05-versionado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    serialVersionUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-serializacion/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Formatos de intercambio
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Formatos de intercambio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    org.json
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    org.json
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/02-jsonobject/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONObject
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/03-jsonarray/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONArray
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/04-guardar-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guardar JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/05-leer-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leer JSON y JSONTokener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../org-json/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeToken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/06-adaptadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adaptadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jackson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Jackson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-conceptual-de-jackson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa conceptual de Jackson
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-estudiamos-jackson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué estudiamos Jackson?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-fundamentales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos fundamentales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos fundamentales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectmapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ObjectMapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clases-y-elementos-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clases y elementos principales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-nuestros-modelos-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabajar con nuestros modelos Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colecciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Colecciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typereference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeReference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabajar con ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jsonnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anotaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anotaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anotaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonproperty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @JsonProperty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @JsonIgnore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa del minicurso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos del minicurso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proyecto-de-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto de ejemplos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto de ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-incluidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos incluidos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orden-recomendado-de-los-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orden recomendado de los ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contenidos-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contenidos del minicurso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contenidos del minicurso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparacion-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Preparación del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-serializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Serialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-colecciones-y-typereference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Colecciones y TypeReference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ficheros-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ficheros JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-jsonnode-y-anotaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. JsonNode y anotaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeReference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-jsonnode-anotaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JsonNode y anotaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/02-dumps-loads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dumps() y loads()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/03-estructuras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diccionarios y listas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/04-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/05-pathlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pathlib y rutas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/06-personalizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos personalizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-json/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/01-xml-basico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analizadores XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Analizadores XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/01-dom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Lectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/02-dom-crud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Modificación y CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/03-sax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/04-jaxb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAXB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-analizadores/05-comparativa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparativa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. XPath
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. XPath
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/01-rutas-selectores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rutas y selectores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/02-predicados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicados y filtros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/03-funciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/04-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XPath desde Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-xpath/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Conversión XML ↔ JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    6. Conversión XML ↔ JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/01-enfoques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enfoques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/02-xml-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML → JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/03-json-xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON → XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/04-automatica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversión automática
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-conversion/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-conceptual-de-jackson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa conceptual de Jackson
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-estudiamos-jackson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué estudiamos Jackson?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-fundamentales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos fundamentales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos fundamentales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectmapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ObjectMapper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clases-y-elementos-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clases y elementos principales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-nuestros-modelos-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabajar con nuestros modelos Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colecciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Colecciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typereference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeReference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabajar con ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jsonnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anotaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anotaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anotaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonproperty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @JsonProperty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @JsonIgnore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa del minicurso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos del minicurso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proyecto-de-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto de ejemplos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto de ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-incluidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos incluidos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orden-recomendado-de-los-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orden recomendado de los ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contenidos-del-minicurso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contenidos del minicurso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contenidos del minicurso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparacion-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Preparación del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-serializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Serialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-colecciones-y-typereference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Colecciones y TypeReference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ficheros-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ficheros JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-jsonnode-y-anotaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. JsonNode y anotaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="jackson">Jackson<a class="headerlink" href="#jackson" title="Permanent link">&para;</a></h1>
+<h3 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h3>
+<p><strong>Jackson</strong> es una librería Java muy utilizada para trabajar con datos en formato JSON.</p>
+<p>Al igual que Gson, permite convertir automáticamente <strong>objetos Java en JSON</strong> y realizar el proceso contrario.</p>
+<p>La clase central que utilizaremos es:</p>
+<pre><code class="language-java">ObjectMapper
+</code></pre>
+<p>Podemos representar el funcionamiento básico de Jackson así:</p>
+<pre><code class="language-text">Objeto Java
+     │
+     │ serialización
+     ▼
+    JSON
+     │
+     │ deserialización
+     ▼
+Objeto Java
+</code></pre>
+<p>Por ejemplo, partiendo de un objeto Java:</p>
+<pre><code class="language-java">Alumno alumno =
+        new Alumno(
+            1,
+            &quot;Ana&quot;,
+            8.5
+        );
+</code></pre>
+<p>Jackson puede generar un documento JSON equivalente:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombreCompleto&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>También podemos realizar el proceso contrario y recuperar un objeto Java a partir de un JSON.</p>
+<hr />
+<h3 id="mapa-conceptual-de-jackson">Mapa conceptual de Jackson<a class="headerlink" href="#mapa-conceptual-de-jackson" title="Permanent link">&para;</a></h3>
+<p><img alt="Mapa conceptual de Jackson" src="../../../../images/ut1/java-json/jackson-mapa.png" /></p>
+<hr />
+<h2 id="por-que-estudiamos-jackson">¿Por qué estudiamos Jackson?<a class="headerlink" href="#por-que-estudiamos-jackson" title="Permanent link">&para;</a></h2>
+<p>En este bloque hemos utilizado diferentes formas de trabajar con JSON desde Java.</p>
+<p>Primero utilizamos <strong>org.json</strong>, donde manipulamos directamente la estructura JSON:</p>
+<pre><code class="language-java">JSONObject alumno = new JSONObject();
+
+alumno.put(&quot;id&quot;, 1);
+alumno.put(&quot;nombre&quot;, &quot;Ana&quot;);
+alumno.put(&quot;nota&quot;, 8.5);
+</code></pre>
+<p>Después utilizamos <strong>Gson</strong>, que permite convertir directamente objetos Java:</p>
+<pre><code class="language-java">String json =
+        gson.toJson(alumno);
+</code></pre>
+<p>Jackson sigue una filosofía similar, pero utiliza como elemento central:</p>
+<pre><code class="language-java">ObjectMapper
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">String json =
+        mapper.writeValueAsString(alumno);
+</code></pre>
+<p>Podemos resumir las tres aproximaciones:</p>
+<pre><code class="language-text">org.json
+   │
+   ▼
+Manipulación explícita
+de la estructura JSON
+
+
+Gson
+   │
+   ▼
+Objetos Java ⇄ JSON
+mediante Gson
+
+
+Jackson
+   │
+   ▼
+Objetos Java ⇄ JSON
+mediante ObjectMapper
+</code></pre>
+<p>Estudiar las tres librerías nos permitirá reconocer diferentes formas de resolver el mismo problema.</p>
+<hr />
+<h2 id="conceptos-fundamentales">Conceptos fundamentales<a class="headerlink" href="#conceptos-fundamentales" title="Permanent link">&para;</a></h2>
+<h3 id="serializacion">Serialización<a class="headerlink" href="#serializacion" title="Permanent link">&para;</a></h3>
+<p>La <strong>serialización</strong> consiste en convertir un objeto Java en una representación JSON.</p>
+<pre><code class="language-text">JAVA ─────────────► JSON
+</code></pre>
+<p>Con Jackson utilizaremos principalmente:</p>
+<pre><code class="language-java">writeValueAsString()
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">String json =
+        mapper.writeValueAsString(alumno);
+</code></pre>
+<hr />
+<h3 id="deserializacion">Deserialización<a class="headerlink" href="#deserializacion" title="Permanent link">&para;</a></h3>
+<p>La <strong>deserialización</strong> realiza el proceso contrario:</p>
+<pre><code class="language-text">JAVA ◄───────────── JSON
+</code></pre>
+<p>Con Jackson utilizaremos principalmente:</p>
+<pre><code class="language-java">readValue()
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">Alumno alumno =
+        mapper.readValue(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Dos operaciones fundamentales que debemos recordar son:</p>
+<p>```text
+writeValueAsString()     Java → JSON</p>
+<p>readValue()              JSON → Java
+```</p>
+</div>
+<hr />
+<h2 id="objectmapper">ObjectMapper<a class="headerlink" href="#objectmapper" title="Permanent link">&para;</a></h2>
+<p>La clase que utilizaremos continuamente al trabajar con Jackson es:</p>
+<pre><code class="language-java">ObjectMapper
+</code></pre>
+<p>Para crearla:</p>
+<pre><code class="language-java">ObjectMapper mapper =
+        new ObjectMapper();
+</code></pre>
+<p>A partir de este objeto podremos realizar las principales operaciones de serialización y deserialización.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">mapper.writeValueAsString(alumno);
+</code></pre>
+<p>o:</p>
+<pre><code class="language-java">mapper.readValue(
+    json,
+    Alumno.class
+);
+</code></pre>
+<p>Podemos visualizarlo así:</p>
+<pre><code class="language-text">                 ObjectMapper
+                /            \
+               /              \
+              ▼                ▼
+
+        Objeto Java           JSON
+              │                │
+              └────── ⇄ ───────┘
+</code></pre>
+<hr />
+<h2 id="clases-y-elementos-principales">Clases y elementos principales<a class="headerlink" href="#clases-y-elementos-principales" title="Permanent link">&para;</a></h2>
+<p>Durante este minicurso utilizaremos principalmente:</p>
+<table>
+<thead>
+<tr>
+<th>Clase / método</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ObjectMapper</code></td>
+<td>Clase principal para trabajar con JSON</td>
+</tr>
+<tr>
+<td><code>writeValueAsString()</code></td>
+<td>Convierte un objeto Java en una cadena JSON</td>
+</tr>
+<tr>
+<td><code>readValue()</code></td>
+<td>Convierte JSON en objetos Java</td>
+</tr>
+<tr>
+<td><code>writeValue()</code></td>
+<td>Escribe directamente datos JSON en un fichero</td>
+</tr>
+<tr>
+<td><code>TypeReference</code></td>
+<td>Permite describir tipos genéricos como <code>List&lt;Alumno&gt;</code></td>
+</tr>
+<tr>
+<td><code>JsonNode</code></td>
+<td>Permite trabajar con JSON como un árbol de nodos</td>
+</tr>
+<tr>
+<td><code>readTree()</code></td>
+<td>Convierte un JSON en un árbol <code>JsonNode</code></td>
+</tr>
+<tr>
+<td><code>@JsonProperty</code></td>
+<td>Permite modificar el nombre utilizado en JSON</td>
+</tr>
+<tr>
+<td><code>@JsonIgnore</code></td>
+<td>Permite excluir una propiedad del JSON</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="trabajar-con-nuestros-modelos-java">Trabajar con nuestros modelos Java<a class="headerlink" href="#trabajar-con-nuestros-modelos-java" title="Permanent link">&para;</a></h2>
+<p>Jackson puede trabajar directamente con las clases de nuestra aplicación.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">public class Alumno {
+
+    private int id;
+    private String nombre;
+    private double nota;
+
+    public Alumno() {
+    }
+
+    // constructores
+    // getters
+    // setters
+}
+</code></pre>
+<p>Jackson puede relacionar las propiedades del objeto con las propiedades del JSON.</p>
+<p>Conceptualmente:</p>
+<pre><code class="language-text">JAVA                         JSON
+
+id            ◄────────►     &quot;id&quot;
+
+nombre        ◄────────►     &quot;nombre&quot;
+
+nota          ◄────────►     &quot;nota&quot;
+</code></pre>
+<p>Esto permite trabajar normalmente con nuestros objetos Java y utilizar Jackson cuando necesitamos convertirlos a JSON.</p>
+<hr />
+<h2 id="colecciones">Colecciones<a class="headerlink" href="#colecciones" title="Permanent link">&para;</a></h2>
+<p>Jackson también permite serializar colecciones.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">List&lt;Alumno&gt;
+</code></pre>
+<p>puede convertirse en:</p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombreCompleto&quot;: &quot;Ana&quot;,
+    &quot;nota&quot;: 8.5
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;nombreCompleto&quot;: &quot;Luis&quot;,
+    &quot;nota&quot;: 7.2
+  }
+]
+</code></pre>
+<p>La serialización es sencilla:</p>
+<pre><code class="language-java">String json =
+        mapper.writeValueAsString(alumnos);
+</code></pre>
+<hr />
+<h2 id="typereference">TypeReference<a class="headerlink" href="#typereference" title="Permanent link">&para;</a></h2>
+<p>Al deserializar colecciones necesitamos conservar información sobre el tipo de los elementos.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">List&lt;Alumno&gt;
+</code></pre>
+<p>Para ello Jackson proporciona:</p>
+<pre><code class="language-java">TypeReference
+</code></pre>
+<p>Podemos escribir:</p>
+<pre><code class="language-java">List&lt;Alumno&gt; alumnos =
+        mapper.readValue(
+            json,
+            new TypeReference&lt;List&lt;Alumno&gt;&gt;() {}
+        );
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>TypeReference</code> cumple en Jackson una función parecida a la que realizaba <code>TypeToken</code> cuando trabajábamos con Gson.</p>
+</div>
+<p>Podemos comparar:</p>
+<pre><code class="language-text">Gson                         Jackson
+
+TypeToken                    TypeReference
+   │                              │
+   ▼                              ▼
+List&lt;Alumno&gt;                  List&lt;Alumno&gt;
+</code></pre>
+<hr />
+<h2 id="trabajar-con-ficheros">Trabajar con ficheros<a class="headerlink" href="#trabajar-con-ficheros" title="Permanent link">&para;</a></h2>
+<p>Jackson puede leer y escribir directamente ficheros JSON.</p>
+<p>Para guardar:</p>
+<pre><code class="language-java">mapper.writeValue(
+    fichero.toFile(),
+    alumnos
+);
+</code></pre>
+<p>El flujo será:</p>
+<pre><code class="language-text">List&lt;Alumno&gt;
+     │
+     ▼
+ObjectMapper
+     │
+     ▼
+ writeValue()
+     │
+     ▼
+alumnos.json
+</code></pre>
+<p>Para leer:</p>
+<pre><code class="language-java">List&lt;Alumno&gt; alumnos =
+        mapper.readValue(
+            fichero.toFile(),
+            new TypeReference&lt;List&lt;Alumno&gt;&gt;() {}
+        );
+</code></pre>
+<p>El proceso completo será:</p>
+<pre><code class="language-text">OBJETOS JAVA
+     │
+     ▼
+ObjectMapper
+     │
+     ▼
+FICHERO JSON
+     │
+     ▼
+ObjectMapper
+     │
+     ▼
+OBJETOS JAVA
+</code></pre>
+<hr />
+<h2 id="jsonnode">JsonNode<a class="headerlink" href="#jsonnode" title="Permanent link">&para;</a></h2>
+<p>Jackson también permite trabajar directamente con la estructura de un JSON sin convertirlo inmediatamente en una clase Java.</p>
+<p>Para ello utilizaremos:</p>
+<pre><code class="language-java">JsonNode
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JsonNode raiz =
+        mapper.readTree(json);
+</code></pre>
+<p>Después podemos consultar propiedades:</p>
+<pre><code class="language-java">raiz.get(&quot;nombreCompleto&quot;).asText();
+</code></pre>
+<p>o:</p>
+<pre><code class="language-java">raiz.get(&quot;nota&quot;).asDouble();
+</code></pre>
+<p>Conceptualmente:</p>
+<pre><code class="language-text">JSON
+ │
+ │ readTree()
+ ▼
+JsonNode
+ │
+ ├── get(&quot;id&quot;)
+ ├── get(&quot;nombreCompleto&quot;)
+ └── get(&quot;nota&quot;)
+</code></pre>
+<p>Esta forma de trabajar recuerda en parte a la manipulación directa que realizábamos con <code>JSONObject</code>.</p>
+<hr />
+<h2 id="anotaciones">Anotaciones<a class="headerlink" href="#anotaciones" title="Permanent link">&para;</a></h2>
+<p>Jackson permite personalizar la conversión mediante <strong>anotaciones</strong>.</p>
+<p>En este minicurso veremos dos ejemplos.</p>
+<h3 id="jsonproperty">@JsonProperty<a class="headerlink" href="#jsonproperty" title="Permanent link">&para;</a></h3>
+<p>Permite indicar el nombre que tendrá una propiedad en el JSON.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">@JsonProperty(&quot;nombreCompleto&quot;)
+public String getNombre() {
+    return nombre;
+}
+</code></pre>
+<p>La propiedad Java:</p>
+<pre><code class="language-text">nombre
+</code></pre>
+<p>puede aparecer en JSON como:</p>
+<pre><code class="language-json">&quot;nombreCompleto&quot;
+</code></pre>
+<hr />
+<h3 id="jsonignore">@JsonIgnore<a class="headerlink" href="#jsonignore" title="Permanent link">&para;</a></h3>
+<p>Permite indicar que una propiedad no debe aparecer en el JSON.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">@JsonIgnore
+private String observaciones;
+</code></pre>
+<p>Aunque el objeto Java tenga:</p>
+<pre><code class="language-text">observaciones
+</code></pre>
+<p>Jackson no incluirá esa información en el JSON.</p>
+<hr />
+<h2 id="mapa-del-minicurso">Mapa del minicurso<a class="headerlink" href="#mapa-del-minicurso" title="Permanent link">&para;</a></h2>
+<p>El recorrido que seguiremos será:</p>
+<pre><code class="language-text">                         JACKSON
+                            │
+                            ▼
+                   1. PREPARACIÓN
+                            │
+                            ▼
+                  Maven + ObjectMapper
+                            │
+                            ▼
+                  2. SERIALIZACIÓN
+                            │
+                            ▼
+                      Java → JSON
+                            │
+                            ▼
+                 3. DESERIALIZACIÓN
+                            │
+                            ▼
+                      JSON → Java
+                            │
+                            ▼
+                   4. COLECCIONES
+                            │
+                            ▼
+             List&lt;Alumno&gt; + TypeReference
+                            │
+                            ▼
+                     5. FICHEROS
+                            │
+                 ┌──────────┴──────────┐
+                 ▼                     ▼
+              GUARDAR                 LEER
+                 │                     │
+                 └──────────┬──────────┘
+                            ▼
+                     alumnos.json
+                            │
+                            ▼
+              6. JSONNODE Y ANOTACIONES
+                            │
+                  ┌─────────┴─────────┐
+                  ▼                   ▼
+              JsonNode          @JsonProperty
+                                @JsonIgnore
+                            │
+                            ▼
+                      7. RESUMEN
+</code></pre>
+<hr />
+<h2 id="objetivos-del-minicurso">Objetivos del minicurso<a class="headerlink" href="#objetivos-del-minicurso" title="Permanent link">&para;</a></h2>
+<p>Al finalizar este bloque deberías ser capaz de:</p>
+<ul>
+<li>configurar Jackson en un proyecto Maven;</li>
+<li>utilizar <code>ObjectMapper</code>;</li>
+<li>comprender la diferencia entre serialización y deserialización;</li>
+<li>convertir objetos Java a JSON;</li>
+<li>convertir JSON en objetos Java;</li>
+<li>trabajar con colecciones;</li>
+<li>utilizar <code>TypeReference</code> para tipos genéricos;</li>
+<li>guardar objetos y colecciones en ficheros JSON;</li>
+<li>recuperar objetos desde ficheros JSON;</li>
+<li>trabajar con la estructura de un JSON mediante <code>JsonNode</code>;</li>
+<li>utilizar <code>readTree()</code>;</li>
+<li>personalizar propiedades mediante anotaciones;</li>
+<li>comprender el uso básico de <code>@JsonProperty</code>;</li>
+<li>comprender el uso básico de <code>@JsonIgnore</code>;</li>
+<li>comparar las formas de trabajo de <code>org.json</code>, Gson y Jackson.</li>
+</ul>
+<hr />
+<h2 id="proyecto-de-ejemplos">Proyecto de ejemplos<a class="headerlink" href="#proyecto-de-ejemplos" title="Permanent link">&para;</a></h2>
+<p>Todos los ejemplos del minicurso están incluidos en un único <strong>proyecto Maven</strong>, preparado para:</p>
+<pre><code class="language-text">Java 21
++
+Maven
++
+Jackson
+</code></pre>
+<p><a href="../../../../descargas/ut1/java-json/jackson-ejemplos.zip">📦 <strong>Descargar proyecto Maven completo de Jackson</strong></a></p>
+<p>El proyecto contiene:</p>
+<pre><code class="language-text">jackson-ejemplos/
+│
+├── pom.xml
+├── README.md
+│
+├── data/
+│   └── alumnos.json
+│
+└── src/main/java/com/example/
+    ├── Alumno.java
+    ├── DemoJackson.java
+    ├── DemoListaJackson.java
+    ├── GuardarAlumnosJackson.java
+    ├── LeerAlumnosJackson.java
+    ├── DemoJsonNode.java
+    └── DemoAnotaciones.java
+</code></pre>
+<h3 id="ejemplos-incluidos">Ejemplos incluidos<a class="headerlink" href="#ejemplos-incluidos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Fichero</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Alumno.java</code></td>
+<td>Modelo utilizado en los ejemplos</td>
+</tr>
+<tr>
+<td><code>DemoJackson.java</code></td>
+<td>Serialización y deserialización de un objeto</td>
+</tr>
+<tr>
+<td><code>DemoListaJackson.java</code></td>
+<td>Colecciones y <code>TypeReference</code></td>
+</tr>
+<tr>
+<td><code>GuardarAlumnosJackson.java</code></td>
+<td>Guarda una colección en <code>data/alumnos.json</code></td>
+</tr>
+<tr>
+<td><code>LeerAlumnosJackson.java</code></td>
+<td>Recupera una colección desde <code>data/alumnos.json</code></td>
+</tr>
+<tr>
+<td><code>DemoJsonNode.java</code></td>
+<td>Lectura del JSON mediante el modelo de árbol <code>JsonNode</code></td>
+</tr>
+<tr>
+<td><code>DemoAnotaciones.java</code></td>
+<td>Uso de <code>@JsonProperty</code> y <code>@JsonIgnore</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Proyecto descargable</p>
+<p>Descarga y descomprime el proyecto para abrirlo directamente desde VS Code.</p>
+<p>El <code>pom.xml</code> está configurado para utilizar <strong>Java 21</strong> y ya incluye la dependencia necesaria de Jackson.</p>
+</div>
+<hr />
+<h2 id="orden-recomendado-de-los-ejemplos">Orden recomendado de los ejemplos<a class="headerlink" href="#orden-recomendado-de-los-ejemplos" title="Permanent link">&para;</a></h2>
+<p>Podemos seguir este recorrido:</p>
+<pre><code class="language-text">DemoJackson.java
+       │
+       ▼
+Objeto Java ⇄ JSON
+       │
+       ▼
+DemoListaJackson.java
+       │
+       ▼
+List&lt;Alumno&gt; ⇄ JSON
+       │
+       ▼
+GuardarAlumnosJackson.java
+       │
+       ▼
+data/alumnos.json
+       │
+       ▼
+LeerAlumnosJackson.java
+       │
+       ▼
+List&lt;Alumno&gt;
+       │
+       ▼
+DemoJsonNode.java
+       │
+       ▼
+JSON → árbol de nodos
+       │
+       ▼
+DemoAnotaciones.java
+       │
+       ▼
+Personalización del JSON
+</code></pre>
+<hr />
+<h2 id="contenidos-del-minicurso">Contenidos del minicurso<a class="headerlink" href="#contenidos-del-minicurso" title="Permanent link">&para;</a></h2>
+<h3 id="1-preparacion-del-proyecto">1. Preparación del proyecto<a class="headerlink" href="#1-preparacion-del-proyecto" title="Permanent link">&para;</a></h3>
+<p>Configuraremos un proyecto Maven para trabajar con:</p>
+<pre><code class="language-text">Java 21
++
+Jackson
+</code></pre>
+<p>y conoceremos la clase:</p>
+<pre><code class="language-java">ObjectMapper
+</code></pre>
+<hr />
+<h3 id="2-serializacion">2. Serialización<a class="headerlink" href="#2-serializacion" title="Permanent link">&para;</a></h3>
+<p>Aprenderemos a realizar:</p>
+<pre><code class="language-text">Objeto Java
+     │
+     │ writeValueAsString()
+     ▼
+    JSON
+</code></pre>
+<hr />
+<h3 id="3-deserializacion">3. Deserialización<a class="headerlink" href="#3-deserializacion" title="Permanent link">&para;</a></h3>
+<p>Realizaremos el proceso contrario:</p>
+<pre><code class="language-text">JSON
+ │
+ │ readValue()
+ ▼
+Objeto Java
+</code></pre>
+<hr />
+<h3 id="4-colecciones-y-typereference">4. Colecciones y TypeReference<a class="headerlink" href="#4-colecciones-y-typereference" title="Permanent link">&para;</a></h3>
+<p>Trabajaremos con:</p>
+<pre><code class="language-java">List&lt;Alumno&gt;
+</code></pre>
+<p>y aprenderemos por qué necesitamos:</p>
+<pre><code class="language-java">TypeReference
+</code></pre>
+<p>para recuperar correctamente colecciones genéricas.</p>
+<hr />
+<h3 id="5-ficheros-json">5. Ficheros JSON<a class="headerlink" href="#5-ficheros-json" title="Permanent link">&para;</a></h3>
+<p>Completaremos el ciclo de persistencia:</p>
+<pre><code class="language-text">List&lt;Alumno&gt;
+     │
+     ▼
+alumnos.json
+     │
+     ▼
+List&lt;Alumno&gt;
+</code></pre>
+<p>utilizando directamente <code>ObjectMapper</code>.</p>
+<hr />
+<h3 id="6-jsonnode-y-anotaciones">6. JsonNode y anotaciones<a class="headerlink" href="#6-jsonnode-y-anotaciones" title="Permanent link">&para;</a></h3>
+<p>Veremos dos características especialmente interesantes de Jackson.</p>
+<p>Por una parte:</p>
+<pre><code class="language-java">JsonNode
+</code></pre>
+<p>para trabajar directamente con la estructura del JSON.</p>
+<p>Por otra:</p>
+<pre><code class="language-java">@JsonProperty
+@JsonIgnore
+</code></pre>
+<p>para personalizar la conversión entre Java y JSON.</p>
+<hr />
+<h3 id="7-resumen">7. Resumen<a class="headerlink" href="#7-resumen" title="Permanent link">&para;</a></h3>
+<p>Terminaremos con una página de referencia rápida que reúne:</p>
+<ul>
+<li><code>ObjectMapper</code>;</li>
+<li><code>writeValueAsString()</code>;</li>
+<li><code>readValue()</code>;</li>
+<li><code>writeValue()</code>;</li>
+<li><code>TypeReference</code>;</li>
+<li>ficheros;</li>
+<li><code>JsonNode</code>;</li>
+<li><code>readTree()</code>;</li>
+<li>anotaciones;</li>
+<li>comparación con Gson y <code>org.json</code>;</li>
+<li>recorrido completo de los ejemplos.</li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">Objetivo final</p>
+<p>Al terminar este minicurso tendremos tres formas diferentes de trabajar con JSON desde Java:</p>
+<p>```text
+org.json
+    │
+    └── Manipulación explícita del JSON</p>
+<p>Gson
+    │
+    └── Objetos Java ⇄ JSON</p>
+<p>Jackson
+    │
+    └── ObjectMapper
+          │
+          ├── Objetos Java ⇄ JSON
+          ├── Colecciones
+          ├── Ficheros
+          ├── JsonNode
+          └── Anotaciones
+```</p>
+<p>Esto nos permitirá comprender no solo <strong>cómo utilizar Jackson</strong>, sino también las diferencias entre las distintas alternativas que hemos estudiado para trabajar con JSON desde Java.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

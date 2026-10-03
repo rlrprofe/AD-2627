@@ -1,0 +1,5407 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03-jsonarray/">
+      
+      
+        <link rel="next" href="../05-leer-json/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Guardar JSON - Acceso a Datos - 2º DAM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guardar-json-en-un-fichero" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a Datos - 2º DAM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Guardar JSON
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a Datos - 2º DAM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de la unidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Ficheros, flujos y excepciones
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Ficheros, flujos y excepciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/01-file-directorios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/02-acceso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso secuencial y aleatorio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/03-flujos-bytes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de bytes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/04-flujos-caracteres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de caracteres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/05-excepciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excepciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serialización de objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Serialización de objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/01-conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializable y transient
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/02-un-objeto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializar y deserializar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/03-varios-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varios objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/04-append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Añadir objetos - append
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/05-versionado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    serialVersionUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Formatos de intercambio
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Formatos de intercambio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    org.json
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    org.json
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-jsonobject/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONObject
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-jsonarray/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONArray
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guardar JSON
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guardar JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-proceso-general-para-guardar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Proceso general para guardar JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#de-jsonobject-a-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De JSONObject a texto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="De JSONObject a texto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-que-guarda-realmente-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ¿Qué guarda realmente FileWriter?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tostring-frente-a-tostring4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. toString() frente a toString(4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FileWriter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FileWriter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-escribir-un-fichero-con-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Escribir un fichero con FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-por-que-debemos-cerrar-el-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ¿Por qué debemos cerrar el fichero?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try-with-resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="try-with-resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#7-escritura-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Escritura recomendada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-ioexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. IOException
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directorio-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directorio de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Directorio de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-la-carpeta-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. La carpeta data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-rutas-relativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Rutas relativas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-el-directorio-automaticamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear el directorio automáticamente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear el directorio automáticamente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-que-ocurre-si-data-no-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. ¿Qué ocurre si data no existe?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primer-caso-guardar-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primer caso: guardar un JSONObject
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Primer caso: guardar un JSONObject">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-guardarjsonv1java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. GuardarJSONv1.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-paso-1-crear-el-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Paso 1: crear el JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-paso-2-preparar-la-carpeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Paso 2: preparar la carpeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-paso-3-preparar-la-ruta-del-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Paso 3: preparar la ruta del fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-paso-4-abrir-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Paso 4: abrir FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-paso-5-escribir-el-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Paso 5: escribir el JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-resultado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Resultado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-ejemplo-completo-guardarjsonv1java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Ejemplo completo: GuardarJSONv1.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segundo-caso-guardar-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segundo caso: guardar un JSONArray
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segundo caso: guardar un JSONArray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-guardarjsonv2java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. GuardarJSONv2.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-paso-1-crear-los-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Paso 1: crear los objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-paso-2-crear-el-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Paso 2: crear el JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-paso-3-convertir-el-jsonarray-a-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Paso 3: convertir el JSONArray a texto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-paso-4-guardar-el-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Paso 4: guardar el fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ejemplo-completo-guardarjsonv2java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Ejemplo completo: GuardarJSONv2.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-de-los-dos-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación de los dos ejemplos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación de los dos ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-guardarjsonv1-frente-a-guardarjsonv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. GuardarJSONv1 frente a GuardarJSONv2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sobrescribir-y-anadir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobrescribir y añadir
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sobrescribir y añadir">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#27-que-ocurre-si-el-fichero-ya-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. ¿Qué ocurre si el fichero ya existe?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-podemos-anadir-contenido-al-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. ¿Podemos añadir contenido al final?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#29-intentar-escribir-directamente-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. Intentar escribir directamente un JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-la-carpeta-no-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. La carpeta no existe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-utilizar-una-ruta-absoluta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Utilizar una ruta absoluta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-olvidar-cerrar-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Olvidar cerrar FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-confundir-crear-json-con-guardar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Confundir crear JSON con guardar JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-guardar-varios-objetos-uno-detras-de-otro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. Guardar varios objetos uno detrás de otro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#35-flujo-completo-de-escritura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. Flujo completo de escritura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-elementos-principales-utilizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. Elementos principales utilizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-los-dos-ejemplos-que-debemos-comprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. Los dos ejemplos que debemos comprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-ejemplos-incluidos-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. Ejemplos incluidos en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-que-ocurre-despues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. ¿Qué ocurre después?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-leer-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leer JSON y JSONTokener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeToken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/06-adaptadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adaptadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jackson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Jackson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeReference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/06-jsonnode-anotaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JsonNode y anotaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/02-dumps-loads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dumps() y loads()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/03-estructuras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diccionarios y listas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/04-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/05-pathlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pathlib y rutas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/06-personalizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos personalizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/01-xml-basico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analizadores XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Analizadores XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/01-dom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Lectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/02-dom-crud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Modificación y CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/03-sax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/04-jaxb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAXB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/05-comparativa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparativa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. XPath
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. XPath
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/01-rutas-selectores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rutas y selectores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/02-predicados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicados y filtros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/03-funciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/04-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XPath desde Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Conversión XML ↔ JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    6. Conversión XML ↔ JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/01-enfoques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enfoques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/02-xml-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML → JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/03-json-xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON → XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/04-automatica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversión automática
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-proceso-general-para-guardar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Proceso general para guardar JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#de-jsonobject-a-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De JSONObject a texto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="De JSONObject a texto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-que-guarda-realmente-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ¿Qué guarda realmente FileWriter?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tostring-frente-a-tostring4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. toString() frente a toString(4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FileWriter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FileWriter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-escribir-un-fichero-con-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Escribir un fichero con FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-por-que-debemos-cerrar-el-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ¿Por qué debemos cerrar el fichero?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try-with-resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="try-with-resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#7-escritura-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Escritura recomendada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-ioexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. IOException
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directorio-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directorio de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Directorio de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-la-carpeta-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. La carpeta data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-rutas-relativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Rutas relativas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-el-directorio-automaticamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear el directorio automáticamente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear el directorio automáticamente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-que-ocurre-si-data-no-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. ¿Qué ocurre si data no existe?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primer-caso-guardar-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primer caso: guardar un JSONObject
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Primer caso: guardar un JSONObject">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-guardarjsonv1java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. GuardarJSONv1.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-paso-1-crear-el-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Paso 1: crear el JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-paso-2-preparar-la-carpeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Paso 2: preparar la carpeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-paso-3-preparar-la-ruta-del-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Paso 3: preparar la ruta del fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-paso-4-abrir-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Paso 4: abrir FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-paso-5-escribir-el-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Paso 5: escribir el JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-resultado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Resultado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-ejemplo-completo-guardarjsonv1java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Ejemplo completo: GuardarJSONv1.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segundo-caso-guardar-un-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segundo caso: guardar un JSONArray
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segundo caso: guardar un JSONArray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-guardarjsonv2java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. GuardarJSONv2.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-paso-1-crear-los-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Paso 1: crear los objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-paso-2-crear-el-jsonarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Paso 2: crear el JSONArray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-paso-3-convertir-el-jsonarray-a-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Paso 3: convertir el JSONArray a texto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-paso-4-guardar-el-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Paso 4: guardar el fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ejemplo-completo-guardarjsonv2java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Ejemplo completo: GuardarJSONv2.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-de-los-dos-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación de los dos ejemplos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación de los dos ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-guardarjsonv1-frente-a-guardarjsonv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. GuardarJSONv1 frente a GuardarJSONv2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sobrescribir-y-anadir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobrescribir y añadir
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sobrescribir y añadir">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#27-que-ocurre-si-el-fichero-ya-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. ¿Qué ocurre si el fichero ya existe?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-podemos-anadir-contenido-al-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. ¿Podemos añadir contenido al final?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#29-intentar-escribir-directamente-un-jsonobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. Intentar escribir directamente un JSONObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-la-carpeta-no-existe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. La carpeta no existe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-utilizar-una-ruta-absoluta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Utilizar una ruta absoluta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-olvidar-cerrar-filewriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Olvidar cerrar FileWriter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-confundir-crear-json-con-guardar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Confundir crear JSON con guardar JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-guardar-varios-objetos-uno-detras-de-otro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. Guardar varios objetos uno detrás de otro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#35-flujo-completo-de-escritura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. Flujo completo de escritura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-elementos-principales-utilizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. Elementos principales utilizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-los-dos-ejemplos-que-debemos-comprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. Los dos ejemplos que debemos comprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-ejemplos-incluidos-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. Ejemplos incluidos en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-que-ocurre-despues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. ¿Qué ocurre después?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guardar-json-en-un-fichero">Guardar JSON en un fichero<a class="headerlink" href="#guardar-json-en-un-fichero" title="Permanent link">&para;</a></h1>
+<h3 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h3>
+<p>Hasta ahora hemos aprendido a construir estructuras JSON en memoria utilizando las clases:</p>
+<pre><code class="language-java">JSONObject
+JSONArray
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONObject alumno = new JSONObject();
+
+alumno.put(&quot;id&quot;, 1);
+alumno.put(&quot;nombre&quot;, &quot;Ana&quot;);
+alumno.put(&quot;nota&quot;, 8.5);
+</code></pre>
+<p>Mientras el programa se está ejecutando, el objeto existe en memoria.</p>
+<p>Podemos mostrarlo por consola:</p>
+<pre><code class="language-java">System.out.println(alumno.toString(4));
+</code></pre>
+<p>pero cuando termina el programa esa información desaparece.</p>
+<p>Si queremos conservarla, debemos almacenarla en algún sistema de persistencia.</p>
+<p>Una posibilidad es guardarla en un <strong>fichero JSON</strong>.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-text">data/alumno.json
+</code></pre>
+<p>con el siguiente contenido:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;nota&quot;: 8.5
+}
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Persistencia</p>
+<p>Guardar información en un fichero permite que los datos permanezcan almacenados aunque el programa finalice.</p>
+<p>Posteriormente podremos volver a leer el fichero y reconstruir la estructura JSON.</p>
+</div>
+<hr />
+<h3 id="2-proceso-general-para-guardar-json">2. Proceso general para guardar JSON<a class="headerlink" href="#2-proceso-general-para-guardar-json" title="Permanent link">&para;</a></h3>
+<p>Con <code>org.json</code>, guardar información en un fichero puede entenderse como un proceso de varias etapas:</p>
+<pre><code class="language-text">DATOS
+  │
+  ▼
+JSONObject / JSONArray
+  │
+  │ put(...)
+  ▼
+Estructura JSON en memoria
+  │
+  │ toString(4)
+  ▼
+Texto JSON
+  │
+  │ FileWriter
+  ▼
+FICHERO .json
+</code></pre>
+<p>Los pasos principales serán:</p>
+<pre><code class="language-text">1. Crear JSONObject o JSONArray
+             ↓
+2. Añadir los datos con put()
+             ↓
+3. Preparar el directorio y el fichero
+             ↓
+4. Abrir FileWriter
+             ↓
+5. Convertir el JSON a texto
+             ↓
+6. Escribir el contenido
+             ↓
+7. Cerrar el fichero
+</code></pre>
+<p>En Java veremos normalmente algo parecido a:</p>
+<pre><code class="language-java">JSONObject objeto = new JSONObject();
+
+objeto.put(&quot;nombre&quot;, &quot;Ana&quot;);
+objeto.put(&quot;edad&quot;, 21);
+
+try (FileWriter writer =
+        new FileWriter(&quot;data/persona.json&quot;)) {
+
+    writer.write(objeto.toString(4));
+}
+</code></pre>
+<hr />
+<h2 id="de-jsonobject-a-texto">De JSONObject a texto<a class="headerlink" href="#de-jsonobject-a-texto" title="Permanent link">&para;</a></h2>
+<h3 id="3-que-guarda-realmente-filewriter">3. ¿Qué guarda realmente FileWriter?<a class="headerlink" href="#3-que-guarda-realmente-filewriter" title="Permanent link">&para;</a></h3>
+<p>Una cuestión importante es distinguir entre:</p>
+<pre><code class="language-text">JSONObject
+</code></pre>
+<p>y:</p>
+<pre><code class="language-text">fichero JSON
+</code></pre>
+<p><code>JSONObject</code> es un <strong>objeto Java que está en memoria</strong>.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">JSONObject alumno = new JSONObject();
+
+alumno.put(&quot;nombre&quot;, &quot;Ana&quot;);
+alumno.put(&quot;edad&quot;, 21);
+</code></pre>
+<p>Antes de escribirlo en un fichero necesitamos obtener su representación textual.</p>
+<p>Para ello utilizamos:</p>
+<pre><code class="language-java">toString()
+</code></pre>
+<p>o:</p>
+<pre><code class="language-java">toString(4)
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">String textoJSON =
+        alumno.toString(4);
+</code></pre>
+<p>Ahora <code>textoJSON</code> contiene un <code>String</code> similar a:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;edad&quot;: 21
+}
+</code></pre>
+<p>Por tanto:</p>
+<pre><code class="language-text">JSONObject
+     │
+     │ toString(4)
+     ▼
+   String
+     │
+     │ FileWriter
+     ▼
+ fichero JSON
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">FileWriter escribe texto</p>
+<p><code>FileWriter</code> no conoce la clase <code>JSONObject</code>.</p>
+<p>Lo que escribimos realmente en el fichero es la <strong>representación textual del JSON</strong> obtenida mediante <code>toString()</code>.</p>
+</div>
+<hr />
+<h3 id="4-tostring-frente-a-tostring4">4. <code>toString()</code> frente a <code>toString(4)</code><a class="headerlink" href="#4-tostring-frente-a-tostring4" title="Permanent link">&para;</a></h3>
+<p>Podemos convertir un objeto JSON a texto de dos formas habituales.</p>
+<h4 id="sin-formato">Sin formato<a class="headerlink" href="#sin-formato" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">objeto.toString()
+</code></pre>
+<p>produce:</p>
+<pre><code class="language-json">{&quot;nombre&quot;:&quot;Ana&quot;,&quot;edad&quot;:21,&quot;nota&quot;:8.5}
+</code></pre>
+<h4 id="con-indentacion">Con indentación<a class="headerlink" href="#con-indentacion" title="Permanent link">&para;</a></h4>
+<pre><code class="language-java">objeto.toString(4)
+</code></pre>
+<p>produce:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;edad&quot;: 21,
+    &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>El número:</p>
+<pre><code class="language-text">4
+</code></pre>
+<p>indica el número de espacios utilizados para la indentación.</p>
+<p>Para nuestros ejemplos utilizaremos:</p>
+<pre><code class="language-java">toString(4)
+</code></pre>
+<p>porque facilita mucho la lectura del fichero.</p>
+<div class="admonition tip">
+<p class="admonition-title">JSON legible</p>
+<p>Para una aplicación, ambas representaciones contienen esencialmente la misma estructura de datos.</p>
+<p>Durante el aprendizaje utilizaremos la versión indentada porque resulta mucho más fácil comprobar el fichero manualmente.</p>
+</div>
+<hr />
+<h2 id="filewriter">FileWriter<a class="headerlink" href="#filewriter" title="Permanent link">&para;</a></h2>
+<h3 id="5-escribir-un-fichero-con-filewriter">5. Escribir un fichero con FileWriter<a class="headerlink" href="#5-escribir-un-fichero-con-filewriter" title="Permanent link">&para;</a></h3>
+<p>Para escribir texto en un fichero podemos utilizar:</p>
+<pre><code class="language-java">FileWriter
+</code></pre>
+<p>Debemos importar:</p>
+<pre><code class="language-java">import java.io.FileWriter;
+</code></pre>
+<p>Un ejemplo sencillo sería:</p>
+<pre><code class="language-java">FileWriter writer =
+        new FileWriter(&quot;data/persona.json&quot;);
+
+writer.write(
+        objeto.toString(4)
+);
+
+writer.close();
+</code></pre>
+<p>El proceso es:</p>
+<pre><code class="language-text">new FileWriter(...)
+       │
+       ▼
+abrimos el fichero
+       │
+       ▼
+writer.write(...)
+       │
+       ▼
+escribimos
+       │
+       ▼
+writer.close()
+       │
+       ▼
+cerramos el recurso
+</code></pre>
+<hr />
+<h3 id="6-por-que-debemos-cerrar-el-fichero">6. ¿Por qué debemos cerrar el fichero?<a class="headerlink" href="#6-por-que-debemos-cerrar-el-fichero" title="Permanent link">&para;</a></h3>
+<p>Cuando abrimos un fichero estamos utilizando un recurso del sistema.</p>
+<p>Después de escribir debemos cerrarlo:</p>
+<pre><code class="language-java">writer.close();
+</code></pre>
+<p>Si no lo hacemos correctamente pueden producirse problemas, por ejemplo:</p>
+<ul>
+<li>recursos que permanecen abiertos;</li>
+<li>información pendiente de escribir;</li>
+<li>problemas al intentar acceder posteriormente al fichero.</li>
+</ul>
+<p>Java proporciona una forma especialmente cómoda de gestionar estos recursos:</p>
+<pre><code class="language-text">try-with-resources
+</code></pre>
+<hr />
+<h2 id="try-with-resources">try-with-resources<a class="headerlink" href="#try-with-resources" title="Permanent link">&para;</a></h2>
+<h3 id="7-escritura-recomendada">7. Escritura recomendada<a class="headerlink" href="#7-escritura-recomendada" title="Permanent link">&para;</a></h3>
+<p>En lugar de escribir:</p>
+<pre><code class="language-java">FileWriter writer =
+        new FileWriter(&quot;data/persona.json&quot;);
+
+writer.write(objeto.toString(4));
+
+writer.close();
+</code></pre>
+<p>podemos utilizar:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(&quot;data/persona.json&quot;)) {
+
+    writer.write(
+        objeto.toString(4)
+    );
+}
+</code></pre>
+<p>Esta construcción se denomina:</p>
+<pre><code class="language-text">try-with-resources
+</code></pre>
+<p>La ventaja principal es que Java se encarga de cerrar automáticamente el recurso cuando termina el bloque.</p>
+<pre><code class="language-text">try (
+    abrir recurso
+) {
+
+    utilizar recurso
+
+}
+
+↓ automáticamente
+
+cerrar recurso
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Forma recomendada</p>
+<p>En nuestros ejemplos utilizaremos preferentemente <code>try-with-resources</code>.</p>
+<p>De esta forma evitamos olvidar el cierre del fichero.</p>
+</div>
+<hr />
+<h3 id="8-ioexception">8. IOException<a class="headerlink" href="#8-ioexception" title="Permanent link">&para;</a></h3>
+<p>Las operaciones con ficheros pueden producir errores.</p>
+<p>Por ejemplo:</p>
+<ul>
+<li>la ruta puede no existir;</li>
+<li>podemos no tener permisos;</li>
+<li>puede producirse un error durante la escritura.</li>
+</ul>
+<p>Por este motivo debemos gestionar:</p>
+<pre><code class="language-java">IOException
+</code></pre>
+<p>Importaremos:</p>
+<pre><code class="language-java">import java.io.IOException;
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(&quot;data/persona.json&quot;)) {
+
+    writer.write(
+        objeto.toString(4)
+    );
+
+} catch (IOException e) {
+
+    System.out.println(
+        &quot;Error al guardar el fichero&quot;
+    );
+}
+</code></pre>
+<p>También podemos consultar información del error:</p>
+<pre><code class="language-java">System.out.println(e.getMessage());
+</code></pre>
+<hr />
+<h2 id="directorio-de-datos">Directorio de datos<a class="headerlink" href="#directorio-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="9-la-carpeta-data">9. La carpeta <code>data</code><a class="headerlink" href="#9-la-carpeta-data" title="Permanent link">&para;</a></h3>
+<p>En nuestros ejemplos almacenaremos los ficheros JSON dentro de una carpeta:</p>
+<pre><code class="language-text">data
+</code></pre>
+<p>La estructura del proyecto será similar a:</p>
+<pre><code class="language-text">org-json-ejemplos/
+│
+├── pom.xml
+├── README.md
+│
+├── data/
+│   ├── persona.json
+│   └── personas.json
+│
+└── src/
+    └── main/
+        └── java/
+            └── com/
+                └── example/
+</code></pre>
+<p>Así mantenemos separados:</p>
+<pre><code class="language-text">src  → código fuente Java
+
+data → ficheros de datos
+</code></pre>
+<hr />
+<h3 id="10-rutas-relativas">10. Rutas relativas<a class="headerlink" href="#10-rutas-relativas" title="Permanent link">&para;</a></h3>
+<p>Cuando escribimos:</p>
+<pre><code class="language-java">new FileWriter(&quot;data/persona.json&quot;)
+</code></pre>
+<p>estamos utilizando una <strong>ruta relativa</strong>.</p>
+<p>No estamos indicando algo como:</p>
+<pre><code class="language-text">C:\Users\Ana\Documents\...
+</code></pre>
+<p>sino una ruta relativa al directorio de trabajo desde el que se ejecuta el programa.</p>
+<p>Esto hace que el proyecto sea más fácil de compartir.</p>
+<p>Por ejemplo, evitaremos:</p>
+<pre><code class="language-java">new FileWriter(
+    &quot;C:\\Users\\usuario\\Documents\\persona.json&quot;
+);
+</code></pre>
+<p>porque esa ruta únicamente tendría sentido en un equipo concreto.</p>
+<p>Preferiremos:</p>
+<pre><code class="language-java">new FileWriter(
+    &quot;data/persona.json&quot;
+);
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Evita rutas absolutas</p>
+<p>Si utilizamos una ruta absoluta vinculada a nuestro ordenador, el proyecto probablemente dejará de funcionar cuando otro alumno lo descargue.</p>
+</div>
+<hr />
+<h2 id="crear-el-directorio-automaticamente">Crear el directorio automáticamente<a class="headerlink" href="#crear-el-directorio-automaticamente" title="Permanent link">&para;</a></h2>
+<h3 id="11-que-ocurre-si-data-no-existe">11. ¿Qué ocurre si <code>data</code> no existe?<a class="headerlink" href="#11-que-ocurre-si-data-no-existe" title="Permanent link">&para;</a></h3>
+<p><code>FileWriter</code> puede crear el fichero:</p>
+<pre><code class="language-text">persona.json
+</code></pre>
+<p>pero necesita que el directorio en el que queremos guardarlo exista.</p>
+<p>Por tanto, si:</p>
+<pre><code class="language-text">data/
+</code></pre>
+<p>no existe, debemos crearlo.</p>
+<p>Una forma moderna de hacerlo es mediante:</p>
+<pre><code class="language-java">Files.createDirectories()
+</code></pre>
+<p>Necesitaremos:</p>
+<pre><code class="language-java">import java.nio.file.Files;
+import java.nio.file.Path;
+</code></pre>
+<p>Podemos escribir:</p>
+<pre><code class="language-java">Path directorio = Path.of(&quot;data&quot;);
+
+Files.createDirectories(directorio);
+</code></pre>
+<p>Si el directorio ya existe, podemos seguir trabajando con él.</p>
+<p>Después:</p>
+<pre><code class="language-java">Path fichero =
+        directorio.resolve(&quot;persona.json&quot;);
+</code></pre>
+<p>obtendremos una ruta equivalente a:</p>
+<pre><code class="language-text">data/persona.json
+</code></pre>
+<p>El proceso queda:</p>
+<pre><code class="language-text">Path.of(&quot;data&quot;)
+       │
+       ▼
+directorio
+       │
+       │ Files.createDirectories()
+       ▼
+aseguramos que existe
+       │
+       │ resolve(&quot;persona.json&quot;)
+       ▼
+data/persona.json
+</code></pre>
+<hr />
+<h2 id="primer-caso-guardar-un-jsonobject">Primer caso: guardar un JSONObject<a class="headerlink" href="#primer-caso-guardar-un-jsonobject" title="Permanent link">&para;</a></h2>
+<h3 id="12-guardarjsonv1java">12. GuardarJSONv1.java<a class="headerlink" href="#12-guardarjsonv1java" title="Permanent link">&para;</a></h3>
+<p>Nuestro primer ejemplo de escritura será:</p>
+<pre><code class="language-text">GuardarJSONv1.java
+</code></pre>
+<p>El objetivo es sencillo:</p>
+<pre><code class="language-text">crear una persona
+        ↓
+crear JSONObject
+        ↓
+añadir propiedades
+        ↓
+convertir a texto
+        ↓
+guardar persona.json
+</code></pre>
+<p>Queremos obtener un fichero similar a:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;edad&quot;: 21,
+    &quot;nota&quot;: 8.5,
+    &quot;repetidor&quot;: false
+}
+</code></pre>
+<hr />
+<h3 id="13-paso-1-crear-el-jsonobject">13. Paso 1: crear el JSONObject<a class="headerlink" href="#13-paso-1-crear-el-jsonobject" title="Permanent link">&para;</a></h3>
+<p>Creamos el objeto:</p>
+<pre><code class="language-java">JSONObject persona =
+        new JSONObject();
+</code></pre>
+<p>Añadimos sus propiedades:</p>
+<pre><code class="language-java">persona.put(&quot;nombre&quot;, &quot;Ana&quot;);
+persona.put(&quot;edad&quot;, 21);
+persona.put(&quot;nota&quot;, 8.5);
+persona.put(&quot;repetidor&quot;, false);
+</code></pre>
+<p>En memoria tenemos:</p>
+<pre><code class="language-text">JSONObject persona
+│
+├── nombre     → Ana
+├── edad       → 21
+├── nota       → 8.5
+└── repetidor  → false
+</code></pre>
+<hr />
+<h3 id="14-paso-2-preparar-la-carpeta">14. Paso 2: preparar la carpeta<a class="headerlink" href="#14-paso-2-preparar-la-carpeta" title="Permanent link">&para;</a></h3>
+<p>Creamos la ruta:</p>
+<pre><code class="language-java">Path directorio =
+        Path.of(&quot;data&quot;);
+</code></pre>
+<p>Nos aseguramos de que exista:</p>
+<pre><code class="language-java">Files.createDirectories(
+        directorio
+);
+</code></pre>
+<hr />
+<h3 id="15-paso-3-preparar-la-ruta-del-fichero">15. Paso 3: preparar la ruta del fichero<a class="headerlink" href="#15-paso-3-preparar-la-ruta-del-fichero" title="Permanent link">&para;</a></h3>
+<p>Podemos construir la ruta mediante:</p>
+<pre><code class="language-java">Path fichero =
+        directorio.resolve(
+            &quot;persona.json&quot;
+        );
+</code></pre>
+<p>Ahora:</p>
+<pre><code class="language-text">directorio → data
+
+fichero → data/persona.json
+</code></pre>
+<hr />
+<h3 id="16-paso-4-abrir-filewriter">16. Paso 4: abrir FileWriter<a class="headerlink" href="#16-paso-4-abrir-filewriter" title="Permanent link">&para;</a></h3>
+<p>Abrimos el fichero:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(
+            fichero.toFile()
+        )) {
+
+}
+</code></pre>
+<p>Dentro del bloque realizaremos la escritura.</p>
+<hr />
+<h3 id="17-paso-5-escribir-el-json">17. Paso 5: escribir el JSON<a class="headerlink" href="#17-paso-5-escribir-el-json" title="Permanent link">&para;</a></h3>
+<p>Convertimos el objeto a texto:</p>
+<pre><code class="language-java">persona.toString(4)
+</code></pre>
+<p>y lo escribimos:</p>
+<pre><code class="language-java">writer.write(
+        persona.toString(4)
+);
+</code></pre>
+<p>El bloque completo queda:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(
+            fichero.toFile()
+        )) {
+
+    writer.write(
+        persona.toString(4)
+    );
+}
+</code></pre>
+<hr />
+<h3 id="18-resultado">18. Resultado<a class="headerlink" href="#18-resultado" title="Permanent link">&para;</a></h3>
+<p>Después de ejecutar el programa tendremos:</p>
+<pre><code class="language-text">data/
+└── persona.json
+</code></pre>
+<p>con un contenido similar a:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;,
+    &quot;edad&quot;: 21,
+    &quot;nota&quot;: 8.5,
+    &quot;repetidor&quot;: false
+}
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Orden de las propiedades</p>
+<p>No debemos basar la lógica del programa en que las propiedades de un objeto JSON aparezcan siempre visualmente en el mismo orden.</p>
+<p>Lo importante son las claves y sus valores.</p>
+</div>
+<hr />
+<h3 id="19-ejemplo-completo-guardarjsonv1java">19. Ejemplo completo: GuardarJSONv1.java<a class="headerlink" href="#19-ejemplo-completo-guardarjsonv1java" title="Permanent link">&para;</a></h3>
+<pre><code class="language-java">package com.example;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.json.JSONObject;
+
+public class GuardarJSONv1 {
+
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. CREAR EL OBJETO JSON
+        // ==========================================
+
+        JSONObject persona =
+                new JSONObject();
+
+        persona.put(&quot;nombre&quot;, &quot;Ana&quot;);
+        persona.put(&quot;edad&quot;, 21);
+        persona.put(&quot;nota&quot;, 8.5);
+        persona.put(&quot;repetidor&quot;, false);
+
+
+        // ==========================================
+        // 2. MOSTRAR POR CONSOLA
+        // ==========================================
+
+        System.out.println(
+            &quot;JSON que vamos a guardar:&quot;
+        );
+
+        System.out.println(
+            persona.toString(4)
+        );
+
+
+        // ==========================================
+        // 3. PREPARAR DIRECTORIO Y FICHERO
+        // ==========================================
+
+        Path directorio =
+                Path.of(&quot;data&quot;);
+
+        Path fichero =
+                directorio.resolve(
+                    &quot;persona.json&quot;
+                );
+
+
+        // ==========================================
+        // 4. GUARDAR EL JSON
+        // ==========================================
+
+        try {
+
+            Files.createDirectories(
+                directorio
+            );
+
+            try (FileWriter writer =
+                    new FileWriter(
+                        fichero.toFile()
+                    )) {
+
+                writer.write(
+                    persona.toString(4)
+                );
+            }
+
+            System.out.println(
+                &quot;\nFichero guardado en:&quot;
+            );
+
+            System.out.println(
+                fichero.toAbsolutePath()
+            );
+
+        } catch (IOException e) {
+
+            System.out.println(
+                &quot;Error al guardar el fichero:&quot;
+            );
+
+            System.out.println(
+                e.getMessage()
+            );
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2 id="segundo-caso-guardar-un-jsonarray">Segundo caso: guardar un JSONArray<a class="headerlink" href="#segundo-caso-guardar-un-jsonarray" title="Permanent link">&para;</a></h2>
+<h3 id="20-guardarjsonv2java">20. GuardarJSONv2.java<a class="headerlink" href="#20-guardarjsonv2java" title="Permanent link">&para;</a></h3>
+<p>Ahora vamos a guardar una estructura más completa.</p>
+<p>En lugar de almacenar una sola persona queremos almacenar <strong>varias personas</strong>.</p>
+<p>El JSON tendrá esta forma:</p>
+<pre><code class="language-json">[
+    {
+        &quot;id&quot;: 1,
+        &quot;nombre&quot;: &quot;Ana&quot;,
+        &quot;edad&quot;: 21
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nombre&quot;: &quot;Luis&quot;,
+        &quot;edad&quot;: 23
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;nombre&quot;: &quot;Marta&quot;,
+        &quot;edad&quot;: 20
+    }
+]
+</code></pre>
+<p>La estructura principal ya no es:</p>
+<pre><code class="language-text">JSONObject
+</code></pre>
+<p>sino:</p>
+<pre><code class="language-text">JSONArray
+</code></pre>
+<hr />
+<h3 id="21-paso-1-crear-los-objetos">21. Paso 1: crear los objetos<a class="headerlink" href="#21-paso-1-crear-los-objetos" title="Permanent link">&para;</a></h3>
+<p>Creamos la primera persona:</p>
+<pre><code class="language-java">JSONObject persona1 =
+        new JSONObject();
+
+persona1.put(&quot;id&quot;, 1);
+persona1.put(&quot;nombre&quot;, &quot;Ana&quot;);
+persona1.put(&quot;edad&quot;, 21);
+</code></pre>
+<p>La segunda:</p>
+<pre><code class="language-java">JSONObject persona2 =
+        new JSONObject();
+
+persona2.put(&quot;id&quot;, 2);
+persona2.put(&quot;nombre&quot;, &quot;Luis&quot;);
+persona2.put(&quot;edad&quot;, 23);
+</code></pre>
+<p>La tercera:</p>
+<pre><code class="language-java">JSONObject persona3 =
+        new JSONObject();
+
+persona3.put(&quot;id&quot;, 3);
+persona3.put(&quot;nombre&quot;, &quot;Marta&quot;);
+persona3.put(&quot;edad&quot;, 20);
+</code></pre>
+<hr />
+<h3 id="22-paso-2-crear-el-jsonarray">22. Paso 2: crear el JSONArray<a class="headerlink" href="#22-paso-2-crear-el-jsonarray" title="Permanent link">&para;</a></h3>
+<p>Creamos:</p>
+<pre><code class="language-java">JSONArray personas =
+        new JSONArray();
+</code></pre>
+<p>Añadimos los objetos:</p>
+<pre><code class="language-java">personas.put(persona1);
+personas.put(persona2);
+personas.put(persona3);
+</code></pre>
+<p>Tenemos:</p>
+<pre><code class="language-text">JSONArray personas
+│
+├── [0] JSONObject persona1
+├── [1] JSONObject persona2
+└── [2] JSONObject persona3
+</code></pre>
+<hr />
+<h3 id="23-paso-3-convertir-el-jsonarray-a-texto">23. Paso 3: convertir el JSONArray a texto<a class="headerlink" href="#23-paso-3-convertir-el-jsonarray-a-texto" title="Permanent link">&para;</a></h3>
+<p>Exactamente igual que con <code>JSONObject</code>, podemos utilizar:</p>
+<pre><code class="language-java">personas.toString(4)
+</code></pre>
+<p>Por tanto:</p>
+<pre><code class="language-java">String json =
+        personas.toString(4);
+</code></pre>
+<p>contendrá una representación textual del array JSON.</p>
+<hr />
+<h3 id="24-paso-4-guardar-el-fichero">24. Paso 4: guardar el fichero<a class="headerlink" href="#24-paso-4-guardar-el-fichero" title="Permanent link">&para;</a></h3>
+<p>Queremos obtener:</p>
+<pre><code class="language-text">data/personas.json
+</code></pre>
+<p>Creamos la ruta:</p>
+<pre><code class="language-java">Path directorio =
+        Path.of(&quot;data&quot;);
+
+Path fichero =
+        directorio.resolve(
+            &quot;personas.json&quot;
+        );
+</code></pre>
+<p>Y escribimos:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(
+            fichero.toFile()
+        )) {
+
+    writer.write(
+        personas.toString(4)
+    );
+}
+</code></pre>
+<hr />
+<h3 id="25-ejemplo-completo-guardarjsonv2java">25. Ejemplo completo: GuardarJSONv2.java<a class="headerlink" href="#25-ejemplo-completo-guardarjsonv2java" title="Permanent link">&para;</a></h3>
+<pre><code class="language-java">package com.example;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class GuardarJSONv2 {
+
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. CREAR LAS PERSONAS
+        // ==========================================
+
+        JSONObject persona1 =
+                new JSONObject();
+
+        persona1.put(&quot;id&quot;, 1);
+        persona1.put(&quot;nombre&quot;, &quot;Ana&quot;);
+        persona1.put(&quot;edad&quot;, 21);
+
+
+        JSONObject persona2 =
+                new JSONObject();
+
+        persona2.put(&quot;id&quot;, 2);
+        persona2.put(&quot;nombre&quot;, &quot;Luis&quot;);
+        persona2.put(&quot;edad&quot;, 23);
+
+
+        JSONObject persona3 =
+                new JSONObject();
+
+        persona3.put(&quot;id&quot;, 3);
+        persona3.put(&quot;nombre&quot;, &quot;Marta&quot;);
+        persona3.put(&quot;edad&quot;, 20);
+
+
+        // ==========================================
+        // 2. CREAR EL ARRAY
+        // ==========================================
+
+        JSONArray personas =
+                new JSONArray();
+
+        personas.put(persona1);
+        personas.put(persona2);
+        personas.put(persona3);
+
+
+        // ==========================================
+        // 3. MOSTRAR POR CONSOLA
+        // ==========================================
+
+        System.out.println(
+            &quot;JSON que vamos a guardar:&quot;
+        );
+
+        System.out.println(
+            personas.toString(4)
+        );
+
+
+        // ==========================================
+        // 4. PREPARAR RUTAS
+        // ==========================================
+
+        Path directorio =
+                Path.of(&quot;data&quot;);
+
+        Path fichero =
+                directorio.resolve(
+                    &quot;personas.json&quot;
+                );
+
+
+        // ==========================================
+        // 5. GUARDAR EL JSON
+        // ==========================================
+
+        try {
+
+            Files.createDirectories(
+                directorio
+            );
+
+            try (FileWriter writer =
+                    new FileWriter(
+                        fichero.toFile()
+                    )) {
+
+                writer.write(
+                    personas.toString(4)
+                );
+            }
+
+            System.out.println(
+                &quot;\nFichero guardado en:&quot;
+            );
+
+            System.out.println(
+                fichero.toAbsolutePath()
+            );
+
+        } catch (IOException e) {
+
+            System.out.println(
+                &quot;Error al guardar el fichero:&quot;
+            );
+
+            System.out.println(
+                e.getMessage()
+            );
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2 id="comparacion-de-los-dos-ejemplos">Comparación de los dos ejemplos<a class="headerlink" href="#comparacion-de-los-dos-ejemplos" title="Permanent link">&para;</a></h2>
+<h3 id="26-guardarjsonv1-frente-a-guardarjsonv2">26. GuardarJSONv1 frente a GuardarJSONv2<a class="headerlink" href="#26-guardarjsonv1-frente-a-guardarjsonv2" title="Permanent link">&para;</a></h3>
+<p>Los dos ejemplos realizan prácticamente el mismo proceso.</p>
+<p>La diferencia principal está en la estructura JSON que queremos almacenar.</p>
+<table>
+<thead>
+<tr>
+<th>Ejemplo</th>
+<th>Estructura principal</th>
+<th>Fichero</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GuardarJSONv1.java</code></td>
+<td><code>JSONObject</code></td>
+<td><code>persona.json</code></td>
+</tr>
+<tr>
+<td><code>GuardarJSONv2.java</code></td>
+<td><code>JSONArray</code> de objetos</td>
+<td><code>personas.json</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="version-1">Versión 1<a class="headerlink" href="#version-1" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">JSONObject
+     │
+     │ toString(4)
+     ▼
+FileWriter
+     │
+     ▼
+persona.json
+</code></pre>
+<h4 id="version-2">Versión 2<a class="headerlink" href="#version-2" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">JSONObject ─┐
+JSONObject ─┼──► JSONArray
+JSONObject ─┘         │
+                      │ toString(4)
+                      ▼
+                  FileWriter
+                      │
+                      ▼
+                personas.json
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">El mecanismo de escritura no cambia</p>
+<p><code>FileWriter</code> no necesita saber si originalmente trabajábamos con un <code>JSONObject</code> o un <code>JSONArray</code>.</p>
+<p>En ambos casos escribimos finalmente un texto:</p>
+<p><code>java
+estructuraJSON.toString(4)</code></p>
+</div>
+<hr />
+<h2 id="sobrescribir-y-anadir">Sobrescribir y añadir<a class="headerlink" href="#sobrescribir-y-anadir" title="Permanent link">&para;</a></h2>
+<h3 id="27-que-ocurre-si-el-fichero-ya-existe">27. ¿Qué ocurre si el fichero ya existe?<a class="headerlink" href="#27-que-ocurre-si-el-fichero-ya-existe" title="Permanent link">&para;</a></h3>
+<p>Cuando utilizamos:</p>
+<pre><code class="language-java">new FileWriter(&quot;data/persona.json&quot;)
+</code></pre>
+<p>si el fichero ya existe, su contenido se <strong>sobrescribe</strong>.</p>
+<p>Esto suele ser precisamente lo que queremos cuando guardamos un documento JSON completo.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-text">ejecución 1
+    ↓
+persona.json
+    ↓
+Ana
+
+
+ejecución 2
+    ↓
+persona.json
+    ↓
+Luis
+</code></pre>
+<p>La segunda escritura sustituirá el contenido anterior.</p>
+<hr />
+<h3 id="28-podemos-anadir-contenido-al-final">28. ¿Podemos añadir contenido al final?<a class="headerlink" href="#28-podemos-anadir-contenido-al-final" title="Permanent link">&para;</a></h3>
+<p><code>FileWriter</code> permite abrir un fichero en modo append:</p>
+<pre><code class="language-java">new FileWriter(
+    &quot;data/persona.json&quot;,
+    true
+);
+</code></pre>
+<p>El parámetro:</p>
+<pre><code class="language-java">true
+</code></pre>
+<p>indica que el nuevo contenido se añadirá al final.</p>
+<p>Sin embargo, debemos tener cuidado cuando trabajamos con JSON.</p>
+<p>Por ejemplo, si tenemos:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Ana&quot;
+}
+</code></pre>
+<p>y simplemente añadimos:</p>
+<pre><code class="language-json">{
+    &quot;nombre&quot;: &quot;Luis&quot;
+}
+</code></pre>
+<p>obtendríamos:</p>
+<pre><code class="language-text">{
+    &quot;nombre&quot;: &quot;Ana&quot;
+}
+{
+    &quot;nombre&quot;: &quot;Luis&quot;
+}
+</code></pre>
+<p>Esto <strong>no representa un único documento JSON válido</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">No uses append sin pensar en la estructura</p>
+<p>Para almacenar varios objetos en un único documento JSON, normalmente construiremos una estructura válida, por ejemplo un <code>JSONArray</code>, y guardaremos el documento completo.</p>
+</div>
+<p>Por ejemplo:</p>
+<pre><code class="language-json">[
+    {
+        &quot;nombre&quot;: &quot;Ana&quot;
+    },
+    {
+        &quot;nombre&quot;: &quot;Luis&quot;
+    }
+]
+</code></pre>
+<hr />
+<h2 id="errores-frecuentes">Errores frecuentes<a class="headerlink" href="#errores-frecuentes" title="Permanent link">&para;</a></h2>
+<h3 id="29-intentar-escribir-directamente-un-jsonobject">29. Intentar escribir directamente un JSONObject<a class="headerlink" href="#29-intentar-escribir-directamente-un-jsonobject" title="Permanent link">&para;</a></h3>
+<p>Debemos recordar el proceso:</p>
+<pre><code class="language-text">JSONObject
+    ↓
+toString()
+    ↓
+String
+    ↓
+FileWriter
+</code></pre>
+<p>Por claridad utilizaremos:</p>
+<pre><code class="language-java">writer.write(
+    objeto.toString(4)
+);
+</code></pre>
+<hr />
+<h3 id="30-la-carpeta-no-existe">30. La carpeta no existe<a class="headerlink" href="#30-la-carpeta-no-existe" title="Permanent link">&para;</a></h3>
+<p>Si intentamos escribir:</p>
+<pre><code class="language-java">new FileWriter(
+    &quot;data/persona.json&quot;
+);
+</code></pre>
+<p>pero:</p>
+<pre><code class="language-text">data/
+</code></pre>
+<p>no existe, la escritura puede fallar.</p>
+<p>Por eso podemos crear previamente el directorio:</p>
+<pre><code class="language-java">Files.createDirectories(
+    Path.of(&quot;data&quot;)
+);
+</code></pre>
+<hr />
+<h3 id="31-utilizar-una-ruta-absoluta">31. Utilizar una ruta absoluta<a class="headerlink" href="#31-utilizar-una-ruta-absoluta" title="Permanent link">&para;</a></h3>
+<p>Evita:</p>
+<pre><code class="language-java">&quot;C:\\Users\\usuario\\Desktop\\persona.json&quot;
+</code></pre>
+<p>porque esa ruta depende de un ordenador concreto.</p>
+<p>Preferiremos:</p>
+<pre><code class="language-java">&quot;data/persona.json&quot;
+</code></pre>
+<hr />
+<h3 id="32-olvidar-cerrar-filewriter">32. Olvidar cerrar FileWriter<a class="headerlink" href="#32-olvidar-cerrar-filewriter" title="Permanent link">&para;</a></h3>
+<p>Si hacemos:</p>
+<pre><code class="language-java">FileWriter writer =
+        new FileWriter(...);
+</code></pre>
+<p>debemos asegurarnos de cerrarlo.</p>
+<p>La opción que utilizaremos será:</p>
+<pre><code class="language-java">try (FileWriter writer =
+        new FileWriter(...)) {
+
+    ...
+}
+</code></pre>
+<p>Así Java gestiona automáticamente el cierre.</p>
+<hr />
+<h3 id="33-confundir-crear-json-con-guardar-json">33. Confundir crear JSON con guardar JSON<a class="headerlink" href="#33-confundir-crear-json-con-guardar-json" title="Permanent link">&para;</a></h3>
+<p>Estas instrucciones:</p>
+<pre><code class="language-java">JSONObject alumno =
+        new JSONObject();
+
+alumno.put(&quot;nombre&quot;, &quot;Ana&quot;);
+</code></pre>
+<p><strong>no crean todavía ningún fichero</strong>.</p>
+<p>Solo crean una estructura en memoria.</p>
+<p>Necesitamos después:</p>
+<pre><code class="language-java">FileWriter
+</code></pre>
+<p>para almacenarla.</p>
+<pre><code class="language-text">new JSONObject()
+      ↓
+JSON EN MEMORIA
+
+FileWriter
+      ↓
+JSON EN DISCO
+</code></pre>
+<hr />
+<h3 id="34-guardar-varios-objetos-uno-detras-de-otro">34. Guardar varios objetos uno detrás de otro<a class="headerlink" href="#34-guardar-varios-objetos-uno-detras-de-otro" title="Permanent link">&para;</a></h3>
+<p>No debemos escribir varios objetos independientes consecutivamente pensando que automáticamente se convertirán en un array.</p>
+<p>Si necesitamos almacenar varios elementos:</p>
+<pre><code class="language-text">persona1
+persona2
+persona3
+</code></pre>
+<p>primero construiremos:</p>
+<pre><code class="language-java">JSONArray personas =
+        new JSONArray();
+
+personas.put(persona1);
+personas.put(persona2);
+personas.put(persona3);
+</code></pre>
+<p>y después:</p>
+<pre><code class="language-java">writer.write(
+    personas.toString(4)
+);
+</code></pre>
+<hr />
+<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
+<h3 id="35-flujo-completo-de-escritura">35. Flujo completo de escritura<a class="headerlink" href="#35-flujo-completo-de-escritura" title="Permanent link">&para;</a></h3>
+<p>El proceso que debemos recordar es:</p>
+<pre><code class="language-text">DATOS JAVA
+    │
+    ▼
+JSONObject / JSONArray
+    │
+    │ put(...)
+    ▼
+ESTRUCTURA JSON
+    │
+    │ toString(4)
+    ▼
+STRING
+    │
+    │ FileWriter.write(...)
+    ▼
+FICHERO .json
+</code></pre>
+<hr />
+<h3 id="36-elementos-principales-utilizados">36. Elementos principales utilizados<a class="headerlink" href="#36-elementos-principales-utilizados" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JSONObject</code></td>
+<td>Representar un objeto JSON</td>
+</tr>
+<tr>
+<td><code>JSONArray</code></td>
+<td>Representar un array JSON</td>
+</tr>
+<tr>
+<td><code>put()</code></td>
+<td>Añadir información</td>
+</tr>
+<tr>
+<td><code>toString()</code></td>
+<td>Convertir la estructura JSON a texto</td>
+</tr>
+<tr>
+<td><code>toString(4)</code></td>
+<td>Convertir a texto con indentación</td>
+</tr>
+<tr>
+<td><code>Path</code></td>
+<td>Representar una ruta</td>
+</tr>
+<tr>
+<td><code>Files.createDirectories()</code></td>
+<td>Crear el directorio si no existe</td>
+</tr>
+<tr>
+<td><code>FileWriter</code></td>
+<td>Escribir texto en el fichero</td>
+</tr>
+<tr>
+<td><code>try-with-resources</code></td>
+<td>Cerrar automáticamente el recurso</td>
+</tr>
+<tr>
+<td><code>IOException</code></td>
+<td>Gestionar errores de entrada/salida</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="37-los-dos-ejemplos-que-debemos-comprender">37. Los dos ejemplos que debemos comprender<a class="headerlink" href="#37-los-dos-ejemplos-que-debemos-comprender" title="Permanent link">&para;</a></h3>
+<h4 id="guardarjsonv1java">GuardarJSONv1.java<a class="headerlink" href="#guardarjsonv1java" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">JSONObject
+     │
+     ▼
+put()
+     │
+     ▼
+toString(4)
+     │
+     ▼
+FileWriter
+     │
+     ▼
+persona.json
+</code></pre>
+<h4 id="guardarjsonv2java">GuardarJSONv2.java<a class="headerlink" href="#guardarjsonv2java" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">JSONObject
+JSONObject
+JSONObject
+     │
+     ▼
+ JSONArray
+     │
+     ▼
+toString(4)
+     │
+     ▼
+FileWriter
+     │
+     ▼
+personas.json
+</code></pre>
+<hr />
+<h3 id="38-ejemplos-incluidos-en-el-proyecto">38. Ejemplos incluidos en el proyecto<a class="headerlink" href="#38-ejemplos-incluidos-en-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>Los ejemplos correspondientes a este apartado están incluidos en el proyecto Maven descargable de <code>org.json</code>:</p>
+<ul>
+<li><code>GuardarJSONv1.java</code> → crea y guarda un <code>JSONObject</code> en <code>data/persona.json</code>.</li>
+<li><code>GuardarJSONv2.java</code> → crea y guarda un <code>JSONArray</code> de objetos en <code>data/personas.json</code>.</li>
+</ul>
+<p>Puedes descargar el proyecto Maven completo desde la página de <strong>Introducción a org.json</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Proyecto de ejemplos</p>
+<p>El proyecto descargable es común a todos los apartados de <code>org.json</code>.<br />
+A medida que avancemos iremos utilizando distintos ejemplos del mismo proyecto.</p>
+</div>
+<h3 id="39-que-ocurre-despues">39. ¿Qué ocurre después?<a class="headerlink" href="#39-que-ocurre-despues" title="Permanent link">&para;</a></h3>
+<p>Ya sabemos realizar el recorrido:</p>
+<pre><code class="language-text">JAVA
+  ↓
+JSONObject / JSONArray
+  ↓
+JSON
+  ↓
+FICHERO
+</code></pre>
+<p>El siguiente paso será realizar el proceso contrario:</p>
+<pre><code class="language-text">FICHERO
+   ↓
+leer contenido
+   ↓
+JSONTokener
+   ↓
+JSONObject / JSONArray
+   ↓
+get...() / opt...()
+   ↓
+DATOS
+</code></pre>
+<p>Para ello estudiaremos la clase:</p>
+<pre><code class="language-java">JSONTokener
+</code></pre>
+<p>y veremos cómo funcionan los ejemplos:</p>
+<pre><code class="language-text">LeerJSONv1.java
+LeerJSONv2.java
+</code></pre>
+<div class="admonition success">
+<p class="admonition-title">Objetivo alcanzado</p>
+<p>Llegados a este punto ya sabemos <strong>construir estructuras JSON y almacenarlas de forma persistente en ficheros</strong>.</p>
+<p>En el siguiente apartado aprenderemos a recuperar esos datos.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

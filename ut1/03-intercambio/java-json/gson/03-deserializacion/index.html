@@ -1,0 +1,5147 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-serializacion/">
+      
+      
+        <link rel="next" href="../04-colecciones/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Deserialización - Acceso a Datos - 2º DAM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deserializacion-de-json-a-objetos-java" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a Datos - 2º DAM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deserialización
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a Datos - 2º DAM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1 · Ficheros y formatos de intercambio de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de la unidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Ficheros, flujos y excepciones
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Ficheros, flujos y excepciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/01-file-directorios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/02-acceso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso secuencial y aleatorio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/03-flujos-bytes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de bytes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/04-flujos-caracteres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flujos de caracteres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/05-excepciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excepciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01-ficheros/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serialización de objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Serialización de objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/01-conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializable y transient
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/02-un-objeto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializar y deserializar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/03-varios-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varios objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/04-append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Añadir objetos - append
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/05-versionado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    serialVersionUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02-serializacion/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Formatos de intercambio
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Formatos de intercambio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    org.json
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    org.json
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/02-jsonobject/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONObject
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/03-jsonarray/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSONArray
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/04-guardar-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guardar JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/05-leer-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leer JSON y JSONTokener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../org-json/06-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-deserializar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ¿Qué es deserializar?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partimos-de-un-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partimos de un JSON
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Partimos de un JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-json-almacenado-en-una-cadena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. JSON almacenado en una cadena
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#necesitamos-el-modelo-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necesitamos el modelo Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Necesitamos el modelo Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-alumnojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Alumno.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-gson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear Gson
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear Gson">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-objeto-gson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Objeto Gson
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fromJson()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fromJson()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-primera-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Primera deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-que-devuelve-fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ¿Qué devuelve fromJson()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-alumnoclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa Alumno.class?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué significa Alumno.class?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#7-indicar-el-tipo-que-queremos-obtener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Indicar el tipo que queremos obtener
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultado-de-la-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado de la deserialización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultado de la deserialización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-recuperar-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Recuperar los datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demogsonjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DemoGson.java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DemoGson.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-serializar-y-deserializar-en-el-mismo-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Serializar y deserializar en el mismo ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-que-esta-ocurriendo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. ¿Qué está ocurriendo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-objeto-original-y-el-recuperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El objeto original y el recuperado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El objeto original y el recuperado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-son-dos-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Son dos objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correspondencia-de-nombres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correspondencia de nombres
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Correspondencia de nombres">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-gson-relaciona-las-propiedades-json-con-los-campos-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Gson relaciona las propiedades JSON con los campos Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-ocurre-si-falta-un-campo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre si falta un campo?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué ocurre si falta un campo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-json-incompleto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. JSON incompleto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-ocurre-si-sobra-una-propiedad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre si sobra una propiedad?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué ocurre si sobra una propiedad?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#14-json-con-informacion-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. JSON con información adicional
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-los-tipos-no-coinciden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Y si los tipos no coinciden?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Y si los tipos no coinciden?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#15-el-tipo-de-los-datos-tambien-importa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. El tipo de los datos también importa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetos-anidados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetos anidados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objetos anidados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-deserializar-estructuras-mas-complejas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Deserializar estructuras más complejas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-gson-reconstruye-tambien-el-objeto-anidado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Gson reconstruye también el objeto anidado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-con-orgjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación con org.json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación con org.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18-lectura-manual-frente-a-mapeo-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Lectura manual frente a mapeo automático
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-estamos-leyendo-todavia-un-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No estamos leyendo todavía un fichero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No estamos leyendo todavía un fichero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#19-el-json-sigue-estando-en-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. El JSON sigue estando en memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fromjson-y-el-tipo-de-destino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fromJson() y el tipo de destino
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fromJson() y el tipo de destino">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-un-objeto-sencillo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Un objeto sencillo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-conceptuales-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores conceptuales frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores conceptuales frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-confundir-tojson-y-fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Confundir toJson() y fromJson()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-olvidar-indicar-la-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Olvidar indicar la clase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-pensar-que-fromjson-devuelve-siempre-un-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Pensar que fromJson() devuelve siempre un String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-confundir-deserializar-con-leer-un-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Confundir deserializar con leer un fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serializacion-y-deserializacion-juntas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialización y deserialización juntas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serialización y deserialización juntas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-los-dos-caminos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Los dos caminos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-de-este-apartado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos de este apartado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos de este apartado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-clases-que-debemos-comprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Clases que debemos comprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antes-de-continuar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de continuar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de continuar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#27-comprueba-que-sabes-explicar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Comprueba que sabes explicar...
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeToken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-adaptadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adaptadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jackson
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Jackson
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/02-serializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/03-deserializacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deserialización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/04-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colecciones y TypeReference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/05-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/06-jsonnode-anotaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JsonNode y anotaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jackson/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python y JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python y JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/01-preparacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/02-dumps-loads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dumps() y loads()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/03-estructuras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diccionarios y listas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/04-ficheros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ficheros JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/05-pathlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pathlib y rutas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/06-personalizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos personalizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-json/07-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/01-xml-basico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analizadores XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Analizadores XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/01-dom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Lectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/02-dom-crud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOM - Modificación y CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/03-sax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/04-jaxb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAXB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../04-analizadores/05-comparativa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparativa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. XPath
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. XPath
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/01-rutas-selectores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rutas y selectores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/02-predicados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicados y filtros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/03-funciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/04-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XPath desde Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../05-xpath/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Conversión XML ↔ JSON
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    6. Conversión XML ↔ JSON
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/01-enfoques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enfoques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/02-xml-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML → JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/03-json-xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON → XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/04-automatica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversión automática
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../06-conversion/05-resumen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-deserializar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ¿Qué es deserializar?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partimos-de-un-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partimos de un JSON
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Partimos de un JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-json-almacenado-en-una-cadena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. JSON almacenado en una cadena
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#necesitamos-el-modelo-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necesitamos el modelo Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Necesitamos el modelo Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-alumnojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Alumno.java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-gson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear Gson
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear Gson">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-objeto-gson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Objeto Gson
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fromJson()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fromJson()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-primera-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Primera deserialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-que-devuelve-fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ¿Qué devuelve fromJson()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-alumnoclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa Alumno.class?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué significa Alumno.class?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#7-indicar-el-tipo-que-queremos-obtener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Indicar el tipo que queremos obtener
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultado-de-la-deserializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado de la deserialización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultado de la deserialización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-recuperar-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Recuperar los datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demogsonjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DemoGson.java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DemoGson.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-serializar-y-deserializar-en-el-mismo-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Serializar y deserializar en el mismo ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-que-esta-ocurriendo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. ¿Qué está ocurriendo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-objeto-original-y-el-recuperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El objeto original y el recuperado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El objeto original y el recuperado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-son-dos-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Son dos objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correspondencia-de-nombres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correspondencia de nombres
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Correspondencia de nombres">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-gson-relaciona-las-propiedades-json-con-los-campos-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Gson relaciona las propiedades JSON con los campos Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-ocurre-si-falta-un-campo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre si falta un campo?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué ocurre si falta un campo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-json-incompleto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. JSON incompleto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-ocurre-si-sobra-una-propiedad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre si sobra una propiedad?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué ocurre si sobra una propiedad?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#14-json-con-informacion-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. JSON con información adicional
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-los-tipos-no-coinciden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Y si los tipos no coinciden?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Y si los tipos no coinciden?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#15-el-tipo-de-los-datos-tambien-importa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. El tipo de los datos también importa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetos-anidados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetos anidados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objetos anidados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-deserializar-estructuras-mas-complejas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Deserializar estructuras más complejas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-gson-reconstruye-tambien-el-objeto-anidado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Gson reconstruye también el objeto anidado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion-con-orgjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación con org.json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación con org.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18-lectura-manual-frente-a-mapeo-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Lectura manual frente a mapeo automático
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-estamos-leyendo-todavia-un-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No estamos leyendo todavía un fichero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No estamos leyendo todavía un fichero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#19-el-json-sigue-estando-en-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. El JSON sigue estando en memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fromjson-y-el-tipo-de-destino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fromJson() y el tipo de destino
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fromJson() y el tipo de destino">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-un-objeto-sencillo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Un objeto sencillo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-conceptuales-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores conceptuales frecuentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Errores conceptuales frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-confundir-tojson-y-fromjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Confundir toJson() y fromJson()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-olvidar-indicar-la-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Olvidar indicar la clase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-pensar-que-fromjson-devuelve-siempre-un-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Pensar que fromJson() devuelve siempre un String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-confundir-deserializar-con-leer-un-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Confundir deserializar con leer un fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serializacion-y-deserializacion-juntas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialización y deserialización juntas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serialización y deserialización juntas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-los-dos-caminos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Los dos caminos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-de-este-apartado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos de este apartado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos de este apartado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-clases-que-debemos-comprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Clases que debemos comprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antes-de-continuar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de continuar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de continuar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#27-comprueba-que-sabes-explicar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Comprueba que sabes explicar...
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deserializacion-de-json-a-objetos-java">Deserialización: de JSON a objetos Java<a class="headerlink" href="#deserializacion-de-json-a-objetos-java" title="Permanent link">&para;</a></h1>
+<h3 id="1-que-es-deserializar">1. ¿Qué es deserializar?<a class="headerlink" href="#1-que-es-deserializar" title="Permanent link">&para;</a></h3>
+<p>En el apartado anterior hemos aprendido a realizar este proceso:</p>
+<pre><code class="language-text">OBJETO JAVA
+     │
+     │ toJson()
+     ▼
+    JSON
+</code></pre>
+<p>Este proceso recibe el nombre de <strong>serialización</strong>.</p>
+<p>Ahora vamos a realizar el proceso contrario:</p>
+<pre><code class="language-text">    JSON
+     │
+     │ fromJson()
+     ▼
+OBJETO JAVA
+</code></pre>
+<p>Este proceso recibe el nombre de <strong>deserialización</strong>.</p>
+<p>Gson utiliza para ello el método:</p>
+<pre><code class="language-java">fromJson()
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Dos operaciones fundamentales</p>
+<p>Con Gson debemos distinguir claramente:</p>
+<p>```text
+             toJson()
+OBJETO JAVA ──────────► JSON</p>
+<pre><code>         fromJson()
+</code></pre>
+<p>OBJETO JAVA ◄────────── JSON
+```</p>
+</div>
+<hr />
+<h2 id="partimos-de-un-json">Partimos de un JSON<a class="headerlink" href="#partimos-de-un-json" title="Permanent link">&para;</a></h2>
+<h3 id="2-json-almacenado-en-una-cadena">2. JSON almacenado en una cadena<a class="headerlink" href="#2-json-almacenado-en-una-cadena" title="Permanent link">&para;</a></h3>
+<p>Supongamos que recibimos los siguientes datos:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>En Java podemos almacenarlos inicialmente en un <code>String</code>.</p>
+<p>Con Java 21 podemos utilizar un <strong>text block</strong>:</p>
+<pre><code class="language-java">String json =
+        &quot;&quot;&quot;
+        {
+          &quot;id&quot;: 1,
+          &quot;nombre&quot;: &quot;Ana&quot;,
+          &quot;nota&quot;: 8.5
+        }
+        &quot;&quot;&quot;;
+</code></pre>
+<p>En este momento tenemos:</p>
+<pre><code class="language-text">String json
+     │
+     ▼
+┌──────────────────────────┐
+│ {                        │
+│   &quot;id&quot;: 1,               │
+│   &quot;nombre&quot;: &quot;Ana&quot;,       │
+│   &quot;nota&quot;: 8.5            │
+│ }                        │
+└──────────────────────────┘
+</code></pre>
+<p>Todavía no tenemos un objeto <code>Alumno</code>.</p>
+<hr />
+<h2 id="necesitamos-el-modelo-java">Necesitamos el modelo Java<a class="headerlink" href="#necesitamos-el-modelo-java" title="Permanent link">&para;</a></h2>
+<h3 id="3-alumnojava">3. Alumno.java<a class="headerlink" href="#3-alumnojava" title="Permanent link">&para;</a></h3>
+<p>Para que Gson pueda transformar el JSON en un objeto necesitamos indicar qué tipo de objeto queremos obtener.</p>
+<p>Continuaremos utilizando nuestro modelo:</p>
+<pre><code class="language-java">public class Alumno {
+
+    private int id;
+    private String nombre;
+    private double nota;
+
+    public Alumno() {
+    }
+
+    public Alumno(
+            int id,
+            String nombre,
+            double nota) {
+
+        this.id = id;
+        this.nombre = nombre;
+        this.nota = nota;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
+
+    @Override
+    public String toString() {
+
+        return &quot;Alumno{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, nombre='&quot; + nombre + '\'' +
+                &quot;, nota=&quot; + nota +
+                '}';
+    }
+}
+</code></pre>
+<p>Podemos representar la correspondencia así:</p>
+<pre><code class="language-text">JSON                       CLASE JAVA
+
+&quot;id&quot;        ───────────►   id
+
+&quot;nombre&quot;    ───────────►   nombre
+
+&quot;nota&quot;      ───────────►   nota
+</code></pre>
+<hr />
+<h2 id="crear-gson">Crear Gson<a class="headerlink" href="#crear-gson" title="Permanent link">&para;</a></h2>
+<h3 id="4-objeto-gson">4. Objeto Gson<a class="headerlink" href="#4-objeto-gson" title="Permanent link">&para;</a></h3>
+<p>Necesitamos nuevamente un objeto <code>Gson</code>:</p>
+<pre><code class="language-java">import com.google.gson.Gson;
+</code></pre>
+<p>y:</p>
+<pre><code class="language-java">Gson gson =
+        new Gson();
+</code></pre>
+<p>Ahora podemos utilizar:</p>
+<pre><code class="language-java">gson.fromJson(...)
+</code></pre>
+<hr />
+<h2 id="fromjson">fromJson()<a class="headerlink" href="#fromjson" title="Permanent link">&para;</a></h2>
+<h3 id="5-primera-deserializacion">5. Primera deserialización<a class="headerlink" href="#5-primera-deserializacion" title="Permanent link">&para;</a></h3>
+<p>Podemos transformar el JSON anterior en un objeto <code>Alumno</code>:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>Esta instrucción es una de las más importantes de Gson.</p>
+<p>Analicémosla:</p>
+<pre><code class="language-text">gson.fromJson(json, Alumno.class)
+              │          │
+              │          │
+              │          └── tipo de objeto
+              │              que queremos obtener
+              │
+              └── JSON que queremos leer
+</code></pre>
+<p>El resultado se guarda en:</p>
+<pre><code class="language-java">Alumno alumno
+</code></pre>
+<hr />
+<h3 id="6-que-devuelve-fromjson">6. ¿Qué devuelve fromJson()?<a class="headerlink" href="#6-que-devuelve-fromjson" title="Permanent link">&para;</a></h3>
+<p>En este caso:</p>
+<pre><code class="language-java">gson.fromJson(
+    json,
+    Alumno.class
+)
+</code></pre>
+<p>devuelve un objeto de tipo:</p>
+<pre><code class="language-java">Alumno
+</code></pre>
+<p>Por eso podemos escribir:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>El proceso es:</p>
+<pre><code class="language-text">String con JSON
+      │
+      │ fromJson()
+      ▼
+    Alumno
+</code></pre>
+<hr />
+<h2 id="que-significa-alumnoclass">¿Qué significa Alumno.class?<a class="headerlink" href="#que-significa-alumnoclass" title="Permanent link">&para;</a></h2>
+<h3 id="7-indicar-el-tipo-que-queremos-obtener">7. Indicar el tipo que queremos obtener<a class="headerlink" href="#7-indicar-el-tipo-que-queremos-obtener" title="Permanent link">&para;</a></h3>
+<p>Observa esta parte:</p>
+<pre><code class="language-java">Alumno.class
+</code></pre>
+<p>Gson necesita saber <strong>qué tipo de objeto debe construir</strong> a partir del JSON.</p>
+<p>Por ejemplo, si tenemos:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>indicamos:</p>
+<pre><code class="language-java">Alumno.class
+</code></pre>
+<p>porque queremos que Gson interprete esos datos utilizando la estructura de la clase:</p>
+<pre><code class="language-java">Alumno
+</code></pre>
+<p>Conceptualmente:</p>
+<pre><code class="language-text">JSON
+ │
+ │ &quot;Quiero interpretar estos datos
+ │  como un Alumno&quot;
+ │
+ ▼
+Alumno.class
+ │
+ ▼
+Objeto Alumno
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title"><code>Alumno.class</code> no crea el objeto</p>
+<p><code>Alumno.class</code> proporciona a Gson información sobre el tipo Java que queremos obtener.</p>
+<p>Es <code>fromJson()</code> quien realiza la conversión.</p>
+</div>
+<hr />
+<h2 id="resultado-de-la-deserializacion">Resultado de la deserialización<a class="headerlink" href="#resultado-de-la-deserializacion" title="Permanent link">&para;</a></h2>
+<h3 id="8-recuperar-los-datos">8. Recuperar los datos<a class="headerlink" href="#8-recuperar-los-datos" title="Permanent link">&para;</a></h3>
+<p>Después de:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>podemos utilizar el objeto como cualquier otro objeto Java:</p>
+<pre><code class="language-java">System.out.println(
+        alumno.getId()
+);
+</code></pre>
+<pre><code class="language-java">System.out.println(
+        alumno.getNombre()
+);
+</code></pre>
+<pre><code class="language-java">System.out.println(
+        alumno.getNota()
+);
+</code></pre>
+<p>Obtendremos:</p>
+<pre><code class="language-text">1
+Ana
+8.5
+</code></pre>
+<p>Es decir, hemos pasado de:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>a algo equivalente a:</p>
+<pre><code class="language-java">Alumno alumno =
+        new Alumno(
+            1,
+            &quot;Ana&quot;,
+            8.5
+        );
+</code></pre>
+<hr />
+<h2 id="demogsonjava">DemoGson.java<a class="headerlink" href="#demogsonjava" title="Permanent link">&para;</a></h2>
+<h3 id="9-serializar-y-deserializar-en-el-mismo-ejemplo">9. Serializar y deserializar en el mismo ejemplo<a class="headerlink" href="#9-serializar-y-deserializar-en-el-mismo-ejemplo" title="Permanent link">&para;</a></h3>
+<p>Podemos utilizar <code>DemoGson.java</code> para comprobar los dos recorridos.</p>
+<pre><code class="language-java">package com.example;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+public class DemoGson {
+
+    public static void main(String[] args) {
+
+        // ==========================================
+        // 1. CREAR OBJETO JAVA
+        // ==========================================
+
+        Alumno alumnoOriginal =
+                new Alumno(
+                    1,
+                    &quot;Ana&quot;,
+                    8.5
+                );
+
+
+        // ==========================================
+        // 2. CREAR GSON
+        // ==========================================
+
+        Gson gson =
+                new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+
+
+        // ==========================================
+        // 3. SERIALIZAR
+        //    Java -&gt; JSON
+        // ==========================================
+
+        String json =
+                gson.toJson(
+                    alumnoOriginal
+                );
+
+        System.out.println(
+            &quot;JSON generado:&quot;
+        );
+
+        System.out.println(json);
+
+
+        // ==========================================
+        // 4. DESERIALIZAR
+        //    JSON -&gt; Java
+        // ==========================================
+
+        Alumno alumnoRecuperado =
+                gson.fromJson(
+                    json,
+                    Alumno.class
+                );
+
+
+        // ==========================================
+        // 5. UTILIZAR EL OBJETO RECUPERADO
+        // ==========================================
+
+        System.out.println(
+            &quot;\nAlumno recuperado:&quot;
+        );
+
+        System.out.println(
+            alumnoRecuperado
+        );
+    }
+}
+</code></pre>
+<hr />
+<h3 id="10-que-esta-ocurriendo">10. ¿Qué está ocurriendo?<a class="headerlink" href="#10-que-esta-ocurriendo" title="Permanent link">&para;</a></h3>
+<p>El programa anterior realiza un recorrido completo:</p>
+<pre><code class="language-text">┌─────────────────────────┐
+│     alumnoOriginal      │
+│       Alumno            │
+└────────────┬────────────┘
+             │
+             │ toJson()
+             ▼
+┌─────────────────────────┐
+│       String json       │
+│                         │
+│ {                       │
+│   &quot;id&quot;: 1,              │
+│   &quot;nombre&quot;: &quot;Ana&quot;,      │
+│   &quot;nota&quot;: 8.5           │
+│ }                       │
+└────────────┬────────────┘
+             │
+             │ fromJson()
+             │ Alumno.class
+             ▼
+┌─────────────────────────┐
+│   alumnoRecuperado      │
+│       Alumno            │
+└─────────────────────────┘
+</code></pre>
+<p>Tenemos por tanto:</p>
+<pre><code class="language-text">              toJson()
+Alumno ─────────────────► JSON
+                           │
+                           │ fromJson()
+                           ▼
+                         Alumno
+</code></pre>
+<hr />
+<h2 id="el-objeto-original-y-el-recuperado">El objeto original y el recuperado<a class="headerlink" href="#el-objeto-original-y-el-recuperado" title="Permanent link">&para;</a></h2>
+<h3 id="11-son-dos-objetos">11. Son dos objetos<a class="headerlink" href="#11-son-dos-objetos" title="Permanent link">&para;</a></h3>
+<p>Es importante comprender que:</p>
+<pre><code class="language-java">Alumno alumnoOriginal =
+        new Alumno(
+            1,
+            &quot;Ana&quot;,
+            8.5
+        );
+</code></pre>
+<p>y:</p>
+<pre><code class="language-java">Alumno alumnoRecuperado =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>son <strong>dos objetos Java distintos</strong>.</p>
+<p>Los datos pueden ser iguales:</p>
+<pre><code class="language-text">alumnoOriginal
+    │
+    ├── id = 1
+    ├── nombre = &quot;Ana&quot;
+    └── nota = 8.5
+
+
+alumnoRecuperado
+    │
+    ├── id = 1
+    ├── nombre = &quot;Ana&quot;
+    └── nota = 8.5
+</code></pre>
+<p>pero no debemos interpretar que Gson está recuperando mágicamente el mismo objeto que existía anteriormente.</p>
+<p>Está construyendo un objeto a partir de los datos contenidos en el JSON.</p>
+<hr />
+<h2 id="correspondencia-de-nombres">Correspondencia de nombres<a class="headerlink" href="#correspondencia-de-nombres" title="Permanent link">&para;</a></h2>
+<h3 id="12-gson-relaciona-las-propiedades-json-con-los-campos-java">12. Gson relaciona las propiedades JSON con los campos Java<a class="headerlink" href="#12-gson-relaciona-las-propiedades-json-con-los-campos-java" title="Permanent link">&para;</a></h3>
+<p>Supongamos:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5
+}
+</code></pre>
+<p>y nuestra clase:</p>
+<pre><code class="language-java">public class Alumno {
+
+    private int id;
+    private String nombre;
+    private double nota;
+
+}
+</code></pre>
+<p>Gson puede establecer:</p>
+<pre><code class="language-text">JSON                JAVA
+
+&quot;id&quot;       ───────► id
+
+&quot;nombre&quot;   ───────► nombre
+
+&quot;nota&quot;     ───────► nota
+</code></pre>
+<p>Los nombres tienen por tanto una gran importancia en el mapeo automático.</p>
+<hr />
+<h2 id="que-ocurre-si-falta-un-campo">¿Qué ocurre si falta un campo?<a class="headerlink" href="#que-ocurre-si-falta-un-campo" title="Permanent link">&para;</a></h2>
+<h3 id="13-json-incompleto">13. JSON incompleto<a class="headerlink" href="#13-json-incompleto" title="Permanent link">&para;</a></h3>
+<p>Supongamos que recibimos:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;
+}
+</code></pre>
+<p>pero nuestra clase tiene:</p>
+<pre><code class="language-java">private int id;
+private String nombre;
+private double nota;
+</code></pre>
+<p>El JSON no contiene:</p>
+<pre><code class="language-text">nota
+</code></pre>
+<p>Para un tipo primitivo como:</p>
+<pre><code class="language-java">double
+</code></pre>
+<p>el campo conservará su valor por defecto:</p>
+<pre><code class="language-text">0.0
+</code></pre>
+<p>Por tanto podríamos obtener conceptualmente:</p>
+<pre><code class="language-text">Alumno
+ │
+ ├── id = 1
+ ├── nombre = &quot;Ana&quot;
+ └── nota = 0.0
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Un campo ausente no siempre provoca un error</p>
+<p>Esto puede ser cómodo, pero también puede ocultar datos que faltan.</p>
+<p>Después de deserializar datos externos conviene comprobar que la información obtenida cumple los requisitos de nuestra aplicación.</p>
+</div>
+<hr />
+<h2 id="que-ocurre-si-sobra-una-propiedad">¿Qué ocurre si sobra una propiedad?<a class="headerlink" href="#que-ocurre-si-sobra-una-propiedad" title="Permanent link">&para;</a></h2>
+<h3 id="14-json-con-informacion-adicional">14. JSON con información adicional<a class="headerlink" href="#14-json-con-informacion-adicional" title="Permanent link">&para;</a></h3>
+<p>Supongamos:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5,
+  &quot;grupo&quot;: &quot;2DAM&quot;
+}
+</code></pre>
+<p>pero nuestra clase solamente contiene:</p>
+<pre><code class="language-java">private int id;
+private String nombre;
+private double nota;
+</code></pre>
+<p>La propiedad:</p>
+<pre><code class="language-json">&quot;grupo&quot;: &quot;2DAM&quot;
+</code></pre>
+<p>no tiene un campo equivalente en nuestro modelo.</p>
+<p>En una deserialización normal, Gson puede ignorar esa información adicional y construir el objeto con los campos que reconoce.</p>
+<p>Conceptualmente:</p>
+<pre><code class="language-text">JSON                    Alumno
+
+&quot;id&quot;       ───────────► id
+
+&quot;nombre&quot;   ───────────► nombre
+
+&quot;nota&quot;     ───────────► nota
+
+&quot;grupo&quot;    ───────────► no existe
+                        en Alumno
+</code></pre>
+<hr />
+<h2 id="y-si-los-tipos-no-coinciden">¿Y si los tipos no coinciden?<a class="headerlink" href="#y-si-los-tipos-no-coinciden" title="Permanent link">&para;</a></h2>
+<h3 id="15-el-tipo-de-los-datos-tambien-importa">15. El tipo de los datos también importa<a class="headerlink" href="#15-el-tipo-de-los-datos-tambien-importa" title="Permanent link">&para;</a></h3>
+<p>Nuestra clase espera:</p>
+<pre><code class="language-java">private double nota;
+</code></pre>
+<p>y normalmente el JSON debería contener:</p>
+<pre><code class="language-json">&quot;nota&quot;: 8.5
+</code></pre>
+<p>Si recibimos estructuras o valores incompatibles con el tipo esperado, la conversión puede fallar.</p>
+<p>Por tanto, aunque Gson automatice gran parte del trabajo, seguimos necesitando conocer:</p>
+<ul>
+<li>la estructura del JSON;</li>
+<li>nuestro modelo Java;</li>
+<li>los tipos de los datos;</li>
+<li>la correspondencia entre ambos.</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Gson automatiza la conversión, pero eso no significa que cualquier JSON pueda convertirse en cualquier clase Java.</p>
+</div>
+<hr />
+<h2 id="objetos-anidados">Objetos anidados<a class="headerlink" href="#objetos-anidados" title="Permanent link">&para;</a></h2>
+<h3 id="16-deserializar-estructuras-mas-complejas">16. Deserializar estructuras más complejas<a class="headerlink" href="#16-deserializar-estructuras-mas-complejas" title="Permanent link">&para;</a></h3>
+<p>Supongamos que tenemos:</p>
+<pre><code class="language-java">public class Direccion {
+
+    private String ciudad;
+    private String codigoPostal;
+
+    // ...
+}
+</code></pre>
+<p>y:</p>
+<pre><code class="language-java">public class Alumno {
+
+    private int id;
+    private String nombre;
+    private double nota;
+    private Direccion direccion;
+
+    // ...
+}
+</code></pre>
+<p>Podemos recibir:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana&quot;,
+  &quot;nota&quot;: 8.5,
+  &quot;direccion&quot;: {
+    &quot;ciudad&quot;: &quot;Alcalá de Henares&quot;,
+    &quot;codigoPostal&quot;: &quot;28801&quot;
+  }
+}
+</code></pre>
+<p>y realizar:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<hr />
+<h3 id="17-gson-reconstruye-tambien-el-objeto-anidado">17. Gson reconstruye también el objeto anidado<a class="headerlink" href="#17-gson-reconstruye-tambien-el-objeto-anidado" title="Permanent link">&para;</a></h3>
+<p>Conceptualmente:</p>
+<pre><code class="language-text">JSON
+ │
+ ├── id
+ ├── nombre
+ ├── nota
+ │
+ └── direccion
+       │
+       ├── ciudad
+       └── codigoPostal
+
+             │
+             │ fromJson()
+             ▼
+
+Alumno
+ │
+ ├── id
+ ├── nombre
+ ├── nota
+ │
+ └── Direccion
+       │
+       ├── ciudad
+       └── codigoPostal
+</code></pre>
+<p>Después podremos hacer:</p>
+<pre><code class="language-java">System.out.println(
+    alumno.getDireccion()
+          .getCiudad()
+);
+</code></pre>
+<p>y obtener:</p>
+<pre><code class="language-text">Alcalá de Henares
+</code></pre>
+<hr />
+<h2 id="comparacion-con-orgjson">Comparación con org.json<a class="headerlink" href="#comparacion-con-orgjson" title="Permanent link">&para;</a></h2>
+<h3 id="18-lectura-manual-frente-a-mapeo-automatico">18. Lectura manual frente a mapeo automático<a class="headerlink" href="#18-lectura-manual-frente-a-mapeo-automatico" title="Permanent link">&para;</a></h3>
+<p>Con <code>org.json</code> podíamos recuperar los datos manualmente:</p>
+<pre><code class="language-java">String nombre =
+        objeto.getString(
+            &quot;nombre&quot;
+        );
+
+double nota =
+        objeto.getDouble(
+            &quot;nota&quot;
+        );
+</code></pre>
+<p>Después, si queríamos construir un <code>Alumno</code>, podríamos hacer:</p>
+<pre><code class="language-java">Alumno alumno =
+        new Alumno(
+            id,
+            nombre,
+            nota
+        );
+</code></pre>
+<p>Con Gson:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>Podemos representarlo así:</p>
+<pre><code class="language-text">org.json
+────────────────────────────
+
+JSON
+ ↓
+JSONObject
+ ↓
+getInt()
+getString()
+getDouble()
+ ↓
+datos
+ ↓
+new Alumno(...)
+
+
+Gson
+────────────────────────────
+
+JSON
+ ↓
+fromJson()
+ ↓
+Alumno
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Ventaja del mapeo</p>
+<p>Cuanto más complejo es nuestro modelo de objetos, más útil puede resultar que la librería realice automáticamente gran parte de la conversión.</p>
+</div>
+<hr />
+<h2 id="no-estamos-leyendo-todavia-un-fichero">No estamos leyendo todavía un fichero<a class="headerlink" href="#no-estamos-leyendo-todavia-un-fichero" title="Permanent link">&para;</a></h2>
+<h3 id="19-el-json-sigue-estando-en-memoria">19. El JSON sigue estando en memoria<a class="headerlink" href="#19-el-json-sigue-estando-en-memoria" title="Permanent link">&para;</a></h3>
+<p>En este ejemplo:</p>
+<pre><code class="language-java">String json =
+        &quot;&quot;&quot;
+        {
+          &quot;id&quot;: 1,
+          &quot;nombre&quot;: &quot;Ana&quot;,
+          &quot;nota&quot;: 8.5
+        }
+        &quot;&quot;&quot;;
+</code></pre>
+<p>los datos están en una variable.</p>
+<p>Por tanto:</p>
+<pre><code class="language-text">MEMORIA
+
+String JSON
+    │
+    │ fromJson()
+    ▼
+  Alumno
+</code></pre>
+<p>Todavía <strong>no estamos leyendo <code>alumnos.json</code> desde el disco</strong>.</p>
+<p>Más adelante realizaremos:</p>
+<pre><code class="language-text">FICHERO JSON
+     │
+     ▼
+   Reader
+     │
+     ▼
+ fromJson()
+     │
+     ▼
+Objeto Java
+</code></pre>
+<p>Es importante aprender primero ambas conversiones en memoria.</p>
+<hr />
+<h2 id="fromjson-y-el-tipo-de-destino">fromJson() y el tipo de destino<a class="headerlink" href="#fromjson-y-el-tipo-de-destino" title="Permanent link">&para;</a></h2>
+<h3 id="20-un-objeto-sencillo">20. Un objeto sencillo<a class="headerlink" href="#20-un-objeto-sencillo" title="Permanent link">&para;</a></h3>
+<p>Para un objeto sencillo podemos utilizar:</p>
+<pre><code class="language-java">Alumno.class
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>Pero más adelante querremos recuperar algo como:</p>
+<pre><code class="language-java">List&lt;Alumno&gt;
+</code></pre>
+<p>y entonces aparecerá una dificultad:</p>
+<pre><code class="language-text">¿Cómo indicamos a Gson
+que queremos exactamente
+una List&lt;Alumno&gt;?
+</code></pre>
+<p>Ahí necesitaremos estudiar:</p>
+<pre><code class="language-java">TypeToken
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Todavía no necesitamos TypeToken</p>
+<p>Para convertir un único objeto <code>Alumno</code> podemos utilizar directamente:</p>
+<p><code>java
+Alumno.class</code></p>
+<p>Introduciremos <code>TypeToken</code> cuando trabajemos con colecciones genéricas.</p>
+</div>
+<hr />
+<h2 id="errores-conceptuales-frecuentes">Errores conceptuales frecuentes<a class="headerlink" href="#errores-conceptuales-frecuentes" title="Permanent link">&para;</a></h2>
+<h3 id="21-confundir-tojson-y-fromjson">21. Confundir toJson() y fromJson()<a class="headerlink" href="#21-confundir-tojson-y-fromjson" title="Permanent link">&para;</a></h3>
+<p>Recuerda:</p>
+<pre><code class="language-text">toJson()
+Java → JSON
+</code></pre>
+<p>mientras que:</p>
+<pre><code class="language-text">fromJson()
+JSON → Java
+</code></pre>
+<hr />
+<h3 id="22-olvidar-indicar-la-clase">22. Olvidar indicar la clase<a class="headerlink" href="#22-olvidar-indicar-la-clase" title="Permanent link">&para;</a></h3>
+<p>Para obtener un <code>Alumno</code> necesitamos indicar:</p>
+<pre><code class="language-java">Alumno.class
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-java">gson.fromJson(
+    json,
+    Alumno.class
+);
+</code></pre>
+<hr />
+<h3 id="23-pensar-que-fromjson-devuelve-siempre-un-string">23. Pensar que fromJson() devuelve siempre un String<a class="headerlink" href="#23-pensar-que-fromjson-devuelve-siempre-un-string" title="Permanent link">&para;</a></h3>
+<p>No.</p>
+<p>En:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>obtenemos un:</p>
+<pre><code class="language-java">Alumno
+</code></pre>
+<p>El tipo de destino que proporcionamos es fundamental.</p>
+<hr />
+<h3 id="24-confundir-deserializar-con-leer-un-fichero">24. Confundir deserializar con leer un fichero<a class="headerlink" href="#24-confundir-deserializar-con-leer-un-fichero" title="Permanent link">&para;</a></h3>
+<p>Esto:</p>
+<pre><code class="language-java">gson.fromJson(
+    json,
+    Alumno.class
+);
+</code></pre>
+<p>puede trabajar con un JSON que ya tenemos en memoria.</p>
+<p>Leer un fichero será otro paso:</p>
+<pre><code class="language-text">fichero
+   ↓
+Reader
+   ↓
+Gson
+   ↓
+objeto Java
+</code></pre>
+<hr />
+<h2 id="serializacion-y-deserializacion-juntas">Serialización y deserialización juntas<a class="headerlink" href="#serializacion-y-deserializacion-juntas" title="Permanent link">&para;</a></h2>
+<h3 id="25-los-dos-caminos">25. Los dos caminos<a class="headerlink" href="#25-los-dos-caminos" title="Permanent link">&para;</a></h3>
+<p>Ya podemos comprender el núcleo de Gson:</p>
+<pre><code class="language-text">                  SERIALIZAR
+
+                   toJson()
+┌────────────┐ ───────────────► ┌────────────┐
+│            │                  │            │
+│   Alumno   │                  │    JSON    │
+│            │ ◄─────────────── │            │
+└────────────┘    fromJson()    └────────────┘
+
+                 DESERIALIZAR
+</code></pre>
+<p>Los dos métodos fundamentales son:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Conversión</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toJson()</code></td>
+<td>Java → JSON</td>
+</tr>
+<tr>
+<td><code>fromJson()</code></td>
+<td>JSON → Java</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ejemplos-de-este-apartado">Ejemplos de este apartado<a class="headerlink" href="#ejemplos-de-este-apartado" title="Permanent link">&para;</a></h2>
+<h3 id="26-clases-que-debemos-comprender">26. Clases que debemos comprender<a class="headerlink" href="#26-clases-que-debemos-comprender" title="Permanent link">&para;</a></h3>
+<p>Seguimos utilizando principalmente:</p>
+<table>
+<thead>
+<tr>
+<th>Fichero</th>
+<th>Finalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Alumno.java</code></td>
+<td>Modelo de datos</td>
+</tr>
+<tr>
+<td><code>DemoGson.java</code></td>
+<td>Serialización y deserialización en memoria</td>
+</tr>
+</tbody>
+</table>
+<p>El fragmento fundamental de este apartado es:</p>
+<pre><code class="language-java">Alumno alumno =
+        gson.fromJson(
+            json,
+            Alumno.class
+        );
+</code></pre>
+<p>que representa:</p>
+<pre><code class="language-text">JSON
+ │
+ │ fromJson()
+ │ Alumno.class
+ ▼
+Alumno
+</code></pre>
+<hr />
+<h2 id="antes-de-continuar">Antes de continuar<a class="headerlink" href="#antes-de-continuar" title="Permanent link">&para;</a></h2>
+<h3 id="27-comprueba-que-sabes-explicar">27. Comprueba que sabes explicar...<a class="headerlink" href="#27-comprueba-que-sabes-explicar" title="Permanent link">&para;</a></h3>
+<p><strong>¿Qué es deserializar?</strong></p>
+<pre><code class="language-text">Convertir JSON en un objeto Java.
+</code></pre>
+<p><strong>¿Qué método utilizamos?</strong></p>
+<pre><code class="language-java">fromJson()
+</code></pre>
+<p><strong>¿Para qué sirve <code>Alumno.class</code>?</strong></p>
+<pre><code class="language-text">Para indicar a Gson el tipo Java
+que queremos obtener.
+</code></pre>
+<p><strong>¿Necesitamos utilizar <code>JSONObject</code>?</strong></p>
+<pre><code class="language-text">No.
+</code></pre>
+<p><strong>¿fromJson() implica necesariamente leer un fichero?</strong></p>
+<pre><code class="language-text">No.
+</code></pre>
+<p><strong>¿Cuál es la diferencia fundamental entre los dos métodos?</strong></p>
+<pre><code class="language-text">toJson()    → Java a JSON
+
+fromJson()  → JSON a Java
+</code></pre>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">Ya conocemos las dos direcciones</p>
+<p>Ya podemos realizar las dos operaciones fundamentales de Gson:</p>
+<p>```text
+             toJson()
+OBJETO JAVA ──────────► JSON</p>
+<pre><code>         fromJson()
+</code></pre>
+<p>OBJETO JAVA ◄────────── JSON
+```</p>
+<p>El siguiente paso será aplicar este mismo mecanismo a <strong>varios objetos</strong>, trabajando con colecciones como <code>List&lt;Alumno&gt;</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
