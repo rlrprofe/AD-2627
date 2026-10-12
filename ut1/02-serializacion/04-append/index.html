@@ -804,6 +804,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dos-patrones-diferentes-de-append" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos patrones diferentes de append
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2198,6 +2209,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2949,6 +2988,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dos-patrones-diferentes-de-append" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos patrones diferentes de append
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3001,6 +3051,10 @@ try (OutputStream fos = new FileOutputStream(f, true);
 }
 </code></pre>
 <p>Así la cabecera se escribe únicamente al crear el fichero por primera vez.</p>
+<hr />
+<h2 id="dos-patrones-diferentes-de-append">Dos patrones diferentes de append<a class="headerlink" href="#dos-patrones-diferentes-de-append" title="Permanent link">&para;</a></h2>
+<p><code>AnadirObjetosPatronUnicoOOS</code> mantiene abierto <strong>un único</strong> <code>ObjectOutputStream</code>: no hay problema de cabeceras duplicadas. <code>AnadirObjetosAppendSinCabecera</code> reabre el fichero en modo append usando <code>AppendingObjectOutputStream</code>, que omite una nueva cabecera. Este segundo patrón es más delicado: requiere que el fichero existente sea un flujo de objetos válido y puede duplicar registros si se repite la ejecución.</p>
+<p><a href="../../../descargas/ut1/serializacion/code_examples_1-2.zip"><strong>Descargar proyecto Maven revisado (Java 21)</strong></a></p>
 
 
 

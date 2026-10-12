@@ -2114,6 +2114,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2832,10 +2860,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preguntas-de-repaso" class="md-nav__link">
+  <a href="#que-debes-saber-hacer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preguntas de repaso
+        Qué debes saber hacer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preguntas-de-autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de autoevaluación
       
     </span>
   </a>
@@ -2893,10 +2943,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preguntas-de-repaso" class="md-nav__link">
+  <a href="#que-debes-saber-hacer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preguntas de repaso
+        Qué debes saber hacer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preguntas-de-autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de autoevaluación
       
     </span>
   </a>
@@ -2921,45 +2993,71 @@
 
 
 <h1 id="resumen-conversion-xml-json">Resumen · Conversión XML ↔ JSON<a class="headerlink" href="#resumen-conversion-xml-json" title="Permanent link">&para;</a></h1>
+<h2 id="que-debes-saber-hacer">Qué debes saber hacer<a class="headerlink" href="#que-debes-saber-hacer" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Tarea</th>
-<th>Tecnologías vistas</th>
+<th>Objetivo</th>
+<th>Clase del proyecto</th>
+<th>Tecnología</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Leer XML</td>
-<td>DOM, SAX, JAXB</td>
+<td>Convertir XML a JSON con DOM</td>
+<td><code>XmlToJsonManual1</code></td>
+<td>DOM + Gson</td>
 </tr>
 <tr>
-<td>Consultar XML</td>
-<td>XPath</td>
+<td>Convertir XML a JSON con XPath</td>
+<td><code>XmlToJsonManual2</code></td>
+<td>DOM + XPath + Gson</td>
 </tr>
 <tr>
-<td>Crear/modificar XML</td>
-<td>DOM, JAXB</td>
+<td>Convertir XML a JSON con SAX</td>
+<td><code>XmlToJsonManual3</code></td>
+<td>SAX + Gson</td>
 </tr>
 <tr>
-<td>Leer/escribir JSON</td>
-<td>org.json, Gson, Jackson</td>
+<td>Convertir JSON a XML con DOM</td>
+<td><code>JsonToXmlManual1</code></td>
+<td>Gson + DOM</td>
 </tr>
 <tr>
-<td>Transformar estructuras</td>
-<td>Código manual o modelo Java</td>
+<td>Convertir JSON a XML anidado</td>
+<td><code>JsonToXmlManual2_Recursivo</code></td>
+<td>Gson + DOM + recursividad</td>
+</tr>
+<tr>
+<td>Convertir XML a JSON mediante modelos</td>
+<td><code>XmlToJsonAutomatica1</code></td>
+<td>JAXB + Gson</td>
+</tr>
+<tr>
+<td>Convertir JSON a XML mediante modelos</td>
+<td><code>JsonToXmlAutomatico1</code></td>
+<td>Gson + JAXB</td>
 </tr>
 </tbody>
 </table>
-<p>La conversión <strong>manual</strong> es apropiada cuando necesitamos controlar exactamente el formato de salida. La conversión mediante <strong>modelo de objetos</strong> reduce código cuando la estructura está bien definida y es estable.</p>
-<h2 id="preguntas-de-repaso">Preguntas de repaso<a class="headerlink" href="#preguntas-de-repaso" title="Permanent link">&para;</a></h2>
+<h2 id="conceptos-clave">Conceptos clave<a class="headerlink" href="#conceptos-clave" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Conversión manual:</strong> el programa decide explícitamente cómo se traducen nodos, atributos y arrays.</li>
+<li><strong>Conversión mediante modelos:</strong> las clases Java representan los datos y las librerías realizan gran parte del trabajo.</li>
+<li><strong>No hay equivalencia perfecta:</strong> un atributo XML, un elemento repetido, un valor vacío o el orden de los nodos pueden requerir reglas propias.</li>
+<li><strong>Buenas prácticas:</strong> Java 21, UTF-8, control de errores, cierre de recursos y parsers XML protegidos frente a XXE.</li>
+</ul>
+<h2 id="preguntas-de-autoevaluacion">Preguntas de autoevaluación<a class="headerlink" href="#preguntas-de-autoevaluacion" title="Permanent link">&para;</a></h2>
 <ol>
-<li>¿Por qué XML y JSON no tienen una correspondencia perfecta?</li>
-<li>¿Cómo representarías un atributo XML en JSON?</li>
-<li>¿Qué ventaja ofrece usar objetos Java como modelo intermedio?</li>
-<li>¿Cuándo preferirías una conversión manual?</li>
-<li>¿Qué tecnologías de la UT1 pueden intervenir en una conversión XML → JSON?</li>
+<li>¿Por qué un atributo XML no se convierte siempre de la misma manera a JSON?</li>
+<li>¿En qué se diferencian DOM, XPath y SAX en los tres ejemplos XML → JSON?</li>
+<li>¿Por qué el ejemplo recursivo necesita reglas para los arrays?</li>
+<li>¿Qué funciones desempeñan Gson y JAXB en cada sentido?</li>
+<li>¿Por qué se necesitan clases <code>Cliente</code> y <code>Clientes</code> en el enfoque mediante modelos?</li>
+<li>¿Qué información podría perderse en una conversión XML → JSON → XML?</li>
 </ol>
+<p><strong>Práctica de consolidación:</strong> añade un cliente con un nombre que contenga una tilde, realiza una conversión en cada sentido y compara el resultado con los datos originales.</p>
+<p><a href="../">Descargar ambos proyectos Maven</a>.</p>
 
 
 

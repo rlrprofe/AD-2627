@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dom-lectura-y-navegacion" class="md-skip">
+        <a href="#dom-lectura-y-navegacion-de-xml" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2276,10 +2304,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#flujo-de-trabajo" class="md-nav__link">
+  <a href="#documento-de-partida" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flujo de trabajo
+        Documento de partida
       
     </span>
   </a>
@@ -2287,10 +2315,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cargar-un-documento" class="md-nav__link">
+  <a href="#flujo-de-lectura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cargar un documento
+        Flujo de lectura
       
     </span>
   </a>
@@ -2298,32 +2326,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#acceder-a-la-raiz" class="md-nav__link">
+  <a href="#recorrer-los-alumnos-leerxml_domjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Acceder a la raíz
+        Recorrer los alumnos: LeerXML_DOM.java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recorrer los alumnos: LeerXML_DOM.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultado-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#obtener-elementos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Obtener elementos
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clases-fundamentales" class="md-nav__link">
+  <a href="#clases-principales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Clases fundamentales
+        Clases principales
       
     </span>
   </a>
@@ -2939,10 +2973,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#flujo-de-trabajo" class="md-nav__link">
+  <a href="#documento-de-partida" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flujo de trabajo
+        Documento de partida
       
     </span>
   </a>
@@ -2950,10 +2984,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cargar-un-documento" class="md-nav__link">
+  <a href="#flujo-de-lectura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cargar un documento
+        Flujo de lectura
       
     </span>
   </a>
@@ -2961,32 +2995,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#acceder-a-la-raiz" class="md-nav__link">
+  <a href="#recorrer-los-alumnos-leerxml_domjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Acceder a la raíz
+        Recorrer los alumnos: LeerXML_DOM.java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recorrer los alumnos: LeerXML_DOM.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultado-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#obtener-elementos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Obtener elementos
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clases-fundamentales" class="md-nav__link">
+  <a href="#clases-principales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Clases fundamentales
+        Clases principales
       
     </span>
   </a>
@@ -3010,67 +3050,91 @@
 
 
 
-<h1 id="dom-lectura-y-navegacion">DOM · Lectura y navegación<a class="headerlink" href="#dom-lectura-y-navegacion" title="Permanent link">&para;</a></h1>
-<p>DOM carga el XML completo en memoria y lo representa como un <strong>árbol de nodos</strong>.</p>
-<h2 id="flujo-de-trabajo">Flujo de trabajo<a class="headerlink" href="#flujo-de-trabajo" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">XML → DocumentBuilderFactory → DocumentBuilder → Document → nodos
+<h1 id="dom-lectura-y-navegacion-de-xml">DOM · Lectura y navegación de XML<a class="headerlink" href="#dom-lectura-y-navegacion-de-xml" title="Permanent link">&para;</a></h1>
+<p>DOM (<em>Document Object Model</em>) representa un documento XML como un <strong>árbol de nodos en memoria</strong>. Permite consultar elementos, atributos y contenido, y resulta adecuado para documentos pequeños o medianos que necesitemos recorrer o modificar.</p>
+<h2 id="documento-de-partida">Documento de partida<a class="headerlink" href="#documento-de-partida" title="Permanent link">&para;</a></h2>
+<p>El proyecto incluye <code>data/alumnos.xml</code>:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;alumnos&gt;
+  &lt;alumno id=&quot;A001&quot;&gt;&lt;nombre&gt;Ana&lt;/nombre&gt;&lt;edad&gt;20&lt;/edad&gt;&lt;/alumno&gt;
+  &lt;alumno id=&quot;A002&quot;&gt;&lt;nombre&gt;Luis&lt;/nombre&gt;&lt;edad&gt;22&lt;/edad&gt;&lt;/alumno&gt;
+  &lt;alumno id=&quot;A003&quot;&gt;&lt;nombre&gt;Marta&lt;/nombre&gt;&lt;edad&gt;19&lt;/edad&gt;&lt;/alumno&gt;
+&lt;/alumnos&gt;
 </code></pre>
-<h2 id="cargar-un-documento">Cargar un documento<a class="headerlink" href="#cargar-un-documento" title="Permanent link">&para;</a></h2>
-<pre><code class="language-java">DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-DocumentBuilder builder = factory.newDocumentBuilder();
-Document doc = builder.parse(new File(&quot;resources/alumnos.xml&quot;));
-doc.getDocumentElement().normalize();
+<p>La raíz es <code>alumnos</code>; cada elemento <code>alumno</code> tiene un atributo <code>id</code> y dos elementos hijos: <code>nombre</code> y <code>edad</code>.</p>
+<h2 id="flujo-de-lectura">Flujo de lectura<a class="headerlink" href="#flujo-de-lectura" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">data/alumnos.xml
+   ↓ Files.newInputStream()
+DocumentBuilderFactory → DocumentBuilder
+   ↓ parse()
+Document → NodeList → Element → atributos y texto
 </code></pre>
-<h2 id="acceder-a-la-raiz">Acceder a la raíz<a class="headerlink" href="#acceder-a-la-raiz" title="Permanent link">&para;</a></h2>
-<pre><code class="language-java">Element raiz = doc.getDocumentElement();
-System.out.println(raiz.getTagName());
-</code></pre>
-<h2 id="obtener-elementos">Obtener elementos<a class="headerlink" href="#obtener-elementos" title="Permanent link">&para;</a></h2>
-<pre><code class="language-java">NodeList alumnos = doc.getElementsByTagName(&quot;alumno&quot;);
-
-for (int i = 0; i &lt; alumnos.getLength(); i++) {
-    Node nodo = alumnos.item(i);
-
-    if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-        Element alumno = (Element) nodo;
-
-        String id = alumno.getAttribute(&quot;id&quot;);
-        String nombre = alumno.getElementsByTagName(&quot;nombre&quot;)
-                              .item(0)
-                              .getTextContent();
-
-        System.out.println(id + &quot; - &quot; + nombre);
-    }
+<p>En el proyecto separamos dos responsabilidades:</p>
+<ul>
+<li><strong><code>config/XmlConfig.java</code></strong> crea una fábrica DOM configurada para rechazar DTD y entidades externas, evitando problemas de seguridad XXE.</li>
+<li><strong><code>repository/AlumnoXmlRepository.java</code></strong> abre el fichero con <code>Path</code> y <code>Files</code>, usa <code>try-with-resources</code> y devuelve un <code>Document</code>.</li>
+</ul>
+<p>Este es el fragmento principal del repositorio:</p>
+<pre><code class="language-java">try (InputStream entrada = Files.newInputStream(ruta)) {
+    Document documento = XmlConfig.domFactory()
+        .newDocumentBuilder()
+        .parse(entrada);
+    documento.getDocumentElement().normalize();
+    return documento;
 }
 </code></pre>
-<h2 id="clases-fundamentales">Clases fundamentales<a class="headerlink" href="#clases-fundamentales" title="Permanent link">&para;</a></h2>
+<p>El flujo se cierra automáticamente incluso si el análisis del XML produce un error. <code>normalize()</code> normaliza los nodos de texto del árbol; <strong>no valida</strong> el documento.</p>
+<h2 id="recorrer-los-alumnos-leerxml_domjava">Recorrer los alumnos: <code>LeerXML_DOM.java</code><a class="headerlink" href="#recorrer-los-alumnos-leerxml_domjava" title="Permanent link">&para;</a></h2>
+<p>Abre <code>app/LeerXML_DOM.java</code>. El programa recupera todos los elementos llamados <code>alumno</code> y los recorre:</p>
+<pre><code class="language-java">Document documento = new AlumnoXmlRepository()
+    .leer(Path.of(&quot;data/alumnos.xml&quot;));
+
+NodeList lista = documento.getElementsByTagName(&quot;alumno&quot;);
+for (int i = 0; i &lt; lista.getLength(); i++) {
+    Element alumno = (Element) lista.item(i);
+    String id = alumno.getAttribute(&quot;id&quot;);
+    String nombre = alumno.getElementsByTagName(&quot;nombre&quot;)
+                          .item(0).getTextContent();
+    int edad = Integer.parseInt(
+        alumno.getElementsByTagName(&quot;edad&quot;).item(0).getTextContent()
+    );
+    System.out.printf(&quot;%s - %s - %d%n&quot;, id, nombre, edad);
+}
+</code></pre>
+<p><code>NodeList</code> no es una lista de objetos <code>Alumno</code>: contiene nodos DOM. <code>getAttribute()</code> obtiene un atributo, mientras que <code>getTextContent()</code> obtiene el texto de un elemento. La conversión con <code>Integer.parseInt()</code> es necesaria porque el XML contiene texto.</p>
+<h3 id="resultado-esperado">Resultado esperado<a class="headerlink" href="#resultado-esperado" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">A001 - Ana - 20
+A002 - Luis - 22
+A003 - Marta - 19
+</code></pre>
+<h2 id="clases-principales">Clases principales<a class="headerlink" href="#clases-principales" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Clase</th>
-<th>Papel</th>
+<th>Función</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>DocumentBuilderFactory</code></td>
-<td>Crea/configura el constructor del parser</td>
+<td>Configura la creación del analizador</td>
 </tr>
 <tr>
 <td><code>DocumentBuilder</code></td>
-<td>Parsea el XML</td>
+<td>Analiza el flujo XML</td>
 </tr>
 <tr>
 <td><code>Document</code></td>
-<td>Representa el documento completo</td>
+<td>Árbol completo del documento</td>
 </tr>
 <tr>
 <td><code>Node</code></td>
-<td>Nodo genérico</td>
+<td>Nodo genérico del árbol</td>
 </tr>
 <tr>
 <td><code>Element</code></td>
-<td>Nodo de tipo elemento</td>
+<td>Nodo que representa una etiqueta</td>
 </tr>
 <tr>
 <td><code>NodeList</code></td>
@@ -3078,7 +3142,12 @@ for (int i = 0; i &lt; alumnos.getLength(); i++) {
 </tr>
 </tbody>
 </table>
-<p>En el proyecto descargable, revisa <strong><code>LeerXML_DOM.java</code></strong> como primer ejemplo.</p>
+<div class="admonition warning">
+<p class="admonition-title">Comprobación de datos</p>
+<p>El ejemplo presupone que cada alumno contiene <code>nombre</code> y <code>edad</code>, y que la edad es numérica. En aplicaciones reales debemos validar estos datos antes de acceder a <code>.item(0)</code> o convertirlos.</p>
+</div>
+<p><strong>Actividad:</strong> añade un cuarto alumno a <code>data/alumnos.xml</code> y ejecuta de nuevo <code>LeerXML_DOM</code>.</p>
+<p>Consulta también la <a href="../../03-intercambio/xml/02-proyecto-java/">guía y descarga del proyecto Maven</a>.</p>
 
 
 

@@ -2290,6 +2290,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3147,6 +3175,10 @@
 
 
 <h1 id="serializacion-con-jackson">Serialización con Jackson<a class="headerlink" href="#serializacion-con-jackson" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/jackson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-que-es-serializar">1. ¿Qué es serializar?<a class="headerlink" href="#1-que-es-serializar" title="Permanent link">&para;</a></h3>
 <p>Serializar consiste en transformar un objeto Java en una representación que pueda almacenarse o intercambiarse. En nuestro caso, la representación será <strong>JSON</strong>.</p>
 <pre><code class="language-text">OBJETO JAVA ─────────► JSON
@@ -3243,24 +3275,34 @@ String JSON
 </code></pre>
 <hr />
 <h3 id="6-ejemplo-completo-demojacksonjava">6. Ejemplo completo: <code>DemoJackson.java</code><a class="headerlink" href="#6-ejemplo-completo-demojacksonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
 
+
+/** Ejemplo didáctico de Jackson. */
 public class DemoJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
 
-    public static void main(String[] args) throws Exception {
 
-        ObjectMapper mapper = new ObjectMapper();
+        Alumno original = new Alumno(1, &quot;Ana&quot;, 8.5);
 
-        Alumno alumno = new Alumno(1, &quot;Ana&quot;, 8.5);
-
-        String json = mapper
-                .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(alumno);
-
-        System.out.println(&quot;JSON generado:&quot;);
+        try {
+            // Serialización: objeto Java a texto JSON.
+            String json = mapper.writeValueAsString(original);
+        System.out.println(&quot;JSON:&quot;);
         System.out.println(json);
+
+        // Deserialización: texto JSON a objeto Java.
+        Alumno recuperado = mapper.readValue(json, Alumno.class);
+        System.out.println(&quot;\nObjeto recuperado:&quot;);
+        System.out.println(recuperado);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println(&quot;Error al procesar JSON: &quot; + e.getOriginalMessage());
+        }
     }
 }
 </code></pre>

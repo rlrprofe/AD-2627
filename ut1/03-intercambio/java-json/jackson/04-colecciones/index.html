@@ -2279,6 +2279,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3125,6 +3153,10 @@
 
 
 <h1 id="colecciones-y-typereference">Colecciones y TypeReference<a class="headerlink" href="#colecciones-y-typereference" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/jackson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-de-un-objeto-a-muchos-objetos">1. De un objeto a muchos objetos<a class="headerlink" href="#1-de-un-objeto-a-muchos-objetos" title="Permanent link">&para;</a></h3>
 <p>En aplicaciones reales es frecuente trabajar con colecciones:</p>
 <pre><code class="language-java">List&lt;Alumno&gt;
@@ -3197,38 +3229,43 @@ import java.util.List;
 <p>No realiza la conversión. La conversión sigue realizándola <code>ObjectMapper</code>.</p>
 <hr />
 <h3 id="7-ejemplo-completo-demolistajacksonjava">7. Ejemplo completo: <code>DemoListaJackson.java</code><a class="headerlink" href="#7-ejemplo-completo-demolistajacksonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class DemoListaJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
 
-    public static void main(String[] args) throws Exception {
 
-        ObjectMapper mapper = new ObjectMapper();
+        List&lt;Alumno&gt; alumnos = List.of(
+                new Alumno(1, &quot;Ana&quot;, 8.5),
+                new Alumno(2, &quot;Luis&quot;, 7.2),
+                new Alumno(3, &quot;Marta&quot;, 9.1)
+        );
 
-        List&lt;Alumno&gt; alumnos = new ArrayList&lt;&gt;();
-        alumnos.add(new Alumno(1, &quot;Ana&quot;, 8.5));
-        alumnos.add(new Alumno(2, &quot;Luis&quot;, 7.2));
-        alumnos.add(new Alumno(3, &quot;Marta&quot;, 9.1));
-
-        String json = mapper
-                .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(alumnos);
-
+        try {
+            // Serializa la lista completa como un array JSON.
+            String json = mapper.writeValueAsString(alumnos);
         System.out.println(json);
 
         List&lt;Alumno&gt; recuperados = mapper.readValue(
                 json,
-                new TypeReference&lt;List&lt;Alumno&gt;&gt;() {}
+                new TypeReference&lt;List&lt;Alumno&gt;&gt;() {} // Conserva el tipo genérico.
         );
 
-        System.out.println(&quot;Alumnos recuperados:&quot;);
+        System.out.println(&quot;\nAlumnos recuperados:&quot;);
         recuperados.forEach(System.out::println);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println(&quot;Error al procesar la lista: &quot; + e.getOriginalMessage());
+        }
     }
 }
 </code></pre>

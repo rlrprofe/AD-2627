@@ -2335,6 +2335,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3237,6 +3265,10 @@
 
 
 <h1 id="jsonnode-y-anotaciones">JsonNode y anotaciones<a class="headerlink" href="#jsonnode-y-anotaciones" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/jackson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <p>En los apartados anteriores hemos utilizado Jackson principalmente para convertir directamente entre <strong>objetos Java</strong> y <strong>JSON</strong>.</p>
 <p>Jackson también permite trabajar con la estructura del JSON como un <strong>árbol de nodos</strong> y personalizar el mapeo mediante <strong>anotaciones</strong>.</p>
 <hr />
@@ -3278,34 +3310,32 @@ JsonNode raíz
 </code></pre>
 <hr />
 <h3 id="4-ejemplo-demojsonnodejava">4. Ejemplo: <code>DemoJsonNode.java</code><a class="headerlink" href="#4-ejemplo-demojsonnodejava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
 
+/** Ejemplo didáctico de Jackson. */
 public class DemoJsonNode {
-
-    public static void main(String[] args) throws Exception {
-
+    public static void main(String[] args) {
         String json = &quot;&quot;&quot;
                 {
                   &quot;id&quot;: 1,
-                  &quot;nombre&quot;: &quot;Ana&quot;,
-                  &quot;nota&quot;: 8.5,
-                  &quot;modulos&quot;: [&quot;Acceso a Datos&quot;, &quot;PMDM&quot;]
+                  &quot;nombreCompleto&quot;: &quot;Ana&quot;,
+                  &quot;nota&quot;: 8.5
                 }
                 &quot;&quot;&quot;;
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode raiz = mapper.readTree(json);
+        ObjectMapper mapper = JacksonConfig.crearMapper();
+        try {
+            // JsonNode permite consultar JSON sin crear una clase modelo.
+            JsonNode raiz = mapper.readTree(json);
 
-        System.out.println(&quot;Nombre: &quot; + raiz.get(&quot;nombre&quot;).asText());
-        System.out.println(&quot;Nota: &quot; + raiz.get(&quot;nota&quot;).asDouble());
-
-        JsonNode modulos = raiz.get(&quot;modulos&quot;);
-
-        for (JsonNode modulo : modulos) {
-            System.out.println(&quot;- &quot; + modulo.asText());
+        System.out.println(&quot;Nombre: &quot; + raiz.path(&quot;nombreCompleto&quot;).asText(&quot;(sin nombre)&quot;));
+        System.out.println(&quot;Nota: &quot; + raiz.path(&quot;nota&quot;).asDouble());
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println(&quot;JSON incorrecto: &quot; + e.getOriginalMessage());
         }
     }
 }

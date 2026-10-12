@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#conversion-automatica" class="md-skip">
+        <a href="#conversion-mediante-objetos-java-semiautomatica" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2806,10 +2834,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#xml-json" class="md-nav__link">
+  <a href="#paso-1-estudiar-los-modelos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        XML → JSON
+        Paso 1. Estudiar los modelos
       
     </span>
   </a>
@@ -2817,10 +2845,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#json-xml" class="md-nav__link">
+  <a href="#paso-2-xml-json-xmltojsonautomatica1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JSON → XML
+        Paso 2. XML → JSON: XmlToJsonAutomatica1.java
       
     </span>
   </a>
@@ -2828,10 +2856,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ventajas" class="md-nav__link">
+  <a href="#paso-3-json-xml-jsontoxmlautomatico1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ventajas
+        Paso 3. JSON → XML: JsonToXmlAutomatico1.java
       
     </span>
   </a>
@@ -2839,10 +2867,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inconvenientes" class="md-nav__link">
+  <a href="#por-que-no-es-una-conversion-completamente-automatica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inconvenientes
+        ¿Por qué no es una conversión completamente automática?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java-21-y-seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java 21 y seguridad
       
     </span>
   </a>
@@ -2928,10 +2967,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#xml-json" class="md-nav__link">
+  <a href="#paso-1-estudiar-los-modelos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        XML → JSON
+        Paso 1. Estudiar los modelos
       
     </span>
   </a>
@@ -2939,10 +2978,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#json-xml" class="md-nav__link">
+  <a href="#paso-2-xml-json-xmltojsonautomatica1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JSON → XML
+        Paso 2. XML → JSON: XmlToJsonAutomatica1.java
       
     </span>
   </a>
@@ -2950,10 +2989,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ventajas" class="md-nav__link">
+  <a href="#paso-3-json-xml-jsontoxmlautomatico1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ventajas
+        Paso 3. JSON → XML: JsonToXmlAutomatico1.java
       
     </span>
   </a>
@@ -2961,10 +3000,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inconvenientes" class="md-nav__link">
+  <a href="#por-que-no-es-una-conversion-completamente-automatica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inconvenientes
+        ¿Por qué no es una conversión completamente automática?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java-21-y-seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java 21 y seguridad
       
     </span>
   </a>
@@ -2988,29 +3038,40 @@
 
 
 
-<h1 id="conversion-automatica">Conversión automática<a class="headerlink" href="#conversion-automatica" title="Permanent link">&para;</a></h1>
-<p>Cuando existe un modelo de datos estable podemos apoyarnos en objetos Java y librerías de binding/serialización.</p>
-<h2 id="xml-json">XML → JSON<a class="headerlink" href="#xml-json" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">XML → JAXB → Objetos Java → Gson/Jackson → JSON
-</code></pre>
-<h2 id="json-xml">JSON → XML<a class="headerlink" href="#json-xml" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">JSON → Gson/Jackson → Objetos Java → JAXB → XML
-</code></pre>
-<p>Los objetos Java actúan como <strong>modelo intermedio</strong>.</p>
-<h2 id="ventajas">Ventajas<a class="headerlink" href="#ventajas" title="Permanent link">&para;</a></h2>
+<h1 id="conversion-mediante-objetos-java-semiautomatica">Conversión mediante objetos Java (semiautomática)<a class="headerlink" href="#conversion-mediante-objetos-java-semiautomatica" title="Permanent link">&para;</a></h1>
+<p>El segundo proyecto, <code>conversion-automatica</code>, utiliza <strong>JAXB y Gson</strong>. La idea es que un objeto Java represente los mismos datos en ambos formatos.</p>
+<h2 id="paso-1-estudiar-los-modelos">Paso 1. Estudiar los modelos<a class="headerlink" href="#paso-1-estudiar-los-modelos" title="Permanent link">&para;</a></h2>
+<p>Abre las clases <code>Cliente.java</code> y <code>Clientes.java</code> de los paquetes <code>xmltojson/modelo</code> y <code>jsontoxml/modelo</code>.</p>
 <ul>
-<li>menos código de recorrido manual;</li>
-<li>modelo reutilizable;</li>
-<li>transformación más legible;</li>
-<li>separación entre formato y lógica de negocio.</li>
+<li><code>Cliente</code> representa un elemento XML <code>&lt;cliente&gt;</code> con atributo <code>id</code> y elementos <code>nombre</code> y <code>edad</code>.</li>
+<li><code>Clientes</code> representa la raíz <code>&lt;clientes&gt;</code> y agrupa una lista de objetos <code>Cliente</code>.</li>
+<li><code>@XmlRootElement</code> identifica el elemento raíz.</li>
+<li><code>@XmlAttribute</code> y <code>@XmlElement</code> indican cómo representar los campos en XML.</li>
+<li>JAXB necesita un constructor sin argumentos para reconstruir los objetos.</li>
 </ul>
-<h2 id="inconvenientes">Inconvenientes<a class="headerlink" href="#inconvenientes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>requiere definir correctamente el modelo;</li>
-<li>XML y JSON no siempre tienen una correspondencia perfecta;</li>
-<li>puede ser necesario personalizar el mapeo.</li>
-</ul>
-<p>El proyecto de conversión automática contiene ejemplos en ambos sentidos y modelos <code>Cliente</code> / <code>Clientes</code>.</p>
+<p>Los dos sentidos de conversión tienen modelos en paquetes diferentes; no debes mezclar sus importaciones.</p>
+<h2 id="paso-2-xml-json-xmltojsonautomatica1java">Paso 2. XML → JSON: <code>XmlToJsonAutomatica1.java</code><a class="headerlink" href="#paso-2-xml-json-xmltojsonautomatica1java" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">resources/clientes.xml
+    ↓ JAXB (Unmarshaller)
+Objetos Clientes / Cliente
+    ↓ Gson (toJson)
+salida/clientes_jaxb.json
+</code></pre>
+<p>JAXB interpreta las anotaciones y crea los objetos Java. Después Gson convierte esos objetos en JSON. A diferencia de la conversión manual, no es necesario recorrer cada nodo DOM en el programa principal.</p>
+<h2 id="paso-3-json-xml-jsontoxmlautomatico1java">Paso 3. JSON → XML: <code>JsonToXmlAutomatico1.java</code><a class="headerlink" href="#paso-3-json-xml-jsontoxmlautomatico1java" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">resources/clientes.json
+    ↓ Gson (fromJson)
+Objetos Clientes / Cliente
+    ↓ JAXB (Marshaller)
+XML en la carpeta salida/
+</code></pre>
+<p>En este sentido, Gson reconstruye los objetos a partir del JSON y JAXB genera los elementos y atributos XML. El programa admite las estructuras de entrada previstas por su código: revisa el tratamiento de una lista JSON y de un objeto con propiedad <code>clientes</code>.</p>
+<h2 id="por-que-no-es-una-conversion-completamente-automatica">¿Por qué no es una conversión completamente automática?<a class="headerlink" href="#por-que-no-es-una-conversion-completamente-automatica" title="Permanent link">&para;</a></h2>
+<p>Porque debemos decidir qué clases usar, cómo representar atributos y elementos, y qué forma JSON aceptamos. Además, algunos detalles XML, como comentarios, espacios o contenido mixto, no se conservan necesariamente.</p>
+<h2 id="java-21-y-seguridad">Java 21 y seguridad<a class="headerlink" href="#java-21-y-seguridad" title="Permanent link">&para;</a></h2>
+<p>El proyecto revisado utiliza Java 21 y dependencias Maven para Gson y JAXB. <strong>JAXB no forma parte del JDK 21</strong>. Para leer XML de procedencia externa es necesario proporcionar a JAXB un analizador configurado contra DTD y entidades externas; el ejemplo es didáctico y trabaja con ficheros locales de confianza.</p>
+<p><strong>Actividad:</strong> cambia el nombre de un cliente en el fichero de entrada y comprueba ambos sentidos de conversión.</p>
+<p><a href="../">Proyecto y orden de ejecución</a>.</p>
 
 
 

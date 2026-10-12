@@ -2290,6 +2290,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3147,6 +3175,10 @@
 
 
 <h1 id="ficheros-json-con-jackson">Ficheros JSON con Jackson<a class="headerlink" href="#ficheros-json-con-jackson" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/jackson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-de-la-memoria-a-la-persistencia">1. De la memoria a la persistencia<a class="headerlink" href="#1-de-la-memoria-a-la-persistencia" title="Permanent link">&para;</a></h3>
 <p>Hasta ahora el JSON podía vivir únicamente en una variable <code>String</code>.</p>
 <p>Ahora queremos almacenarlo:</p>
@@ -3188,17 +3220,24 @@ import java.nio.file.Path;
 </code></pre>
 <hr />
 <h3 id="4-ejemplo-guardaralumnosjacksonjava">4. Ejemplo: <code>GuardarAlumnosJackson.java</code><a class="headerlink" href="#4-ejemplo-guardaralumnosjacksonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
+import java.io.IOException;
+
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class GuardarAlumnosJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
 
-    public static void main(String[] args) throws Exception {
 
         List&lt;Alumno&gt; alumnos = List.of(
                 new Alumno(1, &quot;Ana&quot;, 8.5),
@@ -3206,16 +3245,15 @@ public class GuardarAlumnosJackson {
                 new Alumno(3, &quot;Marta&quot;, 9.1)
         );
 
-        Path ruta = Path.of(&quot;data&quot;, &quot;alumnos.json&quot;);
-        Files.createDirectories(ruta.getParent());
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper
-            .writerWithDefaultPrettyPrinter()
-            .writeValue(ruta.toFile(), alumnos);
-
-        System.out.println(&quot;Datos guardados en: &quot; + ruta.toAbsolutePath());
+        Path fichero = Path.of(&quot;data&quot;, &quot;alumnos.json&quot;);
+        AlumnoJsonRepository repositorio = new AlumnoJsonRepository(mapper, fichero);
+        try {
+            // La capa repository gestiona el fichero mediante try-with-resources.
+            repositorio.guardar(alumnos);
+            System.out.println(&quot;Datos guardados en: &quot; + fichero.toAbsolutePath());
+        } catch (IOException e) {
+            System.err.println(&quot;No se pudo guardar el JSON: &quot; + e.getMessage());
+        }
     }
 }
 </code></pre>
@@ -3249,29 +3287,32 @@ public class GuardarAlumnosJackson {
 </code></pre>
 <hr />
 <h3 id="7-ejemplo-leeralumnosjacksonjava">7. Ejemplo: <code>LeerAlumnosJackson.java</code><a class="headerlink" href="#7-ejemplo-leeralumnosjacksonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
+import java.io.IOException;
 
 import java.nio.file.Path;
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class LeerAlumnosJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
 
-    public static void main(String[] args) throws Exception {
+        Path fichero = Path.of(&quot;data&quot;, &quot;alumnos.json&quot;);
 
-        Path ruta = Path.of(&quot;data&quot;, &quot;alumnos.json&quot;);
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        List&lt;Alumno&gt; alumnos = mapper.readValue(
-                ruta.toFile(),
-                new TypeReference&lt;List&lt;Alumno&gt;&gt;() {}
-        );
-
-        for (Alumno alumno : alumnos) {
-            System.out.println(alumno);
+        AlumnoJsonRepository repositorio = new AlumnoJsonRepository(mapper, fichero);
+        try {
+            // TypeReference y cierre seguro del lector se gestionan en repository.
+            List&lt;Alumno&gt; alumnos = repositorio.leer();
+            alumnos.forEach(System.out::println);
+        } catch (IOException e) {
+            System.err.println(&quot;No se pudo leer el JSON: &quot; + e.getMessage());
         }
     }
 }

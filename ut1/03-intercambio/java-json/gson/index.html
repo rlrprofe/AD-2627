@@ -1288,6 +1288,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#guia-del-proyecto-maven-actualizado-java-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guía del proyecto Maven actualizado (Java 21)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guía del proyecto Maven actualizado (Java 21)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizacion-por-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organización por responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orden-recomendado-de-lectura-y-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orden recomendado de lectura y ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1297,8 +1331,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#mapa-conceptual-de-gson" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1306,6 +1340,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2517,6 +2556,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3236,6 +3303,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#guia-del-proyecto-maven-actualizado-java-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guía del proyecto Maven actualizado (Java 21)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guía del proyecto Maven actualizado (Java 21)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizacion-por-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organización por responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orden-recomendado-de-lectura-y-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orden recomendado de lectura y ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3245,8 +3346,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#mapa-conceptual-de-gson" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3254,6 +3355,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3601,6 +3707,90 @@
 
 
 <h1 id="gson">Gson<a class="headerlink" href="#gson" title="Permanent link">&para;</a></h1>
+<h2 id="guia-del-proyecto-maven-actualizado-java-21">Guía del proyecto Maven actualizado (Java 21)<a class="headerlink" href="#guia-del-proyecto-maven-actualizado-java-21" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Correspondencia con el ZIP descargable</p>
+<p>Esta sección describe la <strong>versión revisada del proyecto</strong>. Algunos fragmentos de las explicaciones anteriores son ejemplos simplificados para aprender una operación; pueden omitir imports, paquetes o capas. <strong>Para ejecutar el programa completo utiliza los ficheros del ZIP</strong>, con los paquetes y la configuración que se indican aquí.</p>
+</div>
+<p><a href="../../../../descargas/ut1/java-json/gson-ejemplos.zip">Descargar proyecto Maven actualizado</a></p>
+<h3 id="organizacion-por-responsabilidades">Organización por responsabilidades<a class="headerlink" href="#organizacion-por-responsabilidades" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>model/</code></strong>: modelo de datos.</li>
+<li><strong><code>adapter/</code></strong>: adaptadores de tipos.</li>
+<li><strong><code>config/</code></strong>: configuración centralizada.</li>
+<li><strong><code>repository/</code></strong>: acceso a datos JSON.</li>
+<li><strong><code>app/</code></strong>: programas ejecutables.</li>
+</ul>
+<h3 id="orden-recomendado-de-lectura-y-ejecucion">Orden recomendado de lectura y ejecución<a class="headerlink" href="#orden-recomendado-de-lectura-y-ejecucion" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Clase</th>
+<th>Objetivo</th>
+<th>Ejecución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>com.example.model.Alumno</code></td>
+<td>Modelo de datos</td>
+<td>No, clase de apoyo</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>com.example.adapter.LocalDateAdapter</code></td>
+<td>Conversión de LocalDate</td>
+<td>No, clase de apoyo</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>com.example.config.GsonConfig</code></td>
+<td>Configuración común de Gson</td>
+<td>No, clase de apoyo</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>com.example.app.DemoGson</code></td>
+<td>Objeto Java ↔ JSON</td>
+<td>Sí, ejecutar main</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>com.example.app.DemoListaGson</code></td>
+<td>Listas y TypeToken</td>
+<td>Sí, ejecutar main</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>com.example.repository.AlumnoJsonRepository</code></td>
+<td>Lectura y escritura de ficheros</td>
+<td>No, clase de apoyo</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>com.example.app.GuardarAlumnosGson</code></td>
+<td>Guardar lista en JSON</td>
+<td>Sí, ejecutar main</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>com.example.app.LeerAlumnosGson</code></td>
+<td>Leer lista desde JSON</td>
+<td>Sí, ejecutar main</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>com.example.app.DemoLocalDateGson</code></td>
+<td>Fechas con el adaptador</td>
+<td>Sí, ejecutar main</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Java 21 y fechas:</strong> todas las demostraciones usan <code>GsonConfig.crearGson()</code>, que registra <code>LocalDateAdapter</code>. No sustituyas esa configuración por <code>new Gson()</code> cuando trabajes con <code>LocalDate</code>.</p>
+<p>Para trabajar en VS Code, abre la carpeta que contiene <code>pom.xml</code>, comprueba que el JDK es <strong>Java 21</strong> y ejecuta los <code>main</code> en el orden propuesto. Los ficheros <code>data/</code> utilizan rutas relativas al directorio de trabajo.</p>
+<hr />
 <h3 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h3>
 <p><strong>Gson</strong> es una librería Java desarrollada por Google que permite convertir objetos Java a formato JSON y realizar el proceso contrario.</p>
 <p>Su principal característica es que permite trabajar directamente con nuestros <strong>objetos Java</strong>, sin necesidad de construir manualmente cada propiedad del documento JSON.</p>

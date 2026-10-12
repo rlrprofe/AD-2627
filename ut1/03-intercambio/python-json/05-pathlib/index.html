@@ -2151,6 +2151,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-del-proyecto-rutas-portables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo del proyecto: rutas portables
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2314,6 +2325,34 @@
     
   
     Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
   
 
     
@@ -3205,6 +3244,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-del-proyecto-rutas-portables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo del proyecto: rutas portables
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3381,6 +3431,15 @@ data/
 <p class="admonition-title">Tip</p>
 <p>Para los ejemplos del curso utilizaremos <code>pathlib</code> en lugar de concatenar manualmente rutas con cadenas.</p>
 </div>
+<hr />
+<h2 id="ejemplo-del-proyecto-rutas-portables">Ejemplo del proyecto: rutas portables<a class="headerlink" href="#ejemplo-del-proyecto-rutas-portables" title="Permanent link">&para;</a></h2>
+<p>Ejecuta <code>src/05_pathlib.py</code>. Compara <code>Path.cwd()</code> (carpeta desde la que se ejecuta Python) con <code>Path(__file__).resolve()</code> (ubicación del propio programa).</p>
+<p>En los ejemplos de lectura y escritura construimos la ruta así:</p>
+<pre><code class="language-python">from pathlib import Path
+RUTA_DATOS = Path(__file__).resolve().parent.parent / &quot;data&quot; / &quot;alumnos.json&quot;
+</code></pre>
+<p>Esto evita errores al ejecutar desde distintas carpetas. El operador <code>/</code> de <code>Path</code> une componentes de una ruta, <strong>no realiza una división</strong>.</p>
+<p><a href="../../../../descargas/ut1/python-json/python-json-ejemplos.zip">Proyecto completo</a>.</p>
 
 
 

@@ -2174,6 +2174,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="32. Son conceptos diferentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typetoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeToken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptador
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3066,6 +3094,34 @@
     
   
     Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
   
 
     
@@ -4516,6 +4572,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="32. Son conceptos diferentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typetoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeToken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptador
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -4725,6 +4809,10 @@
 
 
 <h1 id="adaptadores-personalizados-en-gson">Adaptadores personalizados en Gson<a class="headerlink" href="#adaptadores-personalizados-en-gson" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/gson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-cuando-la-conversion-automatica-no-es-suficiente">1. Cuando la conversión automática no es suficiente<a class="headerlink" href="#1-cuando-la-conversion-automatica-no-es-suficiente" title="Permanent link">&para;</a></h3>
 <p>Una de las principales ventajas de Gson es que puede convertir automáticamente muchos objetos Java a JSON.</p>
 <p>Por ejemplo, si tenemos:</p>
@@ -5381,84 +5469,36 @@ public class Alumno {
 <hr />
 <h2 id="ejemplo-completo">Ejemplo completo<a class="headerlink" href="#ejemplo-completo" title="Permanent link">&para;</a></h2>
 <h3 id="27-demolocaldategsonjava">27. DemoLocalDateGson.java<a class="headerlink" href="#27-demolocaldategsonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import java.time.LocalDate;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo específico de serialización y deserialización de LocalDate.
+ */
 public class DemoLocalDateGson {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. CREAR EL ALUMNO
-        // ==========================================
-
-        Alumno alumno =
-                new Alumno(
-                    1,
-                    &quot;Ana&quot;,
-                    8.5,
-                    LocalDate.of(
-                        2005,
-                        3,
-                        15
-                    )
-                );
-
-
-        // ==========================================
-        // 2. CONFIGURAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .registerTypeAdapter(
-                        LocalDate.class,
-                        new LocalDateAdapter()
-                    )
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR
-        // ==========================================
-
-        String json =
-                gson.toJson(alumno);
-
-        System.out.println(
-            &quot;JSON generado:&quot;
+        Alumno alumno = new Alumno(
+                1,
+                &quot;Ana&quot;,
+                8.5,
+                LocalDate.of(2005, 3, 15)
         );
 
+        Gson gson = GsonConfig.crearGson();
+
+        String json = gson.toJson(alumno);
+        System.out.println(&quot;JSON generado:&quot;);
         System.out.println(json);
 
-
-        // ==========================================
-        // 4. DESERIALIZAR
-        // ==========================================
-
-        Alumno recuperado =
-                gson.fromJson(
-                    json,
-                    Alumno.class
-                );
-
-
-        // ==========================================
-        // 5. MOSTRAR RESULTADO
-        // ==========================================
-
-        System.out.println(
-            &quot;\nAlumno recuperado:&quot;
-        );
-
-        System.out.println(
-            recuperado
-        );
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println(&quot;\nAlumno recuperado:&quot;);
+        System.out.println(recuperado);
     }
 }
 </code></pre>

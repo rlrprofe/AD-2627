@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2694,10 +2722,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dos-direcciones" class="md-nav__link">
+  <a href="#mapa-conceptual-enfoques-de-conversion-xml-y-json" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dos direcciones
+        Mapa conceptual: enfoques de conversión XML y JSON
       
     </span>
   </a>
@@ -2705,10 +2733,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dos-enfoques" class="md-nav__link">
+  <a href="#que-contiene-la-descarga" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dos enfoques
+        Qué contiene la descarga
       
     </span>
   </a>
@@ -2716,10 +2744,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyectos" class="md-nav__link">
+  <a href="#orden-didactico" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyectos
+        Orden didáctico
       
     </span>
   </a>
@@ -2917,10 +2945,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dos-direcciones" class="md-nav__link">
+  <a href="#mapa-conceptual-enfoques-de-conversion-xml-y-json" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dos direcciones
+        Mapa conceptual: enfoques de conversión XML y JSON
       
     </span>
   </a>
@@ -2928,10 +2956,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dos-enfoques" class="md-nav__link">
+  <a href="#que-contiene-la-descarga" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dos enfoques
+        Qué contiene la descarga
       
     </span>
   </a>
@@ -2939,10 +2967,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyectos" class="md-nav__link">
+  <a href="#orden-didactico" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyectos
+        Orden didáctico
       
     </span>
   </a>
@@ -2967,18 +2995,90 @@
 
 
 <h1 id="6-conversion-xml-json">6. Conversión XML ↔ JSON<a class="headerlink" href="#6-conversion-xml-json" title="Permanent link">&para;</a></h1>
-<p>XML y JSON representan información estructurada de formas diferentes. En muchas aplicaciones necesitamos transformar datos de un formato a otro.</p>
-<h2 id="dos-direcciones">Dos direcciones<a class="headerlink" href="#dos-direcciones" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">XML  ─────────► JSON
-JSON ─────────► XML
+<p>En este bloque utilizaremos <strong>dos proyectos Maven con Java 21</strong>. Ambos convierten información de clientes entre XML y JSON, pero emplean estrategias distintas.</p>
+<p><a href="../../descargas/ut1/conversion/code_Example_1-6.zip"><strong>Descargar los dos proyectos de conversión</strong></a></p>
+<h2 id="mapa-conceptual-enfoques-de-conversion-xml-y-json">Mapa conceptual: enfoques de conversión XML y JSON<a class="headerlink" href="#mapa-conceptual-enfoques-de-conversion-xml-y-json" title="Permanent link">&para;</a></h2>
+<p><img alt="Mapa conceptual: enfoques de conversión XML y JSON" src="../../images/ut1/mapas/conversion-xml-json-enfoques.svg" /></p>
+<h2 id="que-contiene-la-descarga">Qué contiene la descarga<a class="headerlink" href="#que-contiene-la-descarga" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">conversion-manual/
+  pom.xml
+  resources/clientes.xml
+  resources/clientes.json
+  src/main/java/com/example/
+    xmltojson/XmlToJsonManual1.java
+    xmltojson/XmlToJsonManual2.java
+    xmltojson/XmlToJsonManual3.java
+    xmltojson/handlers/ClienteHandler.java
+    jsontoxml/JsonToXmlManual1.java
+    jsontoxml/JsonToXmlManual2_Recursivo.java
+
+conversion-automatica/
+  pom.xml
+  resources/clientes.xml
+  resources/clientes.json
+  src/main/java/com/example/
+    xmltojson/XmlToJsonAutomatica1.java
+    xmltojson/modelo/Cliente.java, Clientes.java
+    jsontoxml/JsonToXmlAutomatico1.java
+    jsontoxml/modelo/Cliente.java, Clientes.java
 </code></pre>
-<h2 id="dos-enfoques">Dos enfoques<a class="headerlink" href="#dos-enfoques" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Conversión manual:</strong> controlamos explícitamente cómo se transforma cada nodo, atributo, objeto o array.</li>
-<li><strong>Conversión automática:</strong> utilizamos librerías y modelos de datos para reducir el código de transformación.</li>
-</ul>
-<h2 id="proyectos">Proyectos<a class="headerlink" href="#proyectos" title="Permanent link">&para;</a></h2>
-<p><a href="../../descargas/ut1/conversion/code_Example_1-6.zip">📦 <strong>Descargar ejemplos de conversión XML ↔ JSON</strong></a></p>
+<h2 id="orden-didactico">Orden didáctico<a class="headerlink" href="#orden-didactico" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Orden</th>
+<th>Programa</th>
+<th>Qué aprenderás</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>XmlToJsonManual1</code></td>
+<td>DOM y creación de JSON</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>XmlToJsonManual2</code></td>
+<td>Consultas XPath y JSON</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>ClienteHandler</code> + <code>XmlToJsonManual3</code></td>
+<td>SAX y eventos</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>JsonToXmlManual1</code></td>
+<td>Gson y construcción DOM</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>JsonToXmlManual2_Recursivo</code></td>
+<td>Objetos y arrays anidados</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Modelos <code>Cliente</code> / <code>Clientes</code></td>
+<td>Correspondencia entre objetos Java y XML</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>XmlToJsonAutomatica1</code></td>
+<td>JAXB → objetos → Gson</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>JsonToXmlAutomatico1</code></td>
+<td>Gson → objetos → JAXB</td>
+</tr>
+</tbody>
+</table>
+<p>Abre <strong>cada proyecto por separado</strong> en VS Code, desde la carpeta que contiene su <code>pom.xml</code>. Ejecuta las clases con la carpeta del proyecto como directorio de trabajo, ya que utilizan rutas relativas <code>resources/</code> y escriben los resultados en <code>salida/</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Alcance</p>
+<p>Los ejemplos se centran en clientes con <code>id</code>, <code>nombre</code> y <code>edad</code>. No constituyen una herramienta genérica capaz de conservar todos los detalles de cualquier XML o JSON.</p>
+</div>
 
 
 

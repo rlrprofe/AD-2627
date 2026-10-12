@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2722,10 +2750,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#xml" class="md-nav__link">
+  <a href="#ejemplo-de-partida" class="md-nav__link">
     <span class="md-ellipsis">
       
-        XML
+        Ejemplo de partida
       
     </span>
   </a>
@@ -2733,10 +2761,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#json" class="md-nav__link">
+  <a href="#decisiones-que-debe-tomar-el-programador" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JSON
+        Decisiones que debe tomar el programador
       
     </span>
   </a>
@@ -2744,21 +2772,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#decisiones-necesarias" class="md-nav__link">
+  <a href="#conversion-manual-y-mediante-modelo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decisiones necesarias
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manual-frente-a-automatica" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Manual frente a automática
+        Conversión manual y mediante modelo
       
     </span>
   </a>
@@ -2928,10 +2945,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#xml" class="md-nav__link">
+  <a href="#ejemplo-de-partida" class="md-nav__link">
     <span class="md-ellipsis">
       
-        XML
+        Ejemplo de partida
       
     </span>
   </a>
@@ -2939,10 +2956,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#json" class="md-nav__link">
+  <a href="#decisiones-que-debe-tomar-el-programador" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JSON
+        Decisiones que debe tomar el programador
       
     </span>
   </a>
@@ -2950,21 +2967,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#decisiones-necesarias" class="md-nav__link">
+  <a href="#conversion-manual-y-mediante-modelo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decisiones necesarias
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manual-frente-a-automatica" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Manual frente a automática
+        Conversión manual y mediante modelo
       
     </span>
   </a>
@@ -2989,53 +2995,88 @@
 
 
 <h1 id="enfoques-de-conversion">Enfoques de conversión<a class="headerlink" href="#enfoques-de-conversion" title="Permanent link">&para;</a></h1>
-<p>Convertir XML y JSON no consiste simplemente en cambiar símbolos. Ambos formatos modelan la información de forma distinta.</p>
-<h2 id="xml">XML<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
+<p>XML y JSON pueden representar los mismos datos, pero <strong>no tienen una equivalencia automática y única</strong>.</p>
+<h2 id="ejemplo-de-partida">Ejemplo de partida<a class="headerlink" href="#ejemplo-de-partida" title="Permanent link">&para;</a></h2>
 <pre><code class="language-xml">&lt;cliente id=&quot;C01&quot;&gt;
-    &lt;nombre&gt;Ana&lt;/nombre&gt;
+    &lt;nombre&gt;Laura&lt;/nombre&gt;
+    &lt;edad&gt;30&lt;/edad&gt;
 &lt;/cliente&gt;
 </code></pre>
-<h2 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
-<pre><code class="language-json">{
-  &quot;id&quot;: &quot;C01&quot;,
-  &quot;nombre&quot;: &quot;Ana&quot;
-}
+<p>Una representación JSON posible es:</p>
+<pre><code class="language-json">{&quot;id&quot;: &quot;C01&quot;, &quot;nombre&quot;: &quot;Laura&quot;, &quot;edad&quot;: 30}
 </code></pre>
-<h2 id="decisiones-necesarias">Decisiones necesarias<a class="headerlink" href="#decisiones-necesarias" title="Permanent link">&para;</a></h2>
-<ul>
-<li>cómo representar atributos XML;</li>
-<li>cómo representar elementos repetidos;</li>
-<li>qué elemento será la raíz;</li>
-<li>cómo tratar texto y subelementos;</li>
-<li>cómo representar <code>null</code>, números y booleanos.</li>
-</ul>
-<h2 id="manual-frente-a-automatica">Manual frente a automática<a class="headerlink" href="#manual-frente-a-automatica" title="Permanent link">&para;</a></h2>
+<p>En XML, <code>id</code> es un <strong>atributo</strong>, <code>nombre</code> y <code>edad</code> son <strong>elementos</strong>, y el texto <code>30</code> se interpreta inicialmente como texto. En JSON, hemos elegido convertir <code>id</code> en una propiedad y <code>edad</code> en un número.</p>
+<h2 id="decisiones-que-debe-tomar-el-programador">Decisiones que debe tomar el programador<a class="headerlink" href="#decisiones-que-debe-tomar-el-programador" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Manual</th>
-<th>Automática</th>
+<th>Aspecto</th>
+<th>Decisión posible</th>
+<th>Riesgo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Más código</td>
-<td>Menos código</td>
+<td>Atributos XML</td>
+<td>Convertirlos en propiedades JSON</td>
+<td>Se pierde la distinción entre atributo y elemento</td>
 </tr>
 <tr>
-<td>Control total</td>
-<td>Depende del mapeo/librería</td>
+<td>Elementos repetidos</td>
+<td>Convertirlos en un array</td>
+<td>Un único elemento podría representarse como objeto o array</td>
 </tr>
 <tr>
-<td>Buena para comprender la transformación</td>
-<td>Buena para modelos estables</td>
+<td>Raíz XML</td>
+<td>Mantener o eliminar el nombre de la raíz</td>
+<td>No hay una raíz nombrada equivalente en JSON</td>
 </tr>
 <tr>
-<td>Permite reglas específicas</td>
-<td>Facilita mantenimiento</td>
+<td>Números y booleanos</td>
+<td>Convertir cadenas a tipos JSON</td>
+<td>Una conversión incorrecta puede alterar datos</td>
+</tr>
+<tr>
+<td><code>null</code> y elementos vacíos</td>
+<td>Elegir una representación explícita</td>
+<td>No significan necesariamente lo mismo</td>
+</tr>
+<tr>
+<td>Orden y contenido mixto</td>
+<td>Definir reglas especiales</td>
+<td>Puede perderse información</td>
 </tr>
 </tbody>
 </table>
+<h2 id="conversion-manual-y-mediante-modelo">Conversión manual y mediante modelo<a class="headerlink" href="#conversion-manual-y-mediante-modelo" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Manual</th>
+<th>Mediante modelo Java</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOM, XPath o SAX para leer XML</td>
+<td>JAXB para convertir XML a objetos</td>
+</tr>
+<tr>
+<td>Construcción explícita de JSON o XML</td>
+<td>Gson para convertir objetos a JSON</td>
+</tr>
+<tr>
+<td>Control sobre cada campo</td>
+<td>Menos código para estructuras estables</td>
+</tr>
+<tr>
+<td>Mayor flexibilidad, más código</td>
+<td>Requiere modelos y anotaciones correctos</td>
+</tr>
+</tbody>
+</table>
+<p>El segundo enfoque es <strong>semiautomático</strong>, porque debemos definir las clases <code>Cliente</code> y <code>Clientes</code> y decidir el mapeo. En los proyectos descargables se mantienen ambas estrategias para poder compararlas.</p>
+<p><a href="../">Guía de los proyectos y orden de ejecución</a>.</p>
 
 
 

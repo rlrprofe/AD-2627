@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sax-lectura-mediante-eventos" class="md-skip">
+        <a href="#sax-lectura-de-xml-mediante-eventos" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2332,10 +2360,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#flujo" class="md-nav__link">
+  <a href="#como-funciona" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flujo
+        Cómo funciona
       
     </span>
   </a>
@@ -2343,10 +2371,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crear-el-parser" class="md-nav__link">
+  <a href="#paso-1-leer-manejadoralumnosjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Crear el parser
+        Paso 1. Leer ManejadorAlumnos.java
       
     </span>
   </a>
@@ -2354,13 +2382,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#handler" class="md-nav__link">
+  <a href="#paso-2-ejecutar-leerxml_saxjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Handler
+        Paso 2. Ejecutar LeerXML_SAX.java
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Paso 2. Ejecutar LeerXML_SAX.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultado-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2928,10 +2973,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#flujo" class="md-nav__link">
+  <a href="#como-funciona" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flujo
+        Cómo funciona
       
     </span>
   </a>
@@ -2939,10 +2984,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crear-el-parser" class="md-nav__link">
+  <a href="#paso-1-leer-manejadoralumnosjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Crear el parser
+        Paso 1. Leer ManejadorAlumnos.java
       
     </span>
   </a>
@@ -2950,13 +2995,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#handler" class="md-nav__link">
+  <a href="#paso-2-ejecutar-leerxml_saxjava" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Handler
+        Paso 2. Ejecutar LeerXML_SAX.java
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Paso 2. Ejecutar LeerXML_SAX.java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultado-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2988,56 +3050,103 @@
 
 
 
-<h1 id="sax-lectura-mediante-eventos">SAX · Lectura mediante eventos<a class="headerlink" href="#sax-lectura-mediante-eventos" title="Permanent link">&para;</a></h1>
-<p>SAX no construye un árbol completo. El parser recorre el documento y genera <strong>eventos</strong>.</p>
-<h2 id="flujo">Flujo<a class="headerlink" href="#flujo" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">XML
- │
- ▼
-SAXParser
- │
- ├── startDocument()
- ├── startElement()
- ├── characters()
- ├── endElement()
- └── endDocument()
+<h1 id="sax-lectura-de-xml-mediante-eventos">SAX · Lectura de XML mediante eventos<a class="headerlink" href="#sax-lectura-de-xml-mediante-eventos" title="Permanent link">&para;</a></h1>
+<p>SAX (<em>Simple API for XML</em>) analiza el documento secuencialmente y comunica los eventos a un <strong>manejador</strong> (<em>handler</em>). A diferencia de DOM, no necesita construir un árbol completo en memoria.</p>
+<h2 id="como-funciona">Cómo funciona<a class="headerlink" href="#como-funciona" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">data/alumnos.xml
+       ↓
+     SAXParser
+       ↓
+  ManejadorAlumnos
+       ├── startElement()  → se abre una etiqueta
+       ├── characters()    → llega contenido de texto
+       └── endElement()    → se cierra una etiqueta
 </code></pre>
-<h2 id="crear-el-parser">Crear el parser<a class="headerlink" href="#crear-el-parser" title="Permanent link">&para;</a></h2>
-<pre><code class="language-java">SAXParserFactory factory = SAXParserFactory.newInstance();
-SAXParser parser = factory.newSAXParser();
-
-parser.parse(new File(&quot;resources/alumnos.xml&quot;),
-             new ManejadorAlumnos());
-</code></pre>
-<h2 id="handler">Handler<a class="headerlink" href="#handler" title="Permanent link">&para;</a></h2>
-<pre><code class="language-java">public class ManejadorAlumnos extends DefaultHandler {
-
-    @Override
-    public void startElement(
-            String uri, String localName,
-            String qName, Attributes attributes) {
-
-        if (qName.equals(&quot;alumno&quot;)) {
-            System.out.println(&quot;ID: &quot; + attributes.getValue(&quot;id&quot;));
-        }
-    }
-
-    @Override
-    public void characters(char[] ch, int start, int length) {
-        String texto = new String(ch, start, length).trim();
-
-        if (!texto.isEmpty()) {
-            System.out.println(texto);
-        }
+<p>Es útil para lectura secuencial de documentos grandes, pero no facilita modificar nodos o navegar libremente por el documento.</p>
+<h2 id="paso-1-leer-manejadoralumnosjava">Paso 1. Leer <code>ManejadorAlumnos.java</code><a class="headerlink" href="#paso-1-leer-manejadoralumnosjava" title="Permanent link">&para;</a></h2>
+<p>Abre <code>app/ManejadorAlumnos.java</code>. Esta clase extiende <code>DefaultHandler</code> y sobrescribe tres métodos:</p>
+<pre><code class="language-java">@Override
+public void startElement(String uri, String localName,
+                         String qName, Attributes attributes) {
+    texto.setLength(0);
+    if (&quot;alumno&quot;.equals(qName)) {
+        System.out.println(&quot;Alumno &quot; + attributes.getValue(&quot;id&quot;));
     }
 }
+
+@Override
+public void characters(char[] ch, int start, int length) {
+    texto.append(ch, start, length);
+}
+
+@Override
+public void endElement(String uri, String localName, String qName) {
+    if (&quot;nombre&quot;.equals(qName) || &quot;edad&quot;.equals(qName)) {
+        System.out.println(&quot;  &quot; + qName + &quot;: &quot; + texto.toString().trim());
+    }
+    texto.setLength(0);
+}
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><code>characters()</code> puede ejecutarse varias veces para un mismo contenido. No debemos asumir que recibiremos todo el texto en una única llamada.</p>
-</div>
+<p>El <code>StringBuilder texto</code> acumula fragmentos. <strong><code>characters()</code> puede invocarse varias veces para una misma etiqueta</strong>; por eso no debemos dar por hecho que una llamada contiene todo el texto.</p>
+<p>El manejador del proyecto está diseñado para la estructura sencilla de <code>alumnos.xml</code> (elementos <code>nombre</code> y <code>edad</code> sin etiquetas anidadas). Para XML con contenido mixto o anidamiento complejo habría que llevar un estado o una pila de elementos.</p>
+<h2 id="paso-2-ejecutar-leerxml_saxjava">Paso 2. Ejecutar <code>LeerXML_SAX.java</code><a class="headerlink" href="#paso-2-ejecutar-leerxml_saxjava" title="Permanent link">&para;</a></h2>
+<p>El programa configura el analizador a través de <code>XmlConfig</code> y abre el fichero con cierre automático:</p>
+<pre><code class="language-java">try (var entrada = Files.newInputStream(Path.of(&quot;data/alumnos.xml&quot;))) {
+    var analizador = XmlConfig.saxFactory().newSAXParser();
+    analizador.parse(entrada, new ManejadorAlumnos());
+}
+</code></pre>
+<p><code>XmlConfig.saxFactory()</code> desactiva DTD y entidades externas, reduciendo el riesgo de ataques XXE.</p>
+<h3 id="resultado-esperado">Resultado esperado<a class="headerlink" href="#resultado-esperado" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">Alumno A001
+  nombre: Ana
+  edad: 20
+Alumno A002
+  nombre: Luis
+  edad: 22
+Alumno A003
+  nombre: Marta
+  edad: 19
+</code></pre>
 <h2 id="dom-frente-a-sax">DOM frente a SAX<a class="headerlink" href="#dom-frente-a-sax" title="Permanent link">&para;</a></h2>
-<p>SAX consume poca memoria y es adecuado para documentos grandes, pero no ofrece un árbol que podamos recorrer hacia atrás o modificar cómodamente.</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>DOM</th>
+<th>SAX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modelo</td>
+<td>Árbol de nodos</td>
+<td>Eventos secuenciales</td>
+</tr>
+<tr>
+<td>Memoria</td>
+<td>Mayor para documentos grandes</td>
+<td>Menor</td>
+</tr>
+<tr>
+<td>Navegación</td>
+<td>Flexible</td>
+<td>Secuencial</td>
+</tr>
+<tr>
+<td>Modificación</td>
+<td>Sí</td>
+<td>No directamente</td>
+</tr>
+<tr>
+<td>Proyecto</td>
+<td><code>LeerXML_DOM</code></td>
+<td><code>LeerXML_SAX</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Actividad:</strong> añade un alumno al XML y comprueba cómo se muestran los eventos. Después explica por qué <code>ManejadorAlumnos</code> no tiene método <code>main</code>.</p>
+<p><a href="../../03-intercambio/xml/02-proyecto-java/">Descarga y guía del proyecto XML</a>.</p>
 
 
 

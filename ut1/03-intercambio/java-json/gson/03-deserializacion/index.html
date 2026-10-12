@@ -2806,6 +2806,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4179,6 +4207,10 @@
 
 
 <h1 id="deserializacion-de-json-a-objetos-java">Deserialización: de JSON a objetos Java<a class="headerlink" href="#deserializacion-de-json-a-objetos-java" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/gson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-que-es-deserializar">1. ¿Qué es deserializar?<a class="headerlink" href="#1-que-es-deserializar" title="Permanent link">&para;</a></h3>
 <p>En el apartado anterior hemos aprendido a realizar este proceso:</p>
 <pre><code class="language-text">OBJETO JAVA
@@ -4457,77 +4489,30 @@ Ana
 <h2 id="demogsonjava">DemoGson.java<a class="headerlink" href="#demogsonjava" title="Permanent link">&para;</a></h2>
 <h3 id="9-serializar-y-deserializar-en-el-mismo-ejemplo">9. Serializar y deserializar en el mismo ejemplo<a class="headerlink" href="#9-serializar-y-deserializar-en-el-mismo-ejemplo" title="Permanent link">&para;</a></h3>
 <p>Podemos utilizar <code>DemoGson.java</code> para comprobar los dos recorridos.</p>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo básico: objeto Java -&gt; JSON -&gt; objeto Java.
+ */
 public class DemoGson {
 
     public static void main(String[] args) {
+        // Se usa la configuración común para evitar problemas con LocalDate.
+        Gson gson = GsonConfig.crearGson();
 
-        // ==========================================
-        // 1. CREAR OBJETO JAVA
-        // ==========================================
+        Alumno original = new Alumno(1, &quot;Ana&quot;, 8.5);
 
-        Alumno alumnoOriginal =
-                new Alumno(
-                    1,
-                    &quot;Ana&quot;,
-                    8.5
-                );
-
-
-        // ==========================================
-        // 2. CREAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR
-        //    Java -&gt; JSON
-        // ==========================================
-
-        String json =
-                gson.toJson(
-                    alumnoOriginal
-                );
-
-        System.out.println(
-            &quot;JSON generado:&quot;
-        );
-
+        String json = gson.toJson(original);
+        System.out.println(&quot;JSON generado:&quot;);
         System.out.println(json);
 
-
-        // ==========================================
-        // 4. DESERIALIZAR
-        //    JSON -&gt; Java
-        // ==========================================
-
-        Alumno alumnoRecuperado =
-                gson.fromJson(
-                    json,
-                    Alumno.class
-                );
-
-
-        // ==========================================
-        // 5. UTILIZAR EL OBJETO RECUPERADO
-        // ==========================================
-
-        System.out.println(
-            &quot;\nAlumno recuperado:&quot;
-        );
-
-        System.out.println(
-            alumnoRecuperado
-        );
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println(&quot;\nAlumno recuperado:&quot;);
+        System.out.println(recuperado);
     }
 }
 </code></pre>

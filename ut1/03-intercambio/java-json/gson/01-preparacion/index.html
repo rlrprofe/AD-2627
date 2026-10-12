@@ -1380,6 +1380,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="5. ¿Qué significan groupId, artifactId y version?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupId
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifactid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        artifactId
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1652,6 +1691,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="19. Problemas frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gson-cannot-be-resolved-to-a-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gson cannot be resolved to a type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-import-aparece-en-rojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El import aparece en rojo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maven-utiliza-otra-version-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maven utiliza otra versión de Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2542,6 +2620,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3325,6 +3431,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="5. ¿Qué significan groupId, artifactId y version?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupId
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifactid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        artifactId
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3598,6 +3743,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="19. Problemas frecuentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gson-cannot-be-resolved-to-a-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gson cannot be resolved to a type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-import-aparece-en-rojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El import aparece en rojo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maven-utiliza-otra-version-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maven utiliza otra versión de Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3651,6 +3835,10 @@
 
 
 <h1 id="preparacion-del-proyecto">Preparación del proyecto<a class="headerlink" href="#preparacion-del-proyecto" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/gson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h3>
 <p>Para trabajar con <strong>Gson</strong> desde Java necesitamos incorporar la librería a nuestro proyecto.</p>
 <p>Gson no forma parte de la biblioteca estándar de Java, por lo que debemos añadirla como una <strong>dependencia externa</strong>.</p>
@@ -3890,27 +4078,30 @@ Disponible en nuestro proyecto
 <hr />
 <h3 id="12-primera-prueba">12. Primera prueba<a class="headerlink" href="#12-primera-prueba" title="Permanent link">&para;</a></h3>
 <p>Podemos comprobar que la librería funciona con un ejemplo muy sencillo:</p>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
 
+/**
+ * Ejemplo básico: objeto Java -&gt; JSON -&gt; objeto Java.
+ */
 public class DemoGson {
 
     public static void main(String[] args) {
+        // Se usa la configuración común para evitar problemas con LocalDate.
+        Gson gson = GsonConfig.crearGson();
 
-        Gson gson =
-                new Gson();
+        Alumno original = new Alumno(1, &quot;Ana&quot;, 8.5);
 
-        String[] modulos = {
-            &quot;Acceso a Datos&quot;,
-            &quot;Desarrollo de Interfaces&quot;,
-            &quot;Programación de Servicios&quot;
-        };
-
-        String json =
-                gson.toJson(modulos);
-
+        String json = gson.toJson(original);
+        System.out.println(&quot;JSON generado:&quot;);
         System.out.println(json);
+
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println(&quot;\nAlumno recuperado:&quot;);
+        System.out.println(recuperado);
     }
 }
 </code></pre>
@@ -4015,49 +4206,30 @@ setPrettyPrinting()
 <h2 id="primer-ejemplo-completo">Primer ejemplo completo<a class="headerlink" href="#primer-ejemplo-completo" title="Permanent link">&para;</a></h2>
 <h3 id="16-demogsonjava">16. DemoGson.java<a class="headerlink" href="#16-demogsonjava" title="Permanent link">&para;</a></h3>
 <p>Podemos dejar nuestro primer programa de prueba así:</p>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo básico: objeto Java -&gt; JSON -&gt; objeto Java.
+ */
 public class DemoGson {
 
     public static void main(String[] args) {
+        // Se usa la configuración común para evitar problemas con LocalDate.
+        Gson gson = GsonConfig.crearGson();
 
-        // ==========================================
-        // 1. CREAR GSON
-        // ==========================================
+        Alumno original = new Alumno(1, &quot;Ana&quot;, 8.5);
 
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 2. DATOS JAVA
-        // ==========================================
-
-        String[] modulos = {
-            &quot;Acceso a Datos&quot;,
-            &quot;Desarrollo de Interfaces&quot;,
-            &quot;Programación de Servicios&quot;
-        };
-
-
-        // ==========================================
-        // 3. CONVERTIR JAVA A JSON
-        // ==========================================
-
-        String json =
-                gson.toJson(modulos);
-
-
-        // ==========================================
-        // 4. MOSTRAR RESULTADO
-        // ==========================================
-
+        String json = gson.toJson(original);
+        System.out.println(&quot;JSON generado:&quot;);
         System.out.println(json);
+
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println(&quot;\nAlumno recuperado:&quot;);
+        System.out.println(recuperado);
     }
 }
 </code></pre>

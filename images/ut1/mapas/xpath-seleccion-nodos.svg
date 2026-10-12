@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 650" role="img" aria-label="XPath: seleccionar nodos de un XML">
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#334155" stroke-width="1.4"/></marker></defs>
+<rect width="1120" height="650" rx="22" fill="#f8fafc"/>
+<text x="45" y="60" font-family="DejaVu Sans,Arial,sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#0f172a">XPath: seleccionar nodos de un XML</text>
+<text x="45" y="94" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#475569">Ejemplo de consulta: //alumno[edad &gt; 20]</text>
+<rect x="45" y="160" width="285" height="335" rx="15" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="1.5"/>
+<text x="65" y="195" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Árbol del documento XML</text>
+<text x="65" y="228" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">alumnos</text>
+<text x="65" y="254" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">├─ alumno: Ana, 20</text>
+<text x="65" y="280" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">├─ alumno: Luis, 22</text>
+<text x="65" y="306" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">└─ alumno: Marta, 19</text>
+<rect x="405" y="195" width="310" height="210" rx="15" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="425" y="230" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Expresión XPath</text>
+<text x="425" y="263" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">//alumno[edad &gt; 20]</text>
+<text x="425" y="289" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Busca alumnos con edad</text>
+<text x="425" y="315" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">numéricamente mayor que 20</text>
+<rect x="790" y="195" width="285" height="210" rx="15" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="810" y="230" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Resultado</text>
+<text x="810" y="263" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">1 nodo seleccionado</text>
+<text x="810" y="289" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">alumno: Luis</text>
+<text x="810" y="315" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">edad: 22</text>
+<path d="M330 300 L400 300" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<path d="M715 300 L785 300" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<text x="560" y="550" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#334155">// busca descendientes   •   [ ... ] aplica un predicado   •   &gt; compara valores</text>
+</svg>

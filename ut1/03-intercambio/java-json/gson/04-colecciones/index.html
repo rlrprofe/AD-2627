@@ -1604,6 +1604,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="10. Descomponiendo la instrucción">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1765,6 +1804,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="17. Un objeto frente a una colección">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-objeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Un objeto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#una-coleccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Una colección
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2850,6 +2917,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3773,6 +3868,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="10. Descomponiendo la instrucción">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3934,6 +4068,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="17. Un objeto frente a una colección">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-objeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Un objeto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#una-coleccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Una colección
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4267,6 +4429,10 @@
 
 
 <h1 id="colecciones-y-typetoken">Colecciones y TypeToken<a class="headerlink" href="#colecciones-y-typetoken" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Ejemplos y proyecto descargable (Java 21)</p>
+<p>Los fragmentos de esta página ilustran conceptos. La versión <strong>completa y ejecutable</strong> utiliza paquetes separados (<code>com.example.app</code>, <code>model</code>, <code>repository</code> y, cuando corresponde, <code>config</code>/<code>adapter</code>). Consulta el <a href="../#guia-del-proyecto-maven-actualizado-java-21">orden didáctico y la estructura del proyecto</a> y el <a href="../../../../../descargas/ut1/java-json/gson-ejemplos.zip">ZIP actualizado</a>.</p>
+</div>
 <h3 id="1-de-un-objeto-a-varios-objetos">1. De un objeto a varios objetos<a class="headerlink" href="#1-de-un-objeto-a-varios-objetos" title="Permanent link">&para;</a></h3>
 <p>Hasta ahora hemos trabajado con un único objeto:</p>
 <pre><code class="language-java">Alumno alumno =
@@ -4620,111 +4786,40 @@ List&lt;Alumno&gt;
 <hr />
 <h2 id="ejemplo-completo-en-memoria">Ejemplo completo en memoria<a class="headerlink" href="#ejemplo-completo-en-memoria" title="Permanent link">&para;</a></h2>
 <h3 id="12-serializar-y-recuperar-una-lista">12. Serializar y recuperar una lista<a class="headerlink" href="#12-serializar-y-recuperar-una-lista" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<pre><code class="language-java">package com.example.app;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Ejemplo de conversión de colecciones con TypeToken.
+ */
 public class DemoListaGson {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. CREAR LA LISTA
-        // ==========================================
-
-        List&lt;Alumno&gt; alumnos =
-                new ArrayList&lt;&gt;();
-
-        alumnos.add(
-            new Alumno(
-                1,
-                &quot;Ana&quot;,
-                8.5
-            )
+        List&lt;Alumno&gt; alumnos = List.of(
+                new Alumno(1, &quot;Ana&quot;, 8.5),
+                new Alumno(2, &quot;Luis&quot;, 7.2),
+                new Alumno(3, &quot;Marta&quot;, 9.1)
         );
 
-        alumnos.add(
-            new Alumno(
-                2,
-                &quot;Luis&quot;,
-                7.2
-            )
-        );
+        Gson gson = GsonConfig.crearGson();
 
-        alumnos.add(
-            new Alumno(
-                3,
-                &quot;Marta&quot;,
-                9.1
-            )
-        );
-
-
-        // ==========================================
-        // 2. CREAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR LA LISTA
-        //    List&lt;Alumno&gt; -&gt; JSON
-        // ==========================================
-
-        String json =
-                gson.toJson(alumnos);
-
-        System.out.println(
-            &quot;JSON generado:&quot;
-        );
-
+        String json = gson.toJson(alumnos);
+        System.out.println(&quot;JSON generado:&quot;);
         System.out.println(json);
 
+        // Gson necesita conservar el tipo genérico List&lt;Alumno&gt;.
+        Type tipoLista = new TypeToken&lt;List&lt;Alumno&gt;&gt;() { }.getType();
+        List&lt;Alumno&gt; recuperados = gson.fromJson(json, tipoLista);
 
-        // ==========================================
-        // 4. DEFINIR EL TIPO
-        // ==========================================
-
-        Type tipo =
-                new TypeToken&lt;List&lt;Alumno&gt;&gt;() {}
-                    .getType();
-
-
-        // ==========================================
-        // 5. DESERIALIZAR
-        //    JSON -&gt; List&lt;Alumno&gt;
-        // ==========================================
-
-        List&lt;Alumno&gt; alumnosRecuperados =
-                gson.fromJson(
-                    json,
-                    tipo
-                );
-
-
-        // ==========================================
-        // 6. RECORRER LA LISTA
-        // ==========================================
-
-        System.out.println(
-            &quot;\nAlumnos recuperados:&quot;
-        );
-
-        for (Alumno alumno :
-                alumnosRecuperados) {
-
-            System.out.println(alumno);
-        }
+        System.out.println(&quot;\nAlumnos recuperados:&quot;);
+        recuperados.forEach(System.out::println);
     }
 }
 </code></pre>

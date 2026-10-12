@@ -2184,6 +2184,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-escritura-y-lectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto: escritura y lectura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto: escritura y lectura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buenas-practicas-que-incorpora-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas que incorpora el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2375,6 +2403,34 @@
     
   
     Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
   
 
     
@@ -3327,6 +3383,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-escritura-y-lectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto: escritura y lectura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto: escritura y lectura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buenas-practicas-que-incorpora-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas que incorpora el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3546,6 +3630,25 @@ except OSError as e:
         ▼
 alumnos: list[dict]
 </code></pre>
+<hr />
+<h2 id="ejemplos-del-proyecto-escritura-y-lectura">Ejemplos del proyecto: escritura y lectura<a class="headerlink" href="#ejemplos-del-proyecto-escritura-y-lectura" title="Permanent link">&para;</a></h2>
+<p>Abre <code>src/03_guardar_alumnos.py</code> y después <code>src/04_leer_alumnos.py</code>. Ejecútalos en ese orden:</p>
+<pre><code class="language-bash">python src/03_guardar_alumnos.py
+python src/04_leer_alumnos.py
+</code></pre>
+<p>El primero guarda una lista en <code>data/alumnos.json</code> mediante <code>json.dump()</code>; el segundo la recupera con <code>json.load()</code>. Ambos utilizan <code>with</code> y UTF-8.</p>
+<h3 id="buenas-practicas-que-incorpora-el-proyecto">Buenas prácticas que incorpora el proyecto<a class="headerlink" href="#buenas-practicas-que-incorpora-el-proyecto" title="Permanent link">&para;</a></h3>
+<ul>
+<li>La ruta se calcula desde <code>Path(__file__).resolve().parent.parent</code>, no desde el directorio de trabajo actual.</li>
+<li>Se crea la carpeta <code>data</code> si no existe.</li>
+<li>Se capturan los errores de lectura/escritura y de JSON mal formado.</li>
+<li>Tras <code>json.load()</code>, se comprueba con <code>isinstance()</code> que el resultado es una lista antes de recorrerlo.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">JSON válido no implica datos correctos</p>
+<p>Un fichero con <code>{}</code> o <code>null</code> puede ser JSON válido, pero no representa la lista de alumnos que necesita el programa. Por eso validamos la estructura.</p>
+</div>
+<p><a href="../../../../descargas/ut1/python-json/python-json-ejemplos.zip">Descargar el proyecto</a>.</p>
 
 
 

@@ -737,6 +737,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#escribir-y-recuperar-un-objeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escribir y recuperar un objeto
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2187,6 +2198,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2927,6 +2966,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#escribir-y-recuperar-un-objeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escribir y recuperar un objeto
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2980,6 +3030,10 @@ try (ObjectOutputStream oos =
 <p class="admonition-title">Note</p>
 <p>El fichero debe haber sido creado previamente mediante serialización compatible.</p>
 </div>
+<hr />
+<h2 id="escribir-y-recuperar-un-objeto">Escribir y recuperar un objeto<a class="headerlink" href="#escribir-y-recuperar-un-objeto" title="Permanent link">&para;</a></h2>
+<p>Ejecuta <strong>primero</strong> <code>serializar_deserializar.DemoSerializarUno</code> para crear <code>data/persona.dat</code> y <strong>después</strong> <code>DemoDeserializarUno</code>. Observa <code>writeObject()</code> y <code>readObject()</code>, el cast a <code>Persona</code> y el uso de <code>try-with-resources</code>. Al recuperar el objeto, el atributo <code>transient password</code> tiene el valor por defecto <code>null</code>.</p>
+<p><a href="../../../descargas/ut1/serializacion/code_examples_1-2.zip"><strong>Descargar proyecto Maven revisado (Java 21)</strong></a></p>
 
 
 

@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2750,10 +2778,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#proceso-general" class="md-nav__link">
+  <a href="#ejemplo-1-dom-xmltojsonmanual1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proceso general
+        Ejemplo 1: DOM — XmlToJsonManual1.java
       
     </span>
   </a>
@@ -2761,13 +2789,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ejemplos-del-proyecto" class="md-nav__link">
+  <a href="#ejemplo-2-xpath-xmltojsonmanual2java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ejemplos del proyecto
+        Ejemplo 2: XPath — XmlToJsonManual2.java
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-3-sax-clientehandlerjava-y-xmltojsonmanual3java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 3: SAX — ClienteHandler.java y XmlToJsonManual3.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2906,10 +2973,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#proceso-general" class="md-nav__link">
+  <a href="#ejemplo-1-dom-xmltojsonmanual1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proceso general
+        Ejemplo 1: DOM — XmlToJsonManual1.java
       
     </span>
   </a>
@@ -2917,13 +2984,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ejemplos-del-proyecto" class="md-nav__link">
+  <a href="#ejemplo-2-xpath-xmltojsonmanual2java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ejemplos del proyecto
+        Ejemplo 2: XPath — XmlToJsonManual2.java
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-3-sax-clientehandlerjava-y-xmltojsonmanual3java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 3: SAX — ClienteHandler.java y XmlToJsonManual3.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2945,23 +3051,59 @@
 
 
 <h1 id="conversion-xml-json">Conversión XML → JSON<a class="headerlink" href="#conversion-xml-json" title="Permanent link">&para;</a></h1>
-<h2 id="proceso-general">Proceso general<a class="headerlink" href="#proceso-general" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">XML → lectura/parser → estructura intermedia → objeto JSON → JSON
+<p>Partimos de <code>resources/clientes.xml</code>, que contiene <strong>Laura (30)</strong> y <strong>Pedro (25)</strong>. El objetivo es obtener una lista JSON de clientes.</p>
+<pre><code class="language-text">XML → analizador XML → datos Java → Gson → fichero JSON
 </code></pre>
-<p>En una conversión manual podemos leer el XML mediante DOM, SAX o XPath y construir después el JSON.</p>
-<pre><code class="language-java">JsonObject clienteJson = new JsonObject();
-
-clienteJson.addProperty(&quot;id&quot;, id);
-clienteJson.addProperty(&quot;nombre&quot;, nombre);
-clienteJson.addProperty(&quot;edad&quot;, edad);
-</code></pre>
-<p>El punto importante es decidir cómo traducimos la estructura XML a propiedades y arrays JSON.</p>
-<h2 id="ejemplos-del-proyecto">Ejemplos del proyecto<a class="headerlink" href="#ejemplos-del-proyecto" title="Permanent link">&para;</a></h2>
+<h2 id="ejemplo-1-dom-xmltojsonmanual1java">Ejemplo 1: DOM — <code>XmlToJsonManual1.java</code><a class="headerlink" href="#ejemplo-1-dom-xmltojsonmanual1java" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Abre <code>conversion-manual</code> en VS Code.</li>
+<li>Localiza <code>src/main/java/com/example/xmltojson/XmlToJsonManual1.java</code>.</li>
+<li>Identifica dónde se crea <code>DocumentBuilderFactory</code> y se analiza el fichero XML.</li>
+<li>Observa cómo se recorren los elementos <code>cliente</code> y se crean mapas <code>Map&lt;String, Object&gt;</code>.</li>
+<li>Localiza <code>GsonBuilder</code> y <code>toJson()</code>, que producen el texto JSON.</li>
+</ol>
+<p>DOM construye un árbol en memoria. Es apropiado cuando queremos acceder a elementos y atributos en cualquier orden.</p>
+<h2 id="ejemplo-2-xpath-xmltojsonmanual2java">Ejemplo 2: XPath — <code>XmlToJsonManual2.java</code><a class="headerlink" href="#ejemplo-2-xpath-xmltojsonmanual2java" title="Permanent link">&para;</a></h2>
+<p>Este programa también utiliza DOM para cargar el documento, pero selecciona los datos con <strong>expresiones XPath</strong>. Compara su código con el anterior: la conversión final a JSON es similar; cambia la forma de localizar los nodos.</p>
+<h2 id="ejemplo-3-sax-clientehandlerjava-y-xmltojsonmanual3java">Ejemplo 3: SAX — <code>ClienteHandler.java</code> y <code>XmlToJsonManual3.java</code><a class="headerlink" href="#ejemplo-3-sax-clientehandlerjava-y-xmltojsonmanual3java" title="Permanent link">&para;</a></h2>
+<p>Lee <strong>primero el manejador</strong> <code>xmltojson/handlers/ClienteHandler.java</code>. Sus métodos reciben eventos del analizador:</p>
 <ul>
-<li><code>XmlToJsonManual1</code></li>
-<li><code>XmlToJsonManual2</code></li>
-<li><code>XmlToJsonManual3</code></li>
+<li><code>startElement()</code> detecta la apertura de una etiqueta y sus atributos.</li>
+<li><code>characters()</code> recibe fragmentos de texto; pueden llegar en varias llamadas.</li>
+<li><code>endElement()</code> permite completar los valores de cada cliente.</li>
 </ul>
+<p>Después ejecuta <code>XmlToJsonManual3.java</code>, que conecta el analizador SAX con el manejador y utiliza Gson para generar JSON. SAX no construye el árbol completo, aunque el programa sí acumula la lista de clientes que desea convertir.</p>
+<h2 id="comparacion">Comparación<a class="headerlink" href="#comparacion" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ejemplo</th>
+<th>Lectura de XML</th>
+<th>Uso principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XmlToJsonManual1</code></td>
+<td>DOM</td>
+<td>Recorrido del árbol</td>
+</tr>
+<tr>
+<td><code>XmlToJsonManual2</code></td>
+<td>DOM + XPath</td>
+<td>Selección de nodos</td>
+</tr>
+<tr>
+<td><code>XmlToJsonManual3</code></td>
+<td>SAX</td>
+<td>Lectura secuencial por eventos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h3>
+<p>Los analizadores DOM y SAX deben impedir la carga de DTD y entidades externas (protección XXE). La salida JSON debe usar UTF-8, y los errores de lectura o sintaxis deben tratarse explícitamente. En el proyecto revisado se han reforzado las opciones de seguridad de los analizadores existentes.</p>
+<p><strong>Actividad:</strong> añade un tercer cliente al XML y comprueba que aparece en los tres resultados.</p>
+<p><a href="../">Descargar proyectos y consultar el orden didáctico</a>.</p>
 
 
 

@@ -2179,6 +2179,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-fechas-y-dataclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto: fechas y dataclasses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto: fechas y dataclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#07_tipos_personalizadospy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07_tipos_personalizados.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08_dataclass_jsonpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08_dataclass_json.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2314,6 +2353,34 @@
     
   
     Estructura y conceptos básicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
   
 
     
@@ -3205,6 +3272,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplos-del-proyecto-fechas-y-dataclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos del proyecto: fechas y dataclasses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos del proyecto: fechas y dataclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#07_tipos_personalizadospy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07_tipos_personalizados.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08_dataclass_jsonpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08_dataclass_json.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3446,6 +3552,18 @@ Modelos Python
             │
             └── asdict()
 </code></pre>
+<hr />
+<h2 id="ejemplos-del-proyecto-fechas-y-dataclasses">Ejemplos del proyecto: fechas y dataclasses<a class="headerlink" href="#ejemplos-del-proyecto-fechas-y-dataclasses" title="Permanent link">&para;</a></h2>
+<h3 id="07_tipos_personalizadospy"><code>07_tipos_personalizados.py</code><a class="headerlink" href="#07_tipos_personalizadospy" title="Permanent link">&para;</a></h3>
+<p>El programa define <code>serializar(objeto)</code> para convertir un <code>date</code> a texto ISO 8601 cuando <code>json.dumps()</code> encuentra un tipo no admitido. En sentido inverso, <code>object_hook=recuperar_fechas</code> procesa los diccionarios recuperados y transforma la clave <code>fecha_nacimiento</code> cuando contiene una fecha válida.</p>
+<div class="admonition note">
+<p class="admonition-title">Alcance de object_hook</p>
+<p><code>object_hook</code> recibe <strong>cada objeto JSON</strong> que se deserializa. En este ejemplo solo convertimos la clave conocida <code>fecha_nacimiento</code>, no cualquier cadena que parezca una fecha.</p>
+</div>
+<h3 id="08_dataclass_jsonpy"><code>08_dataclass_json.py</code><a class="headerlink" href="#08_dataclass_jsonpy" title="Permanent link">&para;</a></h3>
+<p>La clase <code>Alumno</code> utiliza <code>@dataclass</code>. <code>asdict(alumno)</code> genera un diccionario serializable y <code>Alumno(**datos)</code> reconstruye el objeto a partir de sus claves.</p>
+<p><strong>Importante:</strong> <code>Alumno(**datos)</code> requiere claves compatibles con el constructor; no sustituye la validación de datos externos.</p>
+<p><a href="../../../../descargas/ut1/python-json/python-json-ejemplos.zip">Descargar el proyecto</a>.</p>
 
 
 

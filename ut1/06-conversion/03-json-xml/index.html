@@ -2116,6 +2116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2778,10 +2806,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#conversion-recursiva" class="md-nav__link">
+  <a href="#ejemplo-1-jsontoxmlmanual1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conversión recursiva
+        Ejemplo 1: JsonToXmlManual1.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-2-jsontoxmlmanual2_recursivojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 2: JsonToXmlManual2_Recursivo.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
       
     </span>
   </a>
@@ -2895,10 +2945,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#conversion-recursiva" class="md-nav__link">
+  <a href="#ejemplo-1-jsontoxmlmanual1java" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conversión recursiva
+        Ejemplo 1: JsonToXmlManual1.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-2-jsontoxmlmanual2_recursivojava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 2: JsonToXmlManual2_Recursivo.java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
       
     </span>
   </a>
@@ -2923,26 +2995,41 @@
 
 
 <h1 id="conversion-json-xml">Conversión JSON → XML<a class="headerlink" href="#conversion-json-xml" title="Permanent link">&para;</a></h1>
-<p>En la dirección inversa partimos de objetos/arrays JSON y construimos una jerarquía XML.</p>
-<pre><code class="language-text">JSON → parser JSON → objetos/arrays → elementos/atributos XML → XML
+<p>Ahora partimos de <code>resources/clientes.json</code>, que contiene una lista de objetos con <code>id</code>, <code>nombre</code> y <code>edad</code>.</p>
+<pre><code class="language-text">JSON → Gson → estructuras Java → árbol DOM → fichero XML
 </code></pre>
-<p>Una estrategia consiste en crear un <code>Document</code> DOM:</p>
-<pre><code class="language-java">Document doc = builder.newDocument();
-
-Element raiz = doc.createElement(&quot;clientes&quot;);
-doc.appendChild(raiz);
-
-Element cliente = doc.createElement(&quot;cliente&quot;);
-cliente.setAttribute(&quot;id&quot;, &quot;C01&quot;);
-raiz.appendChild(cliente);
+<h2 id="ejemplo-1-jsontoxmlmanual1java">Ejemplo 1: <code>JsonToXmlManual1.java</code><a class="headerlink" href="#ejemplo-1-jsontoxmlmanual1java" title="Permanent link">&para;</a></h2>
+<p>Abre <code>conversion-manual/src/main/java/com/example/jsontoxml/JsonToXmlManual1.java</code>.</p>
+<ol>
+<li>Gson lee el JSON y lo transforma en una lista de mapas.</li>
+<li><code>DocumentBuilder</code> crea un documento DOM nuevo.</li>
+<li><code>createElement()</code> crea las etiquetas <code>clientes</code>, <code>cliente</code>, <code>nombre</code> y <code>edad</code>.</li>
+<li><code>setAttribute()</code> coloca el identificador en el atributo <code>id</code>.</li>
+<li><code>appendChild()</code> construye las relaciones entre nodos.</li>
+<li>Un <code>Transformer</code> escribe el documento XML en la carpeta <code>salida/</code>.</li>
+</ol>
+<p>Por ejemplo, un objeto JSON:</p>
+<pre><code class="language-json">{&quot;id&quot;: &quot;C01&quot;, &quot;nombre&quot;: &quot;Laura&quot;, &quot;edad&quot;: 30}
 </code></pre>
-<h2 id="conversion-recursiva">Conversión recursiva<a class="headerlink" href="#conversion-recursiva" title="Permanent link">&para;</a></h2>
-<p>Cuando el JSON contiene objetos y arrays anidados, una solución general puede recorrer recursivamente cada valor.</p>
-<p>El proyecto incluye:</p>
+<p>puede convertirse en:</p>
+<pre><code class="language-xml">&lt;cliente id=&quot;C01&quot;&gt;
+  &lt;nombre&gt;Laura&lt;/nombre&gt;
+  &lt;edad&gt;30&lt;/edad&gt;
+&lt;/cliente&gt;
+</code></pre>
+<h2 id="ejemplo-2-jsontoxmlmanual2_recursivojava">Ejemplo 2: <code>JsonToXmlManual2_Recursivo.java</code><a class="headerlink" href="#ejemplo-2-jsontoxmlmanual2_recursivojava" title="Permanent link">&para;</a></h2>
+<p>Este programa amplía el anterior para recorrer <strong>objetos y arrays anidados</strong>. La recursividad permite aplicar la misma lógica a distintos niveles de profundidad, pero exige reglas para nombrar las etiquetas de los elementos de una lista.</p>
+<p><strong>Importante:</strong> no existe una traducción universal de arrays JSON a etiquetas XML. Revisa qué convención adopta el ejemplo y comprueba si la transformación inversa recuperaría exactamente la estructura original.</p>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>JsonToXmlManual1</code></li>
-<li><code>JsonToXmlManual2_Recursivo</code></li>
+<li>Utiliza UTF-8 en la lectura y escritura de ficheros.</li>
+<li>Cierra los flujos con <code>try-with-resources</code> cuando se abran explícitamente.</li>
+<li>Evita sobrescribir los ficheros de entrada: guarda resultados en <code>salida/</code>.</li>
+<li>Valida si el JSON recibido es una lista o un objeto con la estructura esperada.</li>
+<li>Configura de forma segura los analizadores XML si el programa también lee XML.</li>
 </ul>
+<p><strong>Actividad:</strong> añade un cliente al JSON y comprueba el XML generado. Después prueba una estructura anidada con el ejemplo recursivo.</p>
+<p><a href="../">Descargar proyectos</a>.</p>
 
 
 

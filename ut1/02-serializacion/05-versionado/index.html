@@ -810,6 +810,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#que-significa-serialversionuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué significa serialVersionUID
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2176,6 +2187,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyecto Java y ejemplos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2905,6 +2944,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#que-significa-serialversionuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué significa serialVersionUID
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2936,6 +2986,10 @@
 <p class="admonition-title">Warning</p>
 <p>Mantener el mismo <code>serialVersionUID</code> no garantiza que cualquier cambio imaginable sea compatible. Debemos valorar cómo ha cambiado la clase y los datos que esperamos recuperar.</p>
 </div>
+<hr />
+<h2 id="que-significa-serialversionuid">Qué significa serialVersionUID<a class="headerlink" href="#que-significa-serialversionuid" title="Permanent link">&para;</a></h2>
+<p>Consulta <code>model/Persona.java</code> y <code>model/Personav2.java</code>. Un <code>serialVersionUID</code> diferente puede provocar <code>InvalidClassException</code> al leer un fichero antiguo; mantenerlo no garantiza compatibilidad ante cualquier cambio. <strong>Las dos clases tienen nombres distintos</strong>, por lo que <code>Personav2</code> no sustituye automáticamente a <code>Persona</code> durante la deserialización.</p>
+<p><a href="../../../descargas/ut1/serializacion/code_examples_1-2.zip"><strong>Descargar proyecto Maven revisado (Java 21)</strong></a></p>
 
 
 
