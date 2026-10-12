@@ -216,3 +216,15 @@ list
 ```
 
 Esto explica buena parte de la menor curva de aprendizaje señalada en el material.
+
+---
+
+## Ejemplo del proyecto: estructuras anidadas
+
+Ejecuta `src/02_estructuras_json.py`. El diccionario `curso` contiene una lista de alumnos; cada alumno contiene una lista de notas.
+
+Observa la conversión de `True` a `true` y de `None` a `null`. Después de `json.loads()`, recuperamos las estructuras Python y recorremos la lista con un `for`.
+
+**Actividad:** añade una asignatura o un tercer alumno y comprueba la representación JSON.
+
+[Proyecto descargable](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

@@ -311,3 +311,22 @@ Modelos Python
             │
             └── asdict()
 ```
+
+---
+
+## Ejemplos del proyecto: fechas y dataclasses
+
+### `07_tipos_personalizados.py`
+
+El programa define `serializar(objeto)` para convertir un `date` a texto ISO 8601 cuando `json.dumps()` encuentra un tipo no admitido. En sentido inverso, `object_hook=recuperar_fechas` procesa los diccionarios recuperados y transforma la clave `fecha_nacimiento` cuando contiene una fecha válida.
+
+!!! note "Alcance de object_hook"
+    `object_hook` recibe **cada objeto JSON** que se deserializa. En este ejemplo solo convertimos la clave conocida `fecha_nacimiento`, no cualquier cadena que parezca una fecha.
+
+### `08_dataclass_json.py`
+
+La clase `Alumno` utiliza `@dataclass`. `asdict(alumno)` genera un diccionario serializable y `Alumno(**datos)` reconstruye el objeto a partir de sus claves.
+
+**Importante:** `Alumno(**datos)` requiere claves compatibles con el constructor; no sustituye la validación de datos externos.
+
+[Descargar el proyecto](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

@@ -1,42 +1,67 @@
 # XPath desde Java
 
-## 1. Cargar el XML con DOM
+XPath permite seleccionar nodos o valores dentro de un documento XML mediante **expresiones de consulta**. En el proyecto Maven utilizamos DOM para cargar el XML y XPath para localizar los alumnos que cumplen una condición.
 
-```java
-DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-DocumentBuilder builder = factory.newDocumentBuilder();
-Document doc = builder.parse(new File("resources/catalogo.xml"));
+## Documento y ejemplo
+
+El fichero `data/alumnos.xml` contiene tres alumnos: Ana (20), Luis (22) y Marta (19).
+
+La expresión:
+
+```xpath
+//alumno[edad > 20]
 ```
 
-## 2. Crear el evaluador
+selecciona los elementos `alumno` cuyo elemento hijo `edad` tiene un valor numérico superior a 20. En nuestros datos solo coincide **Luis**.
+
+## Paso 1. Cargar el XML
+
+Abre `app/ConsultarXPath.java`:
 
 ```java
-XPathFactory xpathFactory = XPathFactory.newInstance();
-XPath xpath = xpathFactory.newXPath();
+Document documento = new AlumnoXmlRepository()
+    .leer(Path.of("data/alumnos.xml"));
 ```
 
-## 3. Obtener un texto
+El repositorio utiliza la configuración DOM segura de `XmlConfig`, de modo que el programa de consultas no necesita repetir la apertura y el análisis del fichero.
+
+## Paso 2. Crear un evaluador XPath
 
 ```java
-String nombre = xpath.evaluate(
-    "//producto[1]/nombre/text()",
-    doc
-);
+XPath xpath = XPathFactory.newInstance().newXPath();
 ```
 
-## 4. Obtener varios nodos
+## Paso 3. Ejecutar una consulta que devuelve nodos
 
 ```java
-NodeList lista = (NodeList) xpath.evaluate(
-    "//producto[precio > 50]",
-    doc,
+NodeList mayores = (NodeList) xpath.evaluate(
+    "//alumno[edad > 20]",
+    documento,
     XPathConstants.NODESET
 );
 ```
 
-## 5. Tipos de resultado
+`XPathConstants.NODESET` indica que esperamos una colección de nodos. Después se recorren los resultados:
 
-| Constante | Resultado |
+```java
+for (int i = 0; i < mayores.getLength(); i++) {
+    Element alumno = (Element) mayores.item(i);
+    System.out.println(
+        alumno.getElementsByTagName("nombre")
+              .item(0).getTextContent()
+    );
+}
+```
+
+### Resultado esperado
+
+```text
+Luis
+```
+
+## Otros tipos de resultado
+
+| Constante | Tipo Java |
 |---|---|
 | `XPathConstants.STRING` | `String` |
 | `XPathConstants.NUMBER` | `Double` |
@@ -44,20 +69,31 @@ NodeList lista = (NodeList) xpath.evaluate(
 | `XPathConstants.NODE` | `Node` |
 | `XPathConstants.NODESET` | `NodeList` |
 
-## 6. Compilar y reutilizar
+Por ejemplo, para contar alumnos:
 
 ```java
-XPathExpression expr =
-    xpath.compile("//producto[precio > 50]/nombre/text()");
-
-NodeList lista = (NodeList)
-    expr.evaluate(doc, XPathConstants.NODESET);
+Double total = (Double) xpath.evaluate(
+    "count(//alumno)", documento, XPathConstants.NUMBER
+);
+System.out.println(total); // 3.0
 ```
 
-## Ejemplos del proyecto
+Para reutilizar una consulta:
 
-1. `Example01Catalogo`
-2. `Example02TiposResultado`
-3. `Example03Contexto`
-4. `Example04Metricas`
-5. `Example05TextoYLimpieza`
+```java
+XPathExpression consulta = xpath.compile("//alumno[edad > 20]");
+NodeList lista = (NodeList) consulta.evaluate(
+    documento, XPathConstants.NODESET
+);
+```
+
+## Buenas prácticas
+
+- Mantén la apertura del XML en el repositorio y las consultas en la aplicación.
+- Usa `XPathConstants` cuando necesites un tipo de resultado concreto.
+- Comprueba si una consulta puede devolver cero resultados.
+- No confundas una **expresión XPath** con una ruta de fichero del sistema.
+
+**Actividad:** cambia la expresión para seleccionar alumnos de 20 años o más. ¿Qué nombres aparecen? Prueba también `count(//alumno)`.
+
+[Guía y descarga del proyecto XML](../03-intercambio/xml/02-proyecto-java.md).

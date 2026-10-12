@@ -40,3 +40,12 @@ try (ObjectInputStream ois =
 
 !!! note
     El fichero debe haber sido creado previamente mediante serialización compatible.
+
+
+---
+
+## Escribir y recuperar un objeto
+
+Ejecuta **primero** `serializar_deserializar.DemoSerializarUno` para crear `data/persona.dat` y **después** `DemoDeserializarUno`. Observa `writeObject()` y `readObject()`, el cast a `Persona` y el uso de `try-with-resources`. Al recuperar el objeto, el atributo `transient password` tiene el valor por defecto `null`.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/serializacion/code_examples_1-2.zip)

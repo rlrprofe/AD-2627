@@ -1,5 +1,8 @@
 # Ficheros JSON con Jackson
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/jackson-ejemplos.zip).
+
 ### 1. De la memoria a la persistencia
 
 Hasta ahora el JSON podía vivir únicamente en una variable `String`.
@@ -67,17 +70,24 @@ mapper
 ### 4. Ejemplo: `GuardarAlumnosJackson.java`
 
 ```java
-package com.example;
+package com.example.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
+import java.io.IOException;
+
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class GuardarAlumnosJackson {
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
+        
 
         List<Alumno> alumnos = List.of(
                 new Alumno(1, "Ana", 8.5),
@@ -85,16 +95,15 @@ public class GuardarAlumnosJackson {
                 new Alumno(3, "Marta", 9.1)
         );
 
-        Path ruta = Path.of("data", "alumnos.json");
-        Files.createDirectories(ruta.getParent());
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper
-            .writerWithDefaultPrettyPrinter()
-            .writeValue(ruta.toFile(), alumnos);
-
-        System.out.println("Datos guardados en: " + ruta.toAbsolutePath());
+        Path fichero = Path.of("data", "alumnos.json");
+        AlumnoJsonRepository repositorio = new AlumnoJsonRepository(mapper, fichero);
+        try {
+            // La capa repository gestiona el fichero mediante try-with-resources.
+            repositorio.guardar(alumnos);
+            System.out.println("Datos guardados en: " + fichero.toAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("No se pudo guardar el JSON: " + e.getMessage());
+        }
     }
 }
 ```
@@ -141,29 +150,32 @@ List<Alumno> alumnos = mapper.readValue(
 ### 7. Ejemplo: `LeerAlumnosJackson.java`
 
 ```java
-package com.example;
+package com.example.app;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
+import java.io.IOException;
 
 import java.nio.file.Path;
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class LeerAlumnosJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
 
-    public static void main(String[] args) throws Exception {
+        Path fichero = Path.of("data", "alumnos.json");
 
-        Path ruta = Path.of("data", "alumnos.json");
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        List<Alumno> alumnos = mapper.readValue(
-                ruta.toFile(),
-                new TypeReference<List<Alumno>>() {}
-        );
-
-        for (Alumno alumno : alumnos) {
-            System.out.println(alumno);
+        AlumnoJsonRepository repositorio = new AlumnoJsonRepository(mapper, fichero);
+        try {
+            // TypeReference y cierre seguro del lector se gestionan en repository.
+            List<Alumno> alumnos = repositorio.leer();
+            alumnos.forEach(System.out::println);
+        } catch (IOException e) {
+            System.err.println("No se pudo leer el JSON: " + e.getMessage());
         }
     }
 }

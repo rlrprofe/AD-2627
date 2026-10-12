@@ -289,3 +289,28 @@ alumnos: list[dict]
         ▼
 alumnos: list[dict]
 ```
+
+---
+
+## Ejemplos del proyecto: escritura y lectura
+
+Abre `src/03_guardar_alumnos.py` y después `src/04_leer_alumnos.py`. Ejecútalos en ese orden:
+
+```bash
+python src/03_guardar_alumnos.py
+python src/04_leer_alumnos.py
+```
+
+El primero guarda una lista en `data/alumnos.json` mediante `json.dump()`; el segundo la recupera con `json.load()`. Ambos utilizan `with` y UTF-8.
+
+### Buenas prácticas que incorpora el proyecto
+
+- La ruta se calcula desde `Path(__file__).resolve().parent.parent`, no desde el directorio de trabajo actual.
+- Se crea la carpeta `data` si no existe.
+- Se capturan los errores de lectura/escritura y de JSON mal formado.
+- Tras `json.load()`, se comprueba con `isinstance()` que el resultado es una lista antes de recorrerlo.
+
+!!! warning "JSON válido no implica datos correctos"
+    Un fichero con `{}` o `null` puede ser JSON válido, pero no representa la lista de alumnos que necesita el programa. Por eso validamos la estructura.
+
+[Descargar el proyecto](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

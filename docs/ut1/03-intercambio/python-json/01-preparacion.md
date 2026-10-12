@@ -182,3 +182,13 @@ Python
        ├── dump()
        └── load()
 ```
+
+---
+
+## Ejemplo descargable: primer contacto
+
+Abre `src/01_basico_en_memoria.py` del [proyecto completo](../../../descargas/ut1/python-json/python-json-ejemplos.zip). Ejecuta `python src/01_basico_en_memoria.py`.
+
+Este programa transforma un diccionario en una **cadena JSON** mediante `json.dumps()` y después reconstruye el diccionario con `json.loads()`. No crea ningún fichero.
+
+**Buenas prácticas:** función `main()`, punto de entrada `if __name__ == "__main__":` y salida legible con `indent=4` y `ensure_ascii=False`.

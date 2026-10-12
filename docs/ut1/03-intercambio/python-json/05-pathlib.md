@@ -188,3 +188,20 @@ data/
 
 !!! tip
     Para los ejemplos del curso utilizaremos `pathlib` en lugar de concatenar manualmente rutas con cadenas.
+
+---
+
+## Ejemplo del proyecto: rutas portables
+
+Ejecuta `src/05_pathlib.py`. Compara `Path.cwd()` (carpeta desde la que se ejecuta Python) con `Path(__file__).resolve()` (ubicación del propio programa).
+
+En los ejemplos de lectura y escritura construimos la ruta así:
+
+```python
+from pathlib import Path
+RUTA_DATOS = Path(__file__).resolve().parent.parent / "data" / "alumnos.json"
+```
+
+Esto evita errores al ejecutar desde distintas carpetas. El operador `/` de `Path` une componentes de una ruta, **no realiza una división**.
+
+[Proyecto completo](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

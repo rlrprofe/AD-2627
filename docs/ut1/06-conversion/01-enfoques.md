@@ -1,37 +1,44 @@
 # Enfoques de conversión
 
-Convertir XML y JSON no consiste simplemente en cambiar símbolos. Ambos formatos modelan la información de forma distinta.
+XML y JSON pueden representar los mismos datos, pero **no tienen una equivalencia automática y única**.
 
-## XML
+## Ejemplo de partida
 
 ```xml
 <cliente id="C01">
-    <nombre>Ana</nombre>
+    <nombre>Laura</nombre>
+    <edad>30</edad>
 </cliente>
 ```
 
-## JSON
+Una representación JSON posible es:
 
 ```json
-{
-  "id": "C01",
-  "nombre": "Ana"
-}
+{"id": "C01", "nombre": "Laura", "edad": 30}
 ```
 
-## Decisiones necesarias
+En XML, `id` es un **atributo**, `nombre` y `edad` son **elementos**, y el texto `30` se interpreta inicialmente como texto. En JSON, hemos elegido convertir `id` en una propiedad y `edad` en un número.
 
-- cómo representar atributos XML;
-- cómo representar elementos repetidos;
-- qué elemento será la raíz;
-- cómo tratar texto y subelementos;
-- cómo representar `null`, números y booleanos.
+## Decisiones que debe tomar el programador
 
-## Manual frente a automática
+| Aspecto | Decisión posible | Riesgo |
+|---|---|---|
+| Atributos XML | Convertirlos en propiedades JSON | Se pierde la distinción entre atributo y elemento |
+| Elementos repetidos | Convertirlos en un array | Un único elemento podría representarse como objeto o array |
+| Raíz XML | Mantener o eliminar el nombre de la raíz | No hay una raíz nombrada equivalente en JSON |
+| Números y booleanos | Convertir cadenas a tipos JSON | Una conversión incorrecta puede alterar datos |
+| `null` y elementos vacíos | Elegir una representación explícita | No significan necesariamente lo mismo |
+| Orden y contenido mixto | Definir reglas especiales | Puede perderse información |
 
-| Manual | Automática |
+## Conversión manual y mediante modelo
+
+| Manual | Mediante modelo Java |
 |---|---|
-| Más código | Menos código |
-| Control total | Depende del mapeo/librería |
-| Buena para comprender la transformación | Buena para modelos estables |
-| Permite reglas específicas | Facilita mantenimiento |
+| DOM, XPath o SAX para leer XML | JAXB para convertir XML a objetos |
+| Construcción explícita de JSON o XML | Gson para convertir objetos a JSON |
+| Control sobre cada campo | Menos código para estructuras estables |
+| Mayor flexibilidad, más código | Requiere modelos y anotaciones correctos |
+
+El segundo enfoque es **semiautomático**, porque debemos definir las clases `Cliente` y `Clientes` y decidir el mapeo. En los proyectos descargables se mantienen ambas estrategias para poder compararlas.
+
+[Guía de los proyectos y orden de ejecución](index.md).

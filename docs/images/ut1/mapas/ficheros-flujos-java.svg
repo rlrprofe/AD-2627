@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 650" role="img" aria-label="Ficheros y flujos en Java">
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#334155" stroke-width="1.4"/></marker></defs>
+<rect width="1120" height="650" rx="22" fill="#f8fafc"/>
+<text x="45" y="60" font-family="DejaVu Sans,Arial,sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#0f172a">Ficheros y flujos en Java</text>
+<text x="45" y="94" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#475569">¿Qué clase utilizo según el tipo de dato y la operación?</text>
+<rect x="350" y="120" width="420" height="105" rx="15" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="370" y="155" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">java.nio.file</text>
+<text x="370" y="188" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Path: representa una ruta</text>
+<text x="370" y="214" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Files: operaciones sobre archivos</text>
+<rect x="30" y="315" width="335" height="220" rx="15" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="50" y="350" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Flujos de bytes (binario)</text>
+<text x="50" y="383" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">InputStream / OutputStream</text>
+<text x="50" y="409" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">FileInputStream / FileOutputStream</text>
+<text x="50" y="435" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">BufferedInputStream / OutputStream</text>
+<text x="50" y="461" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">DataInputStream / OutputStream</text>
+<rect x="392" y="315" width="335" height="220" rx="15" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="412" y="350" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Flujos de caracteres (texto)</text>
+<text x="412" y="383" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Reader / Writer</text>
+<text x="412" y="409" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">InputStreamReader (UTF-8)</text>
+<text x="412" y="435" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">BufferedReader / BufferedWriter</text>
+<text x="412" y="461" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Files.newBufferedReader(...)</text>
+<rect x="754" y="315" width="335" height="220" rx="15" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="1.5"/>
+<text x="774" y="350" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Acceso aleatorio</text>
+<text x="774" y="383" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">RandomAccessFile</text>
+<text x="774" y="409" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">seek(posición): mueve el puntero</text>
+<text x="774" y="435" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">read / write: lee y escribe</text>
+<text x="774" y="461" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Adecuado para registros de tamaño fijo</text>
+<path d="M560 225 L198 310" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<path d="M560 225 L560 310" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<path d="M560 225 L922 310" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<text x="560" y="595" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#334155">Siempre que sea posible: try-with-resources para cerrar los recursos</text>
+</svg>

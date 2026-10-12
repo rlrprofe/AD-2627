@@ -1,5 +1,8 @@
 # org.json — Resumen y referencia rápida
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.examples`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/org-json-ejemplos.zip).
+
 ### 1. ¿Qué hemos aprendido?
 
 `org.json` es una librería Java que permite **crear, consultar y manipular estructuras JSON de forma explícita**.

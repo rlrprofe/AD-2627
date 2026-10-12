@@ -1,5 +1,8 @@
 # Colecciones y TypeToken
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip).
+
 ### 1. De un objeto a varios objetos
 
 Hasta ahora hemos trabajado con un único objeto:
@@ -531,111 +534,40 @@ List<Alumno>
 ### 12. Serializar y recuperar una lista
 
 ```java
-package com.example;
+package com.example.app;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Ejemplo de conversión de colecciones con TypeToken.
+ */
 public class DemoListaGson {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. CREAR LA LISTA
-        // ==========================================
-
-        List<Alumno> alumnos =
-                new ArrayList<>();
-
-        alumnos.add(
-            new Alumno(
-                1,
-                "Ana",
-                8.5
-            )
+        List<Alumno> alumnos = List.of(
+                new Alumno(1, "Ana", 8.5),
+                new Alumno(2, "Luis", 7.2),
+                new Alumno(3, "Marta", 9.1)
         );
 
-        alumnos.add(
-            new Alumno(
-                2,
-                "Luis",
-                7.2
-            )
-        );
+        Gson gson = GsonConfig.crearGson();
 
-        alumnos.add(
-            new Alumno(
-                3,
-                "Marta",
-                9.1
-            )
-        );
-
-
-        // ==========================================
-        // 2. CREAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR LA LISTA
-        //    List<Alumno> -> JSON
-        // ==========================================
-
-        String json =
-                gson.toJson(alumnos);
-
-        System.out.println(
-            "JSON generado:"
-        );
-
+        String json = gson.toJson(alumnos);
+        System.out.println("JSON generado:");
         System.out.println(json);
 
+        // Gson necesita conservar el tipo genérico List<Alumno>.
+        Type tipoLista = new TypeToken<List<Alumno>>() { }.getType();
+        List<Alumno> recuperados = gson.fromJson(json, tipoLista);
 
-        // ==========================================
-        // 4. DEFINIR EL TIPO
-        // ==========================================
-
-        Type tipo =
-                new TypeToken<List<Alumno>>() {}
-                    .getType();
-
-
-        // ==========================================
-        // 5. DESERIALIZAR
-        //    JSON -> List<Alumno>
-        // ==========================================
-
-        List<Alumno> alumnosRecuperados =
-                gson.fromJson(
-                    json,
-                    tipo
-                );
-
-
-        // ==========================================
-        // 6. RECORRER LA LISTA
-        // ==========================================
-
-        System.out.println(
-            "\nAlumnos recuperados:"
-        );
-
-        for (Alumno alumno :
-                alumnosRecuperados) {
-
-            System.out.println(alumno);
-        }
+        System.out.println("\nAlumnos recuperados:");
+        recuperados.forEach(System.out::println);
     }
 }
 ```

@@ -1,5 +1,8 @@
 # Gson — Resumen y referencia rápida
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip).
+
 ### 1. ¿Qué hemos aprendido?
 
 Gson es una librería Java que permite convertir datos entre:

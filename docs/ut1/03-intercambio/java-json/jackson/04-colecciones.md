@@ -1,5 +1,8 @@
 # Colecciones y TypeReference
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/jackson-ejemplos.zip).
+
 ### 1. De un objeto a muchos objetos
 
 En aplicaciones reales es frecuente trabajar con colecciones:
@@ -121,38 +124,43 @@ No realiza la conversión. La conversión sigue realizándola `ObjectMapper`.
 ### 7. Ejemplo completo: `DemoListaJackson.java`
 
 ```java
-package com.example;
+package com.example.app;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+/** Ejemplo didáctico de Jackson. */
 public class DemoListaJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
+        
 
-    public static void main(String[] args) throws Exception {
+        List<Alumno> alumnos = List.of(
+                new Alumno(1, "Ana", 8.5),
+                new Alumno(2, "Luis", 7.2),
+                new Alumno(3, "Marta", 9.1)
+        );
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        List<Alumno> alumnos = new ArrayList<>();
-        alumnos.add(new Alumno(1, "Ana", 8.5));
-        alumnos.add(new Alumno(2, "Luis", 7.2));
-        alumnos.add(new Alumno(3, "Marta", 9.1));
-
-        String json = mapper
-                .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(alumnos);
-
+        try {
+            // Serializa la lista completa como un array JSON.
+            String json = mapper.writeValueAsString(alumnos);
         System.out.println(json);
 
         List<Alumno> recuperados = mapper.readValue(
                 json,
-                new TypeReference<List<Alumno>>() {}
+                new TypeReference<List<Alumno>>() {} // Conserva el tipo genérico.
         );
 
-        System.out.println("Alumnos recuperados:");
+        System.out.println("\nAlumnos recuperados:");
         recuperados.forEach(System.out::println);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println("Error al procesar la lista: " + e.getOriginalMessage());
+        }
     }
 }
 ```

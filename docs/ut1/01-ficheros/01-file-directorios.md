@@ -61,3 +61,12 @@ if (elementos != null) {
 
 !!! note
     Un objeto `File` describe una ruta. Las operaciones de lectura y escritura del contenido se realizan mediante otras clases de entrada/salida.
+
+
+---
+
+## Rutas en los ejemplos
+
+En el proyecto Maven los ficheros se guardan en `data/` y el programa crea esa carpeta si no existe. En aplicaciones nuevas, `Path` y `Files` son preferibles a construir rutas concatenando separadores. Los ejemplos de acceso aleatorio usan `RandomAccessFile`, que admite un nombre de fichero o un `File`.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

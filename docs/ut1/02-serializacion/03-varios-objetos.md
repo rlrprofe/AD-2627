@@ -56,3 +56,12 @@ List<Persona> personas =
 | Lectura hasta EOF | Una sola llamada a `readObject()` |
 | Útil para logs/streaming | Útil para persistir conjuntos completos |
 | Más complejo | Carga toda la colección en memoria |
+
+
+---
+
+## Dos formas de serializar varios objetos
+
+`DemoSerializarDeserializarVariosEOF` escribe objetos sucesivos y los lee hasta `EOFException`. `DemoSerializarDeserializarVariosColeccion` serializa una `List<Persona>` de una vez. El cast de la lista no comprueba automáticamente el tipo de cada elemento; **no se deben deserializar ficheros no confiables**.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/serializacion/code_examples_1-2.zip)

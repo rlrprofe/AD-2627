@@ -1,5 +1,43 @@
 # org.json
 
+## Guía del proyecto Maven actualizado (Java 21)
+
+!!! important "Correspondencia con el ZIP descargable"
+    Esta sección describe la **versión revisada del proyecto**. Algunos fragmentos de las explicaciones anteriores son ejemplos simplificados para aprender una operación; pueden omitir imports, paquetes o capas. **Para ejecutar el programa completo utiliza los ficheros del ZIP**, con los paquetes y la configuración que se indican aquí.
+
+[Descargar proyecto Maven actualizado](../../../../descargas/ut1/java-json/org-json-ejemplos.zip)
+
+### Organización por responsabilidades
+
+- **`model/`**: modelo de datos.
+- **`repository/`**: acceso a datos JSON.
+- **`controller/`**: coordinación de operaciones.
+- **`view/`**: presentación en consola.
+- **`examples/`**: ejemplos ejecutables.
+
+### Orden recomendado de lectura y ejecución
+
+| Paso | Clase | Objetivo | Ejecución |
+| --- | --- | --- | --- |
+| 1 | `com.example.examples.DemoOrgJson` | Primera toma de contacto con JSONObject | Sí, ejecutar main |
+| 2 | `com.example.examples.DemoJSONObject` | Creación y consulta de propiedades | Sí, ejecutar main |
+| 3 | `com.example.examples.JSONObjectOpcionales` | Claves opcionales y comprobaciones | Sí, ejecutar main |
+| 4 | `com.example.examples.JSONObjectAnidado` | Objetos JSON anidados | Sí, ejecutar main |
+| 5 | `com.example.examples.RecorrerJSONObject` | Recorrido de claves y valores | Sí, ejecutar main |
+| 6 | `com.example.examples.DemoJSONArray` | Creación y recorrido de arrays | Sí, ejecutar main |
+| 7 | `com.example.examples.JSONArrayAnidado` | Arrays y objetos anidados | Sí, ejecutar main |
+| 8 | `com.example.examples.GuardarJSONv1` | Guardar un JSONObject | Sí, ejecutar main |
+| 9 | `com.example.examples.LeerJSONv1` | Leer un JSONObject | Sí, ejecutar main |
+| 10 | `com.example.examples.GuardarJSONv2` | Guardar un JSONArray | Sí, ejecutar main |
+| 11 | `com.example.examples.LeerJSONv2` | Leer un JSONArray | Sí, ejecutar main |
+| 12 | `com.example.examples.DemoMVC` | Separación de modelo, repositorio, controlador y vista | Sí, ejecutar main |
+
+En los ejemplos de fichero, ejecuta `GuardarJSONv1` antes de `LeerJSONv1`, y `GuardarJSONv2` antes de `LeerJSONv2`. `DemoMVC` es un ejemplo adicional de arquitectura, no un requisito para usar `JSONObject` o `JSONArray`.
+
+Para trabajar en VS Code, abre la carpeta que contiene `pom.xml`, comprueba que el JDK es **Java 21** y ejecuta los `main` en el orden propuesto. Los ficheros `data/` utilizan rutas relativas al directorio de trabajo.
+
+---
+
 ### Introducción
 
 `org.json` es una librería que permite trabajar con documentos JSON desde Java de forma **explícita y manual**.

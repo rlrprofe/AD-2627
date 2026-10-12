@@ -1,19 +1,33 @@
 # Resumen · Conversión XML ↔ JSON
 
-| Tarea | Tecnologías vistas |
-|---|---|
-| Leer XML | DOM, SAX, JAXB |
-| Consultar XML | XPath |
-| Crear/modificar XML | DOM, JAXB |
-| Leer/escribir JSON | org.json, Gson, Jackson |
-| Transformar estructuras | Código manual o modelo Java |
+## Qué debes saber hacer
 
-La conversión **manual** es apropiada cuando necesitamos controlar exactamente el formato de salida. La conversión mediante **modelo de objetos** reduce código cuando la estructura está bien definida y es estable.
+| Objetivo | Clase del proyecto | Tecnología |
+|---|---|---|
+| Convertir XML a JSON con DOM | `XmlToJsonManual1` | DOM + Gson |
+| Convertir XML a JSON con XPath | `XmlToJsonManual2` | DOM + XPath + Gson |
+| Convertir XML a JSON con SAX | `XmlToJsonManual3` | SAX + Gson |
+| Convertir JSON a XML con DOM | `JsonToXmlManual1` | Gson + DOM |
+| Convertir JSON a XML anidado | `JsonToXmlManual2_Recursivo` | Gson + DOM + recursividad |
+| Convertir XML a JSON mediante modelos | `XmlToJsonAutomatica1` | JAXB + Gson |
+| Convertir JSON a XML mediante modelos | `JsonToXmlAutomatico1` | Gson + JAXB |
 
-## Preguntas de repaso
+## Conceptos clave
 
-1. ¿Por qué XML y JSON no tienen una correspondencia perfecta?
-2. ¿Cómo representarías un atributo XML en JSON?
-3. ¿Qué ventaja ofrece usar objetos Java como modelo intermedio?
-4. ¿Cuándo preferirías una conversión manual?
-5. ¿Qué tecnologías de la UT1 pueden intervenir en una conversión XML → JSON?
+- **Conversión manual:** el programa decide explícitamente cómo se traducen nodos, atributos y arrays.
+- **Conversión mediante modelos:** las clases Java representan los datos y las librerías realizan gran parte del trabajo.
+- **No hay equivalencia perfecta:** un atributo XML, un elemento repetido, un valor vacío o el orden de los nodos pueden requerir reglas propias.
+- **Buenas prácticas:** Java 21, UTF-8, control de errores, cierre de recursos y parsers XML protegidos frente a XXE.
+
+## Preguntas de autoevaluación
+
+1. ¿Por qué un atributo XML no se convierte siempre de la misma manera a JSON?
+2. ¿En qué se diferencian DOM, XPath y SAX en los tres ejemplos XML → JSON?
+3. ¿Por qué el ejemplo recursivo necesita reglas para los arrays?
+4. ¿Qué funciones desempeñan Gson y JAXB en cada sentido?
+5. ¿Por qué se necesitan clases `Cliente` y `Clientes` en el enfoque mediante modelos?
+6. ¿Qué información podría perderse en una conversión XML → JSON → XML?
+
+**Práctica de consolidación:** añade un cliente con un nombre que contenga una tilde, realiza una conversión en cada sentido y compara el resultado con los datos originales.
+
+[Descargar ambos proyectos Maven](index.md).

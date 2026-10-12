@@ -2,6 +2,12 @@
 
 Java proporciona distintas clases para trabajar con ficheros y directorios. La elección depende de qué información queremos almacenar y de cómo necesitamos acceder a ella.
 
+
+## Mapa conceptual: ficheros y flujos en Java
+
+![Mapa conceptual: ficheros y flujos en Java](../../images/ut1/mapas/ficheros-flujos-java.svg)
+
+
 ## Qué vamos a estudiar
 
 - Gestión de ficheros y directorios con `File`.
@@ -29,3 +35,12 @@ No existe una única clase adecuada para todos los ficheros:
 ## Proyecto de ejemplos
 
 [📦 **Descargar ejemplos de ficheros**](../../descargas/ut1/ficheros/code_examples_1-1.zip)
+
+
+---
+
+## Guía del proyecto Java 21
+
+El proyecto descargable contiene cuatro programas ejecutables, con `pom.xml`, Java 21 y un `README.md` que propone el orden de estudio. Empieza por `DemoBytes` y continúa con las tres versiones de `RandomAccessFile`. Se crean ficheros de prueba en `data/`. No uses archivos con información real.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

@@ -21,3 +21,12 @@
 4. ¿Por qué una imagen debe tratarse como bytes?
 5. ¿Qué ventaja ofrece `BufferedReader`?
 6. ¿Por qué es recomendable `try-with-resources`?
+
+
+---
+
+## Actividad final del bloque
+
+Ejecuta `DemoBytes` y las tres variantes de `RandomAccessFile`. Explica cuándo se sobrescribe `data/datos.dat` y cuándo se añade un registro. Modifica `sobrescribir` en `Ejemplo3RandomAccess` y comprueba el número de registros. Consulta el README del proyecto antes de comenzar.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

@@ -1,5 +1,40 @@
 # Gson
 
+## Guía del proyecto Maven actualizado (Java 21)
+
+!!! important "Correspondencia con el ZIP descargable"
+    Esta sección describe la **versión revisada del proyecto**. Algunos fragmentos de las explicaciones anteriores son ejemplos simplificados para aprender una operación; pueden omitir imports, paquetes o capas. **Para ejecutar el programa completo utiliza los ficheros del ZIP**, con los paquetes y la configuración que se indican aquí.
+
+[Descargar proyecto Maven actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip)
+
+### Organización por responsabilidades
+
+- **`model/`**: modelo de datos.
+- **`adapter/`**: adaptadores de tipos.
+- **`config/`**: configuración centralizada.
+- **`repository/`**: acceso a datos JSON.
+- **`app/`**: programas ejecutables.
+
+### Orden recomendado de lectura y ejecución
+
+| Paso | Clase | Objetivo | Ejecución |
+| --- | --- | --- | --- |
+| 1 | `com.example.model.Alumno` | Modelo de datos | No, clase de apoyo |
+| 2 | `com.example.adapter.LocalDateAdapter` | Conversión de LocalDate | No, clase de apoyo |
+| 3 | `com.example.config.GsonConfig` | Configuración común de Gson | No, clase de apoyo |
+| 4 | `com.example.app.DemoGson` | Objeto Java ↔ JSON | Sí, ejecutar main |
+| 5 | `com.example.app.DemoListaGson` | Listas y TypeToken | Sí, ejecutar main |
+| 6 | `com.example.repository.AlumnoJsonRepository` | Lectura y escritura de ficheros | No, clase de apoyo |
+| 7 | `com.example.app.GuardarAlumnosGson` | Guardar lista en JSON | Sí, ejecutar main |
+| 8 | `com.example.app.LeerAlumnosGson` | Leer lista desde JSON | Sí, ejecutar main |
+| 9 | `com.example.app.DemoLocalDateGson` | Fechas con el adaptador | Sí, ejecutar main |
+
+**Java 21 y fechas:** todas las demostraciones usan `GsonConfig.crearGson()`, que registra `LocalDateAdapter`. No sustituyas esa configuración por `new Gson()` cuando trabajes con `LocalDate`.
+
+Para trabajar en VS Code, abre la carpeta que contiene `pom.xml`, comprueba que el JDK es **Java 21** y ejecuta los `main` en el orden propuesto. Los ficheros `data/` utilizan rutas relativas al directorio de trabajo.
+
+---
+
 ### Introducción
 
 **Gson** es una librería Java desarrollada por Google que permite convertir objetos Java a formato JSON y realizar el proceso contrario.

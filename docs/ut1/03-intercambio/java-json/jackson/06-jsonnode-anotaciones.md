@@ -1,5 +1,8 @@
 # JsonNode y anotaciones
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/jackson-ejemplos.zip).
+
 En los apartados anteriores hemos utilizado Jackson principalmente para convertir directamente entre **objetos Java** y **JSON**.
 
 Jackson también permite trabajar con la estructura del JSON como un **árbol de nodos** y personalizar el mapeo mediante **anotaciones**.
@@ -74,34 +77,32 @@ double nota = raiz.get("nota").asDouble();
 ### 4. Ejemplo: `DemoJsonNode.java`
 
 ```java
-package com.example;
+package com.example.app;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
 
+/** Ejemplo didáctico de Jackson. */
 public class DemoJsonNode {
-
-    public static void main(String[] args) throws Exception {
-
+    public static void main(String[] args) {
         String json = """
                 {
                   "id": 1,
-                  "nombre": "Ana",
-                  "nota": 8.5,
-                  "modulos": ["Acceso a Datos", "PMDM"]
+                  "nombreCompleto": "Ana",
+                  "nota": 8.5
                 }
                 """;
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode raiz = mapper.readTree(json);
+        ObjectMapper mapper = JacksonConfig.crearMapper();
+        try {
+            // JsonNode permite consultar JSON sin crear una clase modelo.
+            JsonNode raiz = mapper.readTree(json);
 
-        System.out.println("Nombre: " + raiz.get("nombre").asText());
-        System.out.println("Nota: " + raiz.get("nota").asDouble());
-
-        JsonNode modulos = raiz.get("modulos");
-
-        for (JsonNode modulo : modulos) {
-            System.out.println("- " + modulo.asText());
+        System.out.println("Nombre: " + raiz.path("nombreCompleto").asText("(sin nombre)"));
+        System.out.println("Nota: " + raiz.path("nota").asDouble());
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println("JSON incorrecto: " + e.getOriginalMessage());
         }
     }
 }

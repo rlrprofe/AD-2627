@@ -2,6 +2,12 @@
 
 XPath es un lenguaje de expresiones que permite seleccionar información dentro de un documento XML sin recorrer manualmente todo el árbol DOM.
 
+
+## Ejemplo visual: selección de nodos con XPath
+
+![Ejemplo visual: selección de nodos con XPath](../../images/ut1/mapas/xpath-seleccion-nodos.svg)
+
+
 ## Ejemplo
 
 ```xpath

@@ -1,5 +1,39 @@
 # Jackson
 
+## Guía del proyecto Maven actualizado (Java 21)
+
+!!! important "Correspondencia con el ZIP descargable"
+    Esta sección describe la **versión revisada del proyecto**. Algunos fragmentos de las explicaciones anteriores son ejemplos simplificados para aprender una operación; pueden omitir imports, paquetes o capas. **Para ejecutar el programa completo utiliza los ficheros del ZIP**, con los paquetes y la configuración que se indican aquí.
+
+[Descargar proyecto Maven actualizado](../../../../descargas/ut1/java-json/jackson-ejemplos.zip)
+
+### Organización por responsabilidades
+
+- **`model/`**: modelo de datos.
+- **`config/`**: configuración centralizada.
+- **`repository/`**: acceso a datos JSON.
+- **`app/`**: programas ejecutables.
+
+### Orden recomendado de lectura y ejecución
+
+| Paso | Clase | Objetivo | Ejecución |
+| --- | --- | --- | --- |
+| 1 | `com.example.model.Alumno` | Modelo y anotaciones (ver detalles al final) | No, clase de apoyo |
+| 2 | `com.example.config.JacksonConfig` | ObjectMapper compartido | No, clase de apoyo |
+| 3 | `com.example.app.DemoJackson` | Objeto Java ↔ JSON | Sí, ejecutar main |
+| 4 | `com.example.app.DemoListaJackson` | Listas y TypeReference | Sí, ejecutar main |
+| 5 | `com.example.repository.AlumnoJsonRepository` | Persistencia y gestión de recursos | No, clase de apoyo |
+| 6 | `com.example.app.GuardarAlumnosJackson` | Guardar lista en fichero | Sí, ejecutar main |
+| 7 | `com.example.app.LeerAlumnosJackson` | Leer lista del fichero | Sí, ejecutar main |
+| 8 | `com.example.app.DemoJsonNode` | Árbol de nodos JSON | Sí, ejecutar main |
+| 9 | `com.example.app.DemoAnotaciones` | @JsonProperty y @JsonIgnore | Sí, ejecutar main |
+
+**Anotaciones desde el principio:** `Alumno` ya utiliza `@JsonProperty("nombreCompleto")` y `@JsonIgnore`; por eso las salidas de los ejemplos iniciales ya reflejan estos cambios. Se explican en detalle al estudiar `DemoAnotaciones`.
+
+Para trabajar en VS Code, abre la carpeta que contiene `pom.xml`, comprueba que el JDK es **Java 21** y ejecuta los `main` en el orden propuesto. Los ficheros `data/` utilizan rutas relativas al directorio de trabajo.
+
+---
+
 ### Introducción
 
 **Jackson** es una librería Java muy utilizada para trabajar con datos en formato JSON.

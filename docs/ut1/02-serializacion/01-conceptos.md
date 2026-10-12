@@ -36,3 +36,12 @@ Al recuperar el objeto, ese atributo tendrá su valor por defecto (`null`, `0`, 
 | `ObjectOutputStream` | Convierte objetos en bytes |
 | `FileInputStream` | Abre un fichero para leer bytes |
 | `ObjectInputStream` | Reconstruye objetos desde bytes |
+
+
+---
+
+## Clases reales del proyecto
+
+Abre `model/Persona.java`. `implements Serializable` habilita la serialización; `serialVersionUID` identifica la versión del esquema serializado; `transient` excluye la contraseña del flujo. El ejemplo no imprime contraseñas. Los ficheros `.dat` resultantes son específicos de serialización Java, no JSON ni XML.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/serializacion/code_examples_1-2.zip)

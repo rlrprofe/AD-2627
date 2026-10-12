@@ -71,3 +71,12 @@ try (PrintWriter pw =
 | `BufferedReader` | Leer texto por líneas |
 | `BufferedWriter` | Escritura de texto con buffer |
 | `PrintWriter` | Escritura cómoda con `print`, `println`, `printf` |
+
+
+---
+
+## Codificación de caracteres en el proyecto
+
+`DemoBytes` escribe `texto123.txt` con un `OutputStreamWriter` configurado explícitamente con `StandardCharsets.UTF_8`. El escritor se cierra mediante `try-with-resources`. Para leer texto, conviene emplear `Files.newBufferedReader(ruta, StandardCharsets.UTF_8)`; para escribir, `Files.newBufferedWriter(...)`.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

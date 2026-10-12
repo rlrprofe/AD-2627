@@ -235,3 +235,14 @@ La diferencia importante es que Python puede trabajar directamente con `dict` y 
            ▼
     estructuras Python
     ```
+
+---
+
+## Cómo estudiar los ejemplos del proyecto
+
+El ZIP incluye **ocho programas ejecutables**, numerados en el orden recomendado. Puedes descargarlos desde el enlace anterior y abrir la carpeta en VS Code. El `README.md` del proyecto contiene una tabla con los objetivos y resultados de cada programa.
+
+La progresión es: JSON en memoria → diccionarios y listas → escritura y lectura de ficheros → rutas con `pathlib` → errores → fechas y `dataclass`.
+
+!!! tip "Antes de comenzar"
+    Utiliza Python 3.10 o posterior. No necesitas librerías externas. Para ejecutar el primer programa: `python src/01_basico_en_memoria.py` (o `python3` en algunos equipos).

@@ -67,3 +67,12 @@ public static void leerFichero(String nombre) throws IOException {
 - Mostrar mensajes de error comprensibles.
 - Evitar capturar `Exception` de forma genérica sin necesidad.
 - Tratar específicamente los errores que podamos resolver.
+
+
+---
+
+## Errores y cierre de recursos
+
+Los ejemplos ejecutables capturan `IOException` y muestran mensajes de error. `try-with-resources` garantiza el cierre del fichero aunque se produzca una excepción. En una aplicación real, las capas de persistencia suelen **propagar** el error para que la capa de presentación decida qué mostrar; en estos programas pequeños el mensaje se imprime directamente.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

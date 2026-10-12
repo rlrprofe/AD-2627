@@ -1,5 +1,8 @@
 # Guardar y leer JSON en ficheros
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip).
+
 ### 1. De la memoria al fichero
 
 Hasta ahora hemos trabajado principalmente con datos que permanecían en memoria.
@@ -484,126 +487,40 @@ List<Alumno>
 ### 13. Ejemplo completo de escritura
 
 ```java
-package com.example;
+package com.example.app;
 
-import java.io.FileWriter;
 import java.io.IOException;
-
-import java.nio.file.Files;
 import java.nio.file.Path;
-
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo de escritura de una lista de alumnos en un fichero JSON.
+ */
 public class GuardarAlumnosGson {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. CREAR LOS ALUMNOS
-        // ==========================================
-
-        List<Alumno> alumnos =
-                new ArrayList<>();
-
-        alumnos.add(
-            new Alumno(
-                1,
-                "Ana",
-                8.5
-            )
+        List<Alumno> alumnos = List.of(
+                new Alumno(1, "Ana", 8.5, LocalDate.of(2005, 3, 15)),
+                new Alumno(2, "Luis", 7.2, LocalDate.of(2004, 11, 8)),
+                new Alumno(3, "Marta", 9.1, LocalDate.of(2005, 7, 21))
         );
 
-        alumnos.add(
-            new Alumno(
-                2,
-                "Luis",
-                7.2
-            )
-        );
-
-        alumnos.add(
-            new Alumno(
-                3,
-                "Marta",
-                9.1
-            )
-        );
-
-
-        // ==========================================
-        // 2. CREAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. PREPARAR RUTAS
-        // ==========================================
-
-        Path directorio =
-                Path.of("data");
-
-        Path ruta =
-                directorio.resolve(
-                    "alumnos.json"
-                );
-
-
-        // ==========================================
-        // 4. CREAR DIRECTORIO
-        // ==========================================
+        Gson gson = GsonConfig.crearGson();
+        Path ruta = Path.of("data", "alumnos.json");
+        AlumnoJsonRepository repository = new AlumnoJsonRepository(gson, ruta);
 
         try {
-
-            Files.createDirectories(
-                directorio
-            );
-
-
-            // ======================================
-            // 5. ABRIR EL FICHERO
-            // ======================================
-
-            try (FileWriter writer =
-                    new FileWriter(
-                        ruta.toFile()
-                    )) {
-
-
-                // ==================================
-                // 6. GUARDAR LA LISTA COMO JSON
-                // ==================================
-
-                gson.toJson(
-                    alumnos,
-                    writer
-                );
-            }
-
-
-            // ======================================
-            // 7. INFORMAR AL USUARIO
-            // ======================================
-
-            System.out.println(
-                "Datos guardados en: "
-                + ruta.toAbsolutePath()
-            );
-
+            repository.guardar(alumnos);
+            System.out.println("Fichero guardado en:");
+            System.out.println(ruta.toAbsolutePath());
         } catch (IOException e) {
-
-            System.err.println(
-                "Error al guardar el fichero: "
-                + e.getMessage()
-            );
+            System.err.println("Error al guardar el fichero: " + e.getMessage());
         }
     }
 }
@@ -920,91 +837,34 @@ List<Alumno>
 ### 25. Ejemplo completo de lectura
 
 ```java
-package com.example;
+package com.example.app;
 
-import java.io.FileReader;
 import java.io.IOException;
-
-import java.lang.reflect.Type;
-
 import java.nio.file.Path;
-
 import java.util.List;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
+import com.example.repository.AlumnoJsonRepository;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
+/**
+ * Ejemplo de lectura de una lista de alumnos desde un fichero JSON.
+ */
 public class LeerAlumnosGson {
 
     public static void main(String[] args) {
+        Gson gson = GsonConfig.crearGson();
+        Path ruta = Path.of("data", "alumnos.json");
+        AlumnoJsonRepository repository = new AlumnoJsonRepository(gson, ruta);
 
-        // ==========================================
-        // 1. CREAR GSON
-        // ==========================================
+        try {
+            List<Alumno> alumnos = repository.leerTodos();
 
-        Gson gson =
-                new Gson();
-
-
-        // ==========================================
-        // 2. DEFINIR EL FICHERO
-        // ==========================================
-
-        Path ruta =
-                Path.of(
-                    "data",
-                    "alumnos.json"
-                );
-
-
-        // ==========================================
-        // 3. DEFINIR EL TIPO
-        // ==========================================
-
-        Type tipo =
-                new TypeToken<List<Alumno>>() {}
-                    .getType();
-
-
-        // ==========================================
-        // 4. ABRIR Y LEER EL FICHERO
-        // ==========================================
-
-        try (FileReader reader =
-                new FileReader(
-                    ruta.toFile()
-                )) {
-
-
-            // ======================================
-            // 5. DESERIALIZAR
-            // ======================================
-
-            List<Alumno> alumnos =
-                    gson.fromJson(
-                        reader,
-                        tipo
-                    );
-
-
-            // ======================================
-            // 6. MOSTRAR LOS OBJETOS RECUPERADOS
-            // ======================================
-
-            for (Alumno alumno :
-                    alumnos) {
-
-                System.out.println(
-                    alumno
-                );
-            }
-
+            System.out.println("Alumnos leídos:");
+            alumnos.forEach(System.out::println);
         } catch (IOException e) {
-
-            System.err.println(
-                "Error al leer el fichero: "
-                + e.getMessage()
-            );
+            System.err.println("Error al leer el fichero: " + e.getMessage());
         }
     }
 }

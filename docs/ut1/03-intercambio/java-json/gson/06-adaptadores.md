@@ -1,5 +1,8 @@
 # Adaptadores personalizados en Gson
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip).
+
 ### 1. Cuando la conversión automática no es suficiente
 
 Una de las principales ventajas de Gson es que puede convertir automáticamente muchos objetos Java a JSON.
@@ -960,84 +963,36 @@ LocalDate
 ### 27. DemoLocalDateGson.java
 
 ```java
-package com.example;
+package com.example.app;
 
 import java.time.LocalDate;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo específico de serialización y deserialización de LocalDate.
+ */
 public class DemoLocalDateGson {
 
     public static void main(String[] args) {
-
-        // ==========================================
-        // 1. CREAR EL ALUMNO
-        // ==========================================
-
-        Alumno alumno =
-                new Alumno(
-                    1,
-                    "Ana",
-                    8.5,
-                    LocalDate.of(
-                        2005,
-                        3,
-                        15
-                    )
-                );
-
-
-        // ==========================================
-        // 2. CONFIGURAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .registerTypeAdapter(
-                        LocalDate.class,
-                        new LocalDateAdapter()
-                    )
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR
-        // ==========================================
-
-        String json =
-                gson.toJson(alumno);
-
-        System.out.println(
-            "JSON generado:"
+        Alumno alumno = new Alumno(
+                1,
+                "Ana",
+                8.5,
+                LocalDate.of(2005, 3, 15)
         );
 
+        Gson gson = GsonConfig.crearGson();
+
+        String json = gson.toJson(alumno);
+        System.out.println("JSON generado:");
         System.out.println(json);
 
-
-        // ==========================================
-        // 4. DESERIALIZAR
-        // ==========================================
-
-        Alumno recuperado =
-                gson.fromJson(
-                    json,
-                    Alumno.class
-                );
-
-
-        // ==========================================
-        // 5. MOSTRAR RESULTADO
-        // ==========================================
-
-        System.out.println(
-            "\nAlumno recuperado:"
-        );
-
-        System.out.println(
-            recuperado
-        );
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println("\nAlumno recuperado:");
+        System.out.println(recuperado);
     }
 }
 ```

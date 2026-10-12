@@ -239,3 +239,13 @@ load()
     dumps → JSON string
     loads → JSON string
     ```
+
+---
+
+## Ejemplo del proyecto: operaciones en memoria
+
+Estudia `src/01_basico_en_memoria.py`. Observa que `json.dumps(alumno)` devuelve un `str`, mientras que `json.loads(texto)` devuelve un diccionario Python.
+
+**Prueba:** cambia la edad, añade una clave `activo` de tipo `bool` y observa cómo se representa en JSON. Las funciones con `s` trabajan con **cadenas**, no con ficheros.
+
+[Descargar los ocho ejemplos](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

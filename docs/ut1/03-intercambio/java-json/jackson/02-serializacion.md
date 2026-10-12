@@ -1,5 +1,8 @@
 # Serialización con Jackson
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/jackson-ejemplos.zip).
+
 ### 1. ¿Qué es serializar?
 
 Serializar consiste en transformar un objeto Java en una representación que pueda almacenarse o intercambiarse. En nuestro caso, la representación será **JSON**.
@@ -129,24 +132,34 @@ Resultado:
 ### 6. Ejemplo completo: `DemoJackson.java`
 
 ```java
-package com.example;
+package com.example.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.config.JacksonConfig;
+import com.example.model.Alumno;
 
+
+/** Ejemplo didáctico de Jackson. */
 public class DemoJackson {
+    public static void main(String[] args) {
+        ObjectMapper mapper = JacksonConfig.crearMapper();
+        
 
-    public static void main(String[] args) throws Exception {
+        Alumno original = new Alumno(1, "Ana", 8.5);
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        Alumno alumno = new Alumno(1, "Ana", 8.5);
-
-        String json = mapper
-                .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(alumno);
-
-        System.out.println("JSON generado:");
+        try {
+            // Serialización: objeto Java a texto JSON.
+            String json = mapper.writeValueAsString(original);
+        System.out.println("JSON:");
         System.out.println(json);
+
+        // Deserialización: texto JSON a objeto Java.
+        Alumno recuperado = mapper.readValue(json, Alumno.class);
+        System.out.println("\nObjeto recuperado:");
+        System.out.println(recuperado);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            System.err.println("Error al procesar JSON: " + e.getOriginalMessage());
+        }
     }
 }
 ```

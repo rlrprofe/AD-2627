@@ -1,5 +1,8 @@
 # Guardar JSON en un fichero
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.examples`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/org-json-ejemplos.zip).
+
 ### 1. Introducción
 
 Hasta ahora hemos aprendido a construir estructuras JSON en memoria utilizando las clases:
@@ -771,95 +774,38 @@ con un contenido similar a:
 ### 19. Ejemplo completo: GuardarJSONv1.java
 
 ```java
-package com.example;
+package com.example.examples;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import org.json.JSONObject;
 
 public class GuardarJSONv1 {
-
     public static void main(String[] args) {
+        JSONObject obj = new JSONObject(); // Crea un objeto JSON vacío en memoria. Es como un diccionario clave–valor.
+        obj.put("nombre", "Ana"); // Añade al JSON la clave "nombre" con valor "Ana".
+        obj.put("edad", 25);// Añade otra clave "edad" con valor 25.
 
-        // ==========================================
-        // 1. CREAR EL OBJETO JSON
-        // ==========================================
+        // El objeto en memoria sería: {"nombre":"Ana","edad":25}
 
-        JSONObject persona =
-                new JSONObject();
-
-        persona.put("nombre", "Ana");
-        persona.put("edad", 21);
-        persona.put("nota", 8.5);
-        persona.put("repetidor", false);
-
-
-        // ==========================================
-        // 2. MOSTRAR POR CONSOLA
-        // ==========================================
-
-        System.out.println(
-            "JSON que vamos a guardar:"
-        );
-
-        System.out.println(
-            persona.toString(4)
-        );
-
-
-        // ==========================================
-        // 3. PREPARAR DIRECTORIO Y FICHERO
-        // ==========================================
-
-        Path directorio =
-                Path.of("data");
-
-        Path fichero =
-                directorio.resolve(
-                    "persona.json"
-                );
-
-
-        // ==========================================
-        // 4. GUARDAR EL JSON
-        // ==========================================
+        // Crear una carpeta data/ para ficheros generados
+        
 
         try {
-
-            Files.createDirectories(
-                directorio
-            );
-
-            try (FileWriter writer =
-                    new FileWriter(
-                        fichero.toFile()
-                    )) {
-
-                writer.write(
-                    persona.toString(4)
-                );
-            }
-
-            System.out.println(
-                "\nFichero guardado en:"
-            );
-
-            System.out.println(
-                fichero.toAbsolutePath()
-            );
-
+            Files.createDirectories(Path.of("data"));
+            try (BufferedWriter file = Files.newBufferedWriter(Path.of("data/persona.json"), StandardCharsets.UTF_8)) {
+            // Abre un flujo de escritura (FileWriter) hacia un fichero llamado
+            // persona.json.
+            // Si el fichero no existe → lo crea. Si existe → lo sobreescribe.
+            file.write(obj.toString(4)); // Convierte el JSONObject a un String en formato JSON. 4 = indenta con 4
+                                         // espacios
+            System.out.println("Fichero persona.json creado correctamente.");
+        }
         } catch (IOException e) {
-
-            System.out.println(
-                "Error al guardar el fichero:"
-            );
-
-            System.out.println(
-                e.getMessage()
-            );
+            System.err.println("Error al guardar JSON: " + e.getMessage());
         }
     }
 }
@@ -1035,12 +981,14 @@ try (FileWriter writer =
 ### 25. Ejemplo completo: GuardarJSONv2.java
 
 ```java
-package com.example;
+package com.example.examples;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1048,111 +996,73 @@ import org.json.JSONObject;
 public class GuardarJSONv2 {
 
     public static void main(String[] args) {
+        // Scanner para leer datos desde teclado
+        Scanner sc = new Scanner(System.in);
 
-        // ==========================================
-        // 1. CREAR LAS PERSONAS
-        // ==========================================
+        // JSONArray que contendrá todos los objetos persona
+        JSONArray listaPersonas = new JSONArray();
 
-        JSONObject persona1 =
-                new JSONObject();
+        System.out.println("Introduce personas (nombre y edad). Para terminar escribe 'fin' en el nombre.");
 
-        persona1.put("id", 1);
-        persona1.put("nombre", "Ana");
-        persona1.put("edad", 21);
+        // Pedimos el primer nombre fuera del bucle
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine().trim();
 
-
-        JSONObject persona2 =
-                new JSONObject();
-
-        persona2.put("id", 2);
-        persona2.put("nombre", "Luis");
-        persona2.put("edad", 23);
-
-
-        JSONObject persona3 =
-                new JSONObject();
-
-        persona3.put("id", 3);
-        persona3.put("nombre", "Marta");
-        persona3.put("edad", 20);
-
-
-        // ==========================================
-        // 2. CREAR EL ARRAY
-        // ==========================================
-
-        JSONArray personas =
-                new JSONArray();
-
-        personas.put(persona1);
-        personas.put(persona2);
-        personas.put(persona3);
-
-
-        // ==========================================
-        // 3. MOSTRAR POR CONSOLA
-        // ==========================================
-
-        System.out.println(
-            "JSON que vamos a guardar:"
-        );
-
-        System.out.println(
-            personas.toString(4)
-        );
-
-
-        // ==========================================
-        // 4. PREPARAR RUTAS
-        // ==========================================
-
-        Path directorio =
-                Path.of("data");
-
-        Path fichero =
-                directorio.resolve(
-                    "personas.json"
-                );
-
-
-        // ==========================================
-        // 5. GUARDAR EL JSON
-        // ==========================================
-
-        try {
-
-            Files.createDirectories(
-                directorio
-            );
-
-            try (FileWriter writer =
-                    new FileWriter(
-                        fichero.toFile()
-                    )) {
-
-                writer.write(
-                    personas.toString(4)
-                );
+        // Mientras el usuario no escriba "fin", seguimos pidiendo datos
+        while (!nombre.equalsIgnoreCase("fin")) {
+            // Pedimos la edad asociada al nombre
+            System.out.print("Edad: ");
+            int edad;
+            try {
+                edad = Integer.parseInt(sc.nextLine().trim());
+                if (edad < 0) {
+                    System.out.println("La edad no puede ser negativa.");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Introduce una edad numérica válida.");
+                continue;
             }
 
-            System.out.println(
-                "\nFichero guardado en:"
-            );
+            // Creamos un objeto JSON para cada persona
+            JSONObject persona = new JSONObject();
+            persona.put("nombre", nombre); // clave "nombre"
+            persona.put("edad", edad);     // clave "edad"
 
-            System.out.println(
-                fichero.toAbsolutePath()
-            );
+            // Añadimos la persona al array de personas
+            listaPersonas.put(persona);
 
-        } catch (IOException e) {
-
-            System.out.println(
-                "Error al guardar el fichero:"
-            );
-
-            System.out.println(
-                e.getMessage()
-            );
+            // Volvemos a pedir un nombre (puede ser otro o "fin" para terminar)
+            System.out.print("Nombre: ");
+            nombre = sc.nextLine().trim();
         }
+
+        // Al salir del bucle comprobamos si se introdujeron personas
+        if (listaPersonas.isEmpty()) {
+            // Si el array está vacío → no se creó ninguna persona
+            System.out.println("No se introdujo ninguna persona. No se creó el fichero.");
+        } else {
+            
+           // Crear una carpeta data/ para ficheros generados
+            
+
+
+            // Si hay personas, las guardamos en el fichero JSON
+            try {
+                Files.createDirectories(Path.of("data"));
+                try (BufferedWriter file = Files.newBufferedWriter(Path.of("data/personas.json"), StandardCharsets.UTF_8)) {
+                // toString(4) genera un JSON con formato indentado (4 espacios)
+                file.write(listaPersonas.toString(4));
+                System.out.println("Fichero personas.json creado con éxito.");
+            }
+        } catch (IOException e) {
+                // En caso de error al escribir en disco
+                System.err.println("Error al guardar JSON: " + e.getMessage());
+            }
+        }
+
+        // Cerramos el Scanner
+        // No cerramos System.in: pertenece a la aplicación, no a este ejemplo.
     }
 }
 ```

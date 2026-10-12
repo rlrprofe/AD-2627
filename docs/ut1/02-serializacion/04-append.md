@@ -46,3 +46,12 @@ try (OutputStream fos = new FileOutputStream(f, true);
 ```
 
 Así la cabecera se escribe únicamente al crear el fichero por primera vez.
+
+
+---
+
+## Dos patrones diferentes de append
+
+`AnadirObjetosPatronUnicoOOS` mantiene abierto **un único** `ObjectOutputStream`: no hay problema de cabeceras duplicadas. `AnadirObjetosAppendSinCabecera` reabre el fichero en modo append usando `AppendingObjectOutputStream`, que omite una nueva cabecera. Este segundo patrón es más delicado: requiere que el fichero existente sea un flujo de objetos válido y puede duplicar registros si se repite la ejecución.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/serializacion/code_examples_1-2.zip)

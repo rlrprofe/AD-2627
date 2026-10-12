@@ -27,3 +27,12 @@
 3. ¿Por qué `readObject()` necesita normalmente un cast?
 4. ¿Qué problema aparece al hacer append con varios `ObjectOutputStream`?
 5. ¿Para qué sirve `serialVersionUID`?
+
+
+---
+
+## Comprobación final y seguridad
+
+Repite el orden del README: un objeto, varios objetos, lista, append y versionado. Comprueba que todos los ficheros se generan en `data/`. **Nunca deserialices datos de origen desconocido**: `ObjectInputStream` puede ser peligroso con contenido manipulado. Para intercambio entre aplicaciones, prefiere formatos interoperables como JSON o XML.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/serializacion/code_examples_1-2.zip)

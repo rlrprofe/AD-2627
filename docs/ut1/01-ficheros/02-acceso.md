@@ -52,3 +52,12 @@ try (RandomAccessFile raf =
 | Se recorre en orden | Podemos saltar a una posición |
 | Más sencillo | Requiere conocer la organización del fichero |
 | Adecuado para texto y procesamiento completo | Adecuado para registros de tamaño/posición conocidos |
+
+
+---
+
+## Acceso secuencial frente a aleatorio
+
+`EjemploRandomAccess`, `Ejemplo2RandomAccess` y `Ejemplo3RandomAccess` utilizan `seek()` y `getFilePointer()`. **`seek(0)` vuelve al inicio; `seek(raf.length())` sitúa el puntero al final**. La lectura binaria debe respetar el mismo orden de tipos que la escritura. `setLength(0)` trunca el fichero.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

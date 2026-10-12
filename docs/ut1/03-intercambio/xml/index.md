@@ -124,3 +124,7 @@ Los ejemplos de este apartado están disponibles en un proyecto Maven completo p
 
 !!! note
     Todos los proyectos Java del material están preparados para **JDK 21**.
+
+## Proyecto Maven de ejemplos
+
+Para trabajar los ejemplos de DOM, SAX, XPath y JAXB con Java 21, consulta la [guía del proyecto XML](02-proyecto-java.md), donde encontrarás la descarga, la estructura de paquetes y el orden didáctico.

@@ -80,3 +80,12 @@ byte[] datos = baos.toByteArray();
 | `DataOutputStream` | Escribir tipos primitivos |
 | `ByteArrayInputStream` | Leer desde memoria |
 | `ByteArrayOutputStream` | Escribir en memoria |
+
+
+---
+
+## Ejemplo práctico: representación de bytes
+
+Ejecuta `ejemplos.ficheros.DemoBytes`. Escribe el entero `123` con `writeInt()` (cuatro bytes), la cadena `"123"` con `writeUTF()` (incluye longitud y usa UTF-8 modificado) y el texto `"123"` con un escritor UTF-8. Compara los bytes hexadecimales: **no son tres formatos intercambiables**.
+
+[**Descargar proyecto Maven revisado (Java 21)**](../../descargas/ut1/ficheros/code_examples_1-1.zip)

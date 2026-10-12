@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 650" role="img" aria-label="Serialización de objetos Java">
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#334155" stroke-width="1.4"/></marker></defs>
+<rect width="1120" height="650" rx="22" fill="#f8fafc"/>
+<text x="45" y="60" font-family="DejaVu Sans,Arial,sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#0f172a">Serialización de objetos Java</text>
+<text x="45" y="94" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#475569">Guardar y recuperar objetos con Serializable</text>
+<rect x="45" y="185" width="255" height="165" rx="15" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="65" y="220" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Objeto Java</text>
+<text x="65" y="253" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Persona implements Serializable</text>
+<text x="65" y="279" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">nombre, edad, ...</text>
+<rect x="430" y="185" width="255" height="165" rx="15" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="450" y="220" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Fichero binario</text>
+<text x="450" y="253" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">ObjectOutputStream</text>
+<text x="450" y="279" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">writeObject(persona)</text>
+<rect x="815" y="185" width="255" height="165" rx="15" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="835" y="220" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Objeto recuperado</text>
+<text x="835" y="253" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">ObjectInputStream</text>
+<text x="835" y="279" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">readObject() + conversión</text>
+<path d="M300 268 L425 268" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<path d="M685 268 L810 268" stroke="#334155" stroke-width="2.4" fill="none" marker-end="url(#arr)"/>
+<rect x="45" y="420" width="310" height="120" rx="15" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="65" y="455" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">transient</text>
+<text x="65" y="488" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Campo excluido del guardado</text>
+<rect x="405" y="420" width="310" height="120" rx="15" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="425" y="455" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">serialVersionUID</text>
+<text x="425" y="488" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">Identifica la versión de la clase</text>
+<rect x="765" y="420" width="310" height="120" rx="15" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="785" y="455" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Precaución</text>
+<text x="785" y="488" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#1e293b">No leer objetos de fuentes no fiables</text>
+<text x="560" y="600" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="middle" fill="#475569">Serialización nativa Java ≠ JSON: los formatos y las APIs son distintos</text>
+</svg>

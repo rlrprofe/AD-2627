@@ -347,3 +347,22 @@ datos Python
     ```
 
     Por eso el módulo estándar `json` permite resolver la mayoría de los casos habituales con una API pequeña y directa.
+
+---
+
+## Orden de ejecución y comprobación final
+
+| Orden | Archivo | Concepto principal |
+|---|---|---|
+| 1 | `01_basico_en_memoria.py` | `dumps()` / `loads()` |
+| 2 | `02_estructuras_json.py` | Listas y diccionarios |
+| 3 | `03_guardar_alumnos.py` | `dump()` y `with` |
+| 4 | `04_leer_alumnos.py` | `load()` y validación |
+| 5 | `05_pathlib.py` | Rutas con `Path` |
+| 6 | `06_errores_json.py` | Excepciones |
+| 7 | `07_tipos_personalizados.py` | `default` / `object_hook` |
+| 8 | `08_dataclass_json.py` | `dataclass` / `asdict` |
+
+**Autoevaluación:** modifica los alumnos, vuelve a generar el fichero y comprueba la lectura. Después introduce deliberadamente un JSON incorrecto y observa el mensaje del programa de errores.
+
+[Descargar los ejemplos con README didáctico](../../../descargas/ut1/python-json/python-json-ejemplos.zip).

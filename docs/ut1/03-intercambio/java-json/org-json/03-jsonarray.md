@@ -1,5 +1,8 @@
 # JSONArray
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.examples`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/org-json-ejemplos.zip).
+
 ### 1. Introducción
 
 `JSONArray` es otra de las clases principales de la librería **org.json**.
@@ -1491,7 +1494,7 @@ DemoJSONArray.java
 Este ejemplo reúne las operaciones fundamentales de `JSONArray`.
 
 ```java
-package com.example;
+package com.example.examples;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1500,12 +1503,8 @@ public class DemoJSONArray {
 
     public static void main(String[] args) {
 
-        // ==========================================
-        // 1. ARRAY DE VALORES SIMPLES
-        // ==========================================
-
+        // 1. Array de valores simples
         JSONArray modulos = new JSONArray();
-
         modulos.put("Acceso a Datos");
         modulos.put("Desarrollo de Interfaces");
         modulos.put("Programación de Servicios");
@@ -1513,130 +1512,64 @@ public class DemoJSONArray {
         System.out.println("ARRAY DE MÓDULOS");
         System.out.println(modulos.toString(4));
 
+        // 2. Acceder a un elemento por su posición
+        System.out.println("\nPrimer módulo: " + modulos.getString(0));
 
-        // ==========================================
-        // 2. ACCEDER A LOS ELEMENTOS
-        // ==========================================
-
-        System.out.println("\nPrimer módulo:");
-
-        System.out.println(
-            modulos.getString(0)
-        );
-
-
-        // ==========================================
-        // 3. RECORRER EL ARRAY
-        // ==========================================
-
+        // 3. Recorrer el array
         System.out.println("\nLISTADO DE MÓDULOS");
-
         for (int i = 0; i < modulos.length(); i++) {
-
-            System.out.println(
-                i + " -> "
-                + modulos.getString(i)
-            );
+            System.out.println(i + " -> " + modulos.getString(i));
         }
 
+        // 4. Modificar y eliminar elementos
+        modulos.put(1, "Sistemas de Gestión Empresarial");
+        System.out.println("\nDespués de modificar la posición 1:");
+        System.out.println(modulos.toString(4));
 
-        // ==========================================
-        // 4. CREAR OBJETOS
-        // ==========================================
+        modulos.remove(2);
+        System.out.println("\nDespués de eliminar la posición 2:");
+        System.out.println(modulos.toString(4));
 
+        // 5. Array de objetos JSON
         JSONObject alumno1 = new JSONObject();
-
         alumno1.put("id", 1);
         alumno1.put("nombre", "Ana");
         alumno1.put("nota", 8.5);
 
-
         JSONObject alumno2 = new JSONObject();
-
         alumno2.put("id", 2);
         alumno2.put("nombre", "Luis");
         alumno2.put("nota", 7.2);
 
-
         JSONObject alumno3 = new JSONObject();
-
         alumno3.put("id", 3);
         alumno3.put("nombre", "Marta");
         alumno3.put("nota", 9.1);
 
-
-        // ==========================================
-        // 5. ARRAY DE OBJETOS
-        // ==========================================
-
         JSONArray alumnos = new JSONArray();
-
         alumnos.put(alumno1);
         alumnos.put(alumno2);
         alumnos.put(alumno3);
 
         System.out.println("\nARRAY DE ALUMNOS");
+        System.out.println(alumnos.toString(4));
 
-        System.out.println(
-            alumnos.toString(4)
-        );
-
-
-        // ==========================================
-        // 6. RECORRER ARRAY DE OBJETOS
-        // ==========================================
-
+        // 6. Recorrer un array de JSONObject
         System.out.println("\nALUMNOS");
-
         for (int i = 0; i < alumnos.length(); i++) {
-
-            JSONObject alumno =
-                    alumnos.getJSONObject(i);
-
-            System.out.println(
-                alumno.getInt("id")
-                + " - "
-                + alumno.getString("nombre")
-                + " - Nota: "
-                + alumno.getDouble("nota")
-            );
+            JSONObject alumno = alumnos.getJSONObject(i);
+            System.out.println(alumno.getInt("id") + " - "
+                    + alumno.getString("nombre") + " - Nota: "
+                    + alumno.getDouble("nota"));
         }
 
+        // 7. Información del array
+        System.out.println("\nNúmero de alumnos: " + alumnos.length());
+        System.out.println("¿Está vacío?: " + alumnos.isEmpty());
 
-        // ==========================================
-        // 7. DATOS OPCIONALES
-        // ==========================================
-
-        JSONObject alumno =
-                alumnos.getJSONObject(0);
-
-        String email =
-                alumno.optString(
-                    "email",
-                    "No disponible"
-                );
-
-        System.out.println(
-            "\nEmail de "
-            + alumno.getString("nombre")
-            + ": "
-            + email
-        );
-
-
-        // ==========================================
-        // 8. INFORMACIÓN DEL ARRAY
-        // ==========================================
-
-        System.out.println(
-            "\nNúmero de alumnos: "
-            + alumnos.length()
-        );
-
-        System.out.println(
-            "¿Está vacío?: "
-            + alumnos.isEmpty()
-        );
+        // 8. Acceso opcional a una posición inexistente
+        String valor = modulos.optString(10, "No disponible");
+        System.out.println("Posición 10: " + valor);
     }
 }
 ```
@@ -1666,7 +1599,7 @@ JSONArray
 Código:
 
 ```java
-package com.example;
+package com.example.examples;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1675,112 +1608,54 @@ public class JSONArrayAnidado {
 
     public static void main(String[] args) {
 
-        // ==========================================
-        // 1. MÓDULOS DE ANA
-        // ==========================================
-
+        // 1. Módulos de Ana
         JSONArray modulosAna = new JSONArray();
-
         modulosAna.put("Acceso a Datos");
         modulosAna.put("Desarrollo de Interfaces");
 
-
-        // ==========================================
-        // 2. ALUMNA ANA
-        // ==========================================
-
+        // 2. Alumna Ana
         JSONObject ana = new JSONObject();
-
         ana.put("id", 1);
         ana.put("nombre", "Ana");
         ana.put("modulos", modulosAna);
 
-
-        // ==========================================
-        // 3. MÓDULOS DE LUIS
-        // ==========================================
-
+        // 3. Módulos de Luis
         JSONArray modulosLuis = new JSONArray();
-
         modulosLuis.put("Acceso a Datos");
         modulosLuis.put("Programación de Servicios");
 
-
-        // ==========================================
-        // 4. ALUMNO LUIS
-        // ==========================================
-
+        // 4. Alumno Luis
         JSONObject luis = new JSONObject();
-
         luis.put("id", 2);
         luis.put("nombre", "Luis");
         luis.put("modulos", modulosLuis);
 
-
-        // ==========================================
-        // 5. ARRAY DE ALUMNOS
-        // ==========================================
-
+        // 5. Array de alumnos
         JSONArray alumnos = new JSONArray();
-
         alumnos.put(ana);
         alumnos.put(luis);
 
-
-        // ==========================================
-        // 6. OBJETO PRINCIPAL
-        // ==========================================
-
+        // 6. Objeto principal
         JSONObject grupo = new JSONObject();
-
         grupo.put("ciclo", "DAM");
         grupo.put("curso", 2);
         grupo.put("alumnos", alumnos);
 
-
-        // ==========================================
-        // 7. MOSTRAR JSON COMPLETO
-        // ==========================================
-
+        // 7. Mostrar la estructura completa
         System.out.println("JSON COMPLETO");
+        System.out.println(grupo.toString(4));
 
-        System.out.println(
-            grupo.toString(4)
-        );
-
-
-        // ==========================================
-        // 8. RECORRER LA ESTRUCTURA
-        // ==========================================
-
-        JSONArray listaAlumnos =
-                grupo.getJSONArray("alumnos");
+        // 8. Recorrer la estructura anidada
+        JSONArray listaAlumnos = grupo.getJSONArray("alumnos");
 
         System.out.println("\nALUMNOS Y MÓDULOS");
+        for (int i = 0; i < listaAlumnos.length(); i++) {
+            JSONObject alumno = listaAlumnos.getJSONObject(i);
+            System.out.println("\nAlumno: " + alumno.getString("nombre"));
 
-        for (int i = 0;
-             i < listaAlumnos.length();
-             i++) {
-
-            JSONObject alumno =
-                    listaAlumnos.getJSONObject(i);
-
-            System.out.println(
-                "\nAlumno: "
-                + alumno.getString("nombre")
-            );
-
-            JSONArray modulos =
-                    alumno.getJSONArray("modulos");
-
-            for (int j = 0;
-                 j < modulos.length();
-                 j++) {
-
-                System.out.println(
-                    "  - "
-                    + modulos.getString(j)
-                );
+            JSONArray modulos = alumno.getJSONArray("modulos");
+            for (int j = 0; j < modulos.length(); j++) {
+                System.out.println("  - " + modulos.getString(j));
             }
         }
     }

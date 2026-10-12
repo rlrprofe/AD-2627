@@ -1,5 +1,8 @@
 # Preparación del proyecto
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.examples`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/org-json-ejemplos.zip).
+
 Antes de comenzar a trabajar con JSON en Java debemos preparar nuestro proyecto.
 
 Java no incorpora soporte completo para JSON en su biblioteca estándar, por lo que utilizaremos una **librería externa**. En este primer bloque trabajaremos con **org.json**.

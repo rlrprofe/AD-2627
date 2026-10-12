@@ -65,6 +65,7 @@ nav:
           - XML:
               - Introducción: ut1/03-intercambio/xml/index.md
               - Estructura y conceptos básicos: ut1/03-intercambio/xml/01-xml-basico.md
+              - Proyecto Java y ejemplos: ut1/03-intercambio/xml/02-proyecto-java.md
       - "4. Analizadores XML":
           - Introducción: ut1/04-analizadores/index.md
           - DOM - Lectura: ut1/04-analizadores/01-dom.md
@@ -91,4 +92,4 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-      toc_depth: 3
+      toc_depth: 4

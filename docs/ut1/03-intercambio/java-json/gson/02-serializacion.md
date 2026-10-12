@@ -1,5 +1,8 @@
 # Serialización: de objetos Java a JSON
 
+!!! note "Ejemplos y proyecto descargable (Java 21)"
+    Los fragmentos de esta página ilustran conceptos. La versión **completa y ejecutable** utiliza paquetes separados (`com.example.app`, `model`, `repository` y, cuando corresponde, `config`/`adapter`). Consulta el [orden didáctico y la estructura del proyecto](index.md#guia-del-proyecto-maven-actualizado-java-21) y el [ZIP actualizado](../../../../descargas/ut1/java-json/gson-ejemplos.zip).
+
 ### 1. ¿Qué es serializar?
 
 La **serialización** consiste en transformar un objeto Java en una representación que pueda almacenarse o transmitirse.
@@ -374,50 +377,30 @@ nota     ────────────► "nota"
 Nuestro primer ejemplo puede ser:
 
 ```java
-package com.example;
+package com.example.app;
 
+import com.example.config.GsonConfig;
+import com.example.model.Alumno;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+/**
+ * Ejemplo básico: objeto Java -> JSON -> objeto Java.
+ */
 public class DemoGson {
 
     public static void main(String[] args) {
+        // Se usa la configuración común para evitar problemas con LocalDate.
+        Gson gson = GsonConfig.crearGson();
 
-        // ==========================================
-        // 1. CREAR EL OBJETO JAVA
-        // ==========================================
+        Alumno original = new Alumno(1, "Ana", 8.5);
 
-        Alumno alumno =
-                new Alumno(
-                    1,
-                    "Ana",
-                    8.5
-                );
-
-
-        // ==========================================
-        // 2. CREAR GSON
-        // ==========================================
-
-        Gson gson =
-                new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-
-        // ==========================================
-        // 3. SERIALIZAR
-        // ==========================================
-
-        String json =
-                gson.toJson(alumno);
-
-
-        // ==========================================
-        // 4. MOSTRAR EL JSON
-        // ==========================================
-
+        String json = gson.toJson(original);
+        System.out.println("JSON generado:");
         System.out.println(json);
+
+        Alumno recuperado = gson.fromJson(json, Alumno.class);
+        System.out.println("\nAlumno recuperado:");
+        System.out.println(recuperado);
     }
 }
 ```
