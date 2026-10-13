@@ -6,7 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Material didáctico del módulo de Acceso a Datos">
       
+      
+        <meta name="author" content="Ruth Lospitao Ruiz">
+      
+      
+        <link rel="canonical" href="https://rlrprofe.github.io/AD-2627/ut1/03-intercambio/java-json/jackson/02-serializacion/">
       
       
         <link rel="prev" href="../01-preparacion/">
@@ -137,6 +143,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -152,6 +160,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rlrprofe/AD-2627" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/AD-2627
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -186,6 +206,18 @@
     </a>
     Acceso a Datos - 2º DAM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rlrprofe/AD-2627" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/AD-2627
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -226,18 +258,42 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -251,8 +307,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
@@ -266,32 +328,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Guía de la unidad
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -301,7 +337,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -311,8 +367,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../01-ficheros/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -326,8 +383,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
@@ -340,32 +403,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../01-ficheros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -552,7 +589,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -562,8 +619,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../02-serializacion/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -577,8 +635,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
@@ -591,32 +655,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../02-serializacion/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -805,7 +843,17 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -854,7 +902,21 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -864,8 +926,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -879,8 +942,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4_1">
@@ -894,32 +963,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -929,7 +972,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -939,8 +1002,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../org-json/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -954,8 +1018,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_1_2">
@@ -968,32 +1038,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../org-json/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1180,7 +1224,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -1190,8 +1256,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../gson/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1205,8 +1272,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_1_3">
@@ -1219,32 +1292,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gson/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1461,7 +1508,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -1471,8 +1540,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1486,8 +1556,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4_1_4">
@@ -1500,32 +1576,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1916,7 +1966,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -1926,8 +1998,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../python-json/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1941,8 +2014,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_2">
@@ -1955,32 +2034,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../python-json/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2195,7 +2248,19 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2205,8 +2270,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../xml/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2220,8 +2286,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_3">
@@ -2234,32 +2306,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../xml/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2342,7 +2388,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2352,8 +2416,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../04-analizadores/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2367,8 +2432,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
@@ -2381,32 +2452,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../04-analizadores/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2565,7 +2610,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2575,8 +2638,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../05-xpath/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2590,8 +2654,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
@@ -2604,32 +2674,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../05-xpath/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2788,7 +2832,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2798,8 +2860,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../06-conversion/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2813,8 +2876,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_7">
@@ -2827,32 +2896,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../06-conversion/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2998,6 +3041,290 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../ut2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2 · Conexión a bases de datos relacionales (JDBC)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2 · Conexión a bases de datos relacionales (JDBC)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/01-fundamentos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1. Conceptos y fundamentos de JDBC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/02-sentencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2. Sentencias DDL y DML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/03-resultados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3. Procesamiento de resultados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/04-transacciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4. Transacciones y control de errores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/05-buenas-practicas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5. Buenas prácticas JDBC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/06-actividades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.6. Ejercicios y consolidación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/07-descargas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyectos y descargas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3173,6 +3500,9 @@
                   
 
 
+  
+  
+
 
 <h1 id="serializacion-con-jackson">Serialización con Jackson<a class="headerlink" href="#serializacion-con-jackson" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
@@ -3181,185 +3511,185 @@
 </div>
 <h3 id="1-que-es-serializar">1. ¿Qué es serializar?<a class="headerlink" href="#1-que-es-serializar" title="Permanent link">&para;</a></h3>
 <p>Serializar consiste en transformar un objeto Java en una representación que pueda almacenarse o intercambiarse. En nuestro caso, la representación será <strong>JSON</strong>.</p>
-<pre><code class="language-text">OBJETO JAVA ─────────► JSON
+<div class="highlight"><pre><span></span><code>OBJETO JAVA ─────────► JSON
              Jackson
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="2-modelo-alumno">2. Modelo <code>Alumno</code><a class="headerlink" href="#2-modelo-alumno" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">com.example</span><span class="p">;</span>
 
-public class Alumno {
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Alumno</span><span class="w"> </span><span class="p">{</span>
 
-    private int id;
-    private String nombre;
-    private double nota;
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
 
-    public Alumno() {
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Alumno</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Alumno(int id, String nombre, double nota) {
-        this.id = id;
-        this.nombre = nombre;
-        this.nota = nota;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Alumno</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public int getId() {
-        return id;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void setId(int id) {
-        this.id = id;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public String getNombre() {
-        return nombre;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getNombre</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setNombre</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public double getNota() {
-        return nota;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getNota</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void setNota(double nota) {
-        this.nota = nota;
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setNota</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    @Override
-    public String toString() {
-        return &quot;Alumno{&quot; +
-                &quot;id=&quot; + id +
-                &quot;, nombre='&quot; + nombre + '\'' +
-                &quot;, nota=&quot; + nota +
-                '}';
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">"Alumno{"</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="s">"id="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="s">", nombre='"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nombre</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">'\''</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="s">", nota="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nota</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="sc">'}'</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="3-convertir-un-objeto-en-json">3. Convertir un objeto en JSON<a class="headerlink" href="#3-convertir-un-objeto-en-json" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">ObjectMapper mapper = new ObjectMapper();
+<div class="highlight"><pre><span></span><code><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">();</span>
 
-Alumno alumno = new Alumno(1, &quot;Ana&quot;, 8.5);
+<span class="n">Alumno</span><span class="w"> </span><span class="n">alumno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Alumno</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">"Ana"</span><span class="p">,</span><span class="w"> </span><span class="mf">8.5</span><span class="p">);</span>
 
-String json = mapper.writeValueAsString(alumno);
-</code></pre>
+<span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
 <p>Salida:</p>
-<pre><code class="language-json">{&quot;id&quot;:1,&quot;nombre&quot;:&quot;Ana&quot;,&quot;nota&quot;:8.5}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"nombre"</span><span class="p">:</span><span class="s2">"Ana"</span><span class="p">,</span><span class="nt">"nota"</span><span class="p">:</span><span class="mf">8.5</span><span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="4-writevalueasstring">4. <code>writeValueAsString()</code><a class="headerlink" href="#4-writevalueasstring" title="Permanent link">&para;</a></h3>
 <p>El método:</p>
-<pre><code class="language-java">writeValueAsString(objeto)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">writeValueAsString</span><span class="p">(</span><span class="n">objeto</span><span class="p">)</span>
+</code></pre></div>
 <p>recibe un objeto y devuelve un <code>String</code> que contiene JSON.</p>
-<pre><code class="language-text">Alumno
+<div class="highlight"><pre><span></span><code>Alumno
   │
   │ writeValueAsString()
   ▼
 String JSON
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="5-json-con-formato-legible">5. JSON con formato legible<a class="headerlink" href="#5-json-con-formato-legible" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">String json = mapper
-        .writerWithDefaultPrettyPrinter()
-        .writeValueAsString(alumno);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span>
+<span class="w">        </span><span class="p">.</span><span class="na">writerWithDefaultPrettyPrinter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
 <p>Resultado:</p>
-<pre><code class="language-json">{
-  &quot;id&quot; : 1,
-  &quot;nombre&quot; : &quot;Ana&quot;,
-  &quot;nota&quot; : 8.5
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nombre"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ana"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nota"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">8.5</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="6-ejemplo-completo-demojacksonjava">6. Ejemplo completo: <code>DemoJackson.java</code><a class="headerlink" href="#6-ejemplo-completo-demojacksonjava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example.app;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.app</span><span class="p">;</span>
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.config.JacksonConfig;
-import com.example.model.Alumno;
-
-
-/** Ejemplo didáctico de Jackson. */
-public class DemoJackson {
-    public static void main(String[] args) {
-        ObjectMapper mapper = JacksonConfig.crearMapper();
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.example.config.JacksonConfig</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.example.model.Alumno</span><span class="p">;</span>
 
 
-        Alumno original = new Alumno(1, &quot;Ana&quot;, 8.5);
+<span class="cm">/** Ejemplo didáctico de Jackson. */</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoJackson</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JacksonConfig</span><span class="p">.</span><span class="na">crearMapper</span><span class="p">();</span>
 
-        try {
-            // Serialización: objeto Java a texto JSON.
-            String json = mapper.writeValueAsString(original);
-        System.out.println(&quot;JSON:&quot;);
-        System.out.println(json);
 
-        // Deserialización: texto JSON a objeto Java.
-        Alumno recuperado = mapper.readValue(json, Alumno.class);
-        System.out.println(&quot;\nObjeto recuperado:&quot;);
-        System.out.println(recuperado);
-        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-            System.err.println(&quot;Error al procesar JSON: &quot; + e.getOriginalMessage());
-        }
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="n">Alumno</span><span class="w"> </span><span class="n">original</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Alumno</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">"Ana"</span><span class="p">,</span><span class="w"> </span><span class="mf">8.5</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Serialización: objeto Java a texto JSON.</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">original</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"JSON:"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Deserialización: texto JSON a objeto Java.</span>
+<span class="w">        </span><span class="n">Alumno</span><span class="w"> </span><span class="n">recuperado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">readValue</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="n">Alumno</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"\nObjeto recuperado:"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">recuperado</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">com</span><span class="p">.</span><span class="na">fasterxml</span><span class="p">.</span><span class="na">jackson</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">JsonProcessingException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Error al procesar JSON: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getOriginalMessage</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="7-como-relaciona-los-datos">7. ¿Cómo relaciona los datos?<a class="headerlink" href="#7-como-relaciona-los-datos" title="Permanent link">&para;</a></h3>
 <p>Conceptualmente:</p>
-<pre><code class="language-text">Alumno                         JSON
+<div class="highlight"><pre><span></span><code>Alumno                         JSON
 
-id        ─────────────────►   &quot;id&quot;
-nombre    ─────────────────►   &quot;nombre&quot;
-nota      ─────────────────►   &quot;nota&quot;
-</code></pre>
+id        ─────────────────►   "id"
+nombre    ─────────────────►   "nombre"
+nota      ─────────────────►   "nota"
+</code></pre></div>
 <p>Jackson aplica sus reglas de mapeo para relacionar propiedades Java y propiedades JSON.</p>
 <hr />
 <h3 id="8-objetos-anidados">8. Objetos anidados<a class="headerlink" href="#8-objetos-anidados" title="Permanent link">&para;</a></h3>
 <p>Una clase puede contener otra clase:</p>
-<pre><code class="language-java">public class Direccion {
-    private String ciudad;
-    private String codigoPostal;
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Direccion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">ciudad</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">codigoPostal</span><span class="p">;</span>
 
-    // constructores, getters y setters
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// constructores, getters y setters</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>Y <code>Alumno</code> podría contener:</p>
-<pre><code class="language-java">private Direccion direccion;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="n">Direccion</span><span class="w"> </span><span class="n">direccion</span><span class="p">;</span>
+</code></pre></div>
 <p>El JSON resultante tendría una estructura anidada:</p>
-<pre><code class="language-json">{
-  &quot;id&quot;: 1,
-  &quot;nombre&quot;: &quot;Ana&quot;,
-  &quot;nota&quot;: 8.5,
-  &quot;direccion&quot;: {
-    &quot;ciudad&quot;: &quot;Alcalá de Henares&quot;,
-    &quot;codigoPostal&quot;: &quot;28801&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ana"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nota"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"direccion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"ciudad"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alcalá de Henares"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"codigoPostal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28801"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="9-tostring-no-es-serializacion-json">9. <code>toString()</code> no es serialización JSON<a class="headerlink" href="#9-tostring-no-es-serializacion-json" title="Permanent link">&para;</a></h3>
 <p>No debemos confundir:</p>
-<pre><code class="language-java">alumno.toString();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">alumno</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+</code></pre></div>
 <p>con:</p>
-<pre><code class="language-java">mapper.writeValueAsString(alumno);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
 <p><code>toString()</code> produce una representación textual definida por nuestra clase. <code>writeValueAsString()</code> genera una representación JSON.</p>
 <hr />
 <h3 id="10-comparacion-con-gson">10. Comparación con Gson<a class="headerlink" href="#10-comparacion-con-gson" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">// Gson
-String json = gson.toJson(alumno);
-</code></pre>
-<pre><code class="language-java">// Jackson
-String json = mapper.writeValueAsString(alumno);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// Gson</span>
+<span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gson</span><span class="p">.</span><span class="na">toJson</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Jackson</span>
+<span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
 <p>El concepto es el mismo:</p>
-<pre><code class="language-text">Objeto Java → JSON
-</code></pre>
+<div class="highlight"><pre><span></span><code>Objeto Java → JSON
+</code></pre></div>
 <p>pero cambia la API utilizada.</p>
 <hr />
 <h3 id="11-resumen">11. Resumen<a class="headerlink" href="#11-resumen" title="Permanent link">&para;</a></h3>
@@ -3409,6 +3739,12 @@ String json = mapper.writeValueAsString(alumno);
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
       </main>
       
         <footer class="md-footer">
@@ -3438,7 +3774,7 @@ String json = mapper.writeValueAsString(alumno);
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.sections", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>

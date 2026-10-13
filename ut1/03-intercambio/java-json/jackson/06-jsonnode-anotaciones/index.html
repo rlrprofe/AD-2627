@@ -6,7 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Material didáctico del módulo de Acceso a Datos">
       
+      
+        <meta name="author" content="Ruth Lospitao Ruiz">
+      
+      
+        <link rel="canonical" href="https://rlrprofe.github.io/AD-2627/ut1/03-intercambio/java-json/jackson/06-jsonnode-anotaciones/">
       
       
         <link rel="prev" href="../05-ficheros/">
@@ -137,6 +143,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -152,6 +160,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rlrprofe/AD-2627" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/AD-2627
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -186,6 +206,18 @@
     </a>
     Acceso a Datos - 2º DAM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rlrprofe/AD-2627" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/AD-2627
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -226,18 +258,42 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -251,8 +307,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
@@ -266,32 +328,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Guía de la unidad
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -301,7 +337,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -311,8 +367,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../01-ficheros/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -326,8 +383,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
@@ -340,32 +403,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../01-ficheros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -552,7 +589,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -562,8 +619,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../02-serializacion/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -577,8 +635,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
@@ -591,32 +655,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../02-serializacion/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -805,7 +843,17 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -854,7 +902,21 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -864,8 +926,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -879,8 +942,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4_1">
@@ -894,32 +963,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -929,7 +972,27 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -939,8 +1002,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../org-json/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -954,8 +1018,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_2" id="__nav_2_4_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_1_2">
@@ -968,32 +1038,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../org-json/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1180,7 +1224,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -1190,8 +1256,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../gson/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1205,8 +1272,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_1_3">
@@ -1219,32 +1292,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gson/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1461,7 +1508,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -1471,8 +1540,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1486,8 +1556,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4_1_4">
@@ -1500,32 +1576,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1961,7 +2011,29 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -1971,8 +2043,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../python-json/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1986,8 +2059,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_2">
@@ -2000,32 +2079,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../python-json/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2240,7 +2293,19 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2250,8 +2315,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../xml/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2265,8 +2331,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4_3">
@@ -2279,32 +2351,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../xml/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2387,7 +2433,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2397,8 +2461,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../04-analizadores/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2412,8 +2477,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
@@ -2426,32 +2497,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../04-analizadores/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2610,7 +2655,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2620,8 +2683,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../05-xpath/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2635,8 +2699,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
@@ -2649,32 +2719,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../05-xpath/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -2833,7 +2877,25 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
+    
+    
+      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -2843,8 +2905,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../06-conversion/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -2858,8 +2921,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_7">
@@ -2872,32 +2941,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../06-conversion/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introducción
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -3043,6 +3086,290 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../ut2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2 · Conexión a bases de datos relacionales (JDBC)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2 · Conexión a bases de datos relacionales (JDBC)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/01-fundamentos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1. Conceptos y fundamentos de JDBC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/02-sentencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2. Sentencias DDL y DML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/03-resultados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3. Procesamiento de resultados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/04-transacciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4. Transacciones y control de errores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/05-buenas-practicas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5. Buenas prácticas JDBC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/06-actividades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.6. Ejercicios y consolidación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ut2/07-descargas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyectos y descargas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3263,6 +3590,9 @@
                   
 
 
+  
+  
+
 
 <h1 id="jsonnode-y-anotaciones">JsonNode y anotaciones<a class="headerlink" href="#jsonnode-y-anotaciones" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
@@ -3275,7 +3605,7 @@
 <h2 id="parte-1-modelo-de-arbol-con-jsonnode">Parte 1. Modelo de árbol con JsonNode<a class="headerlink" href="#parte-1-modelo-de-arbol-con-jsonnode" title="Permanent link">&para;</a></h2>
 <h3 id="1-que-es-jsonnode">1. ¿Qué es <code>JsonNode</code>?<a class="headerlink" href="#1-que-es-jsonnode" title="Permanent link">&para;</a></h3>
 <p><code>JsonNode</code> representa un nodo de un árbol JSON.</p>
-<pre><code class="language-text">JSON
+<div class="highlight"><pre><span></span><code>JSON
  │
  ▼
 JsonNode raíz
@@ -3285,61 +3615,61 @@ JsonNode raíz
  └── direccion
       ├── ciudad
       └── codigoPostal
-</code></pre>
+</code></pre></div>
 <p>Este enfoque recuerda en parte al trabajo explícito que realizamos con <code>JSONObject</code> y <code>JSONArray</code>, aunque utilizando la API de Jackson.</p>
 <hr />
 <h3 id="2-readtree">2. <code>readTree()</code><a class="headerlink" href="#2-readtree" title="Permanent link">&para;</a></h3>
 <p>Podemos convertir un texto JSON en un árbol:</p>
-<pre><code class="language-java">JsonNode raiz = mapper.readTree(json);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">JsonNode</span><span class="w"> </span><span class="n">raiz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">readTree</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
+</code></pre></div>
 <p>Import:</p>
-<pre><code class="language-java">import com.fasterxml.jackson.databind.JsonNode;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.databind.JsonNode</span><span class="p">;</span>
+</code></pre></div>
 <hr />
 <h3 id="3-consultar-propiedades">3. Consultar propiedades<a class="headerlink" href="#3-consultar-propiedades" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">JsonNode nombre = raiz.get(&quot;nombre&quot;);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">JsonNode</span><span class="w"> </span><span class="n">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"nombre"</span><span class="p">);</span>
+</code></pre></div>
 <p>Para obtener el texto:</p>
-<pre><code class="language-java">String valor = raiz.get(&quot;nombre&quot;).asText();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">valor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"nombre"</span><span class="p">).</span><span class="na">asText</span><span class="p">();</span>
+</code></pre></div>
 <p>Para un entero:</p>
-<pre><code class="language-java">int id = raiz.get(&quot;id&quot;).asInt();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"id"</span><span class="p">).</span><span class="na">asInt</span><span class="p">();</span>
+</code></pre></div>
 <p>Para un decimal:</p>
-<pre><code class="language-java">double nota = raiz.get(&quot;nota&quot;).asDouble();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"nota"</span><span class="p">).</span><span class="na">asDouble</span><span class="p">();</span>
+</code></pre></div>
 <hr />
 <h3 id="4-ejemplo-demojsonnodejava">4. Ejemplo: <code>DemoJsonNode.java</code><a class="headerlink" href="#4-ejemplo-demojsonnodejava" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example.app;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.app</span><span class="p">;</span>
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.config.JacksonConfig;
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.databind.JsonNode</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.example.config.JacksonConfig</span><span class="p">;</span>
 
-/** Ejemplo didáctico de Jackson. */
-public class DemoJsonNode {
-    public static void main(String[] args) {
-        String json = &quot;&quot;&quot;
-                {
-                  &quot;id&quot;: 1,
-                  &quot;nombreCompleto&quot;: &quot;Ana&quot;,
-                  &quot;nota&quot;: 8.5
-                }
-                &quot;&quot;&quot;;
+<span class="cm">/** Ejemplo didáctico de Jackson. */</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoJsonNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">                {</span>
+<span class="s">                  "id": 1,</span>
+<span class="s">                  "nombreCompleto": "Ana",</span>
+<span class="s">                  "nota": 8.5</span>
+<span class="s">                }</span>
+<span class="s">                """</span><span class="p">;</span>
 
-        ObjectMapper mapper = JacksonConfig.crearMapper();
-        try {
-            // JsonNode permite consultar JSON sin crear una clase modelo.
-            JsonNode raiz = mapper.readTree(json);
+<span class="w">        </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JacksonConfig</span><span class="p">.</span><span class="na">crearMapper</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// JsonNode permite consultar JSON sin crear una clase modelo.</span>
+<span class="w">            </span><span class="n">JsonNode</span><span class="w"> </span><span class="n">raiz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">readTree</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
 
-        System.out.println(&quot;Nombre: &quot; + raiz.path(&quot;nombreCompleto&quot;).asText(&quot;(sin nombre)&quot;));
-        System.out.println(&quot;Nota: &quot; + raiz.path(&quot;nota&quot;).asDouble());
-        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-            System.err.println(&quot;JSON incorrecto: &quot; + e.getOriginalMessage());
-        }
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Nombre: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">"nombreCompleto"</span><span class="p">).</span><span class="na">asText</span><span class="p">(</span><span class="s">"(sin nombre)"</span><span class="p">));</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Nota: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">raiz</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">"nota"</span><span class="p">).</span><span class="na">asDouble</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">com</span><span class="p">.</span><span class="na">fasterxml</span><span class="p">.</span><span class="na">jackson</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">JsonProcessingException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"JSON incorrecto: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getOriginalMessage</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="5-cuando-resulta-util">5. ¿Cuándo resulta útil?<a class="headerlink" href="#5-cuando-resulta-util" title="Permanent link">&para;</a></h3>
 <p>El modelo de árbol puede ser interesante cuando:</p>
@@ -3351,111 +3681,111 @@ public class DemoJsonNode {
 </ul>
 <hr />
 <h3 id="6-data-binding-frente-a-tree-model">6. Data binding frente a tree model<a class="headerlink" href="#6-data-binding-frente-a-tree-model" title="Permanent link">&para;</a></h3>
-<pre><code class="language-text">DATA BINDING
+<div class="highlight"><pre><span></span><code>DATA BINDING
 JSON ⇄ Alumno
 
 TREE MODEL
 JSON ⇄ JsonNode
-</code></pre>
+</code></pre></div>
 <p>Jackson permite ambos enfoques.</p>
 <hr />
 <h2 id="parte-2-personalizar-el-mapeo-con-anotaciones">Parte 2. Personalizar el mapeo con anotaciones<a class="headerlink" href="#parte-2-personalizar-el-mapeo-con-anotaciones" title="Permanent link">&para;</a></h2>
 <h3 id="7-jsonproperty">7. <code>@JsonProperty</code><a class="headerlink" href="#7-jsonproperty" title="Permanent link">&para;</a></h3>
 <p>Supongamos que en Java tenemos:</p>
-<pre><code class="language-java">private String nombre;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+</code></pre></div>
 <p>pero queremos que en JSON aparezca:</p>
-<pre><code class="language-json">&quot;nombre_completo&quot;: &quot;Ana García&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">"nombre_completo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ana García"</span>
+</code></pre></div>
 <p>Podemos utilizar:</p>
-<pre><code class="language-java">@JsonProperty(&quot;nombre_completo&quot;)
-private String nombre;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@JsonProperty</span><span class="p">(</span><span class="s">"nombre_completo"</span><span class="p">)</span>
+<span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+</code></pre></div>
 <p>Import:</p>
-<pre><code class="language-java">import com.fasterxml.jackson.annotation.JsonProperty;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.annotation.JsonProperty</span><span class="p">;</span>
+</code></pre></div>
 <hr />
 <h3 id="8-jsonignore">8. <code>@JsonIgnore</code><a class="headerlink" href="#8-jsonignore" title="Permanent link">&para;</a></h3>
 <p>Podemos indicar que una propiedad no debe incluirse en el JSON:</p>
-<pre><code class="language-java">@JsonIgnore
-private String passwordTemporal;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@JsonIgnore</span>
+<span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">;</span>
+</code></pre></div>
 <p>Import:</p>
-<pre><code class="language-java">import com.fasterxml.jackson.annotation.JsonIgnore;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.annotation.JsonIgnore</span><span class="p">;</span>
+</code></pre></div>
 <hr />
 <h3 id="9-ejemplo-de-modelo-anotado">9. Ejemplo de modelo anotado<a class="headerlink" href="#9-ejemplo-de-modelo-anotado" title="Permanent link">&para;</a></h3>
-<pre><code class="language-java">package com.example;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">com.example</span><span class="p">;</span>
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.annotation.JsonIgnore</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.annotation.JsonProperty</span><span class="p">;</span>
 
-public class AlumnoAnotado {
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AlumnoAnotado</span><span class="w"> </span><span class="p">{</span>
 
-    private int id;
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
 
-    @JsonProperty(&quot;nombre_completo&quot;)
-    private String nombre;
+<span class="w">    </span><span class="nd">@JsonProperty</span><span class="p">(</span><span class="s">"nombre_completo"</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
 
-    private double nota;
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
 
-    @JsonIgnore
-    private String passwordTemporal;
+<span class="w">    </span><span class="nd">@JsonIgnore</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">;</span>
 
-    public AlumnoAnotado() {
-    }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">AlumnoAnotado</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public AlumnoAnotado(
-            int id,
-            String nombre,
-            double nota,
-            String passwordTemporal) {
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">AlumnoAnotado</span><span class="p">(</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">,</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-        this.id = id;
-        this.nombre = nombre;
-        this.nota = nota;
-        this.passwordTemporal = passwordTemporal;
-    }
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">passwordTemporal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getNombre</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setNombre</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public double getNota() { return nota; }
-    public void setNota(double nota) { this.nota = nota; }
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getNota</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setNota</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">nota</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nota</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public String getPasswordTemporal() { return passwordTemporal; }
-    public void setPasswordTemporal(String passwordTemporal) {
-        this.passwordTemporal = passwordTemporal;
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getPasswordTemporal</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setPasswordTemporal</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">passwordTemporal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">passwordTemporal</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="10-resultado">10. Resultado<a class="headerlink" href="#10-resultado" title="Permanent link">&para;</a></h3>
 <p>Al serializar:</p>
-<pre><code class="language-java">AlumnoAnotado alumno = new AlumnoAnotado(
-        1,
-        &quot;Ana García&quot;,
-        8.5,
-        &quot;abc123&quot;
-);
+<div class="highlight"><pre><span></span><code><span class="n">AlumnoAnotado</span><span class="w"> </span><span class="n">alumno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AlumnoAnotado</span><span class="p">(</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"Ana García"</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">8.5</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"abc123"</span>
+<span class="p">);</span>
 
-String json = mapper
-        .writerWithDefaultPrettyPrinter()
-        .writeValueAsString(alumno);
-</code></pre>
+<span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span>
+<span class="w">        </span><span class="p">.</span><span class="na">writerWithDefaultPrettyPrinter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">alumno</span><span class="p">);</span>
+</code></pre></div>
 <p>obtendremos una estructura donde el nombre de la propiedad está personalizado y la propiedad ignorada no aparece:</p>
-<pre><code class="language-json">{
-  &quot;id&quot; : 1,
-  &quot;nota&quot; : 8.5,
-  &quot;nombre_completo&quot; : &quot;Ana García&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nota"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">8.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nombre_completo"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ana García"</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h3 id="11-no-confundir-anotaciones-con-typereference">11. No confundir anotaciones con <code>TypeReference</code><a class="headerlink" href="#11-no-confundir-anotaciones-con-typereference" title="Permanent link">&para;</a></h3>
-<pre><code class="language-text">TypeReference
+<div class="highlight"><pre><span></span><code>TypeReference
      │
      └── describe un tipo genérico
          List&lt;Alumno&gt;
@@ -3464,7 +3794,7 @@ Anotaciones
      │
      └── modifican cómo se mapean
          determinadas propiedades
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="12-resumen">12. Resumen<a class="headerlink" href="#12-resumen" title="Permanent link">&para;</a></h3>
 <table>
@@ -3533,6 +3863,12 @@ Anotaciones
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
       </main>
       
         <footer class="md-footer">
@@ -3562,7 +3898,7 @@ Anotaciones
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.sections", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
