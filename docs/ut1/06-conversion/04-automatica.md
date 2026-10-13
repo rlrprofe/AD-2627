@@ -49,3 +49,64 @@ El proyecto revisado utiliza Java 21 y dependencias Maven para Gson y JAXB. **JA
 **Actividad:** cambia el nombre de un cliente en el fichero de entrada y comprueba ambos sentidos de conversión.
 
 [Proyecto y orden de ejecución](index.md).
+
+---
+
+## Las dos operaciones fundamentales de JAXB
+
+| Operación | Nombre habitual | Sentido |
+|---|---|---|
+| *Unmarshalling* | Deserialización XML | XML → objetos Java |
+| *Marshalling* | Serialización XML | Objetos Java → XML |
+
+**Gson** realiza un trabajo distinto: convierte entre JSON y objetos Java. La combinación de ambas bibliotecas permite utilizar los objetos como representación intermedia.
+
+### Las anotaciones del modelo
+
+Una anotación es información que se escribe junto a una clase, atributo o método Java para que una herramienta o biblioteca pueda interpretarla. En JAXB son especialmente útiles:
+
+| Anotación | Función |
+|---|---|
+| `@XmlRootElement` | Indica qué clase puede representar un elemento raíz XML |
+| `@XmlElement` | Relaciona una propiedad con un elemento XML |
+| `@XmlAttribute` | Relaciona una propiedad con un atributo XML |
+| `@XmlElementWrapper` | Puede definir un elemento contenedor para una colección |
+| `@XmlAccessorType` | Determina si JAXB accede a campos o propiedades |
+
+Las anotaciones concretas que se utilizan en los proyectos deben comprobarse en las clases `Cliente` y `Clientes` descargables. **No todas las anotaciones de la tabla son necesarias en estos ejemplos.**
+
+### Ejemplo conceptual de correspondencia
+
+```java
+@XmlRootElement(name = "cliente")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Cliente {
+    @XmlAttribute
+    private String id;
+
+    @XmlElement
+    private String nombre;
+
+    @XmlElement
+    private int edad;
+
+    public Cliente() {
+        // Constructor requerido para reconstruir el objeto con JAXB.
+    }
+}
+```
+
+Este fragmento **ilustra** el mecanismo; para ejecutar los programas utiliza las clases completas del proyecto, que incluyen el modelo y las dependencias necesarias. No contiene expresiones lambda.
+
+## ¿Por qué se necesitan dos clases?
+
+`Cliente` describe un registro individual; `Clientes` describe la agrupación y permite representar el elemento raíz que contiene una lista. Separar ambas responsabilidades facilita el trabajo con colecciones y evita intentar representar varios elementos raíz en un mismo documento XML.
+
+### Limitaciones y seguridad
+
+- JAXB y Gson son **dependencias externas** en Java 21; no forman parte de la API básica del JDK.
+- El mapeo de propiedades y los nombres XML deben estar definidos en las clases.
+- Los documentos XML de fuentes no confiables deben analizarse con una configuración que impida DTD y entidades externas (XXE).
+- Los comentarios XML, el formato original y el contenido mixto no se conservan necesariamente en el modelo.
+
+**Actividad:** identifica qué clase representa el elemento raíz y qué anotación convierte `id` en atributo. Explica qué biblioteca interviene primero en cada sentido de conversión.

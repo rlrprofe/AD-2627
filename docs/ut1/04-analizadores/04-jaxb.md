@@ -1,15 +1,39 @@
 # JAXB · Conversión entre objetos Java y XML
 
-**Jakarta XML Binding (JAXB)** permite transformar objetos Java en documentos XML y recuperar objetos a partir de XML. Es el equivalente conceptual de serializar y deserializar objetos con las librerías JSON que hemos estudiado.
+## 1. ¿Qué significa *data binding*?
+
+**Jakarta XML Binding (JAXB)** permite relacionar la estructura de un XML con un conjunto de **clases Java**. En vez de recorrer manualmente los nodos DOM o reaccionar a eventos SAX, trabajamos con objetos como `Alumno`.
+
+Hay dos operaciones fundamentales:
+
+| Operación | Sentido | Ejemplo |
+|---|---|---|
+| **Marshalling** | Objeto Java → XML | Guardar un `Alumno` en `alumno_jaxb.xml` |
+| **Unmarshalling** | XML → objeto Java | Recuperar un `Alumno` desde un fichero XML |
 
 ```text
-Objeto Java -- marshal() --> XML
-Objeto Java <-- unmarshal() -- XML
+  Alumno (objeto Java) ── marshal() ──► alumno_jaxb.xml
+  Alumno (objeto Java) ◄─ unmarshal() ─ alumno_jaxb.xml
 ```
 
-## Preparación con Java 21 y Maven
+JAXB es especialmente útil cuando la estructura XML es **estable** y existe un modelo de clases que la representa.
 
-JAXB ya no está incluido en el JDK moderno, así que el `pom.xml` del proyecto añade las dependencias:
+## 2. Antes de empezar: ¿qué es una anotación Java?
+
+Una **anotación** añade información a una clase, campo o método. Se escribe con `@` y permite que herramientas o bibliotecas interpreten cómo deben tratar ese elemento.
+
+```java
+@XmlRootElement(name = "alumno")
+public class Alumno {
+    // ...
+}
+```
+
+La anotación no convierte el objeto por sí sola: JAXB la interpreta cuando ejecutamos `marshal()` o `unmarshal()`.
+
+## 3. Preparación con Java 21 y Maven
+
+En Java 21 JAXB **no viene incluido en el JDK**. El proyecto necesita la API y una implementación:
 
 ```xml
 <properties>
@@ -30,11 +54,9 @@ JAXB ya no está incluido en el JDK moderno, así que el `pom.xml` del proyecto 
 </dependencies>
 ```
 
-La primera dependencia proporciona la API; la segunda aporta una implementación para ejecutar las conversiones.
+La API define las clases y contratos; el *runtime* ejecuta la conversión.
 
-## Paso 1. Estudiar `model/Alumno.java`
-
-La clase representa un alumno con `id`, `nombre` y `edad`:
+## 4. Paso 1. Estudiar `model/Alumno.java`
 
 ```java
 @XmlRootElement(name = "alumno")
@@ -54,22 +76,30 @@ public class Alumno {
 }
 ```
 
-- **`@XmlRootElement`** define la etiqueta raíz del XML generado.
-- **`@XmlAccessorType(XmlAccessType.FIELD)`** indica que JAXB accede directamente a los campos.
-- **`@XmlAttribute`** representa `id` como atributo.
-- **`@XmlElement`** representa `nombre` y `edad` como elementos hijos.
-- El **constructor sin argumentos** permite que JAXB reconstruya el objeto.
+### Anotaciones utilizadas y otras habituales
 
-## Paso 2. Ejecutar `app/JaxbEjemplo.java`
+| Anotación | Función |
+|---|---|
+| `@XmlRootElement(name = "alumno")` | Establece la etiqueta raíz |
+| `@XmlAccessorType(XmlAccessType.FIELD)` | Indica que JAXB utiliza los campos directamente |
+| `@XmlAttribute` | Representa un campo como atributo XML |
+| `@XmlElement` | Representa un campo como elemento hijo |
+| `@XmlTransient` | Excluye un campo o propiedad de la conversión |
+| `@XmlElementWrapper` | Introduce un elemento contenedor para una colección |
+| `@XmlType(propOrder = {...})` | Permite indicar el orden de los elementos mapeados |
 
-El ejemplo crea un objeto:
+El **constructor sin argumentos** permite que JAXB instancie la clase al recuperar datos. Para un modelo más complejo también debemos decidir cómo representar listas y relaciones entre objetos.
+
+## 5. Paso 2. Ejecutar `app/JaxbEjemplo.java`
 
 ```java
 Alumno original = new Alumno("A010", "Lucía", 21);
 JAXBContext contexto = JAXBContext.newInstance(Alumno.class);
 ```
 
-### Serializar: `Marshaller`
+`JAXBContext` conoce las clases que JAXB debe convertir.
+
+### Marshalling: guardar el objeto como XML
 
 ```java
 Marshaller escritor = contexto.createMarshaller();
@@ -82,7 +112,7 @@ try (var salida = Files.newOutputStream(
 }
 ```
 
-El resultado es un documento equivalente a:
+El fichero resultante tendrá un contenido equivalente a:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -92,9 +122,9 @@ El resultado es un documento equivalente a:
 </alumno>
 ```
 
-La disposición exacta de los elementos y espacios puede variar según la implementación.
+La presentación exacta puede variar según la implementación.
 
-### Deserializar: `Unmarshaller`
+### Unmarshalling: recuperar un objeto desde XML
 
 ```java
 Unmarshaller lector = contexto.createUnmarshaller();
@@ -106,20 +136,38 @@ try (var entrada = Files.newInputStream(
 }
 ```
 
-**Resultado esperado en consola:** `A010 - Lucía - 21`.
+**Salida esperada:** `A010 - Lucía - 21`.
 
-!!! warning "Seguridad al leer XML"
-    El ejemplo utiliza la API directa de JAXB con un fichero generado por el propio programa. Para procesar XML de origen externo o no confiable, es preferible configurar un analizador seguro (por ejemplo, StAX con DTD y entidades externas desactivadas) y pasarlo a JAXB. El `try-with-resources` cierra los flujos, pero no sustituye esa protección.
+## 6. ¿Qué sucede en cada paso?
 
-## Comparación con Jackson y Gson
+1. Creamos un objeto Java con valores.
+2. `JAXBContext` prepara el mapeo a partir de las anotaciones.
+3. `Marshaller` transforma sus campos en atributos y elementos XML.
+4. `Unmarshaller` interpreta el XML y crea un nuevo objeto Java.
+5. El programa puede utilizar los datos recuperados como cualquier otro objeto.
 
-| JSON con Java | XML con JAXB |
+## 7. Ventajas y limitaciones
+
+| Ventajas | Limitaciones |
 |---|---|
-| `writeValueAsString()` / `toJson()` | `marshal()` |
-| `readValue()` / `fromJson()` | `unmarshal()` |
-| Configuración de propiedades/anotaciones | Anotaciones `@Xml...` |
+| Código de acceso a datos más expresivo | Requiere definir clases y mapeos |
+| Evita recorrer nodos manualmente | Menos cómodo con XML muy irregular o contenido mixto |
+| Adecuado para modelos de dominio estables | La lectura de XML externo exige configurar seguridad |
+
+!!! warning "XML de origen no confiable"
+    El ejemplo lee un fichero generado por el propio programa. Si se recibe XML externo, conviene proporcionar a JAXB un analizador seguro (por ejemplo, StAX con DTD y entidades externas desactivadas). Cerrar el flujo no evita por sí solo problemas XXE.
+
+## 8. Relación con JSON y actividades
+
+| JSON con Gson/Jackson | XML con JAXB |
+|---|---|
+| `toJson()` / `writeValueAsString()` | `marshal()` |
+| `fromJson()` / `readValue()` | `unmarshal()` |
 | Objeto Java ↔ JSON | Objeto Java ↔ XML |
 
-**Actividad:** cambia el nombre y la edad del objeto `original`, ejecuta el programa y comprueba el XML generado.
+1. Cambia los datos de `original` y comprueba el XML generado.
+2. Explica por qué `id` aparece como atributo y `nombre` como elemento.
+3. ¿Qué ocurre conceptualmente si quitamos el constructor sin argumentos?
+4. Investiga qué anotación utilizarías para excluir un campo de la conversión.
 
 [Proyecto Maven XML y orden didáctico](../03-intercambio/xml/02-proyecto-java.md).

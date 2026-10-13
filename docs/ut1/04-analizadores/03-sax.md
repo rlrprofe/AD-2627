@@ -1,25 +1,55 @@
 # SAX · Lectura de XML mediante eventos
 
-SAX (*Simple API for XML*) analiza el documento secuencialmente y comunica los eventos a un **manejador** (*handler*). A diferencia de DOM, no necesita construir un árbol completo en memoria.
+## 1. ¿Qué es SAX?
 
-## Cómo funciona
+SAX (*Simple API for XML*) es un analizador **secuencial y basado en eventos**. A diferencia de DOM, no construye un árbol completo: mientras procesa el documento, **avisa a nuestro programa** de que ha comenzado una etiqueta, ha encontrado texto o ha terminado un elemento.
 
-```text
-data/alumnos.xml
-       ↓
-     SAXParser
-       ↓
-  ManejadorAlumnos
-       ├── startElement()  → se abre una etiqueta
-       ├── characters()    → llega contenido de texto
-       └── endElement()    → se cierra una etiqueta
+No debemos decir que SAX lee necesariamente «línea a línea»: el parser analiza el flujo XML y puede notificar eventos independientemente de los saltos de línea.
+
+## 2. ¿Qué ocurre al leer un alumno?
+
+Para este fragmento:
+
+```xml
+<alumno id="A001"><nombre>Ana</nombre><edad>20</edad></alumno>
 ```
 
-Es útil para lectura secuencial de documentos grandes, pero no facilita modificar nodos o navegar libremente por el documento.
+El parser puede comunicar esta secuencia (simplificada):
 
-## Paso 1. Leer `ManejadorAlumnos.java`
+| Orden | Evento | Información recibida |
+|---:|---|---|
+| 1 | `startElement()` | Apertura de `alumno`, atributo `id="A001"` |
+| 2 | `startElement()` | Apertura de `nombre` |
+| 3 | `characters()` | Texto `Ana` |
+| 4 | `endElement()` | Cierre de `nombre` |
+| 5 | `startElement()` | Apertura de `edad` |
+| 6 | `characters()` | Texto `20` |
+| 7 | `endElement()` | Cierre de `edad` |
+| 8 | `endElement()` | Cierre de `alumno` |
 
-Abre `app/ManejadorAlumnos.java`. Esta clase extiende `DefaultHandler` y sobrescribe tres métodos:
+Además, existen los eventos `startDocument()` y `endDocument()` para el documento completo. La tabla simplifica la lectura: **el evento `characters()` puede producirse más de una vez** para un mismo texto, y también pueden aparecer eventos para espacios de formato.
+
+```text
+XML → SAXParser → ManejadorAlumnos (DefaultHandler)
+                     ├── startElement()
+                     ├── characters()
+                     └── endElement()
+```
+
+## 3. Clases principales
+
+| Clase o interfaz | Responsabilidad |
+|---|---|
+| `SAXParserFactory` | Configura y crea analizadores SAX |
+| `SAXParser` | Analiza el documento y produce eventos |
+| `DefaultHandler` | Clase base que podemos extender para reaccionar a eventos |
+| `Attributes` | Permite consultar atributos de una etiqueta |
+
+El manejador **no necesita `main`**: lo llama el analizador SAX cuando se producen eventos.
+
+## 4. Paso 1. Estudiar `ManejadorAlumnos.java`
+
+Abre `app/ManejadorAlumnos.java`:
 
 ```java
 @Override
@@ -45,13 +75,16 @@ public void endElement(String uri, String localName, String qName) {
 }
 ```
 
-El `StringBuilder texto` acumula fragmentos. **`characters()` puede invocarse varias veces para una misma etiqueta**; por eso no debemos dar por hecho que una llamada contiene todo el texto.
+- `startElement()` reconoce la etiqueta y permite consultar los atributos.
+- `characters()` acumula fragmentos en `StringBuilder texto`.
+- `endElement()` muestra el valor cuando termina la etiqueta.
 
-El manejador del proyecto está diseñado para la estructura sencilla de `alumnos.xml` (elementos `nombre` y `edad` sin etiquetas anidadas). Para XML con contenido mixto o anidamiento complejo habría que llevar un estado o una pila de elementos.
+!!! warning "Limitación del manejador de ejemplo"
+    El código está pensado para `alumnos.xml`, con campos simples `nombre` y `edad`. Para contenido mixto o etiquetas anidadas dentro de esos campos sería necesario gestionar mejor el estado y la acumulación de texto, por ejemplo con una pila.
 
-## Paso 2. Ejecutar `LeerXML_SAX.java`
+## 5. Paso 2. Ejecutar `LeerXML_SAX.java`
 
-El programa configura el analizador a través de `XmlConfig` y abre el fichero con cierre automático:
+El programa crea el parser configurado y le entrega el manejador:
 
 ```java
 try (var entrada = Files.newInputStream(Path.of("data/alumnos.xml"))) {
@@ -60,9 +93,9 @@ try (var entrada = Files.newInputStream(Path.of("data/alumnos.xml"))) {
 }
 ```
 
-`XmlConfig.saxFactory()` desactiva DTD y entidades externas, reduciendo el riesgo de ataques XXE.
+`XmlConfig.saxFactory()` rechaza DTD y entidades externas, reduciendo el riesgo XXE. `try-with-resources` cierra el flujo al terminar.
 
-### Resultado esperado
+**Resultado esperado:**
 
 ```text
 Alumno A001
@@ -76,16 +109,21 @@ Alumno A003
   edad: 19
 ```
 
-## DOM frente a SAX
+## 6. Ventajas, limitaciones y usos
 
-| Característica | DOM | SAX |
-|---|---|---|
-| Modelo | Árbol de nodos | Eventos secuenciales |
-| Memoria | Mayor para documentos grandes | Menor |
-| Navegación | Flexible | Secuencial |
-| Modificación | Sí | No directamente |
-| Proyecto | `LeerXML_DOM` | `LeerXML_SAX` |
+| Ventajas | Limitaciones |
+|---|---|
+| No almacena todo el árbol XML | No permite retroceder libremente |
+| Adecuado para ficheros grandes y flujos | Hay que mantener estado para relacionar datos |
+| Permite procesar registros conforme llegan | No modifica el XML de entrada directamente |
 
-**Actividad:** añade un alumno al XML y comprueba cómo se muestran los eventos. Después explica por qué `ManejadorAlumnos` no tiene método `main`.
+**Cuándo elegirlo:** importación de registros, análisis de ficheros grandes y procesamiento secuencial sin necesidad de modificar la estructura XML.
 
-[Descarga y guía del proyecto XML](../03-intercambio/xml/02-proyecto-java.md).
+## 7. Actividades
+
+1. Añade un alumno y comprueba que el programa lo muestra.
+2. Identifica qué método se ejecuta al encontrar el atributo `id`.
+3. Explica por qué `characters()` usa `append()` en lugar de sustituir el texto anterior.
+4. Razona por qué SAX no ofrece un equivalente directo a `getElementsByTagName()`.
+
+Continúa con **[JAXB](04-jaxb.md)** o consulta la [guía del proyecto XML](../03-intercambio/xml/02-proyecto-java.md).

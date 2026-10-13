@@ -1,21 +1,28 @@
 # DOM · Modificación y operaciones CRUD
 
-Una vez cargado un XML con DOM, podemos modificar el árbol en memoria. **Los cambios no se guardan en disco automáticamente**: es necesario transformar el `Document` y escribirlo.
+## 1. Modificar un árbol no significa modificar el fichero
 
-## Las cuatro operaciones CRUD
+DOM trabaja con un **árbol en memoria**. Cuando cambiamos un elemento, el objeto `Document` queda modificado, pero el XML original del disco **no cambia hasta que lo escribimos** mediante un `Transformer`.
 
-| Operación | Métodos DOM | Ejemplo |
+Por eso distinguimos dos operaciones: **modificar el árbol** y **guardar el resultado**.
+
+## 2. Las operaciones CRUD
+
+CRUD significa *Create, Read, Update, Delete* (crear, leer, actualizar y eliminar).
+
+| Operación | Qué hacemos | Métodos DOM |
 |---|---|---|
-| Crear | `createElement()`, `appendChild()` | Añadir un alumno |
-| Leer | `getElementsByTagName()`, `getAttribute()` | Consultar un alumno |
-| Actualizar | `setTextContent()`, `setAttribute()` | Cambiar edad o atributo |
-| Eliminar | `removeChild()` | Quitar un alumno |
+| Crear | Incorporar un alumno | `createElement()`, `appendChild()` |
+| Leer | Consultar alumnos | `getElementsByTagName()`, `getAttribute()`, `getTextContent()` |
+| Actualizar | Cambiar edad o atributo | `setTextContent()`, `setAttribute()` |
+| Eliminar | Quitar un alumno | `removeChild()` |
 
-El proyecto descargable demuestra de forma ejecutable **lectura y actualización**; las operaciones de creación y eliminación se presentan aquí como ampliación. No se incluyen clases llamadas `GestionBiblioteca_DOM` o `GestionBibliotecaCRUD_DOM` en el ZIP actual.
+!!! info "Qué incluye el proyecto descargable"
+    El proyecto actual implementa **lectura** (`LeerXML_DOM.java`) y **actualización** (`ModificarXML_DOM.java`). Las operaciones de **creación y eliminación** de esta página son fragmentos didácticos de ampliación; no corresponden a clases CRUD adicionales en el ZIP.
 
-## Actualizar un alumno: `ModificarXML_DOM.java`
+## 3. Actualizar: `ModificarXML_DOM.java`
 
-El programa abre `data/alumnos.xml` con `AlumnoXmlRepository`, obtiene el primer elemento `alumno` y modifica su edad:
+El ejemplo modifica la edad del primer alumno y añade un atributo `revisado`:
 
 ```java
 AlumnoXmlRepository repositorio = new AlumnoXmlRepository();
@@ -38,27 +45,11 @@ repositorio.guardar(
 );
 ```
 
-**Observa:** `setTextContent("21")` cambia el contenido de la etiqueta `edad`, mientras que `setAttribute("revisado", "true")` crea o actualiza un atributo del elemento `alumno`.
+**Qué cambia:** `setTextContent("21")` modifica el texto de `edad`; `setAttribute()` crea o actualiza un atributo. Se genera `alumnos_modificado.xml` y se mantiene intacto `alumnos.xml`.
 
-### Resultado esperado
+## 4. Crear un elemento (ampliación)
 
-Se crea `data/alumnos_modificado.xml`. El primer alumno queda con edad `21` y atributo `revisado="true"`. **El fichero de entrada permanece sin cambios.**
-
-## ¿Cómo se escribe el XML?
-
-En `repository/AlumnoXmlRepository.java`, el método `guardar()`:
-
-1. Crea el directorio de destino si es necesario.
-2. Configura un `Transformer` con salida indentada y codificación UTF-8.
-3. Abre un `OutputStream` con `Files.newOutputStream()`.
-4. Convierte el árbol DOM en XML mediante `transform(new DOMSource(documento), new StreamResult(salida))`.
-5. Cierra el flujo automáticamente con `try-with-resources`.
-
-El repositorio también restringe el acceso externo de la fábrica de transformadores.
-
-## Crear y eliminar: ampliación
-
-Para **crear** un elemento, utilizamos el mismo `Document`:
+Para crear un alumno primero construimos sus nodos y después lo incorporamos al árbol:
 
 ```java
 Element nuevo = documento.createElement("alumno");
@@ -75,18 +66,57 @@ nuevo.appendChild(edad);
 documento.getDocumentElement().appendChild(nuevo);
 ```
 
-Para **eliminar** un nodo:
+`createElement()` crea un nodo **desconectado**; `appendChild()` lo incorpora como hijo de otro nodo. Hasta que no añadimos `nuevo` a la raíz, no forma parte del árbol del documento.
+
+## 5. Eliminar un elemento (ampliación)
+
+Para eliminar un alumno necesitamos localizarlo y pedirle a su **padre** que lo quite:
 
 ```java
-Node padre = alumno.getParentNode();
-padre.removeChild(alumno);
+NodeList alumnos = documento.getElementsByTagName("alumno");
+Element alumno = null;
+
+for (int i = 0; i < alumnos.getLength(); i++) {
+    Element actual = (Element) alumnos.item(i);
+    if ("A002".equals(actual.getAttribute("id"))) {
+        alumno = actual;
+        break;
+    }
+}
+
+if (alumno != null) {
+    Node padre = alumno.getParentNode();
+    padre.removeChild(alumno);
+}
 ```
 
-En ambos casos debemos llamar después a `repositorio.guardar(...)` para persistir los cambios.
+El bucle evita eliminar accidentalmente un alumno distinto: buscamos el identificador `A002` y solo eliminamos si existe.
 
-!!! tip "Buena práctica"
-    Es preferible guardar el resultado en otro fichero mientras se aprende, para evitar sobrescribir accidentalmente los datos originales.
+## 6. Guardar los cambios: `Transformer`
 
-**Actividad:** modifica `ModificarXML_DOM.java` para añadir un alumno y guardar el resultado en un tercer fichero.
+En `repository/AlumnoXmlRepository.java`, el método `guardar()` prepara un `Transformer`, configura la salida UTF-8, abre un `OutputStream` y transforma el árbol DOM en texto XML.
 
-[Proyecto Maven XML y orden de los ejemplos](../03-intercambio/xml/02-proyecto-java.md).
+```java
+transformador.transform(
+    new DOMSource(documento),
+    new StreamResult(salida)
+);
+```
+
+- `DOMSource` es el árbol que queremos guardar.
+- `StreamResult` representa el destino de escritura.
+- `transform()` realiza la serialización XML.
+
+El repositorio usa `try-with-resources` y restringe el acceso externo de la fábrica de transformación.
+
+!!! tip "Práctica segura"
+    Mientras se aprende, guarda siempre en un fichero diferente para poder comparar el XML original con el modificado.
+
+## 7. Actividades
+
+1. Ejecuta `ModificarXML_DOM.java` y compara los dos ficheros.
+2. Añade el alumno `A004` utilizando el fragmento de creación y guarda un nuevo XML.
+3. Elimina el alumno `A002` y comprueba que ya no aparece en el resultado.
+4. Explica por qué `removeChild()` se invoca sobre el padre y no sobre el propio alumno.
+
+[Proyecto Maven XML y orden de ejecución](../03-intercambio/xml/02-proyecto-java.md).

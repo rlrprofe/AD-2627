@@ -49,3 +49,52 @@ Este programa amplía el anterior para recorrer **objetos y arrays anidados**. L
 **Actividad:** añade un cliente al JSON y comprueba el XML generado. Después prueba una estructura anidada con el ejemplo recursivo.
 
 [Descargar proyectos](index.md).
+
+---
+
+## Antes de programar: definir la estructura XML de salida
+
+Partimos de un array JSON con clientes. Nuestro objetivo no es copiar literalmente las llaves y corchetes, sino **construir un documento XML válido** con un único elemento raíz `<clientes>`.
+
+| Estructura JSON | Representación XML elegida |
+|---|---|
+| Array de clientes | Elemento raíz `<clientes>` con varios `<cliente>` |
+| Objeto cliente | Elemento `<cliente>` |
+| Propiedad `id` | Atributo `id` |
+| Propiedad `nombre` | Elemento hijo `<nombre>` |
+| Propiedad `edad` | Elemento hijo `<edad>` |
+
+### Cómo se construye el árbol DOM
+
+```text
+Document
+└── clientes
+    ├── cliente (id="C01")
+    │   ├── nombre → Laura
+    │   └── edad → 30
+    └── cliente (id="C02")
+        ├── nombre → Pedro
+        └── edad → 25
+```
+
+En Java, `createElement()` **crea** un elemento, pero este no forma parte del documento hasta que se incorpora con `appendChild()`. Para establecer texto se puede crear un nodo de texto o utilizar `setTextContent()`. Para escribir el documento se emplea un `Transformer`.
+
+### ¿Por qué utilizar recursividad en el segundo ejemplo?
+
+El primer programa conoce de antemano los campos `id`, `nombre` y `edad`. El segundo aborda estructuras con objetos dentro de objetos y listas dentro de objetos. Un método recursivo puede examinar cada valor:
+
+1. Si es un **objeto**, crear un elemento y procesar sus propiedades.
+2. Si es un **array**, recorrer sus elementos y aplicar de nuevo el mismo procedimiento.
+3. Si es un **valor simple**, escribirlo como texto.
+4. Si es `null`, aplicar la convención decidida para ese caso.
+
+No todas las estructuras JSON son válidas como nombres de etiquetas XML; tampoco todos los arrays tienen una traducción única. Por eso hay que documentar las convenciones de cada conversor.
+
+### Errores que debes detectar
+
+- Crear varios elementos raíz, lo que produciría un XML no bien formado.
+- Confundir `setAttribute()` con `createElement()`.
+- Perder los caracteres especiales `&`, `<` y `>` al escribir XML manualmente. Un `Transformer` sobre DOM se ocupa del escape correspondiente.
+- Suponer que cualquier JSON contiene siempre los campos esperados.
+
+**Pregunta de comprensión:** ¿por qué `"edad": 30` termina como texto dentro de `<edad>30</edad>` aunque en JSON fuese un número?

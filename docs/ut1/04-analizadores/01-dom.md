@@ -1,8 +1,12 @@
 # DOM · Lectura y navegación de XML
 
-DOM (*Document Object Model*) representa un documento XML como un **árbol de nodos en memoria**. Permite consultar elementos, atributos y contenido, y resulta adecuado para documentos pequeños o medianos que necesitemos recorrer o modificar.
+## 1. ¿Qué es DOM?
 
-## Documento de partida
+DOM (*Document Object Model*) representa el documento XML completo como un **árbol de nodos en memoria**. La ventaja es que podemos recorrerlo tantas veces como necesitemos, buscar elementos, modificar valores y, si procede, guardar el resultado.
+
+Su principal inconveniente es que **carga el documento entero**: con XML muy grandes, la memoria necesaria puede ser considerable.
+
+## 2. Documento de partida y estructura jerárquica
 
 El proyecto incluye `data/alumnos.xml`:
 
@@ -15,9 +19,40 @@ El proyecto incluye `data/alumnos.xml`:
 </alumnos>
 ```
 
-La raíz es `alumnos`; cada elemento `alumno` tiene un atributo `id` y dos elementos hijos: `nombre` y `edad`.
+El documento tiene una raíz `alumnos`; bajo ella hay tres elementos `alumno`. Cada alumno contiene un **atributo** `id`, dos **elementos hijos** (`nombre` y `edad`) y los correspondientes **nodos de texto**.
 
-## Flujo de lectura
+```text
+Document
+└── alumnos  (elemento raíz)
+    ├── alumno  [atributo id="A001"]
+    │   ├── nombre
+    │   │   └── "Ana"   (texto)
+    │   └── edad
+    │       └── "20"    (texto)
+    ├── alumno  [atributo id="A002"]
+    │   ├── nombre → "Luis"
+    │   └── edad   → "22"
+    └── alumno  [atributo id="A003"]
+        ├── nombre → "Marta"
+        └── edad   → "19"
+```
+
+!!! note "Elemento, atributo y texto no son lo mismo"
+    `alumno` es un elemento; `id="A001"` es un atributo de ese elemento; `Ana` es texto dentro del elemento `nombre`. Aunque en el esquema aparecen juntos, en DOM se manejan mediante tipos y métodos diferentes.
+
+## 3. Fases del análisis DOM
+
+| Fase | Qué hace Java | Clase o método |
+|---|---|---|
+| 1. Preparación | Configura la fábrica del analizador | `DocumentBuilderFactory` |
+| 2. Construcción | Lee el XML y construye el árbol | `DocumentBuilder.parse()` |
+| 3. Normalización (opcional) | Fusiona nodos de texto adyacentes en el árbol | `Document.normalize()` / `normalize()` en la raíz |
+| 4. Navegación | Localiza elementos y lee atributos o textos | `Document`, `Element`, `NodeList` |
+| 5. Escritura (opcional) | Guarda un árbol modificado en un fichero | `Transformer` |
+
+La normalización **no valida** el documento y no elimina de forma general todos los espacios entre etiquetas.
+
+## 4. Cómo lee el XML nuestro proyecto
 
 ```text
 data/alumnos.xml
@@ -27,12 +62,12 @@ DocumentBuilderFactory → DocumentBuilder
 Document → NodeList → Element → atributos y texto
 ```
 
-En el proyecto separamos dos responsabilidades:
+En el proyecto separamos responsabilidades:
 
-- **`config/XmlConfig.java`** crea una fábrica DOM configurada para rechazar DTD y entidades externas, evitando problemas de seguridad XXE.
-- **`repository/AlumnoXmlRepository.java`** abre el fichero con `Path` y `Files`, usa `try-with-resources` y devuelve un `Document`.
+- **`config/XmlConfig.java`** crea una fábrica DOM que rechaza DTD y entidades externas para reducir el riesgo de XXE.
+- **`repository/AlumnoXmlRepository.java`** abre el fichero con `Path` y `Files`, analiza el XML y devuelve el `Document`.
 
-Este es el fragmento principal del repositorio:
+Fragmento principal del repositorio:
 
 ```java
 try (InputStream entrada = Files.newInputStream(ruta)) {
@@ -44,11 +79,40 @@ try (InputStream entrada = Files.newInputStream(ruta)) {
 }
 ```
 
-El flujo se cierra automáticamente incluso si el análisis del XML produce un error. `normalize()` normaliza los nodos de texto del árbol; **no valida** el documento.
+`try-with-resources` cierra el flujo automáticamente. La configuración de seguridad del parser y el cierre de recursos resuelven problemas diferentes.
 
-## Recorrer los alumnos: `LeerXML_DOM.java`
+## 5. Clases y métodos esenciales
 
-Abre `app/LeerXML_DOM.java`. El programa recupera todos los elementos llamados `alumno` y los recorre:
+| Clase | Método o propiedad | Para qué sirve |
+|---|---|---|
+| `Document` | `getDocumentElement()` | Obtiene el elemento raíz |
+| `Document` / `Element` | `getElementsByTagName("alumno")` | Busca elementos con ese nombre entre sus descendientes |
+| `Element` | `getTagName()` | Devuelve el nombre de la etiqueta |
+| `Element` | `getAttribute("id")` | Lee el valor de un atributo |
+| `Element` | `setAttribute("id", valor)` | Crea o modifica un atributo |
+| `Node` | `getNodeName()` | Devuelve el nombre del nodo |
+| `Node` | `getNodeType()` | Indica qué tipo de nodo es |
+| `Node` | `getParentNode()` | Devuelve su nodo padre |
+| `Node` | `getChildNodes()` | Devuelve sus nodos hijos |
+| `Node` | `getTextContent()` | Obtiene el contenido textual del nodo y sus descendientes |
+| `NodeList` | `getLength()` | Devuelve cuántos nodos contiene |
+| `NodeList` | `item(i)` | Obtiene el nodo de la posición `i` (empieza en 0) |
+
+### Tipos de nodos habituales
+
+| Constante | Valor | Ejemplo |
+|---|---:|---|
+| `Node.ELEMENT_NODE` | 1 | `<alumno>` |
+| `Node.ATTRIBUTE_NODE` | 2 | `id="A001"` |
+| `Node.TEXT_NODE` | 3 | `Ana` |
+| `Node.COMMENT_NODE` | 8 | `<!-- comentario -->` |
+| `Node.DOCUMENT_NODE` | 9 | El documento completo |
+
+Los atributos no aparecen normalmente en `getChildNodes()` de un elemento: se consultan con métodos de atributos como `getAttribute()`.
+
+## 6. Ejemplo ejecutable: `LeerXML_DOM.java`
+
+Abre `app/LeerXML_DOM.java`. El programa obtiene todos los elementos `alumno` y recorre la lista con un bucle tradicional:
 
 ```java
 Document documento = new AlumnoXmlRepository()
@@ -67,9 +131,15 @@ for (int i = 0; i < lista.getLength(); i++) {
 }
 ```
 
-`NodeList` no es una lista de objetos `Alumno`: contiene nodos DOM. `getAttribute()` obtiene un atributo, mientras que `getTextContent()` obtiene el texto de un elemento. La conversión con `Integer.parseInt()` es necesaria porque el XML contiene texto.
+**Lectura paso a paso:**
 
-### Resultado esperado
+1. `getElementsByTagName("alumno")` obtiene los nodos que representan alumnos.
+2. `item(i)` devuelve un `Node`; lo convertimos a `Element` porque sabemos que corresponde a una etiqueta.
+3. `getAttribute("id")` lee el identificador.
+4. `getTextContent()` obtiene los textos de `nombre` y `edad`.
+5. `Integer.parseInt()` convierte el texto de la edad en un entero Java.
+
+**Salida esperada:**
 
 ```text
 A001 - Ana - 20
@@ -77,20 +147,14 @@ A002 - Luis - 22
 A003 - Marta - 19
 ```
 
-## Clases principales
-
-| Clase | Función |
-|---|---|
-| `DocumentBuilderFactory` | Configura la creación del analizador |
-| `DocumentBuilder` | Analiza el flujo XML |
-| `Document` | Árbol completo del documento |
-| `Node` | Nodo genérico del árbol |
-| `Element` | Nodo que representa una etiqueta |
-| `NodeList` | Colección de nodos |
-
 !!! warning "Comprobación de datos"
-    El ejemplo presupone que cada alumno contiene `nombre` y `edad`, y que la edad es numérica. En aplicaciones reales debemos validar estos datos antes de acceder a `.item(0)` o convertirlos.
+    El ejemplo supone que cada alumno tiene `nombre` y `edad`, y que la edad es numérica. Si falta un elemento, `.item(0)` puede devolver `null`; si la edad no es numérica, `Integer.parseInt()` puede lanzar una excepción.
 
-**Actividad:** añade un cuarto alumno a `data/alumnos.xml` y ejecuta de nuevo `LeerXML_DOM`.
+## 7. Comprueba que lo entiendes
 
-Consulta también la [guía y descarga del proyecto Maven](../03-intercambio/xml/02-proyecto-java.md).
+1. ¿Qué diferencia existe entre `Document`, `Element` y `NodeList`?
+2. ¿Por qué necesitamos convertir `Node` a `Element`?
+3. ¿Qué devuelve `getAttribute("id")` y qué devuelve `getTextContent()`?
+4. Añade un cuarto alumno a `data/alumnos.xml` y ejecuta el programa.
+
+Continúa con **[DOM: modificación y CRUD](02-dom-crud.md)**. Consulta también la [guía del proyecto Maven XML](../03-intercambio/xml/02-proyecto-java.md).

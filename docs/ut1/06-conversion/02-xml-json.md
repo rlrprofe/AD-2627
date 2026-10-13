@@ -45,3 +45,48 @@ Los analizadores DOM y SAX deben impedir la carga de DTD y entidades externas (p
 **Actividad:** añade un tercer cliente al XML y comprueba que aparece en los tres resultados.
 
 [Descargar proyectos y consultar el orden didáctico](index.md).
+
+---
+
+## Antes de abrir los programas: cómo se transforma un cliente
+
+El objetivo de los tres ejemplos es el mismo: extraer la información del XML y crear datos Java que Gson pueda serializar. Lo que cambia es **la forma de leer el XML**.
+
+| Dato XML | Operación conceptual | Dato JSON |
+|---|---|---|
+| `<cliente id="C01">` | Leer el atributo `id` | `"id": "C01"` |
+| `<nombre>Laura</nombre>` | Obtener el texto de `nombre` | `"nombre": "Laura"` |
+| `<edad>30</edad>` | Leer texto y convertirlo a número | `"edad": 30` |
+| Dos elementos `<cliente>` | Añadir dos objetos a una lista | Array con dos objetos |
+
+### DOM: pasos de lectura
+
+1. `DocumentBuilderFactory` prepara el analizador y sus opciones de seguridad.
+2. `DocumentBuilder` analiza el XML y obtiene un `Document`.
+3. `getElementsByTagName("cliente")` permite obtener los elementos de interés.
+4. Para cada `Element`, `getAttribute("id")` recupera el identificador y `getTextContent()` permite obtener el texto de los hijos seleccionados.
+5. Se construye una lista de datos Java y Gson genera el JSON.
+
+No confundas **analizar XML** con **generar JSON**: son dos operaciones independientes.
+
+### XPath: seleccionar en lugar de recorrer manualmente
+
+Una expresión como `//cliente` selecciona los elementos cliente. Desde cada uno se pueden obtener el atributo `@id` y los elementos hijos `nombre` y `edad`. La expresión XPath **no convierte** por sí sola a JSON: devuelve nodos o valores que el programa utiliza para construir la salida.
+
+### SAX: reconstruir datos a partir de eventos
+
+Durante la lectura de un cliente, SAX comunica la apertura de `cliente`, la aparición de `nombre` y `edad`, sus fragmentos de texto y los cierres correspondientes. El manejador debe conservar temporalmente el cliente en construcción.
+
+!!! important "Un detalle fundamental de SAX"
+    `characters()` puede ejecutarse varias veces para el contenido de un mismo elemento. No debe suponerse que entrega todo el texto en una sola llamada. Es habitual acumular los fragmentos y procesarlos al cerrar el elemento.
+
+## Resultado esperado y comprobación
+
+Tras ejecutar cada clase, abre el fichero generado en `salida/` y verifica que aparecen los dos clientes y que la edad se representa como número. **El formato de sangrado puede variar sin que cambien los datos.**
+
+### Actividad guiada
+
+1. Añade `<cliente id="C03"><nombre>Inés</nombre><edad>21</edad></cliente>` dentro de `<clientes>`.
+2. Ejecuta los tres programas y comprueba si generan tres objetos JSON.
+3. Localiza en cada clase el punto exacto donde se obtiene el identificador.
+4. Explica por qué SAX necesita un manejador y DOM no.
