@@ -2782,6 +2782,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-completo-una-lista-de-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo completo: una lista de clientes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-conversion-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa conversión manual?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-conversion-mediante-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa conversión mediante objetos?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué significa conversión mediante objetos?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprueba-que-lo-entiendes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba que lo entiendes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2977,6 +3027,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-completo-una-lista-de-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo completo: una lista de clientes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-conversion-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa conversión manual?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-significa-conversion-mediante-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa conversión mediante objetos?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué significa conversión mediante objetos?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprueba-que-lo-entiendes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba que lo entiendes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3077,6 +3177,50 @@
 </table>
 <p>El segundo enfoque es <strong>semiautomático</strong>, porque debemos definir las clases <code>Cliente</code> y <code>Clientes</code> y decidir el mapeo. En los proyectos descargables se mantienen ambas estrategias para poder compararlas.</p>
 <p><a href="../">Guía de los proyectos y orden de ejecución</a>.</p>
+<hr />
+<h2 id="ejemplo-completo-una-lista-de-clientes">Ejemplo completo: una lista de clientes<a class="headerlink" href="#ejemplo-completo-una-lista-de-clientes" title="Permanent link">&para;</a></h2>
+<p>Considera este XML:</p>
+<pre><code class="language-xml">&lt;clientes&gt;
+    &lt;cliente id=&quot;C01&quot;&gt;
+        &lt;nombre&gt;Laura&lt;/nombre&gt;
+        &lt;edad&gt;30&lt;/edad&gt;
+    &lt;/cliente&gt;
+    &lt;cliente id=&quot;C02&quot;&gt;
+        &lt;nombre&gt;Pedro&lt;/nombre&gt;
+        &lt;edad&gt;25&lt;/edad&gt;
+    &lt;/cliente&gt;
+&lt;/clientes&gt;
+</code></pre>
+<p>Una representación JSON elegida para nuestros ejercicios es:</p>
+<pre><code class="language-json">[
+  {&quot;id&quot;: &quot;C01&quot;, &quot;nombre&quot;: &quot;Laura&quot;, &quot;edad&quot;: 30},
+  {&quot;id&quot;: &quot;C02&quot;, &quot;nombre&quot;: &quot;Pedro&quot;, &quot;edad&quot;: 25}
+]
+</code></pre>
+<p>Observa las reglas aplicadas: la raíz <code>&lt;clientes&gt;</code> se representa mediante una lista; cada <code>&lt;cliente&gt;</code> es un objeto; el atributo <code>id</code> pasa a ser una propiedad; los elementos <code>nombre</code> y <code>edad</code> pasan a propiedades; y <code>edad</code> se convierte de texto a número. <strong>Estas reglas son una elección del programa</strong>, no una obligación de los formatos.</p>
+<h2 id="que-significa-conversion-manual">¿Qué significa conversión manual?<a class="headerlink" href="#que-significa-conversion-manual" title="Permanent link">&para;</a></h2>
+<p>La aplicación lee el formato de origen y construye explícitamente la estructura de destino. Por ejemplo, para XML → JSON:</p>
+<ol>
+<li>Abrir y analizar el fichero XML.</li>
+<li>Localizar cada elemento <code>cliente</code>.</li>
+<li>Extraer <code>id</code>, <code>nombre</code> y <code>edad</code>.</li>
+<li>Guardar esos valores en una estructura Java.</li>
+<li>Convertir la estructura a JSON con Gson.</li>
+<li>Escribir el resultado en un fichero.</li>
+</ol>
+<p><strong>DOM</strong> permite recorrer el árbol; <strong>XPath</strong> permite seleccionar nodos mediante expresiones; <strong>SAX</strong> informa de los elementos conforme se leen. Las tres alternativas pueden terminar produciendo el mismo JSON.</p>
+<h2 id="que-significa-conversion-mediante-objetos">¿Qué significa conversión mediante objetos?<a class="headerlink" href="#que-significa-conversion-mediante-objetos" title="Permanent link">&para;</a></h2>
+<p>Con <strong>JAXB</strong>, las anotaciones de una clase Java indican cómo se corresponde un objeto con un documento XML. <strong>Gson</strong> transforma esos objetos a JSON o los reconstruye desde JSON. Se reduce el código de recorrido, pero el programador sigue diseñando el modelo y eligiendo las reglas de correspondencia.</p>
+<div class="admonition warning">
+<p class="admonition-title">Conversión de ida y vuelta</p>
+<p>Convertir XML → JSON → XML <strong>no garantiza recuperar exactamente el documento original</strong>. Se pueden perder comentarios, espacios de nombres, orden, atributos o diferencias entre elementos vacíos y ausentes. Para evaluar una conversión, comprueba los datos y las reglas acordadas, no solo que el fichero resultante se pueda abrir.</p>
+</div>
+<h3 id="comprueba-que-lo-entiendes">Comprueba que lo entiendes<a class="headerlink" href="#comprueba-que-lo-entiendes" title="Permanent link">&para;</a></h3>
+<ol>
+<li>¿Por qué el <code>id</code> aparece como atributo en XML y como propiedad en JSON?</li>
+<li>¿Qué sucedería si hubiera un solo elemento <code>&lt;cliente&gt;</code>? ¿Debería seguir generándose un array?</li>
+<li>¿Qué problema puede surgir al convertir un código postal <code>"02801"</code> en número?</li>
+</ol>
 
 
 

@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#funciones-xpath" class="md-skip">
+        <a href="#54-funciones-xpath-mas-utilizadas" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2583,10 +2583,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#metricas" class="md-nav__link">
+  <a href="#funciones-numericas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Métricas
+        Funciones numéricas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-de-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funciones de texto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#posicion-y-contexto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Posición y contexto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-booleanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funciones booleanas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinacion-de-funciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinación de funciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-conviene-utilizar-cada-funcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo conviene utilizar cada función?
       
     </span>
   </a>
@@ -2923,10 +2978,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#metricas" class="md-nav__link">
+  <a href="#funciones-numericas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Métricas
+        Funciones numéricas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-de-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funciones de texto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#posicion-y-contexto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Posición y contexto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-booleanas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funciones booleanas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinacion-de-funciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinación de funciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-conviene-utilizar-cada-funcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo conviene utilizar cada función?
       
     </span>
   </a>
@@ -2950,58 +3060,187 @@
 
 
 
-<h1 id="funciones-xpath">Funciones XPath<a class="headerlink" href="#funciones-xpath" title="Permanent link">&para;</a></h1>
-<p>XPath incorpora funciones para trabajar con texto, números, posiciones y conjuntos de nodos.</p>
+<h1 id="54-funciones-xpath-mas-utilizadas">5.4. Funciones XPath más utilizadas<a class="headerlink" href="#54-funciones-xpath-mas-utilizadas" title="Permanent link">&para;</a></h1>
+<p>XPath incorpora funciones para <strong>contar</strong>, <strong>sumar</strong>, <strong>comparar</strong>, <strong>trabajar con cadenas</strong> y <strong>consultar posiciones</strong>. Las expresiones de esta página utilizan el <a href="../">catálogo de productos</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Versión utilizada en Java 21</p>
+<p>La implementación estándar de <code>javax.xml.xpath</code> de Java admite <strong>XPath 1.0</strong>. Por eso trabajaremos con funciones compatibles con esa versión. Por ejemplo, <code>ends-with()</code> pertenece a XPath 2.0 y <strong>no debe utilizarse</strong> con el evaluador estándar de Java.</p>
+</div>
+<h2 id="funciones-numericas">Funciones numéricas<a class="headerlink" href="#funciones-numericas" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Función</th>
-<th>Ejemplo</th>
+<th>Expresión</th>
+<th>Resultado</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>count()</code></td>
 <td><code>count(//producto)</code></td>
+<td><code>3</code></td>
 </tr>
 <tr>
-<td><code>last()</code></td>
-<td><code>//producto[last()]</code></td>
-</tr>
-<tr>
-<td><code>position()</code></td>
-<td><code>//producto[position() &lt;= 3]</code></td>
-</tr>
-<tr>
-<td><code>contains()</code></td>
-<td><code>//producto[contains(nombre,'Java')]</code></td>
-</tr>
-<tr>
-<td><code>starts-with()</code></td>
-<td><code>//producto[starts-with(nombre,'J')]</code></td>
-</tr>
-<tr>
-<td><code>string()</code></td>
-<td><code>string(//producto[1]/nombre)</code></td>
+<td><code>sum()</code></td>
+<td><code>sum(//producto/precio)</code></td>
+<td><code>258.49</code></td>
 </tr>
 <tr>
 <td><code>number()</code></td>
-<td><code>number(//producto[1]/precio)</code></td>
+<td><code>number(//producto[@id='P01']/precio)</code></td>
+<td><code>49.99</code></td>
 </tr>
 <tr>
-<td><code>boolean()</code></td>
-<td><code>boolean(//producto[@id='P01'])</code></td>
+<td><code>round()</code></td>
+<td><code>round(//producto[@id='P01']/precio)</code></td>
+<td><code>50</code></td>
 </tr>
 <tr>
-<td><code>normalize-space()</code></td>
-<td>Normaliza espacios</td>
+<td><code>floor()</code></td>
+<td><code>floor(//producto[@id='P01']/precio)</code></td>
+<td><code>49</code></td>
+</tr>
+<tr>
+<td><code>ceiling()</code></td>
+<td><code>ceiling(//producto[@id='P02']/precio)</code></td>
+<td><code>30</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="metricas">Métricas<a class="headerlink" href="#metricas" title="Permanent link">&para;</a></h2>
-<pre><code class="language-xpath">count(//producto)
+<p><strong>Importante:</strong> <code>sum()</code> requiere que los nodos seleccionados contengan valores convertibles a números. En este XML, los precios usan punto decimal.</p>
+<h2 id="funciones-de-texto">Funciones de texto<a class="headerlink" href="#funciones-de-texto" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Función</th>
+<th>Ejemplo</th>
+<th>Resultado o utilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contains()</code></td>
+<td><code>//producto[contains(nombre,'Monitor')]</code></td>
+<td>Selecciona P03.</td>
+</tr>
+<tr>
+<td><code>starts-with()</code></td>
+<td><code>//producto[starts-with(@id,'P0')]</code></td>
+<td>Selecciona P01, P02 y P03.</td>
+</tr>
+<tr>
+<td><code>string()</code></td>
+<td><code>string(//producto[@id='P01']/nombre)</code></td>
+<td><code>Teclado mecánico</code></td>
+</tr>
+<tr>
+<td><code>string-length()</code></td>
+<td><code>string-length('Java')</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>normalize-space()</code></td>
+<td><code>normalize-space('  Hola   XML  ')</code></td>
+<td><code>Hola XML</code></td>
+</tr>
+<tr>
+<td><code>concat()</code></td>
+<td><code>concat('Producto ', 'P01')</code></td>
+<td><code>Producto P01</code></td>
+</tr>
+<tr>
+<td><code>substring()</code></td>
+<td><code>substring('XPath', 1, 3)</code></td>
+<td><code>XPa</code></td>
+</tr>
+<tr>
+<td><code>translate()</code></td>
+<td><code>translate('ABC', 'ABC', 'abc')</code></td>
+<td><code>abc</code></td>
+</tr>
+</tbody>
+</table>
+<p>En XPath 1.0, <code>substring()</code> utiliza posiciones que comienzan en <strong>1</strong>.</p>
+<h2 id="posicion-y-contexto">Posición y contexto<a class="headerlink" href="#posicion-y-contexto" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Función</th>
+<th>Ejemplo</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>position()</code></td>
+<td><code>/catalogo/producto[position() = 2]</code></td>
+<td>Selecciona P02.</td>
+</tr>
+<tr>
+<td><code>last()</code></td>
+<td><code>/catalogo/producto[last()]</code></td>
+<td>Selecciona P03.</td>
+</tr>
+<tr>
+<td><code>name()</code></td>
+<td><code>name(/catalogo/producto[1])</code></td>
+<td>Devuelve <code>producto</code>.</td>
+</tr>
+<tr>
+<td><code>local-name()</code></td>
+<td><code>local-name(/catalogo/producto[1])</code></td>
+<td>Nombre local del elemento.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="funciones-booleanas">Funciones booleanas<a class="headerlink" href="#funciones-booleanas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Expresión</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean(//producto[@id='P03'])</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>boolean(//producto[@id='P99'])</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>not(//producto[@categoria='pantallas'])</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>//producto[not(@categoria='pantallas')]</code></td>
+<td>P01 y P02</td>
+</tr>
+</tbody>
+</table>
+<p>Observa que <code>not()</code> puede utilizarse como <strong>resultado booleano</strong> o dentro de un <strong>predicado</strong>.</p>
+<h2 id="combinacion-de-funciones">Combinación de funciones<a class="headerlink" href="#combinacion-de-funciones" title="Permanent link">&para;</a></h2>
+<pre><code class="language-xpath">count(//producto[precio &gt; 40])
 </code></pre>
-<p>Las funciones permiten que XPath no solo seleccione nodos, sino que también produzca resultados escalares.</p>
+<p>Resultado: <code>2</code> (P01 y P03).</p>
+<pre><code class="language-xpath">sum(//producto[@categoria='periféricos']/precio)
+</code></pre>
+<p>Resultado: <code>79.49</code>.</p>
+<pre><code class="language-xpath">//producto[contains(nombre,'Ratón')]/@id
+</code></pre>
+<p>Resultado: atributo <code>id</code> con valor <code>P02</code>.</p>
+<h2 id="cuando-conviene-utilizar-cada-funcion">¿Cuándo conviene utilizar cada función?<a class="headerlink" href="#cuando-conviene-utilizar-cada-funcion" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>count()</code></strong>: número de coincidencias, sin recorrer una lista en Java.</li>
+<li><strong><code>sum()</code></strong>: total de valores numéricos.</li>
+<li><strong><code>contains()</code> y <code>starts-with()</code></strong>: búsqueda parcial de texto.</li>
+<li><strong><code>position()</code> y <code>last()</code></strong>: seleccionar elementos según su posición.</li>
+<li><strong><code>normalize-space()</code></strong>: comparar texto cuando puede contener espacios adicionales.</li>
+</ul>
+<p><strong>Actividad:</strong> calcula el número de productos con precio inferior a 50. <strong>Solución:</strong> <code>count(//producto[precio &lt; 50])</code> → <code>2</code>.</p>
 
 
 

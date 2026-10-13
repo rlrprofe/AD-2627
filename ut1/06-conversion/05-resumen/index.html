@@ -2892,6 +2892,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tabla-de-decision-que-tecnica-elegir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de decisión: ¿qué técnica elegir?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-de-analisis-detectar-perdidas-de-informacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio de análisis: detectar pérdidas de información
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lista-de-comprobacion-para-las-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de comprobación para las prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2969,6 +3002,39 @@
     <span class="md-ellipsis">
       
         Preguntas de autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-decision-que-tecnica-elegir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de decisión: ¿qué técnica elegir?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-de-analisis-detectar-perdidas-de-informacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio de análisis: detectar pérdidas de información
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lista-de-comprobacion-para-las-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de comprobación para las prácticas
       
     </span>
   </a>
@@ -3058,6 +3124,90 @@
 </ol>
 <p><strong>Práctica de consolidación:</strong> añade un cliente con un nombre que contenga una tilde, realiza una conversión en cada sentido y compara el resultado con los datos originales.</p>
 <p><a href="../">Descargar ambos proyectos Maven</a>.</p>
+<hr />
+<h2 id="tabla-de-decision-que-tecnica-elegir">Tabla de decisión: ¿qué técnica elegir?<a class="headerlink" href="#tabla-de-decision-que-tecnica-elegir" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Enfoque recomendado</th>
+<th>Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML pequeño y recorrido completo</td>
+<td>DOM + Gson</td>
+<td>Permite explorar y modificar el árbol</td>
+</tr>
+<tr>
+<td>XML con nodos concretos que seleccionar</td>
+<td>DOM + XPath + Gson</td>
+<td>Las expresiones facilitan localizar los datos</td>
+</tr>
+<tr>
+<td>XML grande y lectura secuencial</td>
+<td>SAX + Gson</td>
+<td>Evita construir el árbol XML completo</td>
+</tr>
+<tr>
+<td>JSON conocido que debe generar XML</td>
+<td>Gson + DOM</td>
+<td>Permite controlar elementos y atributos</td>
+</tr>
+<tr>
+<td>JSON con estructuras anidadas</td>
+<td>Gson + DOM recursivo</td>
+<td>Reutiliza el mismo procedimiento en varios niveles</td>
+</tr>
+<tr>
+<td>Modelo de datos estable</td>
+<td>JAXB + Gson</td>
+<td>Reduce el código manual de transformación</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicio-de-analisis-detectar-perdidas-de-informacion">Ejercicio de análisis: detectar pérdidas de información<a class="headerlink" href="#ejercicio-de-analisis-detectar-perdidas-de-informacion" title="Permanent link">&para;</a></h2>
+<p>Estudia este XML:</p>
+<pre><code class="language-xml">&lt;producto codigo=&quot;007&quot;&gt;
+    &lt;!-- Oferta de otoño --&gt;
+    &lt;nombre&gt;Teclado&lt;/nombre&gt;
+    &lt;precio moneda=&quot;EUR&quot;&gt;29.50&lt;/precio&gt;
+    &lt;etiqueta&gt;informática&lt;/etiqueta&gt;
+    &lt;etiqueta&gt;periféricos&lt;/etiqueta&gt;
+&lt;/producto&gt;
+</code></pre>
+<p>Imagina que el programa produce este JSON:</p>
+<pre><code class="language-json">{
+  &quot;codigo&quot;: 7,
+  &quot;nombre&quot;: &quot;Teclado&quot;,
+  &quot;precio&quot;: 29.5,
+  &quot;etiqueta&quot;: &quot;periféricos&quot;
+}
+</code></pre>
+<p><strong>Cuestiones:</strong></p>
+<ol>
+<li>¿Qué ha sucedido con el cero inicial de <code>codigo</code>?</li>
+<li>¿Se ha conservado el atributo <code>moneda</code>?</li>
+<li>¿Dónde está el comentario XML?</li>
+<li>¿Se han conservado las dos etiquetas?</li>
+<li>¿Podría reconstruirse exactamente el XML original con ese JSON?</li>
+</ol>
+<p>??? success "Solución razonada"
+    1. Al convertir <code>"007"</code> en número se pierde la representación original.
+    2. No: <code>moneda="EUR"</code> no aparece en el JSON.
+    3. El comentario se ha descartado.
+    4. No: solo aparece la última etiqueta; para mantener ambas convendría un array.
+    5. No: faltan datos y decisiones de formato, por lo que la conversión no es reversible.</p>
+<h2 id="lista-de-comprobacion-para-las-practicas">Lista de comprobación para las prácticas<a class="headerlink" href="#lista-de-comprobacion-para-las-practicas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Identifico el fichero de entrada y el de salida.</li>
+<li>[ ] Sé qué biblioteca lee el formato de origen.</li>
+<li>[ ] Localizo dónde se transforman los datos.</li>
+<li>[ ] Distingo atributos XML, elementos y propiedades JSON.</li>
+<li>[ ] Compruebo listas, valores numéricos y caracteres acentuados.</li>
+<li>[ ] Puedo explicar qué información se pierde y por qué.</li>
+</ul>
 
 
 

@@ -2838,6 +2838,84 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#antes-de-abrir-los-programas-como-se-transforma-un-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de abrir los programas: cómo se transforma un cliente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de abrir los programas: cómo se transforma un cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dom-pasos-de-lectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DOM: pasos de lectura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-seleccionar-en-lugar-de-recorrer-manualmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath: seleccionar en lugar de recorrer manualmente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sax-reconstruir-datos-a-partir-de-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SAX: reconstruir datos a partir de eventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultado-esperado-y-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado y comprobación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultado esperado y comprobación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-guiada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad guiada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3033,6 +3111,84 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#antes-de-abrir-los-programas-como-se-transforma-un-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de abrir los programas: cómo se transforma un cliente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de abrir los programas: cómo se transforma un cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dom-pasos-de-lectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DOM: pasos de lectura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-seleccionar-en-lugar-de-recorrer-manualmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath: seleccionar en lugar de recorrer manualmente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sax-reconstruir-datos-a-partir-de-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SAX: reconstruir datos a partir de eventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultado-esperado-y-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultado esperado y comprobación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultado esperado y comprobación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-guiada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad guiada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3104,6 +3260,66 @@
 <p>Los analizadores DOM y SAX deben impedir la carga de DTD y entidades externas (protección XXE). La salida JSON debe usar UTF-8, y los errores de lectura o sintaxis deben tratarse explícitamente. En el proyecto revisado se han reforzado las opciones de seguridad de los analizadores existentes.</p>
 <p><strong>Actividad:</strong> añade un tercer cliente al XML y comprueba que aparece en los tres resultados.</p>
 <p><a href="../">Descargar proyectos y consultar el orden didáctico</a>.</p>
+<hr />
+<h2 id="antes-de-abrir-los-programas-como-se-transforma-un-cliente">Antes de abrir los programas: cómo se transforma un cliente<a class="headerlink" href="#antes-de-abrir-los-programas-como-se-transforma-un-cliente" title="Permanent link">&para;</a></h2>
+<p>El objetivo de los tres ejemplos es el mismo: extraer la información del XML y crear datos Java que Gson pueda serializar. Lo que cambia es <strong>la forma de leer el XML</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Dato XML</th>
+<th>Operación conceptual</th>
+<th>Dato JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;cliente id="C01"&gt;</code></td>
+<td>Leer el atributo <code>id</code></td>
+<td><code>"id": "C01"</code></td>
+</tr>
+<tr>
+<td><code>&lt;nombre&gt;Laura&lt;/nombre&gt;</code></td>
+<td>Obtener el texto de <code>nombre</code></td>
+<td><code>"nombre": "Laura"</code></td>
+</tr>
+<tr>
+<td><code>&lt;edad&gt;30&lt;/edad&gt;</code></td>
+<td>Leer texto y convertirlo a número</td>
+<td><code>"edad": 30</code></td>
+</tr>
+<tr>
+<td>Dos elementos <code>&lt;cliente&gt;</code></td>
+<td>Añadir dos objetos a una lista</td>
+<td>Array con dos objetos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dom-pasos-de-lectura">DOM: pasos de lectura<a class="headerlink" href="#dom-pasos-de-lectura" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>DocumentBuilderFactory</code> prepara el analizador y sus opciones de seguridad.</li>
+<li><code>DocumentBuilder</code> analiza el XML y obtiene un <code>Document</code>.</li>
+<li><code>getElementsByTagName("cliente")</code> permite obtener los elementos de interés.</li>
+<li>Para cada <code>Element</code>, <code>getAttribute("id")</code> recupera el identificador y <code>getTextContent()</code> permite obtener el texto de los hijos seleccionados.</li>
+<li>Se construye una lista de datos Java y Gson genera el JSON.</li>
+</ol>
+<p>No confundas <strong>analizar XML</strong> con <strong>generar JSON</strong>: son dos operaciones independientes.</p>
+<h3 id="xpath-seleccionar-en-lugar-de-recorrer-manualmente">XPath: seleccionar en lugar de recorrer manualmente<a class="headerlink" href="#xpath-seleccionar-en-lugar-de-recorrer-manualmente" title="Permanent link">&para;</a></h3>
+<p>Una expresión como <code>//cliente</code> selecciona los elementos cliente. Desde cada uno se pueden obtener el atributo <code>@id</code> y los elementos hijos <code>nombre</code> y <code>edad</code>. La expresión XPath <strong>no convierte</strong> por sí sola a JSON: devuelve nodos o valores que el programa utiliza para construir la salida.</p>
+<h3 id="sax-reconstruir-datos-a-partir-de-eventos">SAX: reconstruir datos a partir de eventos<a class="headerlink" href="#sax-reconstruir-datos-a-partir-de-eventos" title="Permanent link">&para;</a></h3>
+<p>Durante la lectura de un cliente, SAX comunica la apertura de <code>cliente</code>, la aparición de <code>nombre</code> y <code>edad</code>, sus fragmentos de texto y los cierres correspondientes. El manejador debe conservar temporalmente el cliente en construcción.</p>
+<div class="admonition important">
+<p class="admonition-title">Un detalle fundamental de SAX</p>
+<p><code>characters()</code> puede ejecutarse varias veces para el contenido de un mismo elemento. No debe suponerse que entrega todo el texto en una sola llamada. Es habitual acumular los fragmentos y procesarlos al cerrar el elemento.</p>
+</div>
+<h2 id="resultado-esperado-y-comprobacion">Resultado esperado y comprobación<a class="headerlink" href="#resultado-esperado-y-comprobacion" title="Permanent link">&para;</a></h2>
+<p>Tras ejecutar cada clase, abre el fichero generado en <code>salida/</code> y verifica que aparecen los dos clientes y que la edad se representa como número. <strong>El formato de sangrado puede variar sin que cambien los datos.</strong></p>
+<h3 id="actividad-guiada">Actividad guiada<a class="headerlink" href="#actividad-guiada" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Añade <code>&lt;cliente id="C03"&gt;&lt;nombre&gt;Inés&lt;/nombre&gt;&lt;edad&gt;21&lt;/edad&gt;&lt;/cliente&gt;</code> dentro de <code>&lt;clientes&gt;</code>.</li>
+<li>Ejecuta los tres programas y comprueba si generan tres objetos JSON.</li>
+<li>Localiza en cada clase el punto exacto donde se obtiene el identificador.</li>
+<li>Explica por qué SAX necesita un manejador y DOM no.</li>
+</ol>
 
 
 

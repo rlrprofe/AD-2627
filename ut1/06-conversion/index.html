@@ -2754,6 +2754,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#que-aprenderas-en-este-apartado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué aprenderás en este apartado?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué aprenderás en este apartado?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml-y-json-dos-formas-de-representar-informacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML y JSON: dos formas de representar información
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flujo-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flujo general
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2977,6 +3016,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#que-aprenderas-en-este-apartado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué aprenderás en este apartado?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué aprenderás en este apartado?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml-y-json-dos-formas-de-representar-informacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML y JSON: dos formas de representar información
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flujo-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flujo general
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3079,6 +3157,64 @@ conversion-automatica/
 <p class="admonition-title">Alcance</p>
 <p>Los ejemplos se centran en clientes con <code>id</code>, <code>nombre</code> y <code>edad</code>. No constituyen una herramienta genérica capaz de conservar todos los detalles de cualquier XML o JSON.</p>
 </div>
+<hr />
+<h2 id="que-aprenderas-en-este-apartado">¿Qué aprenderás en este apartado?<a class="headerlink" href="#que-aprenderas-en-este-apartado" title="Permanent link">&para;</a></h2>
+<p>Al terminar deberías poder <strong>explicar</strong> las diferencias entre XML y JSON, <strong>elegir</strong> un procedimiento de conversión y <strong>seguir</strong> la transformación de datos en los proyectos Java. No se trata únicamente de ejecutar programas: hay que identificar qué información se mantiene y qué decisiones toma el programador.</p>
+<h3 id="xml-y-json-dos-formas-de-representar-informacion">XML y JSON: dos formas de representar información<a class="headerlink" href="#xml-y-json-dos-formas-de-representar-informacion" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>XML</th>
+<th>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organización</td>
+<td>Elementos anidados y atributos</td>
+<td>Objetos, propiedades y arrays</td>
+</tr>
+<tr>
+<td>Tipos de datos</td>
+<td>El contenido de elementos y atributos es texto; el esquema puede definir tipos</td>
+<td>Cadenas, números, booleanos, <code>null</code>, objetos y arrays</td>
+</tr>
+<tr>
+<td>Colecciones</td>
+<td>Repetición de elementos</td>
+<td>Arrays explícitos</td>
+</tr>
+<tr>
+<td>Metadatos</td>
+<td>Atributos y espacios de nombres</td>
+<td>No existe una construcción equivalente directa</td>
+</tr>
+<tr>
+<td>Comentarios</td>
+<td>Permite comentarios XML</td>
+<td>JSON estándar no admite comentarios</td>
+</tr>
+<tr>
+<td>Uso frecuente</td>
+<td>Documentos, configuraciones e intercambio estructurado</td>
+<td>APIs REST e intercambio de datos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo:</strong> <code>&lt;edad&gt;30&lt;/edad&gt;</code> y <code>"edad": 30</code> parecen equivalentes, pero el primero contiene texto y el segundo un número JSON. La conversión debe decidir si transforma el tipo.</p>
+<h3 id="flujo-general">Flujo general<a class="headerlink" href="#flujo-general" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">XML --(DOM / SAX / XPath / JAXB)--&gt; estructuras u objetos Java
+                                           |
+                                           v
+                                      Gson / JSON
+                                           |
+                                           v
+                                          JSON
+
+JSON --(Gson)--&gt; estructuras u objetos Java --(DOM / JAXB)--&gt; XML
+</code></pre>
+<p>En las páginas siguientes verás <strong>qué ocurre en cada flecha</strong>, con los nombres de las clases que ya están en los proyectos descargables.</p>
 
 
 

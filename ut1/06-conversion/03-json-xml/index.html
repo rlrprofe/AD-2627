@@ -2838,6 +2838,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#antes-de-programar-definir-la-estructura-xml-de-salida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de programar: definir la estructura XML de salida
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de programar: definir la estructura XML de salida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-construye-el-arbol-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se construye el árbol DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-utilizar-recursividad-en-el-segundo-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué utilizar recursividad en el segundo ejemplo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-que-debes-detectar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores que debes detectar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2977,6 +3027,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#antes-de-programar-definir-la-estructura-xml-de-salida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes de programar: definir la estructura XML de salida
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Antes de programar: definir la estructura XML de salida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-construye-el-arbol-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se construye el árbol DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-utilizar-recursividad-en-el-segundo-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué utilizar recursividad en el segundo ejemplo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-que-debes-detectar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores que debes detectar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3030,6 +3130,67 @@
 </ul>
 <p><strong>Actividad:</strong> añade un cliente al JSON y comprueba el XML generado. Después prueba una estructura anidada con el ejemplo recursivo.</p>
 <p><a href="../">Descargar proyectos</a>.</p>
+<hr />
+<h2 id="antes-de-programar-definir-la-estructura-xml-de-salida">Antes de programar: definir la estructura XML de salida<a class="headerlink" href="#antes-de-programar-definir-la-estructura-xml-de-salida" title="Permanent link">&para;</a></h2>
+<p>Partimos de un array JSON con clientes. Nuestro objetivo no es copiar literalmente las llaves y corchetes, sino <strong>construir un documento XML válido</strong> con un único elemento raíz <code>&lt;clientes&gt;</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Estructura JSON</th>
+<th>Representación XML elegida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array de clientes</td>
+<td>Elemento raíz <code>&lt;clientes&gt;</code> con varios <code>&lt;cliente&gt;</code></td>
+</tr>
+<tr>
+<td>Objeto cliente</td>
+<td>Elemento <code>&lt;cliente&gt;</code></td>
+</tr>
+<tr>
+<td>Propiedad <code>id</code></td>
+<td>Atributo <code>id</code></td>
+</tr>
+<tr>
+<td>Propiedad <code>nombre</code></td>
+<td>Elemento hijo <code>&lt;nombre&gt;</code></td>
+</tr>
+<tr>
+<td>Propiedad <code>edad</code></td>
+<td>Elemento hijo <code>&lt;edad&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="como-se-construye-el-arbol-dom">Cómo se construye el árbol DOM<a class="headerlink" href="#como-se-construye-el-arbol-dom" title="Permanent link">&para;</a></h3>
+<pre><code class="language-text">Document
+└── clientes
+    ├── cliente (id=&quot;C01&quot;)
+    │   ├── nombre → Laura
+    │   └── edad → 30
+    └── cliente (id=&quot;C02&quot;)
+        ├── nombre → Pedro
+        └── edad → 25
+</code></pre>
+<p>En Java, <code>createElement()</code> <strong>crea</strong> un elemento, pero este no forma parte del documento hasta que se incorpora con <code>appendChild()</code>. Para establecer texto se puede crear un nodo de texto o utilizar <code>setTextContent()</code>. Para escribir el documento se emplea un <code>Transformer</code>.</p>
+<h3 id="por-que-utilizar-recursividad-en-el-segundo-ejemplo">¿Por qué utilizar recursividad en el segundo ejemplo?<a class="headerlink" href="#por-que-utilizar-recursividad-en-el-segundo-ejemplo" title="Permanent link">&para;</a></h3>
+<p>El primer programa conoce de antemano los campos <code>id</code>, <code>nombre</code> y <code>edad</code>. El segundo aborda estructuras con objetos dentro de objetos y listas dentro de objetos. Un método recursivo puede examinar cada valor:</p>
+<ol>
+<li>Si es un <strong>objeto</strong>, crear un elemento y procesar sus propiedades.</li>
+<li>Si es un <strong>array</strong>, recorrer sus elementos y aplicar de nuevo el mismo procedimiento.</li>
+<li>Si es un <strong>valor simple</strong>, escribirlo como texto.</li>
+<li>Si es <code>null</code>, aplicar la convención decidida para ese caso.</li>
+</ol>
+<p>No todas las estructuras JSON son válidas como nombres de etiquetas XML; tampoco todos los arrays tienen una traducción única. Por eso hay que documentar las convenciones de cada conversor.</p>
+<h3 id="errores-que-debes-detectar">Errores que debes detectar<a class="headerlink" href="#errores-que-debes-detectar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Crear varios elementos raíz, lo que produciría un XML no bien formado.</li>
+<li>Confundir <code>setAttribute()</code> con <code>createElement()</code>.</li>
+<li>Perder los caracteres especiales <code>&amp;</code>, <code>&lt;</code> y <code>&gt;</code> al escribir XML manualmente. Un <code>Transformer</code> sobre DOM se ocupa del escape correspondiente.</li>
+<li>Suponer que cualquier JSON contiene siempre los campos esperados.</li>
+</ul>
+<p><strong>Pregunta de comprensión:</strong> ¿por qué <code>"edad": 30</code> termina como texto dentro de <code>&lt;edad&gt;30&lt;/edad&gt;</code> aunque en JSON fuese un número?</p>
 
 
 

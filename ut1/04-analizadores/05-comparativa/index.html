@@ -2416,10 +2416,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#regla-rapida" class="md-nav__link">
+  <a href="#1-que-tienen-en-comun" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Regla rápida
+        1. ¿Qué tienen en común?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-comparativa-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Comparativa completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-elegir-la-tecnologia-segun-el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Elegir la tecnología según el problema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preguntas-de-autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Preguntas de autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-relacion-con-los-siguientes-apartados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Relación con los siguientes apartados
       
     </span>
   </a>
@@ -2923,10 +2967,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#regla-rapida" class="md-nav__link">
+  <a href="#1-que-tienen-en-comun" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Regla rápida
+        1. ¿Qué tienen en común?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-comparativa-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Comparativa completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-elegir-la-tecnologia-segun-el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Elegir la tecnología según el problema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preguntas-de-autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Preguntas de autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-relacion-con-los-siguientes-apartados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Relación con los siguientes apartados
       
     </span>
   </a>
@@ -2951,6 +3039,9 @@
 
 
 <h1 id="comparativa-dom-sax-y-jaxb">Comparativa · DOM, SAX y JAXB<a class="headerlink" href="#comparativa-dom-sax-y-jaxb" title="Permanent link">&para;</a></h1>
+<h2 id="1-que-tienen-en-comun">1. ¿Qué tienen en común?<a class="headerlink" href="#1-que-tienen-en-comun" title="Permanent link">&para;</a></h2>
+<p>Los tres enfoques permiten trabajar con información XML desde Java, pero <strong>no ofrecen el mismo nivel de abstracción</strong>: DOM proporciona nodos, SAX comunica eventos y JAXB construye objetos de nuestras clases.</p>
+<h2 id="2-comparativa-completa">2. Comparativa completa<a class="headerlink" href="#2-comparativa-completa" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2962,55 +3053,116 @@
 </thead>
 <tbody>
 <tr>
-<td>Representación</td>
-<td>Árbol de nodos</td>
-<td>Eventos</td>
+<td>Modelo</td>
+<td>Árbol en memoria</td>
+<td>Eventos secuenciales</td>
 <td>Objetos Java</td>
 </tr>
 <tr>
-<td>Carga XML completo</td>
-<td>Sí</td>
-<td>No</td>
-<td>Normalmente sí</td>
+<td>Resultado principal</td>
+<td><code>Document</code>, <code>Element</code>, <code>NodeList</code></td>
+<td>Métodos del <em>handler</em></td>
+<td>Instancias de clases del modelo</td>
 </tr>
 <tr>
-<td>Consumo de memoria</td>
-<td>Mayor</td>
-<td>Bajo</td>
-<td>Medio</td>
+<td>¿Conserva todo el XML en un árbol DOM?</td>
+<td>Sí</td>
+<td>No</td>
+<td>No necesariamente; depende de la implementación y del uso</td>
+</tr>
+<tr>
+<td>Memoria</td>
+<td>Mayor en XML grandes</td>
+<td>Habitualmente reducida</td>
+<td>Depende de cuántos objetos se recuperen</td>
 </tr>
 <tr>
 <td>Navegación libre</td>
 <td>Sí</td>
 <td>No</td>
-<td>Mediante objetos</td>
+<td>Sí, sobre los objetos ya creados</td>
 </tr>
 <tr>
-<td>Modificación</td>
-<td>Muy cómoda</td>
+<td>Modificación de estructura</td>
+<td>Directa sobre el árbol</td>
 <td>No es su objetivo</td>
-<td>Cómoda sobre objetos</td>
+<td>Se modifican objetos y se vuelve a generar XML</td>
 </tr>
 <tr>
-<td>Modelo Java</td>
-<td>No necesario</td>
-<td>No necesario</td>
-<td>Sí</td>
+<td>¿Exige clases de modelo propias?</td>
+<td>No</td>
+<td>No</td>
+<td>Habitualmente sí</td>
 </tr>
 <tr>
-<td>Uso típico</td>
-<td>CRUD XML</td>
-<td>Lectura de XML grandes</td>
-<td>Persistencia/intercambio con clases</td>
+<td>Complejidad inicial</td>
+<td>Media</td>
+<td>Media-alta si hay estado</td>
+<td>Configuración inicial de anotaciones</td>
+</tr>
+<tr>
+<td>Uso habitual</td>
+<td>Consultar y editar XML</td>
+<td>Importar XML grandes</td>
+<td>Intercambiar XML con modelos estables</td>
 </tr>
 </tbody>
 </table>
-<h2 id="regla-rapida">Regla rápida<a class="headerlink" href="#regla-rapida" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Una precisión sobre JAXB</p>
+<p>JAXB no es un tercer tipo de parser al mismo nivel interno que DOM o SAX: es una <strong>capa de enlace entre XML y objetos</strong> que utiliza mecanismos de análisis XML por debajo.</p>
+</div>
+<h2 id="3-elegir-la-tecnologia-segun-el-problema">3. Elegir la tecnología según el problema<a class="headerlink" href="#3-elegir-la-tecnologia-segun-el-problema" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Elección razonable</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cambiar el año de un libro en un XML y guardarlo</td>
+<td><strong>DOM</strong></td>
+<td>Permite localizar y modificar nodos</td>
+</tr>
+<tr>
+<td>Leer cientos de miles de registros y contabilizarlos</td>
+<td><strong>SAX</strong></td>
+<td>Evita mantener todo el árbol en memoria</td>
+</tr>
+<tr>
+<td>Guardar una instancia de <code>Alumno</code> como XML</td>
+<td><strong>JAXB</strong></td>
+<td>Convierte el objeto mediante anotaciones</td>
+</tr>
+<tr>
+<td>Buscar elementos con expresiones XPath</td>
+<td><strong>DOM + XPath</strong></td>
+<td>XPath puede evaluar rutas sobre un documento DOM</td>
+</tr>
+<tr>
+<td>Leer XML y generar un informe sin modificarlo</td>
+<td><strong>SAX</strong> o <strong>DOM</strong></td>
+<td>Depende del tamaño y de la complejidad de las consultas</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-preguntas-de-autoevaluacion">4. Preguntas de autoevaluación<a class="headerlink" href="#4-preguntas-de-autoevaluacion" title="Permanent link">&para;</a></h2>
+<ol>
+<li>¿Por qué DOM consume más memoria que SAX en documentos grandes?</li>
+<li>¿Puede SAX modificar directamente un nodo de un árbol que no construye?</li>
+<li>¿Qué diferencia hay entre un <code>Element</code> de DOM y un <code>Alumno</code> recuperado con JAXB?</li>
+<li>Si solo necesitas contar alumnos en un XML enorme, ¿qué tecnología elegirías y por qué?</li>
+<li>Si necesitas cambiar varios elementos y guardar el XML, ¿cuál elegirías?</li>
+</ol>
+<h2 id="5-relacion-con-los-siguientes-apartados">5. Relación con los siguientes apartados<a class="headerlink" href="#5-relacion-con-los-siguientes-apartados" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Necesito <strong>navegar y modificar el árbol</strong> → DOM.</li>
-<li>Necesito <strong>procesar un XML grande secuencialmente</strong> → SAX.</li>
-<li>Quiero trabajar principalmente con <strong>objetos Java</strong> → JAXB.</li>
+<li><strong><a href="../../05-xpath/">XPath</a></strong> complementa DOM para localizar nodos mediante rutas y filtros.</li>
+<li><strong><a href="../../06-conversion/">Conversión XML ↔ JSON</a></strong> aprovecha DOM, SAX, XPath y JAXB para transformar datos entre formatos.</li>
 </ul>
+<p><a href="../">Volver a la introducción de Analizadores</a>.</p>
 
 
 

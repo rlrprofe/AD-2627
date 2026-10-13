@@ -2888,6 +2888,73 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#las-dos-operaciones-fundamentales-de-jaxb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las dos operaciones fundamentales de JAXB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Las dos operaciones fundamentales de JAXB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#las-anotaciones-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las anotaciones del modelo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-conceptual-de-correspondencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo conceptual de correspondencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-se-necesitan-dos-clases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué se necesitan dos clases?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué se necesitan dos clases?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones-y-seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitaciones y seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3021,6 +3088,73 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#las-dos-operaciones-fundamentales-de-jaxb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las dos operaciones fundamentales de JAXB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Las dos operaciones fundamentales de JAXB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#las-anotaciones-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las anotaciones del modelo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-conceptual-de-correspondencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo conceptual de correspondencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-se-necesitan-dos-clases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué se necesitan dos clases?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué se necesitan dos clases?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones-y-seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitaciones y seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3072,6 +3206,92 @@ XML en la carpeta salida/
 <p>El proyecto revisado utiliza Java 21 y dependencias Maven para Gson y JAXB. <strong>JAXB no forma parte del JDK 21</strong>. Para leer XML de procedencia externa es necesario proporcionar a JAXB un analizador configurado contra DTD y entidades externas; el ejemplo es didáctico y trabaja con ficheros locales de confianza.</p>
 <p><strong>Actividad:</strong> cambia el nombre de un cliente en el fichero de entrada y comprueba ambos sentidos de conversión.</p>
 <p><a href="../">Proyecto y orden de ejecución</a>.</p>
+<hr />
+<h2 id="las-dos-operaciones-fundamentales-de-jaxb">Las dos operaciones fundamentales de JAXB<a class="headerlink" href="#las-dos-operaciones-fundamentales-de-jaxb" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operación</th>
+<th>Nombre habitual</th>
+<th>Sentido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Unmarshalling</em></td>
+<td>Deserialización XML</td>
+<td>XML → objetos Java</td>
+</tr>
+<tr>
+<td><em>Marshalling</em></td>
+<td>Serialización XML</td>
+<td>Objetos Java → XML</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gson</strong> realiza un trabajo distinto: convierte entre JSON y objetos Java. La combinación de ambas bibliotecas permite utilizar los objetos como representación intermedia.</p>
+<h3 id="las-anotaciones-del-modelo">Las anotaciones del modelo<a class="headerlink" href="#las-anotaciones-del-modelo" title="Permanent link">&para;</a></h3>
+<p>Una anotación es información que se escribe junto a una clase, atributo o método Java para que una herramienta o biblioteca pueda interpretarla. En JAXB son especialmente útiles:</p>
+<table>
+<thead>
+<tr>
+<th>Anotación</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@XmlRootElement</code></td>
+<td>Indica qué clase puede representar un elemento raíz XML</td>
+</tr>
+<tr>
+<td><code>@XmlElement</code></td>
+<td>Relaciona una propiedad con un elemento XML</td>
+</tr>
+<tr>
+<td><code>@XmlAttribute</code></td>
+<td>Relaciona una propiedad con un atributo XML</td>
+</tr>
+<tr>
+<td><code>@XmlElementWrapper</code></td>
+<td>Puede definir un elemento contenedor para una colección</td>
+</tr>
+<tr>
+<td><code>@XmlAccessorType</code></td>
+<td>Determina si JAXB accede a campos o propiedades</td>
+</tr>
+</tbody>
+</table>
+<p>Las anotaciones concretas que se utilizan en los proyectos deben comprobarse en las clases <code>Cliente</code> y <code>Clientes</code> descargables. <strong>No todas las anotaciones de la tabla son necesarias en estos ejemplos.</strong></p>
+<h3 id="ejemplo-conceptual-de-correspondencia">Ejemplo conceptual de correspondencia<a class="headerlink" href="#ejemplo-conceptual-de-correspondencia" title="Permanent link">&para;</a></h3>
+<pre><code class="language-java">@XmlRootElement(name = &quot;cliente&quot;)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Cliente {
+    @XmlAttribute
+    private String id;
+
+    @XmlElement
+    private String nombre;
+
+    @XmlElement
+    private int edad;
+
+    public Cliente() {
+        // Constructor requerido para reconstruir el objeto con JAXB.
+    }
+}
+</code></pre>
+<p>Este fragmento <strong>ilustra</strong> el mecanismo; para ejecutar los programas utiliza las clases completas del proyecto, que incluyen el modelo y las dependencias necesarias. No contiene expresiones lambda.</p>
+<h2 id="por-que-se-necesitan-dos-clases">¿Por qué se necesitan dos clases?<a class="headerlink" href="#por-que-se-necesitan-dos-clases" title="Permanent link">&para;</a></h2>
+<p><code>Cliente</code> describe un registro individual; <code>Clientes</code> describe la agrupación y permite representar el elemento raíz que contiene una lista. Separar ambas responsabilidades facilita el trabajo con colecciones y evita intentar representar varios elementos raíz en un mismo documento XML.</p>
+<h3 id="limitaciones-y-seguridad">Limitaciones y seguridad<a class="headerlink" href="#limitaciones-y-seguridad" title="Permanent link">&para;</a></h3>
+<ul>
+<li>JAXB y Gson son <strong>dependencias externas</strong> en Java 21; no forman parte de la API básica del JDK.</li>
+<li>El mapeo de propiedades y los nombres XML deben estar definidos en las clases.</li>
+<li>Los documentos XML de fuentes no confiables deben analizarse con una configuración que impida DTD y entidades externas (XXE).</li>
+<li>Los comentarios XML, el formato original y el contenido mixto no se conservan necesariamente en el modelo.</li>
+</ul>
+<p><strong>Actividad:</strong> identifica qué clase representa el elemento raíz y qué anotación convierte <code>id</code> en atributo. Explica qué biblioteca interviene primero en cada sentido de conversión.</p>
 
 
 

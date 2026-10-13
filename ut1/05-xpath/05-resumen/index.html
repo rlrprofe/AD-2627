@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#resumen-xpath" class="md-skip">
+        <a href="#56-resumen-y-autoevaluacion-de-xpath" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -2639,10 +2639,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#esquema-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Esquema de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-consulta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de consulta rápida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-frecuentes" class="md-nav__link">
     <span class="md-ellipsis">
       
         Errores frecuentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprueba-lo-aprendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba lo aprendido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacion-con-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relación con Java
       
     </span>
   </a>
@@ -2923,10 +2967,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#esquema-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Esquema de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-consulta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de consulta rápida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-frecuentes" class="md-nav__link">
     <span class="md-ellipsis">
       
         Errores frecuentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprueba-lo-aprendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba lo aprendido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacion-con-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relación con Java
       
     </span>
   </a>
@@ -2950,51 +3038,117 @@
 
 
 
-<h1 id="resumen-xpath">Resumen · XPath<a class="headerlink" href="#resumen-xpath" title="Permanent link">&para;</a></h1>
-<pre><code class="language-text">XML
- │
- ▼
-Document (DOM)
- │
- ▼
-XPathFactory
- │
- ▼
-XPath
- │
- ▼
-evaluate()
- │
- ├── String
- ├── Number
- ├── Boolean
- ├── Node
- └── NodeList
+<h1 id="56-resumen-y-autoevaluacion-de-xpath">5.6. Resumen y autoevaluación de XPath<a class="headerlink" href="#56-resumen-y-autoevaluacion-de-xpath" title="Permanent link">&para;</a></h1>
+<h2 id="esquema-de-trabajo">Esquema de trabajo<a class="headerlink" href="#esquema-de-trabajo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">Documento XML
+     │
+     ▼
+Árbol DOM (Document)
+     │
+     ▼
+XPathFactory → XPath → expresión
+     │
+     ▼
+evaluate(..., XPathConstants.TIPO)
+     │
+     ├── NODESET → NodeList
+     ├── NODE    → Node
+     ├── STRING  → String
+     ├── NUMBER  → Double
+     └── BOOLEAN → Boolean
 </code></pre>
-<h2 id="errores-frecuentes">Errores frecuentes<a class="headerlink" href="#errores-frecuentes" title="Permanent link">&para;</a></h2>
+<h2 id="tabla-de-consulta-rapida">Tabla de consulta rápida<a class="headerlink" href="#tabla-de-consulta-rapida" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Error</th>
-<th>Posible causa</th>
+<th>Necesito…</th>
+<th>Expresión de ejemplo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>XPathExpressionException</code></td>
-<td>Expresión XPath incorrecta</td>
+<td>Todos los productos</td>
+<td><code>//producto</code></td>
 </tr>
 <tr>
-<td><code>ClassCastException</code></td>
-<td>Tipo de resultado equivocado</td>
+<td>Sus identificadores</td>
+<td><code>//producto/@id</code></td>
 </tr>
 <tr>
-<td><code>NullPointerException</code></td>
-<td>Documento o nodo no inicializado</td>
+<td>El producto P02</td>
+<td><code>//producto[@id='P02']</code></td>
+</tr>
+<tr>
+<td>Productos de precio superior a 50</td>
+<td><code>//producto[precio &gt; 50]</code></td>
+</tr>
+<tr>
+<td>El último producto del catálogo</td>
+<td><code>/catalogo/producto[last()]</code></td>
+</tr>
+<tr>
+<td>Contar los productos</td>
+<td><code>count(//producto)</code></td>
+</tr>
+<tr>
+<td>Sumar precios</td>
+<td><code>sum(//producto/precio)</code></td>
+</tr>
+<tr>
+<td>Obtener los textos de los nombres</td>
+<td><code>//producto/nombre/text()</code></td>
 </tr>
 </tbody>
 </table>
-<p>XPath permite expresar <strong>qué información queremos</strong>, evitando muchos recorridos manuales del árbol DOM.</p>
+<h2 id="errores-frecuentes">Errores frecuentes<a class="headerlink" href="#errores-frecuentes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Qué revisar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No devuelve resultados</td>
+<td>Ruta, nombre de etiqueta, mayúsculas, nodo de contexto o espacios de nombres.</td>
+</tr>
+<tr>
+<td><code>XPathExpressionException</code></td>
+<td>Sintaxis XPath incorrecta o función no admitida por XPath 1.0.</td>
+</tr>
+<tr>
+<td><code>ClassCastException</code></td>
+<td>Tipo de resultado solicitado y conversión Java incompatibles.</td>
+</tr>
+<tr>
+<td><code>NullPointerException</code></td>
+<td>Nodo inexistente o uso de <code>.item(0)</code> sin comprobar la lista.</td>
+</tr>
+<tr>
+<td>El resultado no es el esperado</td>
+<td>Diferencia entre <code>/</code>, <code>//</code>, <code>[1]</code> y <code>(//...)[1]</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comprueba-lo-aprendido">Comprueba lo aprendido<a class="headerlink" href="#comprueba-lo-aprendido" title="Permanent link">&para;</a></h2>
+<p>Sobre el <a href="../"><code>catalogo.xml</code></a>, intenta resolver estas preguntas antes de ver las soluciones.</p>
+<ol>
+<li>¿Qué expresión selecciona el nombre del producto P03?</li>
+<li>¿Cuántos productos son de la categoría <code>periféricos</code>?</li>
+<li>¿Qué expresión obtiene los precios superiores a 40?</li>
+<li>¿Cómo seleccionarías el segundo producto del catálogo?</li>
+<li>¿Cómo comprobarías si existe un producto P99?</li>
+</ol>
+<p>??? success "Ver soluciones"
+    1. <code>//producto[@id='P03']/nombre/text()</code> → Monitor 24 pulgadas.
+    2. <code>count(//producto[@categoria='periféricos'])</code> → 2.
+    3. <code>//producto[precio &gt; 40]/precio</code> → 49.99 y 179.00.
+    4. <code>/catalogo/producto[2]</code> → P02.
+    5. <code>boolean(//producto[@id='P99'])</code> → false.</p>
+<h2 id="relacion-con-java">Relación con Java<a class="headerlink" href="#relacion-con-java" title="Permanent link">&para;</a></h2>
+<p>XPath <strong>no reemplaza al parser XML</strong>: primero cargamos el documento (por ejemplo, con DOM) y después evaluamos las consultas. En el <a href="../04-java/">apartado Java</a> se muestra el flujo completo con <code>XPathFactory</code>, <code>XPath</code>, <code>evaluate()</code> y <code>XPathConstants</code>.</p>
+<p><a href="../../../descargas/ut1/xpath/xpath-example.zip">📦 Descargar proyecto Java XPath</a></p>
 
 
 

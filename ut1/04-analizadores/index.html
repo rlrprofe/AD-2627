@@ -2276,10 +2276,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#enfoques-principales" class="md-nav__link">
+  <a href="#por-que-necesitamos-un-analizador-xml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Enfoques principales
+        ¿Por qué necesitamos un analizador XML?
       
     </span>
   </a>
@@ -2287,10 +2287,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyectos-de-ejemplos" class="md-nav__link">
+  <a href="#tres-maneras-de-trabajar-con-xml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyectos de ejemplos
+        Tres maneras de trabajar con XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#itinerario-de-estudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Itinerario de estudio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proyecto-de-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto de ejemplos
       
     </span>
   </a>
@@ -2934,10 +2956,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#enfoques-principales" class="md-nav__link">
+  <a href="#por-que-necesitamos-un-analizador-xml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Enfoques principales
+        ¿Por qué necesitamos un analizador XML?
       
     </span>
   </a>
@@ -2945,10 +2967,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyectos-de-ejemplos" class="md-nav__link">
+  <a href="#tres-maneras-de-trabajar-con-xml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyectos de ejemplos
+        Tres maneras de trabajar con XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#itinerario-de-estudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Itinerario de estudio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proyecto-de-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto de ejemplos
       
     </span>
   </a>
@@ -2973,36 +3017,68 @@
 
 
 <h1 id="4-analizadores-xml-con-java">4. Analizadores XML con Java<a class="headerlink" href="#4-analizadores-xml-con-java" title="Permanent link">&para;</a></h1>
-<p>Un analizador XML permite interpretar la estructura de un documento para acceder a sus elementos, atributos y contenido.</p>
-<h2 id="enfoques-principales">Enfoques principales<a class="headerlink" href="#enfoques-principales" title="Permanent link">&para;</a></h2>
+<h2 id="por-que-necesitamos-un-analizador-xml">¿Por qué necesitamos un analizador XML?<a class="headerlink" href="#por-que-necesitamos-un-analizador-xml" title="Permanent link">&para;</a></h2>
+<p>Un fichero XML es texto, pero <strong>su contenido representa datos estructurados</strong>. Leerlo como líneas de texto no permite distinguir con fiabilidad qué datos pertenecen a cada elemento, qué valores son atributos o cómo se relacionan los elementos anidados.</p>
+<p>Un <strong>analizador sintáctico</strong> (<em>parser</em>) interpreta la sintaxis del XML, comprueba que está <strong>bien formado</strong> y permite que nuestro programa acceda a su estructura. Un XML bien formado tiene una única raíz, etiquetas correctamente anidadas, atributos entre comillas y caracteres especiales escapados cuando corresponda.</p>
+<div class="admonition info">
+<p class="admonition-title">Bien formado no significa válido</p>
+<p>Que el XML esté bien formado no implica que respete las reglas de negocio o un esquema XSD. La <strong>validación</strong> es una comprobación adicional, distinta del análisis sintáctico básico.</p>
+</div>
+<h2 id="tres-maneras-de-trabajar-con-xml">Tres maneras de trabajar con XML<a class="headerlink" href="#tres-maneras-de-trabajar-con-xml" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Tecnología</th>
-<th>Modelo</th>
-<th>Adecuado para</th>
+<th>Idea fundamental</th>
+<th>¿Qué obtiene el programa?</th>
+<th>Uso habitual</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>DOM</strong></td>
-<td>Árbol completo en memoria</td>
-<td>Leer, modificar y guardar XML pequeños/medianos</td>
+<td><strong>DOM</strong> (<em>Document Object Model</em>)</td>
+<td>Construye el documento completo como árbol</td>
+<td>Objetos <code>Document</code>, <code>Element</code>, <code>Node</code></td>
+<td>Consultar y modificar documentos pequeños o medianos</td>
 </tr>
 <tr>
-<td><strong>SAX</strong></td>
-<td>Eventos durante lectura secuencial</td>
-<td>XML grandes y procesamiento de lectura</td>
+<td><strong>SAX</strong> (<em>Simple API for XML</em>)</td>
+<td>Lee el XML y notifica eventos</td>
+<td>Llamadas a un manejador (<em>handler</em>)</td>
+<td>Procesar muchos registros sin conservar todo el documento</td>
 </tr>
 <tr>
 <td><strong>JAXB / Jakarta XML Binding</strong></td>
-<td>XML ↔ objetos Java</td>
-<td>Trabajar con un modelo de clases</td>
+<td>Relaciona etiquetas y atributos con clases Java</td>
+<td>Objetos de nuestro modelo, como <code>Alumno</code></td>
+<td>Importar/exportar datos con una estructura estable</td>
 </tr>
 </tbody>
 </table>
-<h2 id="proyectos-de-ejemplos">Proyectos de ejemplos<a class="headerlink" href="#proyectos-de-ejemplos" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">                    DOCUMENTO XML
+                          |
+              +-----------+-----------+
+              |           |           |
+             DOM         SAX         JAXB
+              |           |           |
+         Árbol de      Eventos     Objetos Java
+           nodos       de lectura   (binding)
+              |           |           |
+        Navegar y     Procesar      marshal /
+        modificar     secuencia     unmarshal
+</code></pre>
+<p><strong>Ejemplo común:</strong> trabajaremos con un documento <code>alumnos.xml</code> en el que cada <code>alumno</code> tiene un atributo <code>id</code> y los elementos <code>nombre</code> y <code>edad</code>. DOM permite recorrer el árbol; SAX informa de las etiquetas conforme se leen; JAXB convierte un alumno en un objeto Java.</p>
+<h2 id="itinerario-de-estudio">Itinerario de estudio<a class="headerlink" href="#itinerario-de-estudio" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong><a href="01-dom/">DOM: lectura y navegación</a></strong>: cómo se construye el árbol y cómo se consultan sus nodos.</li>
+<li><strong><a href="02-dom-crud/">DOM: operaciones CRUD</a></strong>: cómo crear, consultar, actualizar y eliminar elementos.</li>
+<li><strong><a href="03-sax/">SAX</a></strong>: cómo se procesan eventos de lectura.</li>
+<li><strong><a href="04-jaxb/">JAXB</a></strong>: cómo convertir entre XML y objetos Java.</li>
+<li><strong><a href="05-comparativa/">Comparativa</a></strong>: cómo elegir el enfoque adecuado.</li>
+</ol>
+<h2 id="proyecto-de-ejemplos">Proyecto de ejemplos<a class="headerlink" href="#proyecto-de-ejemplos" title="Permanent link">&para;</a></h2>
 <p><a href="../../descargas/ut1/analizadores/code_Examples_1-4.zip">📦 <strong>Descargar proyectos DOM, SAX y JAXB</strong></a></p>
+<p>La documentación distingue los ejemplos <strong>implementados en el ZIP</strong> de las <strong>ampliaciones propuestas</strong>. Se utilizan Java 21 y código imperativo tradicional, sin expresiones lambda.</p>
 
 
 
