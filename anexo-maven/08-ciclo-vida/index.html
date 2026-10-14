@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#8-ciclo-de-vida-de-maven" class="md-skip">
+        <a href="#ciclo-de-vida-de-maven" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -3785,10 +3785,265 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#como-funcionan-las-fases" class="md-nav__link">
+  <a href="#1-que-es-el-ciclo-de-vida-de-maven" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Cómo funcionan las fases?
+        1. ¿Qué es el ciclo de vida de Maven?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-fases-principales-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fases principales del ciclo de vida
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Fases principales del ciclo de vida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquema-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Esquema del ciclo de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-como-funcionan-las-fases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ¿Cómo funcionan las fases?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-descripcion-de-las-principales-fases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Descripción de las principales fases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Descripción de las principales fases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. validate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. compile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-comandos-habituales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Comandos habituales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Comandos habituales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-significa-mvn-clean-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa mvn clean package?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ejemplo-practico-construir-un-proyecto-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ejemplo práctico: construir un proyecto Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ejemplo práctico: construir un proyecto Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-configurar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1. Configurar el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-crear-una-clase-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2. Crear una clase Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-compilar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3. Compilar el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-generar-el-jar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4. Generar el JAR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-5-instalar-el-componente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5. Instalar el componente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-relacion-con-el-desarrollo-de-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Relación con el desarrollo de componentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-actividad-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Actividad de comprobación
       
     </span>
   </a>
@@ -3922,10 +4177,265 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#como-funcionan-las-fases" class="md-nav__link">
+  <a href="#1-que-es-el-ciclo-de-vida-de-maven" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Cómo funcionan las fases?
+        1. ¿Qué es el ciclo de vida de Maven?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-fases-principales-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fases principales del ciclo de vida
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Fases principales del ciclo de vida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquema-del-ciclo-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Esquema del ciclo de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-como-funcionan-las-fases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ¿Cómo funcionan las fases?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-descripcion-de-las-principales-fases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Descripción de las principales fases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Descripción de las principales fases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. validate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. compile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-comandos-habituales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Comandos habituales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Comandos habituales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-significa-mvn-clean-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué significa mvn clean package?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ejemplo-practico-construir-un-proyecto-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ejemplo práctico: construir un proyecto Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ejemplo práctico: construir un proyecto Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-configurar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1. Configurar el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-crear-una-clase-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2. Crear una clase Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-compilar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3. Compilar el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-generar-el-jar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4. Generar el JAR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-5-instalar-el-componente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5. Instalar el componente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-relacion-con-el-desarrollo-de-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Relación con el desarrollo de componentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-actividad-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Actividad de comprobación
       
     </span>
   </a>
@@ -3952,10 +4462,33 @@
   
 
 
-<h1 id="8-ciclo-de-vida-de-maven">8. Ciclo de vida de Maven<a class="headerlink" href="#8-ciclo-de-vida-de-maven" title="Permanent link">&para;</a></h1>
-<p>Maven organiza la construcción de un proyecto mediante un conjunto de <strong>fases</strong>.</p>
-<p>Cada fase tiene una finalidad concreta.</p>
-<p>Algunas de las más importantes son:</p>
+<h1 id="ciclo-de-vida-de-maven">Ciclo de vida de Maven<a class="headerlink" href="#ciclo-de-vida-de-maven" title="Permanent link">&para;</a></h1>
+<h2 id="1-que-es-el-ciclo-de-vida-de-maven">1. ¿Qué es el ciclo de vida de Maven?<a class="headerlink" href="#1-que-es-el-ciclo-de-vida-de-maven" title="Permanent link">&para;</a></h2>
+<p>Maven organiza el proceso de construcción de una aplicación Java mediante un conjunto de <strong>fases</strong> que se ejecutan siguiendo un orden establecido.</p>
+<p>Este proceso se conoce como <strong>ciclo de vida de construcción</strong> (<em>build lifecycle</em>).</p>
+<p>Gracias a este mecanismo, podemos automatizar tareas habituales del desarrollo de software:</p>
+<ul>
+<li>Validar la estructura y configuración del proyecto.</li>
+<li>Compilar el código fuente Java.</li>
+<li>Ejecutar las pruebas unitarias.</li>
+<li>Generar un archivo JAR.</li>
+<li>Instalar el artefacto en el repositorio local.</li>
+<li>Publicar el artefacto en un repositorio remoto.</li>
+</ul>
+<p>En lugar de realizar manualmente cada operación, Maven permite ejecutar estas tareas mediante comandos desde la terminal o desde un entorno de desarrollo.</p>
+<div class="admonition info">
+<p class="admonition-title">Idea importante</p>
+<p>Maven no es un compilador Java. Es una herramienta que coordina y automatiza el proceso de construcción de un proyecto mediante fases y plugins.</p>
+</div>
+<h2 id="2-fases-principales-del-ciclo-de-vida">2. Fases principales del ciclo de vida<a class="headerlink" href="#2-fases-principales-del-ciclo-de-vida" title="Permanent link">&para;</a></h2>
+<p>Maven dispone de tres ciclos de vida integrados:</p>
+<ul>
+<li><strong>default:</strong> gestiona la construcción, pruebas, empaquetado e instalación o distribución del proyecto.</li>
+<li><strong>clean:</strong> elimina los archivos generados en construcciones anteriores.</li>
+<li><strong>site:</strong> genera documentación del proyecto.</li>
+</ul>
+<p>El ciclo de vida <code>default</code> es el que utilizaremos principalmente en nuestros proyectos Java.</p>
+<p>Aunque incluye más fases, las más habituales son:</p>
 <table>
 <thead>
 <tr>
@@ -3966,11 +4499,11 @@
 <tbody>
 <tr>
 <td><code>validate</code></td>
-<td>Comprueba la información básica del proyecto.</td>
+<td>Comprueba que el proyecto tiene una configuración válida.</td>
 </tr>
 <tr>
 <td><code>compile</code></td>
-<td>Compila el código de producción.</td>
+<td>Compila el código fuente de la aplicación.</td>
 </tr>
 <tr>
 <td><code>test</code></td>
@@ -3978,34 +4511,316 @@
 </tr>
 <tr>
 <td><code>package</code></td>
-<td>Genera el artefacto distribuible, por ejemplo un JAR.</td>
+<td>Genera el artefacto distribuible, normalmente un JAR.</td>
 </tr>
 <tr>
 <td><code>verify</code></td>
-<td>Ejecuta comprobaciones adicionales configuradas para verificar el proyecto.</td>
+<td>Ejecuta las comprobaciones necesarias para verificar el paquete.</td>
 </tr>
 <tr>
 <td><code>install</code></td>
-<td>Instala el artefacto en el repositorio Maven local.</td>
+<td>Instala el artefacto en el repositorio local.</td>
 </tr>
 <tr>
 <td><code>deploy</code></td>
-<td>Publica el artefacto en un repositorio remoto configurado.</td>
+<td>Publica el artefacto en un repositorio remoto.</td>
 </tr>
 </tbody>
 </table>
-<h4 id="como-funcionan-las-fases">¿Cómo funcionan las fases?<a class="headerlink" href="#como-funcionan-las-fases" title="Permanent link">&para;</a></h4>
-<p>Cuando ejecutamos una fase, Maven realiza también las fases anteriores necesarias dentro del mismo ciclo de vida.</p>
-<p>Por ejemplo:</p>
+<h3 id="esquema-del-ciclo-de-vida">Esquema del ciclo de vida<a class="headerlink" href="#esquema-del-ciclo-de-vida" title="Permanent link">&para;</a></h3>
+<p>La siguiente imagen muestra la secuencia de las principales fases del ciclo de vida <code>default</code>.</p>
+<p><img alt="Esquema de las fases del ciclo de vida de Maven" src="../../images/maven/ciclo-vida-maven.png" /></p>
+<p><em>Figura. Fases principales del ciclo de vida de Maven.</em></p>
+<h2 id="3-como-funcionan-las-fases">3. ¿Cómo funcionan las fases?<a class="headerlink" href="#3-como-funcionan-las-fases" title="Permanent link">&para;</a></h2>
+<p>Las fases de Maven se ejecutan siguiendo un orden predefinido.</p>
+<p><strong>Cuando solicitamos una fase, Maven ejecuta también todas las fases anteriores de ese mismo ciclo de vida.</strong></p>
+<p>Por ejemplo, al ejecutar:</p>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>package
 </code></pre></div>
-<p>No se limita a generar un JAR. Antes ejecuta las fases previas del ciclo de vida predeterminado, incluyendo la compilación y las pruebas.</p>
-<p>Esto permite automatizar la construcción de manera ordenada.</p>
-<div class="admonition warning">
-<p class="admonition-title">No confundir</p>
-<p><code>mvn deploy</code> publica un artefacto Maven en un repositorio configurado para ello.</p>
-<p>No significa publicar automáticamente una aplicación en un servidor web.</p>
+<p>Maven recorre las fases del ciclo de vida <code>default</code> hasta llegar a <code>package</code>.</p>
+<p>Entre las operaciones que normalmente realiza se encuentran:</p>
+<ol>
+<li>Validar la configuración del proyecto.</li>
+<li>Procesar los recursos necesarios.</li>
+<li>Compilar el código fuente Java.</li>
+<li>Compilar las clases de prueba.</li>
+<li>Ejecutar las pruebas unitarias.</li>
+<li>Empaquetar la aplicación en un archivo JAR.</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Ejemplo</p>
+<p>Si ejecutamos <code>mvn package</code>, no necesitamos ejecutar previamente <code>mvn compile</code> ni <code>mvn test</code>.</p>
+<p>Maven se encarga de realizar las operaciones correspondientes a las fases anteriores.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>Las fases y los plugins no son lo mismo.</p>
+<p>Una <strong>fase</strong> representa una etapa del ciclo de vida. Un <strong>plugin</strong> contiene objetivos (<em>goals</em>) que realizan tareas concretas.</p>
+<p>Por ejemplo, la fase <code>compile</code> utiliza normalmente un objetivo del plugin <code>maven-compiler-plugin</code> para compilar las clases Java.</p>
+<p>Las tareas concretas dependen del tipo de proyecto y de su configuración.</p>
+</div>
+<h2 id="4-descripcion-de-las-principales-fases">4. Descripción de las principales fases<a class="headerlink" href="#4-descripcion-de-las-principales-fases" title="Permanent link">&para;</a></h2>
+<h3 id="41-validate">4.1. validate<a class="headerlink" href="#41-validate" title="Permanent link">&para;</a></h3>
+<p>Comprueba que el proyecto dispone de la información necesaria para comenzar su construcción.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>validate
+</code></pre></div>
+<p>En esta fase se valida la configuración básica del proyecto.</p>
+<h3 id="42-compile">4.2. compile<a class="headerlink" href="#42-compile" title="Permanent link">&para;</a></h3>
+<p>Compila el código fuente Java que se encuentra habitualmente en:</p>
+<div class="highlight"><pre><span></span><code>src/main/java/
+</code></pre></div>
+<p>Comando:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>compile
+</code></pre></div>
+<p>Las clases compiladas se generan normalmente en:</p>
+<div class="highlight"><pre><span></span><code>target/classes/
+</code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Ejemplo</p>
+<p>Si nuestro proyecto contiene la clase <code>Alumno.java</code>, Maven genera su correspondiente archivo <code>Alumno.class</code> al compilar correctamente.</p>
+</div>
+<h3 id="43-test">4.3. test<a class="headerlink" href="#43-test" title="Permanent link">&para;</a></h3>
+<p>Ejecuta las pruebas unitarias del proyecto.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<p>Las pruebas suelen encontrarse en:</p>
+<div class="highlight"><pre><span></span><code>src/test/java/
+</code></pre></div>
+<p>Maven utiliza habitualmente el plugin <code>maven-surefire-plugin</code> para ejecutar las pruebas configuradas.</p>
+<div class="admonition info">
+<p class="admonition-title">Pruebas unitarias</p>
+<p>En un proyecto Java podemos utilizar JUnit para comprobar automáticamente el funcionamiento de métodos y clases.</p>
+<p>Para ello, es necesario incorporar las dependencias y configuraciones correspondientes al proyecto.</p>
+</div>
+<h3 id="44-package">4.4. package<a class="headerlink" href="#44-package" title="Permanent link">&para;</a></h3>
+<p>Genera el artefacto distribuible de la aplicación.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>package
+</code></pre></div>
+<p>Si el proyecto está configurado para generar un JAR, el archivo aparecerá normalmente dentro del directorio:</p>
+<div class="highlight"><pre><span></span><code>target/
+</code></pre></div>
+<p>Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code>target/gestion-alumnos-1.0-SNAPSHOT.jar
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">¿Qué es un artefacto?</p>
+<p>Un artefacto es el resultado de construir un proyecto, como un archivo JAR o WAR.</p>
+<p>Maven lo identifica mediante coordenadas como <code>groupId</code>, <code>artifactId</code> y <code>version</code>.</p>
+</div>
+<h3 id="45-verify">4.5. verify<a class="headerlink" href="#45-verify" title="Permanent link">&para;</a></h3>
+<p>Realiza comprobaciones adicionales para verificar que el artefacto cumple los criterios de calidad establecidos.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>verify
+</code></pre></div>
+<p>Las comprobaciones concretas dependen de los plugins configurados en el proyecto.</p>
+<p>Esta fase resulta útil cuando incorporamos pruebas de integración u otras verificaciones automáticas.</p>
+<h3 id="46-install">4.6. install<a class="headerlink" href="#46-install" title="Permanent link">&para;</a></h3>
+<p>Instala el artefacto generado en el repositorio local de Maven.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>install
+</code></pre></div>
+<p>El repositorio local se encuentra habitualmente en:</p>
+<div class="highlight"><pre><span></span><code>C:\Users\usuario\.m2\repository
+</code></pre></div>
+<p>En Linux:</p>
+<div class="highlight"><pre><span></span><code>~/.m2/repository
+</code></pre></div>
+<p>De esta manera, otros proyectos Maven del mismo equipo pueden utilizar el artefacto como dependencia.</p>
+<div class="admonition example">
+<p class="admonition-title">Ejemplo</p>
+<p>Supongamos que hemos desarrollado una biblioteca Java llamada <code>componente-ficheros</code>.</p>
+<p>Si ejecutamos <code>mvn install</code>, Maven instala su JAR en el repositorio local.</p>
+<p>Posteriormente, otra aplicación Java podrá declarar ese componente como dependencia en su <code>pom.xml</code>.</p>
+</div>
+<h3 id="47-deploy">4.7. deploy<a class="headerlink" href="#47-deploy" title="Permanent link">&para;</a></h3>
+<p>Publica el artefacto en un repositorio remoto.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>deploy
+</code></pre></div>
+<p>Esto permite que otros desarrolladores o proyectos puedan acceder a la biblioteca publicada.</p>
+<p>Para utilizar esta fase es necesario configurar el repositorio remoto y, cuando corresponda, las credenciales de acceso.</p>
+<div class="admonition note">
+<p class="admonition-title">En nuestro módulo</p>
+<p>Trabajaremos principalmente con las fases <code>compile</code>, <code>test</code>, <code>package</code> e <code>install</code>.</p>
+<p>La publicación en repositorios remotos se presenta como una posibilidad para distribuir componentes reutilizables.</p>
+</div>
+<h2 id="5-comandos-habituales">5. Comandos habituales<a class="headerlink" href="#5-comandos-habituales" title="Permanent link">&para;</a></h2>
+<p>Los comandos Maven se ejecutan desde la carpeta raíz del proyecto, donde se encuentra el archivo <code>pom.xml</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mvn validate</code></td>
+<td>Valida el proyecto.</td>
+</tr>
+<tr>
+<td><code>mvn compile</code></td>
+<td>Compila las clases Java.</td>
+</tr>
+<tr>
+<td><code>mvn test</code></td>
+<td>Ejecuta las pruebas unitarias.</td>
+</tr>
+<tr>
+<td><code>mvn package</code></td>
+<td>Genera el artefacto.</td>
+</tr>
+<tr>
+<td><code>mvn verify</code></td>
+<td>Verifica el proyecto y su artefacto.</td>
+</tr>
+<tr>
+<td><code>mvn install</code></td>
+<td>Instala el artefacto localmente.</td>
+</tr>
+<tr>
+<td><code>mvn deploy</code></td>
+<td>Publica el artefacto remotamente.</td>
+</tr>
+<tr>
+<td><code>mvn clean</code></td>
+<td>Elimina los archivos generados por construcciones anteriores.</td>
+</tr>
+<tr>
+<td><code>mvn clean package</code></td>
+<td>Limpia el proyecto y genera un nuevo paquete.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="que-significa-mvn-clean-package">¿Qué significa <code>mvn clean package</code>?<a class="headerlink" href="#que-significa-mvn-clean-package" title="Permanent link">&para;</a></h3>
+<p>Es uno de los comandos más utilizados durante el desarrollo.</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>package
+</code></pre></div>
+<p>Ejecuta dos operaciones:</p>
+<ol>
+<li><code>clean</code>: elimina los archivos generados por construcciones anteriores, normalmente el directorio <code>target</code>.</li>
+<li><code>package</code>: recorre las fases necesarias del ciclo <code>default</code> hasta generar el nuevo artefacto.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Buena práctica</p>
+<p>Cuando necesitemos generar una versión limpia de nuestro proyecto, podemos utilizar <code>mvn clean package</code>.</p>
+<p>De esta forma evitamos conservar archivos de compilaciones anteriores.</p>
+</div>
+<h2 id="6-ejemplo-practico-construir-un-proyecto-java">6. Ejemplo práctico: construir un proyecto Java<a class="headerlink" href="#6-ejemplo-practico-construir-un-proyecto-java" title="Permanent link">&para;</a></h2>
+<p>Supongamos que tenemos un proyecto Maven llamado <code>gestion-alumnos</code>.</p>
+<p>Su estructura básica es:</p>
+<div class="highlight"><pre><span></span><code>gestion-alumnos/
+├── pom.xml
+└── src/
+    ├── main/
+    │   └── java/
+    │       └── es/
+    │           └── ejemplo/
+    │               └── App.java
+    └── test/
+        └── java/
+</code></pre></div>
+<h3 id="paso-1-configurar-el-proyecto">Paso 1. Configurar el proyecto<a class="headerlink" href="#paso-1-configurar-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>En el archivo <code>pom.xml</code> indicamos las coordenadas del proyecto y la versión de Java que utilizaremos.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;project</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>
+<span class="w">         </span><span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+<span class="w">         </span><span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0</span>
+<span class="s">         https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>es.ejemplo<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>gestion-alumnos<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;properties&gt;</span>
+<span class="w">        </span><span class="nt">&lt;maven.compiler.release&gt;</span>21<span class="nt">&lt;/maven.compiler.release&gt;</span>
+<span class="w">        </span><span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/properties&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div>
+<h3 id="paso-2-crear-una-clase-java">Paso 2. Crear una clase Java<a class="headerlink" href="#paso-2-crear-una-clase-java" title="Permanent link">&para;</a></h3>
+<p>Archivo <code>src/main/java/es/ejemplo/App.java</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">es.ejemplo</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">App</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Proyecto Maven funcionando"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="paso-3-compilar-el-proyecto">Paso 3. Compilar el proyecto<a class="headerlink" href="#paso-3-compilar-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>Desde la terminal, situados en la carpeta <code>gestion-alumnos</code>, ejecutamos:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>compile
+</code></pre></div>
+<p>Maven compilará el archivo <code>App.java</code> y generará:</p>
+<div class="highlight"><pre><span></span><code>target/classes/es/ejemplo/App.class
+</code></pre></div>
+<h3 id="paso-4-generar-el-jar">Paso 4. Generar el JAR<a class="headerlink" href="#paso-4-generar-el-jar" title="Permanent link">&para;</a></h3>
+<p>Ejecutamos:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>package
+</code></pre></div>
+<p>Maven generará el archivo:</p>
+<div class="highlight"><pre><span></span><code>target/gestion-alumnos-1.0-SNAPSHOT.jar
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">JAR y ejecución</p>
+<p>El JAR generado por esta configuración básica no incluye necesariamente un atributo <code>Main-Class</code> en su manifiesto.</p>
+<p>Por tanto, no debemos asumir que podremos ejecutarlo directamente con <code>java -jar</code>.</p>
+<p>Para crear un JAR ejecutable es necesario configurar adecuadamente el empaquetado. Este procedimiento se explica en el apartado <strong>Empaquetado JAR</strong> del anexo.</p>
+</div>
+<h3 id="paso-5-instalar-el-componente">Paso 5. Instalar el componente<a class="headerlink" href="#paso-5-instalar-el-componente" title="Permanent link">&para;</a></h3>
+<p>Ejecutamos:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>install
+</code></pre></div>
+<p>El artefacto se instalará en el repositorio local de Maven, dentro de una estructura basada en sus coordenadas:</p>
+<div class="highlight"><pre><span></span><code>.m2/repository/
+└── es/
+    └── ejemplo/
+        └── gestion-alumnos/
+            └── 1.0-SNAPSHOT/
+                └── gestion-alumnos-1.0-SNAPSHOT.jar
+</code></pre></div>
+<h2 id="7-relacion-con-el-desarrollo-de-componentes">7. Relación con el desarrollo de componentes<a class="headerlink" href="#7-relacion-con-el-desarrollo-de-componentes" title="Permanent link">&para;</a></h2>
+<p>En la UT3 desarrollaremos componentes Java reutilizables para acceder a datos.</p>
+<p>Maven nos permitirá:</p>
+<ul>
+<li>Organizar el código fuente del componente.</li>
+<li>Gestionar sus dependencias externas.</li>
+<li>Compilar las clases Java.</li>
+<li>Ejecutar pruebas automatizadas.</li>
+<li>Generar un archivo JAR.</li>
+<li>Instalarlo en el repositorio local para reutilizarlo desde otras aplicaciones.</li>
+</ul>
+<p>Por ejemplo, podemos desarrollar una biblioteca denominada <code>componente-jdbc</code> que encapsule operaciones de acceso a bases de datos.</p>
+<p>Una vez generado e instalado su JAR mediante Maven, otros proyectos podrán incorporarlo como dependencia.</p>
+<p>Esta forma de trabajar favorece la <strong>modularidad, reutilización y mantenimiento del software</strong>.</p>
+<h2 id="8-actividad-de-comprobacion">8. Actividad de comprobación<a class="headerlink" href="#8-actividad-de-comprobacion" title="Permanent link">&para;</a></h2>
+<p>Responde a las siguientes preguntas:</p>
+<ol>
+<li>¿Qué entendemos por ciclo de vida de Maven?</li>
+<li>¿Qué diferencia existe entre una fase y un plugin?</li>
+<li>¿Qué ocurre cuando ejecutamos <code>mvn package</code>?</li>
+<li>¿En qué directorio se generan normalmente las clases compiladas?</li>
+<li>¿Qué diferencia existe entre <code>package</code> e <code>install</code>?</li>
+<li>¿Para qué sirve el repositorio local de Maven?</li>
+<li>¿Qué hace el comando <code>mvn clean package</code>?</li>
+<li>¿Por qué puede resultar útil Maven cuando desarrollamos componentes Java reutilizables?</li>
+</ol>
+<details class="success">
+<summary>Ver soluciones orientativas</summary>
+<ol>
+<li>Es el conjunto ordenado de fases que organiza la construcción de un proyecto.</li>
+<li>Una fase es una etapa del ciclo de vida; un plugin implementa tareas concretas mediante objetivos.</li>
+<li>Maven ejecuta las fases anteriores necesarias hasta empaquetar el proyecto.</li>
+<li>Normalmente en <code>target/classes</code>.</li>
+<li><code>package</code> genera el artefacto; <code>install</code> lo incorpora al repositorio local.</li>
+<li>Permite almacenar artefactos y dependencias para utilizarlos desde proyectos del equipo.</li>
+<li>Limpia los archivos generados anteriormente y construye un nuevo paquete.</li>
+<li>Porque automatiza su compilación, pruebas, empaquetado e instalación para reutilizarlos en otros proyectos.</li>
+</ol>
+</details>
+<hr />
+<p><strong>Continúa con:</strong> <a href="../09-comandos/">Comandos esenciales de Maven</a>.</p>
 
 
 
