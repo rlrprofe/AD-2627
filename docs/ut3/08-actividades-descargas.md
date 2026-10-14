@@ -1,69 +1,36 @@
-# Ejercicios, práctica integradora y descargas de la UT3
+# 3.8. Actividades, proyecto y descargas
 
-## 1. Ejercicios por apartados
+## 1. Proyecto transversal: Gestión de inventario
 
-| Actividad | Enunciado resumido | CE |
-|---|---|---|
-| A1. Diagnóstico | Detecta responsabilidades mezcladas en una aplicación y propone una división por capas. | a) |
-| A2. Herramientas | Explica la función de Maven, JDK, IDE, JUnit y el driver JDBC. | b) |
-| A3. Repaso de interfaces | Implementa dos tipos de `Notificador` y demuestra el polimorfismo. | a), i) (preparatorio) |
-| A4. DAO CSV | Implementa `guardar`, `buscarPorId` y `listar` sobre CSV. | c) |
-| A5. DAO JDBC | Implementa las mismas operaciones sobre MySQL. | d) |
-| A6. Pruebas | Diseña casos normales, límite y de error; automatiza los del CSV. | h) |
-| A7. Integración | Ejecuta una aplicación con ambos DAO sin modificar su lógica de negocio. | i) |
+A lo largo de la UT3 hemos desarrollado una misma aplicación Java 21 con Maven, separando el modelo, el servicio y el acceso a datos mediante una interfaz DAO. Hemos implementado dos mecanismos de persistencia: CSV y MySQL con JDBC.
 
-## 2. Práctica integradora: gestión de productos
+### Material de partida
 
-### Enunciado
+[**Descargar proyecto inicial (ZIP)**](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip)
 
-Desarrolla una aplicación Java 21 con Maven que permita registrar, buscar y listar productos. La aplicación utilizará una interfaz `ProductoDAO` con **dos implementaciones**: almacenamiento en fichero CSV y almacenamiento en MySQL mediante JDBC.
+Este proyecto contiene la estructura Maven, `pom.xml` mínimo, el modelo `Producto` y la interfaz `ProductoDAO`. No incluye las implementaciones DAO ni la aplicación terminada. Completa el desarrollo siguiendo los apartados 3.2 a 3.7.
 
-### Requisitos mínimos
+## 2. Actividades de consolidación
 
-1. Definir un modelo `Producto` con ID, nombre y precio.
-2. Crear una interfaz `ProductoDAO` con `guardar`, `buscarPorId` y `listar`.
-3. Implementar `ProductoFicheroDAO` con manejo de errores.
-4. Implementar `ProductoJdbcDAO` usando `PreparedStatement` y `try-with-resources`.
-5. Crear una clase `ProductoService` con las validaciones de negocio.
-6. Crear un menú de consola que permita utilizar cualquiera de las dos implementaciones.
-7. Diseñar y ejecutar pruebas, al menos para el componente CSV.
-8. Documentar la API pública con Javadoc y preparar un README de uso.
-9. No incluir contraseñas ni datos personales en el repositorio.
+1. **Arquitectura:** explica la función de `Producto`, `ProductoDAO`, `ProductoService` y `App`.
+2. **CSV:** implementa y comprueba las cinco operaciones CRUD con `ProductoFicheroDAO`.
+3. **JDBC:** crea la tabla MySQL e implementa las mismas operaciones en `ProductoJdbcDAO` con `PreparedStatement`.
+4. **Pruebas:** añade pruebas JUnit para las reglas de negocio y documenta la interfaz DAO.
+5. **Integración:** ejecuta la misma aplicación con ambas persistencias sin modificar la capa de servicio.
+6. **Empaquetado:** construye y prueba el JAR ejecutable mediante Maven.
 
-### Entregables
+## 3. Entrega del alumno
 
-- Proyecto Maven completo, con código fuente y `pom.xml`.
-- Script SQL para crear la tabla MySQL.
-- README de instalación, ejecución y limitaciones.
-- Tabla de casos de prueba y evidencias de ejecución.
-- Breve explicación de la arquitectura y diagrama de clases.
+Entrega el proyecto Maven con el código fuente, el `pom.xml`, el script SQL, las pruebas y un README que explique cómo ejecutarlo. Adjunta también el enlace al repositorio Git con historial de cambios.
 
-### Comprobación individual
+## 4. Solución de referencia (al finalizar la unidad)
 
-Durante la revisión deberás poder ejecutar la aplicación, explicar cómo se selecciona el DAO, localizar dónde se realiza cada operación y justificar cómo has separado las responsabilidades.
+!!! warning "Consultar después de completar las actividades"
+    El siguiente ZIP contiene **la aplicación resuelta**. Se facilita para contrastar el trabajo una vez terminados los apartados 3.1 a 3.7 y las actividades de consolidación.
 
-## 3. Evaluación
+[**Descargar proyecto completo / solución de referencia (ZIP)**](../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip)
 
-La programación didáctica establece **práctica(s) 60 %** y **prueba objetiva 40 %**. Para los CE prácticos se valoran la ejecución correcta (hasta 6 puntos) y la comprensión individual (hasta 4 puntos).
+Incluye la aplicación de consola, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el `pom.xml` final.
 
-!!! note "Sobre la ponderación"
-    Esta página describe las evidencias propuestas para la UT3. No sustituye los criterios de calificación oficiales de la programación ni establece porcentajes adicionales entre actividades.
-
-## 4. Descargas
-
-- [Proyecto completo Maven: gestión de productos](../descargas/ut3/gestion-productos-ut3.zip)
-- [Script SQL: base de datos de productos](../descargas/ut3/01-productos.sql)
-- [Plantilla de casos de prueba (CSV)](../descargas/ut3/plantilla-pruebas.csv)
-
-## 5. Preguntas de repaso para la prueba objetiva
-
-1. Define componente software y explica dos ventajas y dos inconvenientes.
-2. Diferencia clase, interfaz y biblioteca JAR.
-3. Explica qué significa alta cohesión y bajo acoplamiento.
-4. ¿Qué responsabilidad corresponde a cada capa de la aplicación?
-5. ¿Qué hacen `interface`, `implements` y `@Override`?
-6. Explica el polimorfismo con dos implementaciones de `ProductoDAO`.
-7. ¿Qué problema resuelve el patrón DAO?
-8. ¿Qué ventajas aporta `PreparedStatement` frente a construir SQL concatenando datos?
-9. ¿Por qué es útil probar un componente sin ejecutar el menú?
-10. ¿Cómo puedes cambiar de CSV a MySQL sin modificar `ProductoService`?
+!!! note "Requisitos"
+    Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.

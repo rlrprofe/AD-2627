@@ -1,192 +1,135 @@
-# 3.3. Arquitectura por capas, interfaces y patrón DAO
+# 3.3. Arquitectura por capas, interfaces y DAO
 
-**Duración orientativa:** 4 horas · **CE a), c), d), i)**
+!!! info "Proyecto de trabajo"
+    Continúa con el [proyecto inicial de Gestión de inventario](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip). Añade los archivos y las dependencias de este apartado. La solución completa se facilita al finalizar la UT3.
 
-## 1. El problema: mezclar responsabilidades
 
-Imagina que `Main` solicita los datos del producto, calcula descuentos, abre conexiones JDBC y ejecuta SQL. Una modificación en la forma de almacenar productos obliga a cambiar el menú. Esta dependencia dificulta el mantenimiento y las pruebas.
+## Objetivos
 
-**Pregunta inicial:** si mañana sustituimos MySQL por un CSV, ¿qué clases deberían cambiar?
+- Separar presentación, negocio y persistencia.
+- Definir un contrato DAO independiente de la tecnología de almacenamiento.
+- Crear el modelo y el servicio de la aplicación.
 
-## 2. Separación de responsabilidades y arquitectura por capas
+## 1. Separación de responsabilidades
+
+| Capa | Clase | Responsabilidad |
+|---|---|---|
+| Presentación | `App` | Mostrar menú y recoger datos. |
+| Negocio | `ProductoService` | Validar datos y coordinar operaciones. |
+| Persistencia | `ProductoDAO` | Definir el contrato CRUD. |
+| Persistencia | `ProductoFicheroDAO` / `ProductoJdbcDAO` | Guardar y recuperar datos. |
 
 ```mermaid
-flowchart TD
-    A[Presentación: Main] --> B[Negocio: ProductoService]
-    B --> C[Contrato: ProductoDAO]
-    C -. implementación .-> D[ProductoFicheroDAO]
-    C -. implementación .-> E[ProductoJdbcDAO]
+flowchart LR
+    A[App] --> B[ProductoService]
+    B --> C[ProductoDAO]
+    C --> D[Implementación CSV]
+    C --> E[Implementación JDBC]
 ```
 
-| Capa | Responsabilidad | Qué no debería hacer |
-|---|---|---|
-| Presentación | Mostrar menú y recoger opciones. | Ejecutar SQL o leer CSV. |
-| Negocio | Aplicar reglas: precio no negativo, campos obligatorios. | Mostrar menús o decidir consultas SQL. |
-| Persistencia | Guardar y recuperar productos. | Preguntar datos al usuario. |
+## 2. Crear el modelo
 
-Esta división es una **arquitectura didáctica simplificada**. No todas las aplicaciones necesitan exactamente tres capas, pero la separación de responsabilidades es una práctica útil.
-
-## 3. Cohesión y acoplamiento
-
-- **Alta cohesión:** una clase agrupa métodos relacionados con una misma tarea.
-- **Bajo acoplamiento:** una clase conoce pocos detalles internos de otras.
-
-### Ejemplo de acoplamiento fuerte
+Archivo: **`src/main/java/es/iesisidra/inventario/modelo/Producto.java`**.
 
 ```java
-public class ProductoService {
-    // El servicio queda unido a una implementación concreta.
-    private final ProductoJdbcDAO dao = new ProductoJdbcDAO();
+package es.iesisidra.inventario.modelo;
+
+public record Producto(int id, String nombre, double precio, int stock) { }
+```
+
+Utilizamos un `record` de Java 21 para representar datos inmutables. Cuando se modifica un producto se crea un nuevo valor con el mismo `id` y los atributos actualizados.
+
+## 3. Definir el contrato DAO
+
+Archivo: **`src/main/java/es/iesisidra/inventario/dao/ProductoDAO.java`**.
+
+```java
+package es.iesisidra.inventario.dao;
+
+import es.iesisidra.inventario.modelo.Producto;
+import java.util.List;
+import java.util.Optional;
+
+public interface ProductoDAO {
+    void insertar(Producto producto);
+    Optional<Producto> buscarPorId(int id);
+    List<Producto> listar();
+    boolean actualizar(Producto producto);
+    boolean eliminar(int id);
 }
 ```
 
-### Ejemplo de acoplamiento menor
+La interfaz describe **qué operaciones** puede realizar el componente, no **cómo** las ejecuta.
+
+- `Optional<Producto>` permite representar una búsqueda sin resultado.
+- `List<Producto>` devuelve los productos existentes.
+- `boolean` indica si se ha modificado o eliminado algún registro.
+- `insertar` y los demás métodos pueden lanzar excepciones de ejecución cuando falla la persistencia.
+
+## 4. Implementar las reglas de negocio
+
+Archivo: **`src/main/java/es/iesisidra/inventario/servicio/ProductoService.java`**.
 
 ```java
+package es.iesisidra.inventario.servicio;
+
+import es.iesisidra.inventario.dao.ProductoDAO;
+import es.iesisidra.inventario.modelo.Producto;
+import java.util.List;
+import java.util.Optional;
+
 public class ProductoService {
     private final ProductoDAO dao;
 
     public ProductoService(ProductoDAO dao) {
         this.dao = dao;
     }
-}
-```
 
-La segunda versión recibe un componente compatible a través del constructor. Así, el servicio puede funcionar con CSV o JDBC sin cambiar su código. Este mecanismo se llama **inyección de dependencias por constructor** y no necesita ningún framework.
+    public void alta(Producto p) {
+        validar(p);
+        if (dao.buscarPorId(p.id()).isPresent()) {
+            throw new IllegalArgumentException("El ID ya existe");
+        }
+        dao.insertar(p);
+    }
 
-## 4. Repaso de POO: interfaces, `implements` y polimorfismo
+    public Optional<Producto> buscar(int id) {
+        return dao.buscarPorId(id);
+    }
 
-### 4.1. Declarar una interfaz
+    public List<Producto> listar() {
+        return dao.listar();
+    }
 
-```java
-public interface Notificador {
-    void enviar(String mensaje);
-}
-```
+    public boolean modificar(Producto p) {
+        validar(p);
+        return dao.actualizar(p);
+    }
 
-Una interfaz declara un **contrato**: quien la implemente deberá proporcionar el comportamiento de `enviar`.
+    public boolean baja(int id) {
+        return dao.eliminar(id);
+    }
 
-### 4.2. Implementar el contrato
-
-```java
-public class NotificadorConsola implements Notificador {
-    @Override
-    public void enviar(String mensaje) {
-        System.out.println(mensaje);
+    private void validar(Producto p) {
+        if (p.id() <= 0 || p.nombre() == null || p.nombre().isBlank()
+                || !Double.isFinite(p.precio()) || p.precio() < 0 || p.stock() < 0) {
+            throw new IllegalArgumentException("Datos de producto no válidos");
+        }
     }
 }
 ```
 
-```java
-public class NotificadorUrgente implements Notificador {
-    @Override
-    public void enviar(String mensaje) {
-        System.out.println("URGENTE: " + mensaje);
-    }
-}
-```
+!!! important "Inyección de dependencias"
+    El servicio recibe un `ProductoDAO` en el constructor. No crea un DAO concreto con `new ProductoFicheroDAO(...)` ni con `new ProductoJdbcDAO(...)`. Esto permite sustituir la persistencia sin modificar el servicio.
 
-`implements` indica que la clase implementa la interfaz. `@Override` ayuda a comprobar que estamos sobrescribiendo correctamente el método declarado.
+## 5. ¿Dónde está el menú?
 
-### 4.3. Utilizar polimorfismo
+La clase `App` se añadirá cuando dispongamos de la primera implementación de persistencia, en el apartado 3.4. Así podremos ejecutar operaciones reales desde el primer momento.
 
-```java
-public class Main {
-    public static void main(String[] args) {
-        Notificador notificador = new NotificadorConsola();
-        notificador.enviar("Pedido registrado");
+## 6. Actividad
 
-        // La misma variable puede referenciar otra implementación.
-        notificador = new NotificadorUrgente();
-        notificador.enviar("Pedido pendiente");
-    }
-}
-```
+1. Añade al modelo un atributo `categoria`. ¿Qué componentes tendrían que adaptarse?
+2. Explica por qué `ProductoService` depende de `ProductoDAO` y no de `ProductoFicheroDAO`.
+3. Dibuja un diagrama UML de clases con `App`, `ProductoService`, `ProductoDAO` y las dos implementaciones.
 
-**Salida:**
-
-```text
-Pedido registrado
-URGENTE: Pedido pendiente
-```
-
-El tipo de la variable es `Notificador`, mientras que el objeto real puede ser cualquiera de sus implementaciones.
-
-!!! question "Comprueba que lo entiendes"
-    ¿Podríamos declarar `Notificador notificador = new Notificador();`? No: una interfaz no se instancia directamente. Necesitamos una clase concreta que la implemente.
-
-## 5. Interfaces como contratos entre componentes
-
-Ahora aplicamos el mismo principio al acceso a datos:
-
-```java
-import java.util.List;
-import java.util.Optional;
-
-public interface ProductoDAO {
-    void guardar(Producto producto) throws AccesoDatosException;
-    Optional<Producto> buscarPorId(int id) throws AccesoDatosException;
-    List<Producto> listar() throws AccesoDatosException;
-}
-```
-
-- `guardar` registra un producto.
-- `buscarPorId` devuelve `Optional.empty()` si no existe.
-- `listar` devuelve una lista, vacía si no hay registros.
-- `AccesoDatosException` representa fallos de acceso al almacenamiento.
-
-!!! note "Contrato y errores"
-    La interfaz establece el comportamiento visible; cada implementación decide cómo realizarlo. La excepción `AccesoDatosException` será una clase propia del proyecto descargable. La validación de precios y nombres pertenece a la capa de negocio.
-
-## 6. Patrón DAO
-
-**DAO** significa *Data Access Object*. Encapsula la lógica de acceso al almacenamiento y ofrece operaciones al resto de la aplicación.
-
-```mermaid
-classDiagram
-    class ProductoDAO {
-        <<interface>>
-        +guardar(Producto)
-        +buscarPorId(int)
-        +listar()
-    }
-    class ProductoFicheroDAO
-    class ProductoJdbcDAO
-    class ProductoService
-    ProductoDAO <|.. ProductoFicheroDAO
-    ProductoDAO <|.. ProductoJdbcDAO
-    ProductoService --> ProductoDAO
-```
-
-El menú **no debe abrir conexiones JDBC** ni interpretar las columnas de un CSV. Para eso existen las implementaciones DAO.
-
-### DAO frente a Repository
-
-Un DAO suele centrarse en operaciones de acceso a un origen de datos concreto. Repository es una abstracción orientada a colecciones de objetos del dominio. Sus métodos pueden parecerse, pero no son exactamente el mismo concepto. **En esta unidad implementaremos DAO**; en la UT4 retomaremos la idea de Repository al estudiar ORM.
-
-## 7. Estructura de paquetes Maven
-
-```text
-src/main/java/es/iesisidra/productos/
-├── Main.java
-├── modelo/
-│   └── Producto.java
-├── servicio/
-│   └── ProductoService.java
-└── dao/
-    ├── ProductoDAO.java
-    ├── AccesoDatosException.java
-    ├── ProductoFicheroDAO.java
-    └── ProductoJdbcDAO.java
-```
-
-## 8. Ejercicios
-
-1. Identifica qué responsabilidades aparecen mezcladas en una clase que contiene `Scanner`, `PreparedStatement` y `System.out.println`.
-2. Completa la interfaz `Notificador` con un segundo método `enviarError(String mensaje)` e impleméntalo en ambas clases.
-3. Explica por qué `ProductoService(ProductoDAO dao)` permite sustituir el almacenamiento.
-4. Dibuja un diagrama de clases UML con la interfaz y las dos implementaciones DAO.
-5. Explica qué diferencia hay entre **cambiar el objeto referenciado** y **modificar la clase `ProductoService`**.
-6. Indica qué capa debe validar que el precio sea mayor o igual que cero y por qué.
-
-**Criterio de éxito:** comprender la arquitectura antes de escribir los DAO completos de los apartados siguientes.
+**Continúa con:** [3.4. Componentes de acceso a ficheros](04-componentes-ficheros.md).

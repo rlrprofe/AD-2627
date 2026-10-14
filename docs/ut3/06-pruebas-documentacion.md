@@ -1,95 +1,142 @@
 # 3.6. Pruebas y documentación de componentes
 
-**Duración orientativa:** 3 horas · **CE h)**
+!!! info "Proyecto de trabajo"
+    Continúa con el [proyecto inicial de Gestión de inventario](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip). Añade los archivos y las dependencias de este apartado. La solución completa se facilita al finalizar la UT3.
 
-## 1. ¿Por qué probar un componente?
 
-Una aplicación puede mostrar un menú correctamente y, sin embargo, guardar datos erróneos. Probar un componente de forma independiente permite comprobar **sus operaciones y su contrato**, sin depender de la interfaz de usuario.
+## Objetivos
 
-## 2. Diseñar casos de prueba
+- Verificar las reglas de negocio de forma independiente del almacenamiento.
+- Introducir JUnit 5 en el proyecto Maven.
+- Documentar el contrato público de los componentes.
 
-| Caso | Datos | Resultado esperado |
-|---|---|---|
-| Guardar un producto nuevo | ID 1, nombre y precio válidos | El producto aparece en el listado. |
-| Buscar uno existente | ID 1 | Se obtiene el producto. |
-| Buscar uno inexistente | ID 999 | `Optional.empty()`. |
-| Guardar ID duplicado | Dos productos con ID 1 | Se informa de error. |
-| Precio negativo | Precio -5 | La capa de negocio rechaza el producto. |
-| CSV mal formado | Línea incompleta | El DAO informa de un fallo de acceso. |
-| MySQL no disponible | Conexión rechazada | El DAO informa de un fallo de acceso. |
+## 1. ¿Qué debemos probar?
 
-## 3. Pruebas automatizadas con JUnit 5
+| Caso | Resultado esperado |
+|---|---|
+| Alta válida | El producto queda almacenado. |
+| Alta con ID repetido | Se rechaza la operación. |
+| Precio negativo | Se rechaza la operación. |
+| Búsqueda inexistente | Devuelve `Optional.empty()`. |
+| Modificación inexistente | Devuelve `false`. |
+| Baja existente | Devuelve `true`. |
 
-Ejemplo basado en el proyecto descargable:
+## 2. Añadir JUnit 5
+
+En el `pom.xml` que estás construyendo a partir del proyecto inicial, incorpora:
+
+```xml
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.11.4</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Además, configuramos `maven-surefire-plugin` para ejecutar las pruebas con `mvn test`.
+
+## 3. Probar sin depender de MySQL ni del CSV
+
+Una ventaja de depender de la interfaz `ProductoDAO` es que podemos usar una implementación **en memoria** durante las pruebas.
+
+Archivo: **`src/test/java/es/iesisidra/inventario/servicio/ProductoServiceTest.java`**.
 
 ```java
-@Test
-void guardarYBuscarProducto() throws Exception {
-    Path temporal = Files.createTempFile("productos-", ".csv");
-    try {
-        ProductoDAO dao = new ProductoFicheroDAO(temporal);
-        Producto producto = new Producto(1, "Teclado", 25.0);
+package es.iesisidra.inventario.servicio;
 
-        dao.guardar(producto);
+import es.iesisidra.inventario.dao.ProductoDAO;
+import es.iesisidra.inventario.modelo.Producto;
+import org.junit.jupiter.api.Test;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-        assertEquals(producto, dao.buscarPorId(1).orElseThrow());
-    } finally {
-        Files.deleteIfExists(temporal);
+class ProductoServiceTest {
+    static class DaoMemoria implements ProductoDAO {
+        private final Map<Integer, Producto> datos = new HashMap<>();
+        public void insertar(Producto p) { datos.put(p.id(), p); }
+        public Optional<Producto> buscarPorId(int id) { return Optional.ofNullable(datos.get(id)); }
+        public List<Producto> listar() { return new ArrayList<>(datos.values()); }
+        public boolean actualizar(Producto p) {
+            if (!datos.containsKey(p.id())) return false;
+            datos.put(p.id(), p);
+            return true;
+        }
+        public boolean eliminar(int id) { return datos.remove(id) != null; }
+    }
+
+    @Test
+    void altaValida() {
+        ProductoService servicio = new ProductoService(new DaoMemoria());
+        servicio.alta(new Producto(1, "Teclado", 19.95, 12));
+        assertTrue(servicio.buscar(1).isPresent());
+    }
+
+    @Test
+    void rechazaPrecioNegativo() {
+        ProductoService servicio = new ProductoService(new DaoMemoria());
+        assertThrows(IllegalArgumentException.class,
+                () -> servicio.alta(new Producto(2, "Raton", -1, 3)));
+    }
+
+    @Test
+    void rechazaIdDuplicado() {
+        ProductoService servicio = new ProductoService(new DaoMemoria());
+        servicio.alta(new Producto(1, "Teclado", 19.95, 12));
+        assertThrows(IllegalArgumentException.class,
+                () -> servicio.alta(new Producto(1, "Otro", 10, 2)));
     }
 }
 ```
 
-Este ejemplo utiliza un fichero temporal para que la prueba no modifique los datos reales del alumnado.
+!!! info "Ventaja del desacoplamiento"
+    Estas pruebas se ejecutan sin arrancar MySQL y sin crear un archivo CSV. Comprueban las reglas de negocio, no la infraestructura.
 
-Para comprobar el comportamiento ante errores:
+## 4. Ejecutar las pruebas
 
-```java
-assertThrows(AccesoDatosException.class,
-        () -> dao.guardar(new Producto(1, "Duplicado", 20.0)));
+```bash
+mvn test
 ```
 
-!!! warning "Pruebas JDBC"
-    Las pruebas que dependen de MySQL requieren una base de datos disponible y preparada. En esta unidad podemos probar automáticamente el DAO CSV y realizar pruebas de integración JDBC de forma guiada. No debemos afirmar que una prueba JDBC se ha ejecutado si no se ha conectado realmente a MySQL.
+Los informes de Surefire se generan habitualmente en `target/surefire-reports/`.
 
-## 4. Javadoc: documentar el contrato
+Para compilar, ejecutar pruebas y generar el JAR:
+
+```bash
+mvn clean package
+```
+
+## 5. Documentación con Javadoc
+
+En nuestro proyecto documentaremos especialmente la interfaz `ProductoDAO`, porque es el contrato que otras clases deben conocer.
+
+Ejemplo:
 
 ```java
 /**
  * Busca un producto por su identificador.
- *
  * @param id identificador del producto
- * @return producto encontrado o vacío si no existe
- * @throws AccesoDatosException si falla el almacenamiento
+ * @return producto encontrado o Optional vacío
  */
-Optional<Producto> buscarPorId(int id) throws AccesoDatosException;
+Optional<Producto> buscarPorId(int id);
 ```
 
-La documentación debe explicar **qué garantiza** el método y cómo se comporta ante situaciones especiales, no limitarse a repetir su nombre.
+La documentación debe describir las operaciones públicas, sus parámetros, sus resultados y las excepciones relevantes, sin limitarse a repetir el nombre del método.
 
-## 5. README y documentación de uso
+## 6. Pruebas de integración
 
-Un README mínimo debería contener:
+Las pruebas anteriores son **unitarias**. También conviene comprobar cada implementación real:
 
-1. Objetivo del componente.
-2. Requisitos (JDK 21, Maven y, para JDBC, MySQL).
-3. Instrucciones para compilar y ejecutar.
-4. Configuración de conexión sin exponer credenciales.
-5. Ejemplo de uso del componente.
-6. Cómo ejecutar las pruebas.
-7. Limitaciones conocidas (por ejemplo, el formato CSV didáctico).
+- CSV: insertar, leer, actualizar y eliminar sobre un archivo temporal.
+- JDBC: ejecutar las mismas operaciones contra una base de datos de pruebas independiente.
 
-## 6. Comandos de verificación
+No utilizaremos la base de datos de producción para realizar pruebas destructivas.
 
-```powershell
-mvn test
-mvn package
-mvn javadoc:javadoc
-```
+## 7. Actividades
 
-La documentación generada por Javadoc puede consultarse en `target/reports/apidocs/` o en la ruta configurada por el plugin; comprueba el mensaje de salida de Maven para localizarla.
+1. Añade una prueba que verifique el resultado de una búsqueda inexistente.
+2. Añade una prueba que compruebe la eliminación de un producto.
+3. Explica qué diferencia hay entre prueba unitaria y prueba de integración.
+4. Documenta los cinco métodos de `ProductoDAO`.
 
-## 7. Actividad evaluable
-
-Entrega un documento o tabla con **al menos seis casos de prueba**, indicando entrada, resultado esperado, resultado obtenido y conclusión. Adjunta el código de las pruebas JUnit y el README actualizado.
-
-**Preguntas de comprobación individual:** ¿por qué utilizas un fichero temporal?, ¿qué diferencia hay entre un fallo de validación y uno de acceso a datos?, ¿qué ocurre si no se cierra la conexión?
+**Continúa con:** [3.7. Integración de componentes en aplicaciones](07-integracion.md).

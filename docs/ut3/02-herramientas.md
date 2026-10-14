@@ -1,140 +1,29 @@
+# 3.2. Herramientas para desarrollar componentes
 
-# 3.2. Herramientas para desarrollar componentes Java
+## Objetivos
 
-Para desarrollar componentes de acceso a datos utilizaremos diferentes herramientas que nos permitirán **escribir, organizar, compilar, probar, documentar y distribuir** nuestro código Java.
+- Preparar JDK 21, un IDE y Maven.
+- Crear un proyecto Java Maven con una estructura reproducible.
+- Interpretar el archivo `pom.xml` y ejecutar las primeras fases de construcción.
 
-En este apartado conoceremos las herramientas principales y los conceptos básicos de **Apache Maven**. Su explicación detallada está disponible en el **[anexo de Maven](../anexo-maven/index.md)**.
+## 1. Herramientas del proyecto
 
-## 1. Herramientas del entorno de desarrollo
+Utilizaremos **JDK 21**, **Maven**, **VS Code con Extension Pack for Java** (o IntelliJ IDEA), **Git** y, a partir del apartado 3.5, **MySQL**.
 
-| Herramienta | Función en la UT3 |
+| Herramienta | Función |
 |---|---|
-| **JDK 21** | Compilar y ejecutar código Java. |
-| **VS Code, Eclipse o IntelliJ IDEA** | Editar, ejecutar y depurar programas. |
-| **Apache Maven** | Gestionar dependencias, compilar, probar y empaquetar proyectos. |
-| **JUnit 5** | Automatizar pruebas unitarias. |
-| **MySQL Connector/J** | Permitir el acceso a MySQL mediante JDBC. |
-| **Git** | Registrar cambios y facilitar el trabajo colaborativo. |
-| **Javadoc** | Generar documentación de las clases e interfaces públicas. |
+| JDK 21 | Compilar y ejecutar código Java. |
+| Maven | Gestionar dependencias, pruebas y empaquetado. |
+| IDE | Editar, ejecutar y depurar el código. |
+| Git | Registrar los avances del proyecto. |
+| MySQL | Almacenar los productos en la segunda implementación. |
 
-Estas herramientas cumplen funciones diferentes y pueden utilizarse conjuntamente.
+!!! info "Anexo de consulta"
+    Si necesitas repasar la instalación, la estructura de carpetas, el `pom.xml` o los comandos de Maven, consulta el [Anexo · Apache Maven](../anexo-maven/index.md).
 
-Por ejemplo, podemos escribir una clase Java en VS Code, utilizar Maven para compilar el proyecto, JUnit para ejecutar pruebas y Git para registrar los cambios.
+## 2. Verificar las instalaciones
 
-## 2. Maven: conceptos esenciales
-
-**Apache Maven** es una herramienta que organiza y automatiza la construcción de proyectos Java. En la UT3 lo utilizaremos para **gestionar bibliotecas**, **compilar**, **ejecutar pruebas** y **generar un JAR**.
-
-- **`pom.xml`:** archivo XML de la raíz del proyecto que identifica el proyecto, declara dependencias y establece su configuración.
-- **Dependencias:** bibliotecas externas que Maven descarga y gestiona, como MySQL Connector/J o JUnit 5.
-- **Estructura estándar:** `src/main/java` contiene el código de la aplicación; `src/test/java`, las pruebas; y `target/`, los resultados generados.
-- **Ciclo de vida:** Maven organiza la construcción en fases como `compile`, `test` y `package`.
-
-### Comandos que utilizaremos
-
-Desde la carpeta que contiene `pom.xml`:
-
-```bash
-mvn -version
-mvn clean compile
-mvn test
-mvn package
-```
-
-| Comando | Para qué sirve |
-|---|---|
-| `mvn -version` | Comprueba la versión de Maven y el Java que utiliza. |
-| `mvn clean compile` | Limpia los resultados anteriores y compila el proyecto. |
-| `mvn test` | Ejecuta las pruebas configuradas. |
-| `mvn package` | Genera el artefacto del proyecto, normalmente un JAR. |
-
-!!! note "Ampliación: anexo de Maven"
-    Si necesitas instalar o configurar Maven, comprender el `pom.xml`, consultar el árbol de directorios, gestionar dependencias o conocer otras fases y comandos, revisa el **[Anexo · Apache Maven para proyectos Java](../anexo-maven/index.md)**.
-
-## 3. Paquetes y modificadores de acceso en Java
-
-Los paquetes permiten organizar las clases e interfaces Java según su responsabilidad.
-
-En la UT3 utilizaremos paquetes diferentes para separar, por ejemplo:
-
-- El modelo de datos.
-- Las interfaces de acceso a datos.
-- Las implementaciones de persistencia.
-- La aplicación que utiliza los componentes.
-
-Ejemplo de declaración de paquete:
-
-```java
-package es.iesisidra.productos.dao;
-
-public interface ProductoDAO {
-    // Contrato público del componente.
-}
-```
-
-En este ejemplo:
-
-- `package` indica el paquete al que pertenece la interfaz.
-- `public` permite utilizar la interfaz desde otros paquetes.
-
-### 3.1. Modificadores de acceso
-
-Java proporciona diferentes niveles de visibilidad.
-
-| Modificador | Accesibilidad |
-|---|---|
-| `public` | Desde cualquier clase que pueda acceder al tipo. |
-| `protected` | Desde el mismo paquete y desde subclases según las reglas de Java. |
-| Sin modificador | Desde clases del mismo paquete. |
-| `private` | Dentro de la propia clase. |
-
-En el diseño de componentes es importante **exponer únicamente las operaciones necesarias** y ocultar los detalles internos.
-
-Por ejemplo, una interfaz DAO puede ser pública, mientras que los atributos internos de una implementación suelen declararse privados.
-
-Esto favorece la **encapsulación** y reduce el acoplamiento.
-
-## 4. Herramientas de construcción, pruebas y ejecución
-
-Es importante distinguir las funciones de las herramientas utilizadas durante el desarrollo.
-
-| Herramienta | Función principal |
-|---|---|
-| **JDK** | Proporciona el compilador y las herramientas de Java. |
-| **IDE** | Facilita la escritura, ejecución y depuración del código. |
-| **Maven** | Gestiona dependencias y automatiza la construcción. |
-| **JUnit 5** | Permite comprobar el comportamiento mediante pruebas. |
-| **MySQL Connector/J** | Proporciona el controlador JDBC necesario para acceder a MySQL. |
-| **Javadoc** | Genera documentación de la API. |
-| **Git** | Controla las versiones del código fuente. |
-
-Por ejemplo, en una aplicación que guarda productos en MySQL:
-
-1. Escribimos el código Java en el IDE.
-2. Maven gestiona las dependencias.
-3. El JDK compila las clases.
-4. JUnit permite ejecutar pruebas.
-5. MySQL Connector/J permite establecer la conexión JDBC durante la ejecución.
-6. Maven genera el JAR del proyecto.
-7. Git registra la evolución del código.
-
-Cada herramienta participa en una parte diferente del proceso.
-
-## 5. Actividad guiada: exploración de un proyecto Maven
-
-En esta actividad conoceremos la organización de un proyecto Maven y ejecutaremos las principales operaciones de construcción.
-
-### Parte A. Exploración del proyecto
-
-1. Descarga el proyecto de la UT3 y ábrelo en tu IDE.
-2. Localiza el archivo `pom.xml`.
-3. Identifica los directorios `src/main/java` y `src/test/java`.
-4. Comprueba qué paquetes Java contiene el proyecto.
-5. Localiza las dependencias declaradas en el POM.
-
-### Parte B. Comprobación del entorno
-
-Ejecuta:
+Desde una terminal:
 
 ```bash
 java -version
@@ -142,41 +31,80 @@ javac -version
 mvn -version
 ```
 
-Comprueba que el proyecto utiliza JDK 21.
+Comprueba que `java` y `javac` utilizan JDK 21. `mvn -version` también muestra la versión de Java que utiliza Maven.
 
-### Parte C. Construcción del proyecto
+## 3. Crear el proyecto
 
-Ejecuta los siguientes comandos desde la raíz del proyecto:
+Nombre: `gestion-inventario`. Coordenadas Maven:
 
-```bash
-mvn clean
-mvn compile
-mvn test
-mvn package
+- `groupId`: `es.iesisidra`
+- `artifactId`: `gestion-inventario`
+- `version`: `1.0-SNAPSHOT`
+
+Estructura inicial:
+
+```text
+gestion-inventario/
+├── pom.xml
+├── datos/
+├── sql/
+└── src/
+    ├── main/java/es/iesisidra/inventario/
+    └── test/java/es/iesisidra/inventario/
 ```
 
-Observa los mensajes de la terminal y comprueba qué archivos se generan en `target/`.
+Descarga el **proyecto inicial** para comenzar con la misma estructura que utilizaremos en toda la unidad. Tendrás que ir incorporando las clases y configuraciones siguiendo los apartados siguientes.
 
-### Parte D. Análisis de resultados
+[**Descargar proyecto inicial de Gestión de inventario (ZIP)**](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip)
 
-Responde a las siguientes cuestiones:
+## 4. Configurar `pom.xml`
 
-1. ¿Para qué sirve el archivo `pom.xml`?
-2. ¿Qué diferencia existe entre `src/main/java` y `src/test/java`?
-3. ¿Qué ocurre al ejecutar `mvn clean`?
-4. ¿Dónde se almacenan los archivos `.class` compilados?
-5. ¿Qué archivo genera `mvn package`?
-6. ¿Qué diferencia existe entre una dependencia de producción y una dependencia de pruebas?
-7. ¿Por qué Maven facilita el trabajo en proyectos desarrollados por varios programadores?
+Archivo: **`gestion-inventario/pom.xml`**.
 
-### Parte E. Identificación de herramientas
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.iesisidra</groupId>
+    <artifactId>gestion-inventario</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+</project>
+```
 
-Elabora una tabla con las herramientas utilizadas en el proyecto.
+Este es el **punto de partida mínimo**. En 3.5 incorporaremos el driver MySQL; en 3.6, JUnit; y en 3.7, el plugin para generar un JAR ejecutable. El `pom.xml` del **proyecto inicial** contiene únicamente la configuración mínima: las dependencias y los plugins se añadirán durante la unidad.
 
-Para cada herramienta, indica:
+## 5. Primera construcción
 
-- Nombre.
-- Función principal.
-- Ejemplo de utilización.
+Desde la carpeta que contiene `pom.xml`:
 
-**Evidencia CE b):** identificación de las herramientas de desarrollo de componentes, explicación de su finalidad y utilización básica dentro de un proyecto Java.
+```bash
+mvn validate
+mvn compile
+```
+
+En la primera ejecución Maven puede necesitar conexión a Internet para descargar plugins.
+
+## 6. Control de versiones
+
+```bash
+git init
+git add .
+git commit -m "Crear estructura inicial del proyecto Maven"
+```
+
+Crea un `.gitignore` para excluir `target/`, los archivos propios del IDE y los secretos locales. No subas contraseñas de MySQL al repositorio.
+
+## 7. Comprobación
+
+- [ ] El IDE reconoce el JDK 21.
+- [ ] Maven funciona desde la terminal.
+- [ ] Existe `pom.xml` en la raíz.
+- [ ] `mvn compile` finaliza correctamente.
+- [ ] El proyecto está bajo control de versiones.
+
+**Continúa con:** [3.3. Arquitectura por capas, interfaces y DAO](03-arquitectura-dao.md).

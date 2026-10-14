@@ -1,105 +1,178 @@
-# 3.4. Componente de acceso a ficheros CSV
+# 3.4. Componentes de acceso a ficheros
 
-**Duración orientativa:** 3 horas · **CE c), h)**
+!!! info "Proyecto de trabajo"
+    Continúa con el [proyecto inicial de Gestión de inventario](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip). Añade los archivos y las dependencias de este apartado. La solución completa se facilita al finalizar la UT3.
 
-## 1. Objetivo
 
-Construiremos `ProductoFicheroDAO`, un componente que implementa `ProductoDAO` y almacena productos en un fichero de texto CSV. Recuperamos así los conocimientos de la UT1, pero **sin mezclar el código de ficheros con el menú**.
+## Objetivos
 
-## 2. Modelo de datos
+- Implementar el contrato `ProductoDAO` utilizando un archivo CSV.
+- Construir una aplicación de consola funcional.
+- Separar el código de lectura/escritura del menú y de las reglas de negocio.
 
-```java
-package es.iesisidra.productos.modelo;
+## 1. Primera versión: almacenamiento CSV
 
-public record Producto(int id, String nombre, double precio) {
-}
+Partimos del modelo, la interfaz DAO y el servicio creados en 3.3. El archivo `datos/productos.csv` tendrá el formato:
+
+```csv
+id;nombre;precio;stock
+1;Teclado;19.95;12
+2;Raton;9.50;20
 ```
 
-Utilizamos `record` (Java 21) para representar un dato inmutable. Un producto tiene identificador, nombre y precio. La capa de negocio comprobará que sus valores sean válidos.
+!!! warning "Simplificación didáctica"
+    Utilizaremos punto decimal y separador `;`. En este ejemplo los nombres de productos no pueden contener `;` ni saltos de línea. Para datos CSV generales sería preferible una biblioteca específica.
 
-## 3. Formato del fichero
+## 2. Implementación del DAO
 
-Para simplificar el ejemplo utilizaremos el carácter `;` como separador:
-
-```text
-id;nombre;precio
-1;Teclado;24.50
-2;Raton;12.99
-```
-
-!!! warning "CSV didáctico"
-    En este ejemplo **no se admiten nombres con `;`, comillas ni saltos de línea**. Un CSV general requiere reglas de escape y una biblioteca especializada. El proyecto valida esta limitación para evitar datos ambiguos.
-
-## 4. Lectura y escritura con `Files`
+Archivo: **`src/main/java/es/iesisidra/inventario/dao/ProductoFicheroDAO.java`**.
 
 ```java
-Path ruta = Path.of("datos", "productos.csv");
+package es.iesisidra.inventario.dao;
 
-// Leer todas las líneas con codificación UTF-8.
-List<String> lineas = Files.readAllLines(ruta, StandardCharsets.UTF_8);
+import es.iesisidra.inventario.modelo.Producto;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.*;
 
-// Escribir líneas en un fichero con codificación UTF-8.
-Files.write(ruta, lineas, StandardCharsets.UTF_8);
-```
+public class ProductoFicheroDAO implements ProductoDAO {
+    private final Path ruta;
 
-Al trabajar con el DAO, estas operaciones estarán encapsuladas en sus métodos privados y no serán visibles para el resto de la aplicación.
+    public ProductoFicheroDAO(Path ruta) {
+        this.ruta = ruta;
+    }
 
-## 5. Implementación de `guardar`
-
-Fragmento simplificado del componente descargable:
-
-```java
-@Override
-public void guardar(Producto producto) throws AccesoDatosException {
-    List<Producto> productos = listar();
-
-    for (Producto existente : productos) {
-        if (existente.id() == producto.id()) {
-            throw new AccesoDatosException("Ya existe el ID " + producto.id());
+    @Override
+    public List<Producto> listar() {
+        if (!Files.exists(ruta)) return new ArrayList<>();
+        try {
+            List<Producto> productos = new ArrayList<>();
+            for (String linea : Files.readAllLines(ruta, StandardCharsets.UTF_8)) {
+                if (linea.isBlank() || linea.equals("id;nombre;precio;stock")) continue;
+                String[] c = linea.split(";", -1);
+                if (c.length != 4) throw new IllegalStateException("CSV incorrecto: " + linea);
+                productos.add(new Producto(Integer.parseInt(c[0]), c[1],
+                        Double.parseDouble(c[2]), Integer.parseInt(c[3])));
+            }
+            return productos;
+        } catch (IOException e) {
+            throw new IllegalStateException("Error al leer CSV", e);
         }
     }
 
-    productos.add(producto);
-    escribirTodos(productos);
+    @Override
+    public Optional<Producto> buscarPorId(int id) {
+        return listar().stream().filter(p -> p.id() == id).findFirst();
+    }
+
+    @Override
+    public void insertar(Producto p) {
+        List<Producto> productos = listar();
+        if (productos.stream().anyMatch(x -> x.id() == p.id())) {
+            throw new IllegalArgumentException("El ID ya existe");
+        }
+        productos.add(p);
+        guardar(productos);
+    }
+
+    @Override
+    public boolean actualizar(Producto p) {
+        List<Producto> productos = listar();
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).id() == p.id()) {
+                productos.set(i, p);
+                guardar(productos);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean eliminar(int id) {
+        List<Producto> productos = listar();
+        boolean eliminado = productos.removeIf(p -> p.id() == id);
+        if (eliminado) guardar(productos);
+        return eliminado;
+    }
+
+    private void guardar(List<Producto> productos) {
+        try {
+            Path carpeta = ruta.toAbsolutePath().getParent();
+            if (carpeta != null) Files.createDirectories(carpeta);
+            List<String> lineas = new ArrayList<>();
+            lineas.add("id;nombre;precio;stock");
+            for (Producto p : productos) {
+                if (p.nombre().contains(";") || p.nombre().contains("\n")
+                        || p.nombre().contains("\r")) {
+                    throw new IllegalArgumentException("Nombre incompatible con el CSV simplificado");
+                }
+                lineas.add(p.id() + ";" + p.nombre() + ";" + p.precio() + ";" + p.stock());
+            }
+            Files.write(ruta, lineas, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException("Error al guardar CSV", e);
+        }
+    }
 }
 ```
 
-En el proyecto descargable utilizamos bucles `for`, sin expresiones lambda, y añadimos comprobaciones y tratamiento de `IOException`.
+### ¿Qué hemos encapsulado?
 
-## 6. ¿Qué ocurre si falla la lectura?
+- La lectura y escritura con `Files`.
+- La conversión de líneas CSV a objetos `Producto`.
+- Las operaciones CRUD sobre el conjunto de productos.
 
-Un componente no debe ocultar los errores importantes. Si el fichero está dañado o no se puede leer, debe informar al consumidor mediante una excepción clara:
+La aplicación **no necesita saber** cómo se guarda físicamente la información.
+
+## 3. Crear el menú de consola
+
+Archivo: **`src/main/java/es/iesisidra/inventario/App.java`**.
+
+Partiendo del [proyecto inicial](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip), implementa la clase siguiendo los ejemplos anteriores. La parte fundamental es la creación del servicio:
 
 ```java
-try {
-    List<String> lineas = Files.readAllLines(ruta, StandardCharsets.UTF_8);
-    // Procesar las líneas.
-} catch (IOException e) {
-    throw new AccesoDatosException("No se pudo leer " + ruta, e);
-}
+ProductoDAO dao = new ProductoFicheroDAO(Path.of("datos", "productos.csv"));
+ProductoService servicio = new ProductoService(dao);
 ```
 
-El segundo argumento (`e`) conserva la **causa original**, útil para depurar.
+A partir de ahí, el menú llama a `servicio.alta(...)`, `servicio.buscar(...)`, `servicio.listar()`, `servicio.modificar(...)` y `servicio.baja(...)`.
 
-## 7. Reglas del contrato
+!!! note "Por qué no copiamos aquí dos veces el menú"
+    El menú completo se conserva en **un único archivo `App.java`** y será idéntico para CSV y MySQL. Constrúyelo progresivamente a partir del proyecto inicial, siguiendo las indicaciones de este apartado.
 
-- `guardar`: añade un producto nuevo; si el ID ya existe, informa del error.
-- `buscarPorId`: devuelve un `Optional` con el producto o vacío si no existe.
-- `listar`: devuelve todos los productos, sin exponer detalles del CSV.
-- El DAO no muestra mensajes al usuario ni utiliza `Scanner`.
+## 4. Compilar y ejecutar
 
-## 8. Actividad guiada
+Desde la raíz del proyecto:
 
-1. Descarga y ejecuta el proyecto con almacenamiento CSV.
-2. Añade un producto y comprueba el contenido del fichero.
-3. Busca un ID existente y otro inexistente.
-4. Intenta guardar un ID repetido y describe el resultado.
-5. Modifica temporalmente una línea del CSV para provocar un error de formato; explica dónde se detecta.
-6. Añade comentarios Javadoc a uno de los métodos públicos.
+```bash
+mvn clean package
+java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
+```
 
-## 9. Ejercicio de ampliación
+Con el `pom.xml` del proyecto inicial, ejecuta la clase `App` desde el IDE. La generación de un JAR ejecutable se completará en 3.7.
 
-Incorpora `eliminarPorId(int id)` al contrato y a la implementación CSV. Define previamente qué debe suceder cuando el ID no existe y documenta esa decisión.
+Por defecto, la aplicación utiliza **CSV**.
 
-!!! tip "Relación con el CE c)"
-    La evidencia no consiste únicamente en leer un fichero. Debes demostrar que has construido un **componente reutilizable** que ofrece operaciones de acceso a datos mediante una interfaz.
+Ejemplo de interacción:
+
+```text
+1. Alta  2. Buscar  3. Listar  4. Modificar  5. Eliminar  0. Salir
+Opción: 3
+Producto[id=1, nombre=Teclado, precio=19.95, stock=12]
+Producto[id=2, nombre=Raton, precio=9.5, stock=20]
+```
+
+## 5. Limitaciones de esta implementación
+
+Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. No hay control de acceso concurrente ni escritura atómica. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.
+
+## 6. Actividades
+
+1. Añade un producto y comprueba que aparece en `productos.csv`.
+2. Modifica su precio y vuelve a abrir el archivo.
+3. Intenta insertar dos productos con el mismo identificador.
+4. Explica qué métodos de `ProductoService` habría que modificar para cambiar a MySQL. **Respuesta esperada: ninguno.**
+
+**Continúa con:** [3.5. Componentes de acceso mediante JDBC](05-componentes-jdbc.md).
