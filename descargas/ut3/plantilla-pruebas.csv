@@ -1,0 +1,6 @@
+Caso;Componente;Datos de entrada;Resultado esperado;Resultado obtenido;Conclusión
+P01;CSV;Producto ID 1;Se guarda correctamente;;
+P02;CSV;Buscar ID 999;No encontrado;;
+P03;CSV;ID repetido;Error controlado;;
+P04;JDBC;Producto ID 2;Se guarda correctamente;;
+P05;JDBC;MySQL detenido;Error de conexión controlado;;
