@@ -128,7 +128,16 @@ nav:
       - "2.6. Ejercicios y consolidación": ut2/06-actividades.md
       - Proyectos y descargas: ut2/07-descargas.md
 
-
+  - "UT3 · Diseño y desarrollo de componentes de acceso a datos":
+      - Guía de la unidad: ut3/index.md
+      - "3.1. Introducción a la programación orientada a componentes": ut3/01-componentes.md
+      - "3.2. Herramientas para desarrollar componentes": ut3/02-herramientas.md
+      - "3.3. Arquitectura por capas, interfaces y DAO": ut3/03-arquitectura-dao.md
+      - "3.4. Componentes de acceso a ficheros": ut3/04-componentes-ficheros.md
+      - "3.5. Componentes de acceso mediante JDBC": ut3/05-componentes-jdbc.md
+      - "3.6. Pruebas y documentación de componentes": ut3/06-pruebas-documentacion.md
+      - "3.7. Integración de componentes en aplicaciones": ut3/07-integracion.md
+      - Ejercicios, proyecto y descargas: ut3/08-actividades-descargas.md
 
 markdown_extensions:
   - admonition
