@@ -7,11 +7,11 @@ site_url: https://rlrprofe.github.io/AD-2627/
 repo_url: https://github.com/rlrprofe/AD-2627
 repo_name: rlrprofe/AD-2627
 
+
 theme:
   name: material
   language: es
   features:
-    - navigation.sections
     - navigation.top
     - navigation.indexes
     - toc.follow
