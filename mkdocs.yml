@@ -138,7 +138,20 @@ nav:
       - "3.7. Integración de componentes en aplicaciones": ut3/07-integracion.md
       - Ejercicios, proyecto y descargas: ut3/08-actividades-descargas.md
 
-  - "Anexo · Apache Maven": anexo_maven.md
+
+ - "Anexo · Apache Maven":
+      - Guía del anexo: anexo-maven/index.md
+      - "Introducción a Maven": anexo-maven/01-introduccion.md
+      - "Recursos de aprendizaje": anexo-maven/02-recursos.md
+      - "Instalación y configuración": anexo-maven/03-instalacion.md
+      - "Estructura del proyecto": anexo-maven/04-estructura.md
+      - "El archivo pom.xml": anexo-maven/05-pom.md
+      - "Configuración básica": anexo-maven/06-configuracion.md
+      - "Gestión de dependencias": anexo-maven/07-dependencias.md
+      - "Ciclo de vida": anexo-maven/08-ciclo-vida.md
+      - "Comandos esenciales": anexo-maven/09-comandos.md
+      - "Empaquetado JAR": anexo-maven/10-jar.md
+      - "Maven y los IDE": anexo-maven/11-ide.md
 
 markdown_extensions:
   - admonition
