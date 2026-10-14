@@ -3465,10 +3465,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#que-aprenderemos" class="md-nav__link">
+  <a href="#contenidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Qué aprenderemos?
+        Contenidos
       
     </span>
   </a>
@@ -3487,10 +3487,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#itinerario-y-temporalizacion" class="md-nav__link">
+  <a href="#criterios-de-evaluacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Itinerario y temporalización
+        Criterios de evaluación
       
     </span>
   </a>
@@ -3498,10 +3498,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arquitectura-del-proyecto" class="md-nav__link">
+  <a href="#evaluacion-y-calificacion-de-la-ut3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Arquitectura del proyecto
+        Evaluación y calificación de la UT3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluación y calificación de la UT3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pec-practicas-evaluables-60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PEC: prácticas evaluables (60 %)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PEC: prácticas evaluables (60 %)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-califica-cada-criterio-de-evaluacion-practico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cómo se califica cada criterio de evaluación práctico?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prueba-objetiva-40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prueba objetiva (40 %)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-de-la-unidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa de la unidad
       
     </span>
   </a>
@@ -3509,10 +3565,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#herramientas" class="md-nav__link">
+  <a href="#materiales-didacticos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Herramientas
+        Materiales didácticos
       
     </span>
   </a>
@@ -3520,10 +3576,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#evaluacion" class="md-nav__link">
+  <a href="#como-utilizar-estos-materiales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Evaluación
+        Cómo utilizar estos materiales
       
     </span>
   </a>
@@ -3550,131 +3606,195 @@
   
 
 
-<h1 id="ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos">UT3. Diseño y desarrollo de componentes de acceso a datos<a class="headerlink" href="#ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos" title="Permanent link">&para;</a></h1>
-<div class="admonition info">
-<p class="admonition-title">Guía didáctica · Acceso a Datos · 2.º DAM</p>
-<p><strong>Duración:</strong> 20 horas · <strong>Resultado de aprendizaje:</strong> RA6 (parcial) · <strong>Criterios:</strong> a), b), c), d), h), i).</p>
-</div>
-<h2 id="que-aprenderemos">¿Qué aprenderemos?<a class="headerlink" href="#que-aprenderemos" title="Permanent link">&para;</a></h2>
-<p>En la UT1 escribimos programas que leen y guardan información en <strong>ficheros</strong>. En la UT2 conectamos programas Java con <strong>bases de datos relacionales mediante JDBC</strong>. En esta unidad damos un paso más: diseñamos <strong>componentes de acceso a datos reutilizables</strong> que otras aplicaciones puedan utilizar sin conocer cómo se almacenan los datos.</p>
-<p>El reto será crear una aplicación de <strong>gestión de productos</strong> capaz de utilizar indistintamente un fichero CSV o una base de datos MySQL.</p>
+<h1 id="ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos">UT3 · Diseño y desarrollo de componentes de acceso a datos<a class="headerlink" href="#ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos" title="Permanent link">&para;</a></h1>
+<p>En la UT1 aprendimos a gestionar información almacenada en <strong>ficheros</strong> y en la UT2 a acceder a <strong>bases de datos relacionales mediante JDBC</strong>. En esta unidad aprenderás a diseñar y desarrollar <strong>componentes de acceso a datos reutilizables</strong>, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración.</p>
+<p>Como proyecto conductor utilizaremos una aplicación de <strong>gestión de productos</strong> que podrá almacenar información en un fichero CSV o en una base de datos MySQL mediante distintas implementaciones de una misma interfaz.</p>
+<h2 id="contenidos">Contenidos<a class="headerlink" href="#contenidos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Bloque</th>
+<th>Qué aprenderás</th>
+<th>Práctica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="01-componentes/">3.1. Programación orientada a componentes</a></td>
+<td>Concepto de componente, características, ventajas e inconvenientes</td>
+<td>Análisis y comparación de diseños</td>
+</tr>
+<tr>
+<td><a href="02-herramientas/">3.2. Herramientas de desarrollo</a></td>
+<td>IDE, JDK 21, Maven, organización y empaquetado</td>
+<td>Preparación de un proyecto Maven</td>
+</tr>
+<tr>
+<td><a href="03-arquitectura-dao/">3.3. Arquitectura por capas, interfaces y DAO</a></td>
+<td>Separación de responsabilidades, cohesión, acoplamiento, repaso de interfaces y polimorfismo, patrón DAO</td>
+<td>Diseño de interfaces y componentes</td>
+</tr>
+<tr>
+<td><a href="04-componentes-ficheros/">3.4. Componentes de acceso a ficheros</a></td>
+<td>Encapsulación de operaciones de lectura y escritura en CSV</td>
+<td><code>ProductoFicheroDAO</code></td>
+</tr>
+<tr>
+<td><a href="05-componentes-jdbc/">3.5. Componentes de acceso mediante JDBC</a></td>
+<td>Componentes que gestionan información en MySQL mediante conectores</td>
+<td><code>ProductoJdbcDAO</code></td>
+</tr>
+<tr>
+<td><a href="06-pruebas-documentacion/">3.6. Pruebas y documentación</a></td>
+<td>Pruebas, JUnit 5, Javadoc y documentación de uso</td>
+<td>Verificación y documentación de componentes</td>
+</tr>
+<tr>
+<td><a href="07-integracion/">3.7. Integración de componentes</a></td>
+<td>Utilización de componentes desde una aplicación y sustitución de implementaciones</td>
+<td>Aplicación de gestión de productos</td>
+</tr>
+</tbody>
+</table>
 <h2 id="resultado-de-aprendizaje">Resultado de aprendizaje<a class="headerlink" href="#resultado-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <p><strong>RA6.</strong> Programa componentes de acceso a datos identificando las características que debe poseer un componente y utilizando herramientas de desarrollo.</p>
+<p>En esta unidad se trabajan los criterios <strong>a), b), c), d), h) e i)</strong> del RA6. Los restantes criterios se desarrollarán en otras unidades del módulo.</p>
+<h2 id="criterios-de-evaluacion">Criterios de evaluación<a class="headerlink" href="#criterios-de-evaluacion" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>CE</th>
-<th>Qué debes demostrar en esta unidad</th>
-<th>Evidencia propuesta</th>
+<th>Criterio de evaluación</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>a)</strong></td>
-<td>Valorar ventajas e inconvenientes de la programación orientada a componentes.</td>
-<td>Análisis de diseños y cuestiones razonadas.</td>
+<td>Se han valorado las ventajas e inconvenientes de utilizar programación orientada a componentes.</td>
 </tr>
 <tr>
 <td><strong>b)</strong></td>
-<td>Identificar herramientas de desarrollo de componentes.</td>
-<td>Proyecto Maven, IDE, compilación y empaquetado.</td>
+<td>Se han identificado herramientas de desarrollo de componentes.</td>
 </tr>
 <tr>
 <td><strong>c)</strong></td>
-<td>Programar componentes que gestionen datos en ficheros.</td>
-<td><code>ProductoFicheroDAO</code>.</td>
+<td>Se han programado componentes que gestionan información almacenada en ficheros.</td>
 </tr>
 <tr>
 <td><strong>d)</strong></td>
-<td>Programar componentes que gestionen datos mediante conectores.</td>
-<td><code>ProductoJdbcDAO</code>.</td>
+<td>Se han programado componentes que gestionan mediante conectores información almacenada en bases de datos.</td>
 </tr>
 <tr>
 <td><strong>h)</strong></td>
-<td>Probar y documentar componentes.</td>
-<td>Pruebas, Javadoc y README.</td>
+<td>Se han probado y documentado los componentes desarrollados.</td>
 </tr>
 <tr>
 <td><strong>i)</strong></td>
-<td>Integrar los componentes en aplicaciones.</td>
-<td>Aplicación de consola que cambia de implementación.</td>
+<td>Se han integrado los componentes desarrollados en aplicaciones.</td>
 </tr>
 </tbody>
 </table>
-<p>Los criterios <strong>e)</strong>, <strong>f)</strong> y <strong>g)</strong> del RA6 se desarrollarán en las UT4, UT6 y UT5, respectivamente. <strong>Hibernate no se estudia en esta unidad.</strong></p>
-<h2 id="itinerario-y-temporalizacion">Itinerario y temporalización<a class="headerlink" href="#itinerario-y-temporalizacion" title="Permanent link">&para;</a></h2>
+<h2 id="evaluacion-y-calificacion-de-la-ut3">Evaluación y calificación de la UT3<a class="headerlink" href="#evaluacion-y-calificacion-de-la-ut3" title="Permanent link">&para;</a></h2>
+<p>La unidad desarrolla una parte del <strong>RA6</strong>, que tiene una ponderación del <strong>15 % en la calificación final del módulo</strong>.</p>
+<p>Para evaluar los criterios de evaluación asociados a esta unidad se utilizarán los siguientes instrumentos:</p>
 <table>
 <thead>
 <tr>
-<th>Página</th>
-<th style="text-align: right;">Horas</th>
-<th>CE principales</th>
+<th>Instrumento</th>
+<th style="text-align: right;">Peso</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="01-componentes/">3.1. Componentes software</a></td>
-<td style="text-align: right;">2</td>
-<td>a)</td>
+<td><strong>PEC (prácticas evaluables)</strong></td>
+<td style="text-align: right;"><strong>60 %</strong></td>
 </tr>
 <tr>
-<td><a href="02-herramientas/">3.2. Herramientas de desarrollo</a></td>
-<td style="text-align: right;">2</td>
-<td>b)</td>
-</tr>
-<tr>
-<td><a href="03-arquitectura-dao/">3.3. Arquitectura, interfaces y DAO</a></td>
-<td style="text-align: right;">4</td>
-<td>a), c), d), i)</td>
-</tr>
-<tr>
-<td><a href="04-componentes-ficheros/">3.4. DAO de ficheros CSV</a></td>
-<td style="text-align: right;">3</td>
-<td>c), h)</td>
-</tr>
-<tr>
-<td><a href="05-componentes-jdbc/">3.5. DAO JDBC</a></td>
-<td style="text-align: right;">4</td>
-<td>d), i)</td>
-</tr>
-<tr>
-<td><a href="06-pruebas-documentacion/">3.6. Pruebas y documentación</a></td>
-<td style="text-align: right;">3</td>
-<td>h)</td>
-</tr>
-<tr>
-<td><a href="07-integracion/">3.7. Integración</a></td>
-<td style="text-align: right;">2</td>
-<td>i), c), d), h)</td>
-</tr>
-<tr>
-<td><strong>Total</strong></td>
-<td style="text-align: right;"><strong>20</strong></td>
-<td></td>
+<td><strong>Prueba objetiva</strong></td>
+<td style="text-align: right;"><strong>40 %</strong></td>
 </tr>
 </tbody>
 </table>
-<h2 id="arquitectura-del-proyecto">Arquitectura del proyecto<a class="headerlink" href="#arquitectura-del-proyecto" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
-    A[Main: menú de consola] --&gt; B[ProductoService: reglas de negocio]
-    B --&gt; C[ProductoDAO: contrato]
-    C --&gt; D[ProductoFicheroDAO: CSV]
-    C --&gt; E[ProductoJdbcDAO: MySQL]</code></pre>
-<p>La aplicación dependerá de la <strong>interfaz <code>ProductoDAO</code></strong>, no de una implementación concreta. La elección entre CSV y MySQL se realizará al iniciar el programa.</p>
-<h2 id="herramientas">Herramientas<a class="headerlink" href="#herramientas" title="Permanent link">&para;</a></h2>
+<h3 id="1-pec-practicas-evaluables-60">1. PEC: prácticas evaluables (60 %)<a class="headerlink" href="#1-pec-practicas-evaluables-60" title="Permanent link">&para;</a></h3>
+<p>Las actividades prácticas permitirán trabajar el diseño de componentes, el acceso a ficheros y bases de datos, la realización de pruebas y la integración en una aplicación.</p>
+<p>Los enunciados concretos, las condiciones de entrega y los plazos se comunicarán a través del <strong>aula virtual</strong>. Esta guía no establece un número cerrado de entregas ni una ponderación independiente para cada ejercicio.</p>
+<p>Las prácticas deberán ser <strong>originales y realizadas por el propio alumno o alumna</strong>.</p>
+<p>Podrán calificarse mediante observación directa registrada en una ficha de seguimiento y/o mediante rúbrica, según las características de la actividad.</p>
+<h4 id="como-se-califica-cada-criterio-de-evaluacion-practico">¿Cómo se califica cada criterio de evaluación práctico?<a class="headerlink" href="#como-se-califica-cada-criterio-de-evaluacion-practico" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Evidencia</th>
+<th>Qué se comprobará</th>
+<th style="text-align: right;">Puntuación máxima</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ejecución correcta</strong></td>
+<td>Desarrolla y demuestra los componentes y procedimientos solicitados.</td>
+<td style="text-align: right;"><strong>6 puntos</strong></td>
+</tr>
+<tr>
+<td><strong>Comprensión y explicación</strong></td>
+<td>Explica el funcionamiento del código, las decisiones de diseño y la integración de los componentes.</td>
+<td style="text-align: right;"><strong>4 puntos</strong></td>
+</tr>
+<tr>
+<td><strong>Total por CE práctico</strong></td>
+<td></td>
+<td style="text-align: right;"><strong>10 puntos</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Durante la revisión, la profesora podrá solicitar que el estudiante:</p>
 <ul>
-<li><strong>JDK 21</strong>, <strong>Maven</strong> y un IDE (VS Code, Eclipse o IntelliJ IDEA).</li>
-<li><strong>JUnit 5</strong> para pruebas automatizadas.</li>
-<li><strong>MySQL</strong> y su conector JDBC para la implementación relacional.</li>
-<li>Git para conservar el historial del proyecto.</li>
+<li>Ejecute el proyecto y demuestre su funcionamiento.</li>
+<li>Explique las clases, interfaces y métodos desarrollados.</li>
+<li>Justifique las decisiones de diseño adoptadas.</li>
+<li>Interprete el funcionamiento de su código.</li>
+<li>Reproduzca o modifique alguno de los procedimientos realizados.</li>
 </ul>
-<h2 id="evaluacion">Evaluación<a class="headerlink" href="#evaluacion" title="Permanent link">&para;</a></h2>
-<p>La programación didáctica establece <strong>práctica(s): 60 %</strong> y <strong>prueba objetiva: 40 %</strong>. En la comprobación individual de las prácticas, por cada CE práctico se valoran la ejecución correcta (hasta <strong>6 puntos</strong>) y la comprensión/explicación de lo realizado (hasta <strong>4 puntos</strong>).</p>
+<p>Estas comprobaciones permitirán verificar tanto la <strong>autoría del trabajo</strong> como la <strong>comprensión de los contenidos</strong>.</p>
+<p><strong>Importante:</strong> la correcta entrega o ejecución de una práctica no garantiza la puntuación máxima. También será necesario demostrar que se comprenden los procedimientos realizados.</p>
 <div class="admonition warning">
-<p class="admonition-title">Autoría y comprensión</p>
-<p>Debes poder explicar tus decisiones, ejecutar el proyecto y reproducir o modificar partes de tu código durante la revisión. La entrega de código que funciona no garantiza por sí sola la máxima calificación.</p>
+<p class="admonition-title">Autoría de las prácticas</p>
+<p>Las prácticas deben ser <strong>originales y de elaboración propia</strong>. Si se acredita copia, presentación como propio de un trabajo no realizado o utilización de medios no autorizados, <strong>la práctica se calificará con 0</strong>, conforme a la guía didáctica.</p>
 </div>
-<p>Consulta los <a href="08-actividades-descargas/">ejercicios, proyecto integrador y descargas</a>.</p>
+<h3 id="2-prueba-objetiva-40">2. Prueba objetiva (40 %)<a class="headerlink" href="#2-prueba-objetiva-40" title="Permanent link">&para;</a></h3>
+<p>La prueba objetiva incluirá contenidos teórico-prácticos de la unidad y podrá combinar diferentes tipos de preguntas y ejercicios:</p>
+<ul>
+<li>Preguntas de tipo test.</li>
+<li>Preguntas cortas o de desarrollo.</li>
+<li>Cuestiones abiertas o cerradas.</li>
+<li>Ejercicios prácticos de programación.</li>
+<li>Análisis, interpretación o corrección de fragmentos de código Java.</li>
+</ul>
+<p>Estos son formatos posibles y no implican una distribución fija de preguntas ni de puntuaciones dentro del examen.</p>
+<h2 id="mapa-de-la-unidad">Mapa de la unidad<a class="headerlink" href="#mapa-de-la-unidad" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["Componentes software"] --&gt; B["Herramientas y proyecto Maven"]
+    B --&gt; C["Arquitectura por capas e interfaces"]
+    C --&gt; D["Patrón DAO"]
+    D --&gt; E["Componente para ficheros CSV"]
+    D --&gt; F["Componente JDBC para MySQL"]
+    E --&gt; G["Pruebas y documentación"]
+    F --&gt; G
+    G --&gt; H["Integración en la aplicación"]</code></pre>
+<h2 id="materiales-didacticos">Materiales didácticos<a class="headerlink" href="#materiales-didacticos" title="Permanent link">&para;</a></h2>
+<p>Los apuntes, ejemplos y recursos necesarios para esta unidad se encuentran disponibles en:</p>
+<ul>
+<li><strong>Aula virtual del módulo de Acceso a Datos.</strong></li>
+<li><strong><a href="https://rlrprofe.github.io/AD-2627/ut3/">Sitio web de Acceso a Datos – UT3</a>.</strong></li>
+<li><strong><a href="08-actividades-descargas/">Ejercicios, proyecto y descargas</a>.</strong></li>
+</ul>
+<p>Para realizar las prácticas se utilizarán <strong>JDK 21</strong>, <strong>Maven</strong>, un entorno de desarrollo Java, <strong>MySQL</strong> y, cuando corresponda, <strong>JUnit 5</strong>.</p>
+<p>Se propone una batería de ejercicios para practicar los contenidos de la unidad.</p>
+<p><strong>Es imprescindible que el alumnado realice los ejercicios propuestos y plantee sus dudas durante las clases.</strong></p>
+<h2 id="como-utilizar-estos-materiales">Cómo utilizar estos materiales<a class="headerlink" href="#como-utilizar-estos-materiales" title="Permanent link">&para;</a></h2>
+<p>Cada bloque contiene explicaciones, ejemplos progresivos y actividades prácticas. Los ejemplos Java están planteados para <strong>JDK 21</strong>.</p>
+<p>Se recomienda estudiar primero los conceptos de cada apartado, ejecutar los ejemplos proporcionados y realizar posteriormente los ejercicios de forma autónoma.</p>
+<p>El repaso de <strong>interfaces y polimorfismo</strong> del apartado 3.3 es especialmente importante para comprender el patrón DAO y la sustitución de componentes.</p>
 
 
 
