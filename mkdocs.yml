@@ -138,8 +138,7 @@ nav:
       - "3.7. Integración de componentes en aplicaciones": ut3/07-integracion.md
       - Ejercicios, proyecto y descargas: ut3/08-actividades-descargas.md
 
-
- - "Anexo · Apache Maven":
+  - "Anexo · Apache Maven":
       - Guía del anexo: anexo-maven/index.md
       - "Introducción a Maven": anexo-maven/01-introduccion.md
       - "Recursos de aprendizaje": anexo-maven/02-recursos.md
