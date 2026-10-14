@@ -15,7 +15,7 @@ Como proyecto conductor utilizaremos una aplicación de **gestión de productos*
 6. **[Pruebas y documentación](06-pruebas-documentacion.md).** Pruebas de componentes, JUnit 5, Javadoc y documentación de uso.
 7. **[Integración de componentes](07-integracion.md).** Utilización de componentes desde una aplicación y sustitución de implementaciones.
 
-Para ampliar la configuración y el uso de Maven, consulta el **[Anexo · Apache Maven para proyectos Java](../anexo_maven.md)**.
+Para ampliar la configuración y el uso de Maven, consulta el **[Anexo · Apache Maven para proyectos Java](../anexo-maven/index.md)**.
 
 ## Resultado de aprendizaje
 

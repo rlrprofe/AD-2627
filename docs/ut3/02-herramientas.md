@@ -3,7 +3,7 @@
 
 Para desarrollar componentes de acceso a datos utilizaremos diferentes herramientas que nos permitirán **escribir, organizar, compilar, probar, documentar y distribuir** nuestro código Java.
 
-En este apartado conoceremos las herramientas principales y los conceptos básicos de **Apache Maven**. Su explicación detallada está disponible en el **[anexo de Maven](../anexo_maven.md)**.
+En este apartado conoceremos las herramientas principales y los conceptos básicos de **Apache Maven**. Su explicación detallada está disponible en el **[anexo de Maven](../anexo-maven/index.md)**.
 
 ## 1. Herramientas del entorno de desarrollo
 
@@ -49,7 +49,7 @@ mvn package
 | `mvn package` | Genera el artefacto del proyecto, normalmente un JAR. |
 
 !!! note "Ampliación: anexo de Maven"
-    Si necesitas instalar o configurar Maven, comprender el `pom.xml`, consultar el árbol de directorios, gestionar dependencias o conocer otras fases y comandos, revisa el **[Anexo · Apache Maven para proyectos Java](../anexo_maven.md)**.
+    Si necesitas instalar o configurar Maven, comprender el `pom.xml`, consultar el árbol de directorios, gestionar dependencias o conocer otras fases y comandos, revisa el **[Anexo · Apache Maven para proyectos Java](../anexo-maven/index.md)**.
 
 ## 3. Paquetes y modificadores de acceso en Java
 

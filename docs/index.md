@@ -22,4 +22,4 @@ En esta unidad se trabaja con:
 
 ## Anexos y recursos de consulta
 
-- **[Anexo · Apache Maven para proyectos Java](anexo_maven.md).** Guía ampliada sobre estructura de proyectos, `pom.xml`, dependencias, fases y comandos de Maven.
+- **[Anexo · Apache Maven para proyectos Java](anexo-maven/index.md).** Guía ampliada sobre estructura de proyectos, `pom.xml`, dependencias, fases y comandos de Maven.
