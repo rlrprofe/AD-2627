@@ -7,7 +7,6 @@ site_url: https://rlrprofe.github.io/AD-2627/
 repo_url: https://github.com/rlrprofe/AD-2627
 repo_name: rlrprofe/AD-2627
 
-
 theme:
   name: material
   language: es
@@ -139,8 +138,11 @@ nav:
       - "3.7. Integración de componentes en aplicaciones": ut3/07-integracion.md
       - Ejercicios, proyecto y descargas: ut3/08-actividades-descargas.md
 
+  - "Anexo · Apache Maven": anexo_maven.md
+
 markdown_extensions:
   - admonition
+  - pymdownx.details
   - toc:
       permalink: true
       toc_depth: 4

@@ -18,3 +18,8 @@ En esta unidad se trabaja con:
 - conversión entre XML y JSON.
 
 ➡️ [Entrar en la UT1](ut1/index.md)
+
+
+## Anexos y recursos de consulta
+
+- **[Anexo · Apache Maven para proyectos Java](anexo_maven.md).** Guía ampliada sobre estructura de proyectos, `pom.xml`, dependencias, fases y comandos de Maven.

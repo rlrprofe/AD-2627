@@ -7,15 +7,15 @@ Como proyecto conductor utilizaremos una aplicación de **gestión de productos*
 
 ## Contenidos
 
-| Bloque | Qué aprenderás | Práctica |
-|---|---|---|
-| [3.1. Programación orientada a componentes](01-componentes.md) | Concepto de componente, características, ventajas e inconvenientes | Análisis y comparación de diseños |
-| [3.2. Herramientas de desarrollo](02-herramientas.md) | IDE, JDK 21, Maven, organización y empaquetado | Preparación de un proyecto Maven |
-| [3.3. Arquitectura por capas, interfaces y DAO](03-arquitectura-dao.md) | Separación de responsabilidades, cohesión, acoplamiento, repaso de interfaces y polimorfismo, patrón DAO | Diseño de interfaces y componentes |
-| [3.4. Componentes de acceso a ficheros](04-componentes-ficheros.md) | Encapsulación de operaciones de lectura y escritura en CSV | `ProductoFicheroDAO` |
-| [3.5. Componentes de acceso mediante JDBC](05-componentes-jdbc.md) | Componentes que gestionan información en MySQL mediante conectores | `ProductoJdbcDAO` |
-| [3.6. Pruebas y documentación](06-pruebas-documentacion.md) | Pruebas, JUnit 5, Javadoc y documentación de uso | Verificación y documentación de componentes |
-| [3.7. Integración de componentes](07-integracion.md) | Utilización de componentes desde una aplicación y sustitución de implementaciones | Aplicación de gestión de productos |
+1. **[Programación orientada a componentes](01-componentes.md).** Concepto de componente, características, ventajas e inconvenientes.
+2. **[Herramientas de desarrollo](02-herramientas.md).** IDE, JDK 21, conceptos esenciales de Maven, paquetes y visibilidad.
+3. **[Arquitectura por capas, interfaces y DAO](03-arquitectura-dao.md).** Separación de responsabilidades, cohesión, acoplamiento, interfaces, polimorfismo y patrón DAO.
+4. **[Componentes de acceso a ficheros](04-componentes-ficheros.md).** Encapsulación de operaciones de lectura y escritura en ficheros CSV.
+5. **[Componentes de acceso mediante JDBC](05-componentes-jdbc.md).** Desarrollo de componentes que gestionan información almacenada en bases de datos MySQL mediante conectores.
+6. **[Pruebas y documentación](06-pruebas-documentacion.md).** Pruebas de componentes, JUnit 5, Javadoc y documentación de uso.
+7. **[Integración de componentes](07-integracion.md).** Utilización de componentes desde una aplicación y sustitución de implementaciones.
+
+Para ampliar la configuración y el uso de Maven, consulta el **[Anexo · Apache Maven para proyectos Java](../anexo_maven.md)**.
 
 ## Resultado de aprendizaje
 
