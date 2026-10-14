@@ -70,21 +70,6 @@ Utilizaremos como hilo conductor una aplicación de **Gestión de inventario**, 
 - Documentación de componentes.
 - Integración, reutilización y empaquetado JAR.
 
-#### Proyecto práctico: Gestión de inventario
-
-A lo largo de la unidad construiremos una aplicación Java que permita registrar, consultar, modificar y eliminar productos.
-
-El proyecto se desarrollará por etapas:
-
-1. Preparación del proyecto Maven.
-2. Diseño del modelo y de la interfaz DAO.
-3. Implementación del acceso a ficheros CSV.
-4. Implementación del acceso a MySQL mediante JDBC.
-5. Pruebas, documentación e integración.
-6. Generación del componente distribuible.
-
-El alumnado dispondrá de un proyecto inicial descargable para realizar el desarrollo guiado.
-
 [:material-arrow-right-circle: Acceder a la UT3](ut3/index.md){ .md-button }
 
 ---
@@ -113,27 +98,5 @@ Apache Maven es una herramienta de automatización utilizada en proyectos Java p
 
 ---
 
-## Metodología de trabajo
-
-El aprendizaje combinará explicaciones teóricas, ejemplos de código y actividades prácticas.
-
-Utilizaremos principalmente las siguientes herramientas:
-
-| Herramienta | Utilización |
-|---|---|
-| **Java 21** | Desarrollo de aplicaciones y componentes. |
-| **Visual Studio Code** | Edición, compilación y depuración de código. |
-| **Apache Maven** | Gestión de proyectos, dependencias y construcción de artefactos. |
-| **MySQL** | Gestión de bases de datos relacionales. |
-| **Git y GitHub** | Control de versiones y gestión de proyectos. |
-| **JUnit** | Pruebas unitarias automatizadas. |
-
-En las distintas unidades encontrarás proyectos descargables, ejemplos resueltos y ejercicios para consolidar los conocimientos adquiridos.
-
----
-
 **Acceso a Datos – 2.º DAM**
-
-IES Isidra de Guzmán · Alcalá de Henares
-
 Curso 2026-2027
