@@ -3553,6 +3553,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../anexo_maven/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexo · Apache Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -3800,12 +3827,16 @@
 <li>¿Se han conservado las dos etiquetas?</li>
 <li>¿Podría reconstruirse exactamente el XML original con ese JSON?</li>
 </ol>
-<p>??? success "Solución razonada"
-    1. Al convertir <code>"007"</code> en número se pierde la representación original.
-    2. No: <code>moneda="EUR"</code> no aparece en el JSON.
-    3. El comentario se ha descartado.
-    4. No: solo aparece la última etiqueta; para mantener ambas convendría un array.
-    5. No: faltan datos y decisiones de formato, por lo que la conversión no es reversible.</p>
+<details class="success">
+<summary>Solución razonada</summary>
+<ol>
+<li>Al convertir <code>"007"</code> en número se pierde la representación original.</li>
+<li>No: <code>moneda="EUR"</code> no aparece en el JSON.</li>
+<li>El comentario se ha descartado.</li>
+<li>No: solo aparece la última etiqueta; para mantener ambas convendría un array.</li>
+<li>No: faltan datos y decisiones de formato, por lo que la conversión no es reversible.</li>
+</ol>
+</details>
 <h2 id="lista-de-comprobacion-para-las-practicas">Lista de comprobación para las prácticas<a class="headerlink" href="#lista-de-comprobacion-para-las-practicas" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[ ] Identifico el fichero de entrada y el de salida.</li>

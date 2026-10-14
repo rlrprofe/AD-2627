@@ -3337,6 +3337,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Actividades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-1-separacion-de-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 1. Separación de responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-2-ventajas-e-inconvenientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 2. Ventajas e inconvenientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-3-identificacion-de-elementos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 3. Identificación de elementos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-4-componentes-y-empaquetado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 4. Componentes y empaquetado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3551,6 +3601,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexo_maven/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexo · Apache Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -3641,6 +3718,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Actividades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-1-separacion-de-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 1. Separación de responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-2-ventajas-e-inconvenientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 2. Ventajas e inconvenientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-3-identificacion-de-elementos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 3. Identificación de elementos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-4-componentes-y-empaquetado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 4. Componentes y empaquetado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3664,7 +3791,6 @@
 
 
 <h1 id="31-programacion-orientada-a-componentes">3.1. Programación orientada a componentes<a class="headerlink" href="#31-programacion-orientada-a-componentes" title="Permanent link">&para;</a></h1>
-<p><strong>Duración orientativa:</strong> 2 horas · <strong>CE a)</strong></p>
 <h2 id="1-que-es-un-componente-software">1. ¿Qué es un componente software?<a class="headerlink" href="#1-que-es-un-componente-software" title="Permanent link">&para;</a></h2>
 <p>Un <strong>componente software</strong> es una unidad de funcionalidad que ofrece servicios a través de una interfaz o contrato conocido, y que puede utilizarse desde otras partes de una aplicación. En este curso construiremos componentes Java encargados de <strong>guardar y recuperar productos</strong>.</p>
 <p>No todos estos conceptos son equivalentes:</p>
@@ -3773,12 +3899,57 @@
 <h2 id="5-caso-practico-catalogo-de-productos">5. Caso práctico: catálogo de productos<a class="headerlink" href="#5-caso-practico-catalogo-de-productos" title="Permanent link">&para;</a></h2>
 <p>La aplicación necesita tres operaciones: <strong>guardar</strong>, <strong>buscar por identificador</strong> y <strong>listar</strong>. Primero las implementaremos sobre CSV y después sobre MySQL. Las pantallas o menús no deberían necesitar saber dónde se guardan los datos.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<h3 id="actividad-1-separacion-de-responsabilidades">Actividad 1. Separación de responsabilidades<a class="headerlink" href="#actividad-1-separacion-de-responsabilidades" title="Permanent link">&para;</a></h3>
+<p>Explica dos problemas de una clase que contiene menús, validaciones y SQL.</p>
+<details class="success">
+<summary>Ver solución</summary>
+<p><strong>Problema 1. Dificultad de mantenimiento.</strong></p>
+<p>La clase concentra responsabilidades diferentes. Si cambia la base de datos o las reglas de validación, tendremos que modificar una clase que también gestiona la interacción con el usuario.</p>
+<p><strong>Problema 2. Dificultad para realizar pruebas y reutilizar código.</strong></p>
+<p>No podemos probar fácilmente las operaciones de acceso a datos sin depender del resto de la aplicación. Además, reutilizar esas operaciones desde otra interfaz sería más complicado.</p>
+</details>
+<h3 id="actividad-2-ventajas-e-inconvenientes">Actividad 2. Ventajas e inconvenientes<a class="headerlink" href="#actividad-2-ventajas-e-inconvenientes" title="Permanent link">&para;</a></h3>
+<p>Identifica dos ventajas y dos costes de extraer el acceso a datos a un componente.</p>
+<details class="success">
+<summary>Ver solución</summary>
+<p><strong>Ventajas:</strong></p>
 <ol>
-<li>Explica dos problemas de una clase que contiene menús, validaciones y SQL.</li>
-<li>Identifica dos ventajas y dos costes de extraer el acceso a datos a un componente.</li>
-<li>Decide si <code>Producto</code>, <code>ProductoDAO</code> y <code>ProductoJdbcDAO</code> son clases, interfaces o componentes; justifica tu respuesta.</li>
-<li>¿Crear un JAR convierte automáticamente un conjunto de clases en un componente bien diseñado? Razona.</li>
+<li><strong>Reutilización:</strong> el mismo componente de acceso a datos puede utilizarse desde distintas aplicaciones.</li>
+<li><strong>Mantenimiento:</strong> los cambios en la persistencia quedan localizados en el componente correspondiente.</li>
 </ol>
+<p><strong>Costes o inconvenientes:</strong></p>
+<ol>
+<li><strong>Mayor esfuerzo inicial:</strong> hay que diseñar interfaces y organizar las responsabilidades.</li>
+<li><strong>Mayor complejidad estructural:</strong> aparecen más clases y contratos que deben comprenderse y mantenerse.</li>
+</ol>
+</details>
+<h3 id="actividad-3-identificacion-de-elementos">Actividad 3. Identificación de elementos<a class="headerlink" href="#actividad-3-identificacion-de-elementos" title="Permanent link">&para;</a></h3>
+<p>Decide si <code>Producto</code>, <code>ProductoDAO</code> y <code>ProductoJdbcDAO</code> son clases, interfaces o componentes. Justifica tu respuesta.</p>
+<details class="success">
+<summary>Ver solución</summary>
+<ul>
+<li><strong><code>Producto</code>:</strong> clase Java que representa los datos de un producto. Sus objetos contienen información como el identificador, el nombre o el precio.</li>
+<li><strong><code>ProductoDAO</code>:</strong> interfaz Java que define el contrato de acceso a los productos, por ejemplo, guardar, buscar y listar.</li>
+<li><strong><code>ProductoJdbcDAO</code>:</strong> clase Java que implementa <code>ProductoDAO</code> y utiliza JDBC para acceder a la base de datos. Puede constituir la implementación principal de un componente de persistencia.</li>
+</ul>
+<p><strong>Importante:</strong> una clase puede formar parte de un componente, pero los conceptos de clase y componente no son equivalentes.</p>
+</details>
+<h3 id="actividad-4-componentes-y-empaquetado">Actividad 4. Componentes y empaquetado<a class="headerlink" href="#actividad-4-componentes-y-empaquetado" title="Permanent link">&para;</a></h3>
+<p>¿Crear un JAR convierte automáticamente un conjunto de clases en un componente bien diseñado? Razona.</p>
+<details class="success">
+<summary>Ver solución</summary>
+<p><strong>No.</strong></p>
+<p>Un archivo JAR es un mecanismo de empaquetado y distribución de clases y recursos Java, pero no garantiza que el código esté correctamente organizado.</p>
+<p>Para que un componente esté bien diseñado debería tener:</p>
+<ul>
+<li>Una responsabilidad claramente definida.</li>
+<li>Un contrato de uso coherente.</li>
+<li>Encapsulación de los detalles internos.</li>
+<li>Bajo acoplamiento y alta cohesión.</li>
+<li>Posibilidad de reutilización, pruebas y mantenimiento.</li>
+</ul>
+<p>Por tanto, <strong>empaquetar código no equivale a diseñar correctamente un componente</strong>.</p>
+</details>
 <div class="admonition tip">
 <p class="admonition-title">Autoevaluación</p>
 <p>Debes poder explicar la diferencia entre <strong>reutilizar una clase</strong> y <strong>ofrecer un componente con un contrato de uso estable</strong>.</p>

@@ -3438,6 +3438,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../anexo_maven/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexo · Apache Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -3610,52 +3637,16 @@
 <p>En la UT1 aprendimos a gestionar información almacenada en <strong>ficheros</strong> y en la UT2 a acceder a <strong>bases de datos relacionales mediante JDBC</strong>. En esta unidad aprenderás a diseñar y desarrollar <strong>componentes de acceso a datos reutilizables</strong>, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración.</p>
 <p>Como proyecto conductor utilizaremos una aplicación de <strong>gestión de productos</strong> que podrá almacenar información en un fichero CSV o en una base de datos MySQL mediante distintas implementaciones de una misma interfaz.</p>
 <h2 id="contenidos">Contenidos<a class="headerlink" href="#contenidos" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Bloque</th>
-<th>Qué aprenderás</th>
-<th>Práctica</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="01-componentes/">3.1. Programación orientada a componentes</a></td>
-<td>Concepto de componente, características, ventajas e inconvenientes</td>
-<td>Análisis y comparación de diseños</td>
-</tr>
-<tr>
-<td><a href="02-herramientas/">3.2. Herramientas de desarrollo</a></td>
-<td>IDE, JDK 21, Maven, organización y empaquetado</td>
-<td>Preparación de un proyecto Maven</td>
-</tr>
-<tr>
-<td><a href="03-arquitectura-dao/">3.3. Arquitectura por capas, interfaces y DAO</a></td>
-<td>Separación de responsabilidades, cohesión, acoplamiento, repaso de interfaces y polimorfismo, patrón DAO</td>
-<td>Diseño de interfaces y componentes</td>
-</tr>
-<tr>
-<td><a href="04-componentes-ficheros/">3.4. Componentes de acceso a ficheros</a></td>
-<td>Encapsulación de operaciones de lectura y escritura en CSV</td>
-<td><code>ProductoFicheroDAO</code></td>
-</tr>
-<tr>
-<td><a href="05-componentes-jdbc/">3.5. Componentes de acceso mediante JDBC</a></td>
-<td>Componentes que gestionan información en MySQL mediante conectores</td>
-<td><code>ProductoJdbcDAO</code></td>
-</tr>
-<tr>
-<td><a href="06-pruebas-documentacion/">3.6. Pruebas y documentación</a></td>
-<td>Pruebas, JUnit 5, Javadoc y documentación de uso</td>
-<td>Verificación y documentación de componentes</td>
-</tr>
-<tr>
-<td><a href="07-integracion/">3.7. Integración de componentes</a></td>
-<td>Utilización de componentes desde una aplicación y sustitución de implementaciones</td>
-<td>Aplicación de gestión de productos</td>
-</tr>
-</tbody>
-</table>
+<ol>
+<li><strong><a href="01-componentes/">Programación orientada a componentes</a>.</strong> Concepto de componente, características, ventajas e inconvenientes.</li>
+<li><strong><a href="02-herramientas/">Herramientas de desarrollo</a>.</strong> IDE, JDK 21, conceptos esenciales de Maven, paquetes y visibilidad.</li>
+<li><strong><a href="03-arquitectura-dao/">Arquitectura por capas, interfaces y DAO</a>.</strong> Separación de responsabilidades, cohesión, acoplamiento, interfaces, polimorfismo y patrón DAO.</li>
+<li><strong><a href="04-componentes-ficheros/">Componentes de acceso a ficheros</a>.</strong> Encapsulación de operaciones de lectura y escritura en ficheros CSV.</li>
+<li><strong><a href="05-componentes-jdbc/">Componentes de acceso mediante JDBC</a>.</strong> Desarrollo de componentes que gestionan información almacenada en bases de datos MySQL mediante conectores.</li>
+<li><strong><a href="06-pruebas-documentacion/">Pruebas y documentación</a>.</strong> Pruebas de componentes, JUnit 5, Javadoc y documentación de uso.</li>
+<li><strong><a href="07-integracion/">Integración de componentes</a>.</strong> Utilización de componentes desde una aplicación y sustitución de implementaciones.</li>
+</ol>
+<p>Para ampliar la configuración y el uso de Maven, consulta el <strong><a href="../anexo_maven/">Anexo · Apache Maven para proyectos Java</a></strong>.</p>
 <h2 id="resultado-de-aprendizaje">Resultado de aprendizaje<a class="headerlink" href="#resultado-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <p><strong>RA6.</strong> Programa componentes de acceso a datos identificando las características que debe poseer un componente y utilizando herramientas de desarrollo.</p>
 <p>En esta unidad se trabajan los criterios <strong>a), b), c), d), h) e i)</strong> del RA6. Los restantes criterios se desarrollarán en otras unidades del módulo.</p>

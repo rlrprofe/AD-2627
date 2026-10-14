@@ -3542,6 +3542,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../anexo_maven/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexo · Apache Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -3745,12 +3772,16 @@ evaluate(..., XPathConstants.TIPO)
 <li>¿Cómo seleccionarías el segundo producto del catálogo?</li>
 <li>¿Cómo comprobarías si existe un producto P99?</li>
 </ol>
-<p>??? success "Ver soluciones"
-    1. <code>//producto[@id='P03']/nombre/text()</code> → Monitor 24 pulgadas.
-    2. <code>count(//producto[@categoria='periféricos'])</code> → 2.
-    3. <code>//producto[precio &gt; 40]/precio</code> → 49.99 y 179.00.
-    4. <code>/catalogo/producto[2]</code> → P02.
-    5. <code>boolean(//producto[@id='P99'])</code> → false.</p>
+<details class="success">
+<summary>Ver soluciones</summary>
+<ol>
+<li><code>//producto[@id='P03']/nombre/text()</code> → Monitor 24 pulgadas.</li>
+<li><code>count(//producto[@categoria='periféricos'])</code> → 2.</li>
+<li><code>//producto[precio &gt; 40]/precio</code> → 49.99 y 179.00.</li>
+<li><code>/catalogo/producto[2]</code> → P02.</li>
+<li><code>boolean(//producto[@id='P99'])</code> → false.</li>
+</ol>
+</details>
 <h2 id="relacion-con-java">Relación con Java<a class="headerlink" href="#relacion-con-java" title="Permanent link">&para;</a></h2>
 <p>XPath <strong>no reemplaza al parser XML</strong>: primero cargamos el documento (por ejemplo, con DOM) y después evaluamos las consultas. En el <a href="../04-java/">apartado Java</a> se muestra el flujo completo con <code>XPathFactory</code>, <code>XPath</code>, <code>evaluate()</code> y <code>XPathConstants</code>.</p>
 <p><a href="../../../descargas/ut1/xpath/xpath-example.zip">📦 Descargar proyecto Java XPath</a></p>
