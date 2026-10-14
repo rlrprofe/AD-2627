@@ -12,26 +12,28 @@
         <meta name="author" content="Ruth Lospitao Ruiz">
       
       
-        <link rel="canonical" href="https://rlrprofe.github.io/AD-2627/anexo_maven/">
+        <link rel="canonical" href="https://rlrprofe.github.io/AD-2627/anexo-maven/09-comandos/">
       
       
-        <link rel="prev" href="../ut3/08-actividades-descargas/">
+        <link rel="prev" href="../08-ciclo-vida/">
       
+      
+        <link rel="next" href="../10-jar/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Anexo · Apache Maven - Acceso a Datos - 2º DAM</title>
+        <title>Comandos esenciales - Acceso a Datos - 2º DAM</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -50,7 +52,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -68,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#anexo-apache-maven-para-proyectos-java" class="md-skip">
+        <a href="#9-comandos-esenciales-de-maven" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -84,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
-    <a href=".." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+    <a href="../.." title="Acceso a Datos - 2º DAM" class="md-header__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Anexo · Apache Maven
+              Comandos esenciales
             
           </span>
         </div>
@@ -196,7 +198,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
+    <a href="../.." title="Acceso a Datos - 2º DAM" class="md-nav__button md-logo" aria-label="Acceso a Datos - 2º DAM" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -226,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -283,7 +285,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/" class="md-nav__link ">
+            <a href="../../ut1/" class="md-nav__link ">
               
   
   
@@ -357,7 +359,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/01-ficheros/" class="md-nav__link ">
+            <a href="../../ut1/01-ficheros/" class="md-nav__link ">
               
   
   
@@ -401,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/01-file-directorios/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/01-file-directorios/" class="md-nav__link">
         
   
   
@@ -429,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/02-acceso/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/02-acceso/" class="md-nav__link">
         
   
   
@@ -457,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/03-flujos-bytes/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/03-flujos-bytes/" class="md-nav__link">
         
   
   
@@ -485,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/04-flujos-caracteres/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/04-flujos-caracteres/" class="md-nav__link">
         
   
   
@@ -513,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/05-excepciones/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/05-excepciones/" class="md-nav__link">
         
   
   
@@ -541,7 +543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/01-ficheros/06-resumen/" class="md-nav__link">
+      <a href="../../ut1/01-ficheros/06-resumen/" class="md-nav__link">
         
   
   
@@ -607,7 +609,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/02-serializacion/" class="md-nav__link ">
+            <a href="../../ut1/02-serializacion/" class="md-nav__link ">
               
   
   
@@ -651,7 +653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/01-conceptos/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/01-conceptos/" class="md-nav__link">
         
   
   
@@ -679,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/02-un-objeto/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/02-un-objeto/" class="md-nav__link">
         
   
   
@@ -707,7 +709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/03-varios-objetos/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/03-varios-objetos/" class="md-nav__link">
         
   
   
@@ -735,7 +737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/04-append/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/04-append/" class="md-nav__link">
         
   
   
@@ -763,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/05-versionado/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/05-versionado/" class="md-nav__link">
         
   
   
@@ -791,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/02-serializacion/06-resumen/" class="md-nav__link">
+      <a href="../../ut1/02-serializacion/06-resumen/" class="md-nav__link">
         
   
   
@@ -906,7 +908,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/java-json/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/java-json/" class="md-nav__link ">
               
   
   
@@ -980,7 +982,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/java-json/org-json/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/java-json/org-json/" class="md-nav__link ">
               
   
   
@@ -1024,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/01-preparacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/01-preparacion/" class="md-nav__link">
         
   
   
@@ -1052,7 +1054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/02-jsonobject/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/02-jsonobject/" class="md-nav__link">
         
   
   
@@ -1080,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/03-jsonarray/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/03-jsonarray/" class="md-nav__link">
         
   
   
@@ -1108,7 +1110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/04-guardar-json/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/04-guardar-json/" class="md-nav__link">
         
   
   
@@ -1136,7 +1138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/05-leer-json/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/05-leer-json/" class="md-nav__link">
         
   
   
@@ -1164,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/org-json/06-resumen/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/org-json/06-resumen/" class="md-nav__link">
         
   
   
@@ -1232,7 +1234,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/java-json/gson/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/java-json/gson/" class="md-nav__link ">
               
   
   
@@ -1276,7 +1278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/01-preparacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/01-preparacion/" class="md-nav__link">
         
   
   
@@ -1304,7 +1306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/02-serializacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/02-serializacion/" class="md-nav__link">
         
   
   
@@ -1332,7 +1334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/03-deserializacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/03-deserializacion/" class="md-nav__link">
         
   
   
@@ -1360,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/04-colecciones/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/04-colecciones/" class="md-nav__link">
         
   
   
@@ -1388,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/05-ficheros/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/05-ficheros/" class="md-nav__link">
         
   
   
@@ -1416,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/06-adaptadores/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/06-adaptadores/" class="md-nav__link">
         
   
   
@@ -1444,7 +1446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/gson/07-resumen/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/gson/07-resumen/" class="md-nav__link">
         
   
   
@@ -1512,7 +1514,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/java-json/jackson/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/java-json/jackson/" class="md-nav__link ">
               
   
   
@@ -1556,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/01-preparacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/01-preparacion/" class="md-nav__link">
         
   
   
@@ -1584,7 +1586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/02-serializacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/02-serializacion/" class="md-nav__link">
         
   
   
@@ -1612,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/03-deserializacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/03-deserializacion/" class="md-nav__link">
         
   
   
@@ -1640,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/04-colecciones/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/04-colecciones/" class="md-nav__link">
         
   
   
@@ -1668,7 +1670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/05-ficheros/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/05-ficheros/" class="md-nav__link">
         
   
   
@@ -1696,7 +1698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/06-jsonnode-anotaciones/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/06-jsonnode-anotaciones/" class="md-nav__link">
         
   
   
@@ -1724,7 +1726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/java-json/jackson/07-resumen/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/java-json/jackson/07-resumen/" class="md-nav__link">
         
   
   
@@ -1800,7 +1802,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/python-json/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/python-json/" class="md-nav__link ">
               
   
   
@@ -1844,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/01-preparacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/01-preparacion/" class="md-nav__link">
         
   
   
@@ -1872,7 +1874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/02-dumps-loads/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/02-dumps-loads/" class="md-nav__link">
         
   
   
@@ -1900,7 +1902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/03-estructuras/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/03-estructuras/" class="md-nav__link">
         
   
   
@@ -1928,7 +1930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/04-ficheros/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/04-ficheros/" class="md-nav__link">
         
   
   
@@ -1956,7 +1958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/05-pathlib/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/05-pathlib/" class="md-nav__link">
         
   
   
@@ -1984,7 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/06-personalizacion/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/06-personalizacion/" class="md-nav__link">
         
   
   
@@ -2012,7 +2014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/python-json/07-resumen/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/python-json/07-resumen/" class="md-nav__link">
         
   
   
@@ -2070,7 +2072,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/03-intercambio/xml/" class="md-nav__link ">
+            <a href="../../ut1/03-intercambio/xml/" class="md-nav__link ">
               
   
   
@@ -2114,7 +2116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/xml/01-xml-basico/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/xml/01-xml-basico/" class="md-nav__link">
         
   
   
@@ -2142,7 +2144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
+      <a href="../../ut1/03-intercambio/xml/02-proyecto-java/" class="md-nav__link">
         
   
   
@@ -2214,7 +2216,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/04-analizadores/" class="md-nav__link ">
+            <a href="../../ut1/04-analizadores/" class="md-nav__link ">
               
   
   
@@ -2258,7 +2260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/04-analizadores/01-dom/" class="md-nav__link">
+      <a href="../../ut1/04-analizadores/01-dom/" class="md-nav__link">
         
   
   
@@ -2286,7 +2288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/04-analizadores/02-dom-crud/" class="md-nav__link">
+      <a href="../../ut1/04-analizadores/02-dom-crud/" class="md-nav__link">
         
   
   
@@ -2314,7 +2316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/04-analizadores/03-sax/" class="md-nav__link">
+      <a href="../../ut1/04-analizadores/03-sax/" class="md-nav__link">
         
   
   
@@ -2342,7 +2344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/04-analizadores/04-jaxb/" class="md-nav__link">
+      <a href="../../ut1/04-analizadores/04-jaxb/" class="md-nav__link">
         
   
   
@@ -2370,7 +2372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/04-analizadores/05-comparativa/" class="md-nav__link">
+      <a href="../../ut1/04-analizadores/05-comparativa/" class="md-nav__link">
         
   
   
@@ -2434,7 +2436,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/05-xpath/" class="md-nav__link ">
+            <a href="../../ut1/05-xpath/" class="md-nav__link ">
               
   
   
@@ -2478,7 +2480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/05-xpath/01-rutas-selectores/" class="md-nav__link">
+      <a href="../../ut1/05-xpath/01-rutas-selectores/" class="md-nav__link">
         
   
   
@@ -2506,7 +2508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/05-xpath/02-predicados/" class="md-nav__link">
+      <a href="../../ut1/05-xpath/02-predicados/" class="md-nav__link">
         
   
   
@@ -2534,7 +2536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/05-xpath/03-funciones/" class="md-nav__link">
+      <a href="../../ut1/05-xpath/03-funciones/" class="md-nav__link">
         
   
   
@@ -2562,7 +2564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/05-xpath/04-java/" class="md-nav__link">
+      <a href="../../ut1/05-xpath/04-java/" class="md-nav__link">
         
   
   
@@ -2590,7 +2592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/05-xpath/05-resumen/" class="md-nav__link">
+      <a href="../../ut1/05-xpath/05-resumen/" class="md-nav__link">
         
   
   
@@ -2654,7 +2656,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut1/06-conversion/" class="md-nav__link ">
+            <a href="../../ut1/06-conversion/" class="md-nav__link ">
               
   
   
@@ -2698,7 +2700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/06-conversion/01-enfoques/" class="md-nav__link">
+      <a href="../../ut1/06-conversion/01-enfoques/" class="md-nav__link">
         
   
   
@@ -2726,7 +2728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/06-conversion/02-xml-json/" class="md-nav__link">
+      <a href="../../ut1/06-conversion/02-xml-json/" class="md-nav__link">
         
   
   
@@ -2754,7 +2756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/06-conversion/03-json-xml/" class="md-nav__link">
+      <a href="../../ut1/06-conversion/03-json-xml/" class="md-nav__link">
         
   
   
@@ -2782,7 +2784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/06-conversion/04-automatica/" class="md-nav__link">
+      <a href="../../ut1/06-conversion/04-automatica/" class="md-nav__link">
         
   
   
@@ -2810,7 +2812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut1/06-conversion/05-resumen/" class="md-nav__link">
+      <a href="../../ut1/06-conversion/05-resumen/" class="md-nav__link">
         
   
   
@@ -2885,7 +2887,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut2/" class="md-nav__link ">
+            <a href="../../ut2/" class="md-nav__link ">
               
   
   
@@ -2929,7 +2931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/01-fundamentos/" class="md-nav__link">
+      <a href="../../ut2/01-fundamentos/" class="md-nav__link">
         
   
   
@@ -2957,7 +2959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/02-sentencias/" class="md-nav__link">
+      <a href="../../ut2/02-sentencias/" class="md-nav__link">
         
   
   
@@ -2985,7 +2987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/03-resultados/" class="md-nav__link">
+      <a href="../../ut2/03-resultados/" class="md-nav__link">
         
   
   
@@ -3013,7 +3015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/04-transacciones/" class="md-nav__link">
+      <a href="../../ut2/04-transacciones/" class="md-nav__link">
         
   
   
@@ -3041,7 +3043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/05-buenas-practicas/" class="md-nav__link">
+      <a href="../../ut2/05-buenas-practicas/" class="md-nav__link">
         
   
   
@@ -3069,7 +3071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/06-actividades/" class="md-nav__link">
+      <a href="../../ut2/06-actividades/" class="md-nav__link">
         
   
   
@@ -3097,7 +3099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut2/07-descargas/" class="md-nav__link">
+      <a href="../../ut2/07-descargas/" class="md-nav__link">
         
   
   
@@ -3166,7 +3168,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ut3/" class="md-nav__link ">
+            <a href="../../ut3/" class="md-nav__link ">
               
   
   
@@ -3210,7 +3212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/01-componentes/" class="md-nav__link">
+      <a href="../../ut3/01-componentes/" class="md-nav__link">
         
   
   
@@ -3238,7 +3240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/02-herramientas/" class="md-nav__link">
+      <a href="../../ut3/02-herramientas/" class="md-nav__link">
         
   
   
@@ -3266,7 +3268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/03-arquitectura-dao/" class="md-nav__link">
+      <a href="../../ut3/03-arquitectura-dao/" class="md-nav__link">
         
   
   
@@ -3294,7 +3296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/04-componentes-ficheros/" class="md-nav__link">
+      <a href="../../ut3/04-componentes-ficheros/" class="md-nav__link">
         
   
   
@@ -3322,7 +3324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/05-componentes-jdbc/" class="md-nav__link">
+      <a href="../../ut3/05-componentes-jdbc/" class="md-nav__link">
         
   
   
@@ -3350,7 +3352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/06-pruebas-documentacion/" class="md-nav__link">
+      <a href="../../ut3/06-pruebas-documentacion/" class="md-nav__link">
         
   
   
@@ -3378,7 +3380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/07-integracion/" class="md-nav__link">
+      <a href="../../ut3/07-integracion/" class="md-nav__link">
         
   
   
@@ -3406,7 +3408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ut3/08-actividades-descargas/" class="md-nav__link">
+      <a href="../../ut3/08-actividades-descargas/" class="md-nav__link">
         
   
   
@@ -3442,6 +3444,316 @@
   
   
   
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexo · Apache Maven
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Anexo · Apache Maven
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-recursos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursos de aprendizaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación y configuración
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-estructura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura del proyecto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    El archivo pom.xml
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-configuracion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración básica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-dependencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de dependencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ciclo-vida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ciclo de vida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -3457,7 +3769,7 @@
   <span class="md-ellipsis">
     
   
-    Anexo · Apache Maven
+    Comandos esenciales
   
 
     
@@ -3475,7 +3787,7 @@
   <span class="md-ellipsis">
     
   
-    Anexo · Apache Maven
+    Comandos esenciales
   
 
     
@@ -3501,253 +3813,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#apache-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Apache Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Apache Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-que-es-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. ¿Qué es Maven?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. ¿Qué es Maven?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-problema-resuelve-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Qué problema resuelve Maven?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-recursos-para-aprender-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Recursos para aprender Maven
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-instalacion-y-comprobacion-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Instalación y comprobación de Maven
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-organizacion-estandar-de-un-proyecto-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Organización estándar de un proyecto Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Organización estándar de un proyecto Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-contiene-cada-directorio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Qué contiene cada directorio?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-el-archivo-pomxml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. El archivo pom.xml
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. El archivo pom.xml">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#identificacion-de-un-proyecto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Identificación de un proyecto
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-configuracion-basica-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Configuración básica de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Configuración básica de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#explicacion-de-las-etiquetas-principales" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Explicación de las etiquetas principales
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-gestion-de-dependencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Gestión de dependencias
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Gestión de dependencias">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ejemplo-anadir-mysql-connectorj" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ejemplo: añadir MySQL Connector/J
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#donde-guarda-maven-las-dependencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Dónde guarda Maven las dependencias?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencias-de-produccion-y-de-pruebas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencias de producción y de pruebas
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencias-transitivas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencias transitivas
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-ciclo-de-vida-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Ciclo de vida de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. Ciclo de vida de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#como-funcionan-las-fases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Cómo funcionan las fases?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-comandos-esenciales-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Comandos esenciales de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Comandos esenciales de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#comprobar-la-version-de-maven" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3757,8 +3822,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#limpiar-los-resultados-anteriores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3768,8 +3833,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#compilar-el-proyecto" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3779,8 +3844,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#ejecutar-las-pruebas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3790,8 +3855,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#generar-un-archivo-jar" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3801,8 +3866,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#limpiar-y-construir-desde-cero" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3812,8 +3877,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#instalar-el-artefacto-localmente" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3823,8 +3888,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#resumen-de-comandos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3834,42 +3899,74 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-que-contiene-el-jar-generado" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. ¿Qué contiene el JAR generado?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#11-maven-y-los-entornos-de-desarrollo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. Maven y los entornos de desarrollo
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-jar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Empaquetado JAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maven y los IDE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -3902,253 +3999,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#apache-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Apache Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Apache Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-que-es-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. ¿Qué es Maven?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. ¿Qué es Maven?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-problema-resuelve-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Qué problema resuelve Maven?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-recursos-para-aprender-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Recursos para aprender Maven
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-instalacion-y-comprobacion-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Instalación y comprobación de Maven
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-organizacion-estandar-de-un-proyecto-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Organización estándar de un proyecto Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Organización estándar de un proyecto Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-contiene-cada-directorio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Qué contiene cada directorio?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-el-archivo-pomxml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. El archivo pom.xml
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. El archivo pom.xml">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#identificacion-de-un-proyecto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Identificación de un proyecto
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-configuracion-basica-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Configuración básica de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Configuración básica de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#explicacion-de-las-etiquetas-principales" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Explicación de las etiquetas principales
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-gestion-de-dependencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Gestión de dependencias
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Gestión de dependencias">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ejemplo-anadir-mysql-connectorj" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ejemplo: añadir MySQL Connector/J
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#donde-guarda-maven-las-dependencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Dónde guarda Maven las dependencias?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencias-de-produccion-y-de-pruebas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencias de producción y de pruebas
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencias-transitivas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencias transitivas
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-ciclo-de-vida-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Ciclo de vida de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. Ciclo de vida de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#como-funcionan-las-fases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ¿Cómo funcionan las fases?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-comandos-esenciales-de-maven" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Comandos esenciales de Maven
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Comandos esenciales de Maven">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#comprobar-la-version-de-maven" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4158,8 +4008,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#limpiar-los-resultados-anteriores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4169,8 +4019,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#compilar-el-proyecto" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4180,8 +4030,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#ejecutar-las-pruebas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4191,8 +4041,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#generar-un-archivo-jar" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4202,8 +4052,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#limpiar-y-construir-desde-cero" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4213,8 +4063,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#instalar-el-artefacto-localmente" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4224,8 +4074,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#resumen-de-comandos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4233,38 +4083,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-que-contiene-el-jar-generado" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. ¿Qué contiene el JAR generado?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#11-maven-y-los-entornos-de-desarrollo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. Maven y los entornos de desarrollo
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -4288,388 +4106,7 @@
   
 
 
-<h1 id="anexo-apache-maven-para-proyectos-java">Anexo · Apache Maven para proyectos Java<a class="headerlink" href="#anexo-apache-maven-para-proyectos-java" title="Permanent link">&para;</a></h1>
-<p>Este anexo amplía los conceptos de Maven utilizados en la <strong>UT3</strong>. Puede consultarse también como material de referencia para otros proyectos Java del módulo. Los ejemplos se plantean con <strong>JDK 21</strong>.</p>
-<h2 id="apache-maven">Apache Maven<a class="headerlink" href="#apache-maven" title="Permanent link">&para;</a></h2>
-<h3 id="1-que-es-maven">1. ¿Qué es Maven?<a class="headerlink" href="#1-que-es-maven" title="Permanent link">&para;</a></h3>
-<p><strong>Apache Maven</strong> es una herramienta de automatización y gestión de proyectos software, especialmente utilizada en el desarrollo de aplicaciones Java.</p>
-<p>Permite organizar los proyectos siguiendo una estructura estándar y automatizar tareas que, de otro modo, tendríamos que realizar manualmente.</p>
-<p>Entre sus principales funciones se encuentran:</p>
-<ul>
-<li><strong>Gestión de dependencias:</strong> descarga y administra las bibliotecas que necesita una aplicación.</li>
-<li><strong>Compilación:</strong> transforma los archivos <code>.java</code> en archivos <code>.class</code>.</li>
-<li><strong>Ejecución de pruebas:</strong> permite lanzar pruebas automatizadas.</li>
-<li><strong>Empaquetado:</strong> genera archivos distribuibles, como JAR.</li>
-<li><strong>Documentación:</strong> puede generar documentación mediante complementos.</li>
-<li><strong>Gestión del ciclo de vida:</strong> organiza las tareas de construcción en fases.</li>
-</ul>
-<h4 id="que-problema-resuelve-maven">¿Qué problema resuelve Maven?<a class="headerlink" href="#que-problema-resuelve-maven" title="Permanent link">&para;</a></h4>
-<p>Imagina que desarrollamos una aplicación Java que necesita conectarse a MySQL.</p>
-<p>Sin Maven, normalmente tendríamos que:</p>
-<ol>
-<li>Buscar y descargar el controlador JDBC.</li>
-<li>Añadir el archivo JAR al proyecto.</li>
-<li>Configurar el classpath para que Java encuentre la biblioteca.</li>
-<li>Repetir parte de este proceso cuando cambie la versión del controlador.</li>
-<li>Configurar manualmente otras bibliotecas necesarias para las pruebas.</li>
-</ol>
-<p>Con Maven, declaramos las dependencias en un archivo de configuración llamado <code>pom.xml</code>.</p>
-<p>Maven se encarga de localizarlas, descargarlas y ponerlas a disposición del proyecto.</p>
-<div class="admonition tip">
-<p class="admonition-title">Idea fundamental</p>
-<p>Maven no sustituye a Java ni al entorno de desarrollo.</p>
-<p><strong>Maven automatiza la construcción y gestión del proyecto</strong>, mientras que el JDK proporciona las herramientas necesarias para compilar y ejecutar código Java.</p>
-</div>
-<h3 id="2-recursos-para-aprender-maven">2. Recursos para aprender Maven<a class="headerlink" href="#2-recursos-para-aprender-maven" title="Permanent link">&para;</a></h3>
-<p><strong>Vídeo complementario en inglés:</strong></p>
-<p><a href="https://www.youtube.com/watch?v=Xatr8AZLOsE">Maven Tutorial – Crash Course (YouTube, en inglés)</a></p>
-<p>El vídeo sirve como apoyo visual para los conceptos de:</p>
-<ul>
-<li>Configuración de Maven.</li>
-<li>Gestión del ciclo de vida.</li>
-<li>Dependencias.</li>
-<li>Integración con otras herramientas.</li>
-</ul>
-<p><strong>Documentación oficial:</strong></p>
-<ul>
-<li><a href="https://maven.apache.org/">Apache Maven</a></li>
-<li><a href="https://maven.apache.org/guides/getting-started/">Introducción a Maven</a></li>
-<li><a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Introducción al archivo POM</a></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Recomendación</p>
-<p>Antes de continuar, asegúrate de comprender tres conceptos: <strong>proyecto Maven</strong>, <strong>archivo <code>pom.xml</code></strong> y <strong>dependencia</strong>.</p>
-</div>
-<h3 id="3-instalacion-y-comprobacion-de-maven">3. Instalación y comprobación de Maven<a class="headerlink" href="#3-instalacion-y-comprobacion-de-maven" title="Permanent link">&para;</a></h3>
-<p>Para trabajar con Maven necesitamos disponer de un JDK instalado y de Maven accesible desde el sistema, o utilizar el Maven integrado en el entorno de desarrollo.</p>
-<p>En esta unidad utilizaremos <strong>JDK 21</strong>.</p>
-<p>Abre una terminal y comprueba la versión de Java:</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-version
-</code></pre></div>
-<p>Comprueba también el compilador:</p>
-<div class="highlight"><pre><span></span><code>javac<span class="w"> </span>-version
-</code></pre></div>
-<p>Y finalmente Maven:</p>
-<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>-version
-</code></pre></div>
-<p>La salida de Maven debe indicar su versión y el entorno Java que está utilizando.</p>
-<div class="admonition warning">
-<p class="admonition-title">Posibles problemas</p>
-<p>Si aparece un mensaje indicando que <code>mvn</code> no se reconoce como comando, Maven no está instalado o no está correctamente configurado en el <code>PATH</code>.</p>
-<p>Si Maven utiliza una versión de Java diferente de JDK 21, habrá que revisar la configuración del entorno, especialmente <code>JAVA_HOME</code>.</p>
-</div>
-<h3 id="4-organizacion-estandar-de-un-proyecto-maven">4. Organización estándar de un proyecto Maven<a class="headerlink" href="#4-organizacion-estandar-de-un-proyecto-maven" title="Permanent link">&para;</a></h3>
-<p>Una ventaja de Maven es que utiliza una <strong>estructura de directorios convencional</strong>.</p>
-<p>Esto permite que diferentes desarrolladores puedan reconocer rápidamente dónde se encuentra cada elemento de un proyecto.</p>
-<p>Ejemplo:</p>
-<div class="highlight"><pre><span></span><code>gestion-productos/
-│
-├── pom.xml
-├── README.md
-│
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── es/
-│   │   │       └── iesisidra/
-│   │   │           └── productos/
-│   │   │               ├── modelo/
-│   │   │               │   └── Producto.java
-│   │   │               └── dao/
-│   │   │                   └── ProductoDAO.java
-│   │   │
-│   │   └── resources/
-│   │
-│   └── test/
-│       ├── java/
-│       │   └── es/
-│       │       └── iesisidra/
-│       │           └── productos/
-│       │
-│       └── resources/
-│
-└── target/
-</code></pre></div>
-<h4 id="que-contiene-cada-directorio">¿Qué contiene cada directorio?<a class="headerlink" href="#que-contiene-cada-directorio" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Elemento</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pom.xml</code></td>
-<td>Archivo principal de configuración de Maven.</td>
-</tr>
-<tr>
-<td><code>README.md</code></td>
-<td>Información general y documentación del proyecto.</td>
-</tr>
-<tr>
-<td><code>src/main/java</code></td>
-<td>Código fuente Java de la aplicación.</td>
-</tr>
-<tr>
-<td><code>src/main/resources</code></td>
-<td>Archivos de configuración y otros recursos de producción.</td>
-</tr>
-<tr>
-<td><code>src/test/java</code></td>
-<td>Código de las pruebas automatizadas.</td>
-</tr>
-<tr>
-<td><code>src/test/resources</code></td>
-<td>Recursos utilizados por las pruebas.</td>
-</tr>
-<tr>
-<td><code>target/</code></td>
-<td>Resultados de compilación y empaquetado.</td>
-</tr>
-</tbody>
-</table>
-<p>El directorio <code>target/</code> se genera durante la construcción del proyecto.</p>
-<div class="admonition note">
-<p class="admonition-title">Buenas prácticas</p>
-<p>Normalmente, <code>target/</code> no debe incorporarse al repositorio Git, ya que contiene archivos generados automáticamente.</p>
-<p>Se recomienda incluirlo en <code>.gitignore</code>.</p>
-</div>
-<h3 id="5-el-archivo-pomxml">5. El archivo pom.xml<a class="headerlink" href="#5-el-archivo-pomxml" title="Permanent link">&para;</a></h3>
-<p>El archivo <strong>POM (Project Object Model)</strong> es el elemento central de un proyecto Maven.</p>
-<p>Es un archivo XML que describe cómo está configurado el proyecto.</p>
-<p>Entre otras cosas, permite indicar:</p>
-<ul>
-<li>Identificación del proyecto.</li>
-<li>Versión del proyecto.</li>
-<li>Tipo de empaquetado.</li>
-<li>Versión de Java.</li>
-<li>Dependencias externas.</li>
-<li>Complementos de construcción.</li>
-</ul>
-<h4 id="identificacion-de-un-proyecto">Identificación de un proyecto<a class="headerlink" href="#identificacion-de-un-proyecto" title="Permanent link">&para;</a></h4>
-<p>Maven utiliza principalmente tres elementos para identificar un proyecto:</p>
-<table>
-<thead>
-<tr>
-<th>Elemento</th>
-<th>Significado</th>
-<th>Ejemplo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>groupId</code></td>
-<td>Identificador del grupo u organización.</td>
-<td><code>es.iesisidra</code></td>
-</tr>
-<tr>
-<td><code>artifactId</code></td>
-<td>Nombre del artefacto o proyecto.</td>
-<td><code>gestion-productos</code></td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>Versión del proyecto.</td>
-<td><code>1.0-SNAPSHOT</code></td>
-</tr>
-</tbody>
-</table>
-<p>La combinación de estos valores identifica un artefacto Maven.</p>
-<p>Por ejemplo:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;groupId&gt;</span>es.iesisidra<span class="nt">&lt;/groupId&gt;</span>
-<span class="nt">&lt;artifactId&gt;</span>gestion-productos<span class="nt">&lt;/artifactId&gt;</span>
-<span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-</code></pre></div>
-<p>El sufijo <code>SNAPSHOT</code> suele indicar una versión en desarrollo.</p>
-<h3 id="6-configuracion-basica-de-maven">6. Configuración básica de Maven<a class="headerlink" href="#6-configuracion-basica-de-maven" title="Permanent link">&para;</a></h3>
-<p>Vamos a examinar un ejemplo de <code>pom.xml</code> para un proyecto Java que utiliza JDK 21.</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-
-<span class="nt">&lt;project</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>
-<span class="w">         </span><span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
-<span class="w">         </span><span class="na">xsi:schemaLocation=</span><span class="s">"</span>
-<span class="s">           http://maven.apache.org/POM/4.0.0</span>
-<span class="s">           https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>es.iesisidra<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>gestion-productos<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;properties&gt;</span>
-<span class="w">        </span><span class="nt">&lt;maven.compiler.release&gt;</span>21<span class="nt">&lt;/maven.compiler.release&gt;</span>
-<span class="w">        </span><span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/properties&gt;</span>
-
-<span class="nt">&lt;/project&gt;</span>
-</code></pre></div>
-<h4 id="explicacion-de-las-etiquetas-principales">Explicación de las etiquetas principales<a class="headerlink" href="#explicacion-de-las-etiquetas-principales" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Etiqueta</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>&lt;project&gt;</code></td>
-<td>Elemento raíz del archivo POM.</td>
-</tr>
-<tr>
-<td><code>&lt;modelVersion&gt;</code></td>
-<td>Versión del modelo POM.</td>
-</tr>
-<tr>
-<td><code>&lt;groupId&gt;</code></td>
-<td>Identificador de la organización o grupo.</td>
-</tr>
-<tr>
-<td><code>&lt;artifactId&gt;</code></td>
-<td>Identificador del proyecto.</td>
-</tr>
-<tr>
-<td><code>&lt;version&gt;</code></td>
-<td>Versión del artefacto.</td>
-</tr>
-<tr>
-<td><code>&lt;packaging&gt;</code></td>
-<td>Tipo de empaquetado, en este caso JAR.</td>
-</tr>
-<tr>
-<td><code>&lt;properties&gt;</code></td>
-<td>Propiedades de configuración.</td>
-</tr>
-<tr>
-<td><code>&lt;maven.compiler.release&gt;</code></td>
-<td>Versión de Java utilizada para compilar.</td>
-</tr>
-<tr>
-<td><code>&lt;project.build.sourceEncoding&gt;</code></td>
-<td>Codificación de los archivos fuente.</td>
-</tr>
-</tbody>
-</table>
-<p>En nuestro caso, la propiedad:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;maven.compiler.release&gt;</span>21<span class="nt">&lt;/maven.compiler.release&gt;</span>
-</code></pre></div>
-<p>indica que el proyecto debe compilarse para <strong>Java 21</strong>, utilizando un JDK compatible.</p>
-<div class="admonition tip">
-<p class="admonition-title">Importante</p>
-<p>El archivo <code>pom.xml</code> debe situarse en la raíz del proyecto.</p>
-<p>Los comandos Maven se ejecutarán normalmente desde la carpeta que contiene este archivo.</p>
-</div>
-<h3 id="7-gestion-de-dependencias">7. Gestión de dependencias<a class="headerlink" href="#7-gestion-de-dependencias" title="Permanent link">&para;</a></h3>
-<p>Una <strong>dependencia</strong> es una biblioteca externa que nuestro proyecto necesita para funcionar o realizar determinadas tareas.</p>
-<p>Por ejemplo:</p>
-<ul>
-<li>MySQL Connector/J permite conectarnos a MySQL mediante JDBC.</li>
-<li>JUnit 5 permite escribir y ejecutar pruebas automatizadas.</li>
-</ul>
-<p>Las dependencias se declaran dentro del elemento <code>&lt;dependencies&gt;</code> del archivo <code>pom.xml</code>.</p>
-<h4 id="ejemplo-anadir-mysql-connectorj">Ejemplo: añadir MySQL Connector/J<a class="headerlink" href="#ejemplo-anadir-mysql-connectorj" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependencies&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
-<span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.mysql<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>mysql-connector-j<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">        </span><span class="nt">&lt;version&gt;</span>9.2.0<span class="nt">&lt;/version&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
-
-<span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></div>
-<p>La versión mostrada es un ejemplo de configuración. En el proyecto de la unidad utilizaremos la versión indicada en el POM proporcionado.</p>
-<p>Cuando Maven procesa el proyecto, descarga las bibliotecas necesarias desde los repositorios configurados.</p>
-<p>El repositorio público más habitual es <strong>Maven Central</strong>:</p>
-<p>https://central.sonatype.com/</p>
-<h4 id="donde-guarda-maven-las-dependencias">¿Dónde guarda Maven las dependencias?<a class="headerlink" href="#donde-guarda-maven-las-dependencias" title="Permanent link">&para;</a></h4>
-<p>Por defecto, Maven utiliza un repositorio local situado en:</p>
-<p><strong>Windows:</strong></p>
-<div class="highlight"><pre><span></span><code>C:\Users\TU_USUARIO\.m2\repository
-</code></pre></div>
-<p><strong>Linux:</strong></p>
-<div class="highlight"><pre><span></span><code>~/.m2/repository
-</code></pre></div>
-<p>Cuando una biblioteca ya está descargada, Maven puede reutilizarla en otros proyectos.</p>
-<h4 id="dependencias-de-produccion-y-de-pruebas">Dependencias de producción y de pruebas<a class="headerlink" href="#dependencias-de-produccion-y-de-pruebas" title="Permanent link">&para;</a></h4>
-<p>No todas las bibliotecas se utilizan para lo mismo.</p>
-<p>Por ejemplo, JUnit se necesita para ejecutar pruebas, pero normalmente no forma parte de las dependencias de ejecución de la aplicación.</p>
-<p>Esto se indica mediante <code>scope</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
-<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.junit.jupiter<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>junit-jupiter<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;version&gt;</span>5.11.4<span class="nt">&lt;/version&gt;</span>
-<span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>
-<p>En este ejemplo, <code>test</code> indica que la dependencia se utiliza para las pruebas.</p>
-<h4 id="dependencias-transitivas">Dependencias transitivas<a class="headerlink" href="#dependencias-transitivas" title="Permanent link">&para;</a></h4>
-<p>Una biblioteca puede necesitar otras bibliotecas para funcionar.</p>
-<p>Maven puede resolver también esas dependencias indirectas, conocidas como <strong>dependencias transitivas</strong>.</p>
-<div class="admonition note">
-<p class="admonition-title">Ventaja de Maven</p>
-<p>No necesitamos descargar manualmente cada archivo JAR ni gestionar todas las dependencias de forma individual.</p>
-<p>Maven permite centralizar esta información en <code>pom.xml</code>.</p>
-</div>
-<h3 id="8-ciclo-de-vida-de-maven">8. Ciclo de vida de Maven<a class="headerlink" href="#8-ciclo-de-vida-de-maven" title="Permanent link">&para;</a></h3>
-<p>Maven organiza la construcción de un proyecto mediante un conjunto de <strong>fases</strong>.</p>
-<p>Cada fase tiene una finalidad concreta.</p>
-<p>Algunas de las más importantes son:</p>
-<table>
-<thead>
-<tr>
-<th>Fase</th>
-<th>Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>validate</code></td>
-<td>Comprueba la información básica del proyecto.</td>
-</tr>
-<tr>
-<td><code>compile</code></td>
-<td>Compila el código de producción.</td>
-</tr>
-<tr>
-<td><code>test</code></td>
-<td>Ejecuta las pruebas unitarias.</td>
-</tr>
-<tr>
-<td><code>package</code></td>
-<td>Genera el artefacto distribuible, por ejemplo un JAR.</td>
-</tr>
-<tr>
-<td><code>verify</code></td>
-<td>Ejecuta comprobaciones adicionales configuradas para verificar el proyecto.</td>
-</tr>
-<tr>
-<td><code>install</code></td>
-<td>Instala el artefacto en el repositorio Maven local.</td>
-</tr>
-<tr>
-<td><code>deploy</code></td>
-<td>Publica el artefacto en un repositorio remoto configurado.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="como-funcionan-las-fases">¿Cómo funcionan las fases?<a class="headerlink" href="#como-funcionan-las-fases" title="Permanent link">&para;</a></h4>
-<p>Cuando ejecutamos una fase, Maven realiza también las fases anteriores necesarias dentro del mismo ciclo de vida.</p>
-<p>Por ejemplo:</p>
-<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>package
-</code></pre></div>
-<p>No se limita a generar un JAR. Antes ejecuta las fases previas del ciclo de vida predeterminado, incluyendo la compilación y las pruebas.</p>
-<p>Esto permite automatizar la construcción de manera ordenada.</p>
-<div class="admonition warning">
-<p class="admonition-title">No confundir</p>
-<p><code>mvn deploy</code> publica un artefacto Maven en un repositorio configurado para ello.</p>
-<p>No significa publicar automáticamente una aplicación en un servidor web.</p>
-</div>
-<h3 id="9-comandos-esenciales-de-maven">9. Comandos esenciales de Maven<a class="headerlink" href="#9-comandos-esenciales-de-maven" title="Permanent link">&para;</a></h3>
+<h1 id="9-comandos-esenciales-de-maven">9. Comandos esenciales de Maven<a class="headerlink" href="#9-comandos-esenciales-de-maven" title="Permanent link">&para;</a></h1>
 <p>Los siguientes comandos se ejecutan desde la carpeta donde se encuentra <code>pom.xml</code>.</p>
 <h4 id="comprobar-la-version-de-maven">Comprobar la versión de Maven<a class="headerlink" href="#comprobar-la-version-de-maven" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>-version
@@ -4751,38 +4188,6 @@
 </tr>
 </tbody>
 </table>
-<h3 id="10-que-contiene-el-jar-generado">10. ¿Qué contiene el JAR generado?<a class="headerlink" href="#10-que-contiene-el-jar-generado" title="Permanent link">&para;</a></h3>
-<p>Un archivo <strong>JAR (Java Archive)</strong> permite agrupar clases compiladas y recursos Java.</p>
-<p>Un JAR estándar de Maven puede contener:</p>
-<ul>
-<li>Archivos <code>.class</code> compilados.</li>
-<li>Recursos del proyecto.</li>
-<li>Información de empaquetado.</li>
-<li>Metadatos Maven.</li>
-</ul>
-<p>Sin embargo, no suele incluir automáticamente todas las dependencias externas.</p>
-<div class="admonition warning">
-<p class="admonition-title">El JAR no incluye automáticamente todas las dependencias</p>
-<p>Si nuestro proyecto utiliza MySQL Connector/J, el controlador debe estar disponible durante la ejecución.</p>
-<p>Para crear un JAR que incorpore dependencias externas es necesario utilizar una configuración específica de empaquetado.</p>
-<p>En esta unidad ejecutaremos normalmente los proyectos desde Maven o desde el IDE.</p>
-</div>
-<h3 id="11-maven-y-los-entornos-de-desarrollo">11. Maven y los entornos de desarrollo<a class="headerlink" href="#11-maven-y-los-entornos-de-desarrollo" title="Permanent link">&para;</a></h3>
-<p>Los principales IDE de Java permiten trabajar con proyectos Maven.</p>
-<p>En VS Code, Eclipse o IntelliJ IDEA podemos:</p>
-<ul>
-<li>Abrir un proyecto que contiene <code>pom.xml</code>.</li>
-<li>Consultar las dependencias.</li>
-<li>Ejecutar comandos Maven.</li>
-<li>Compilar el proyecto.</li>
-<li>Ejecutar pruebas.</li>
-<li>Actualizar la configuración cuando cambia el POM.</li>
-</ul>
-<div class="admonition tip">
-<p class="admonition-title">Recomendación</p>
-<p>Aunque el IDE permita realizar estas operaciones mediante botones o menús, es importante conocer los comandos básicos de Maven.</p>
-<p>De esta forma podremos trabajar también desde una terminal y comprender mejor cómo se construye el proyecto.</p>
-</div>
 
 
 
@@ -4838,10 +4243,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
