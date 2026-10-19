@@ -100,10 +100,66 @@ Este fragmento es **esquemático**: `insertarAlbaran` representa una operación 
 
 ## Ejercicios
 
-1. Ejecuta una transferencia válida y comprueba ambos saldos.
-2. Intenta transferir más saldo del disponible; verifica que no cambian los saldos.
-3. Intenta ingresar en una cuenta inexistente; verifica que se deshace el descuento.
-4. Explica qué sucedería si el DAO abriese una conexión nueva para cada actualización.
-5. Diseña un caso en el que sí tenga sentido utilizar `Savepoint`.
+Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.
+
+**1. Ejecuta una transferencia válida y comprueba ambos saldos.**
+
+??? success "Mostrar solución · Ejercicio 1"
+    Prepara dos cuentas de prueba, por ejemplo, origen con **100,00 €** y destino con **50,00 €**. Transfiere **20,00 €** utilizando el servicio del proyecto `jdbc-transacciones`.
+
+    **Resultado esperado:** origen **80,00 €**, destino **70,00 €**, siempre que no haya otras operaciones concurrentes. Verifica los saldos con una consulta `SELECT` antes y después. Ambas actualizaciones deben usar **la misma `Connection`** y confirmarse con `commit()`.
+
+
+**2. Intenta transferir más saldo del disponible; verifica que no cambian los saldos.**
+
+??? success "Mostrar solución · Ejercicio 2"
+    Con origen **100,00 €** y destino **50,00 €**, intenta transferir **150,00 €**.
+
+    La operación de descuento debe impedir saldos negativos mediante una condición como:
+
+    ```sql
+    UPDATE cuentas
+    SET saldo = saldo - ?
+    WHERE id = ? AND saldo >= ?;
+    ```
+
+    Los nombres `cuentas`, `id` y `saldo` son orientativos; usa los del proyecto. Si no se actualiza exactamente una fila, el servicio debe lanzar un error y ejecutar `rollback()`. **Resultado esperado:** ambos saldos permanecen en 100,00 € y 50,00 €.
+
+
+**3. Intenta ingresar en una cuenta inexistente; verifica que se deshace el descuento.**
+
+??? success "Mostrar solución · Ejercicio 3"
+    Utiliza una cuenta de origen válida y un identificador de destino que no exista en la tabla. El primer `UPDATE` puede descontar el importe, pero el segundo afectará a **cero filas**.
+
+    ```java
+    if (filasOrigen != 1 || filasDestino != 1) {
+        throw new SQLException("No se pudo completar la transferencia");
+    }
+    ```
+
+    El `catch` debe ejecutar `con.rollback()`. **Comprobación:** vuelve a consultar el saldo del origen; debe ser igual al inicial. Esto demuestra la **atomicidad** de la transacción.
+
+
+**4. Explica qué sucedería si el DAO abriese una conexión nueva para cada actualización.**
+
+??? success "Mostrar solución · Ejercicio 4"
+    Cada actualización podría ejecutarse en **una transacción distinta**, especialmente si las conexiones tienen `autoCommit` activado. Si se confirma el descuento y falla el ingreso, el `rollback()` de otra conexión **no puede deshacer el descuento ya confirmado**.
+
+    **Solución de diseño:** el servicio abre una sola conexión, desactiva `autoCommit` y se la pasa a los métodos del DAO. El servicio es quien decide `commit()` o `rollback()` para toda la operación.
+
+
+**5. Diseña un caso en el que sí tenga sentido utilizar `Savepoint`.**
+
+??? success "Mostrar solución · Ejercicio 5"
+    **Ejemplo:** registrar un pedido y, después, intentar crear un albarán opcional. Si falla el albarán, se desea conservar el pedido.
+
+    1. Se inicia la transacción y se registra el pedido.
+    2. Se crea `Savepoint punto = con.setSavepoint("PEDIDO_CREADO")`.
+    3. Se intenta insertar el albarán.
+    4. Si falla, se ejecuta `con.rollback(punto)`.
+    5. Se confirma el pedido con `con.commit()`.
+
+    **Condición:** la lógica de negocio debe permitir que el pedido exista sin albarán. No uses este enfoque en una transferencia bancaria, porque sus dos movimientos son indivisibles.
+
 
 **Proyecto:** [jdbc-transacciones](07-descargas.md).

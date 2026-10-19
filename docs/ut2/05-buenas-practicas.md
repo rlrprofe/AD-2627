@@ -63,9 +63,53 @@ No muestres trazas completas ni credenciales al usuario final. En prácticas, `S
 
 ## Preguntas para revisar un proyecto
 
-- ¿Qué clase contiene SQL y por qué?
-- ¿Qué ocurre si la conexión falla?
-- ¿Qué pasa cuando `executeUpdate()` devuelve cero?
-- ¿Se cierran `Connection`, `PreparedStatement` y `ResultSet`?
-- ¿Se comprueba el resultado de cada paso antes de confirmar una transacción?
-- ¿Es posible explicar el código sin consultar una solución externa?
+Utiliza estas preguntas como una **lista de autoevaluación razonada** antes de entregar tu proyecto. Primero revisa tu propio código y después consulta la explicación.
+
+**1. ¿Qué clase contiene SQL y por qué?**
+
+??? success "Mostrar solución · Ejercicio 1"
+    La capa **DAO** debe contener las sentencias SQL y el mapeo de los resultados a objetos del modelo. Así, el menú no necesita conocer la estructura de las tablas y el servicio puede centrarse en reglas de negocio y transacciones.
+
+
+**2. ¿Qué ocurre si la conexión falla?**
+
+??? success "Mostrar solución · Ejercicio 2"
+    `ConexionBD.abrir()` puede lanzar una `SQLException`. La operación debe detenerse y mostrar o registrar un mensaje adecuado, sin exponer contraseñas. El servicio o la capa que gestione la operación decidirá si reintenta, informa del error o aborta. No debe continuar como si existiera una conexión válida.
+
+
+**3. ¿Qué pasa cuando `executeUpdate()` devuelve cero?**
+
+??? success "Mostrar solución · Ejercicio 3"
+    Puede significar que **no se encontró ningún registro** que cumpla la condición o que no hubo filas contadas como afectadas, según la operación y la configuración del driver. En un `DELETE` por clave primaria, normalmente indica que no existía la fila. En una transferencia, si se exige actualizar exactamente una fila, el servicio debe considerarlo un fallo y deshacer la transacción.
+
+
+**4. ¿Se cierran `Connection`, `PreparedStatement` y `ResultSet`?**
+
+??? success "Mostrar solución · Ejercicio 4"
+    Compruébalo revisando los bloques `try-with-resources`:
+
+    ```java
+    try (Connection con = ConexionBD.abrir();
+         PreparedStatement ps = con.prepareStatement("SELECT emp_no FROM empleados");
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            System.out.println(rs.getInt("emp_no"));
+        }
+    }
+    ```
+
+    Los tres recursos se cierran automáticamente, también si se lanza una excepción. Si el servicio gestiona una transacción, el DAO **no debe cerrar la conexión recibida** antes de que el servicio haga `commit()` o `rollback()`.
+
+
+**5. ¿Se comprueba el resultado de cada paso antes de confirmar una transacción?**
+
+??? success "Mostrar solución · Ejercicio 5"
+    Una transferencia correcta comprueba que **cada actualización afecta exactamente a una fila** y que se respetan las reglas de saldo. Solo entonces llama a `commit()`. Ante cualquier fallo debe ejecutar `rollback()`; de otro modo puede dejar datos inconsistentes.
+
+
+**6. ¿Es posible explicar el código sin consultar una solución externa?**
+
+??? success "Mostrar solución · Ejercicio 6"
+    Para comprobarlo, intenta justificar sin mirar apuntes: qué hace cada clase, de dónde viene la conexión, por qué se usa `PreparedStatement`, qué sucede si una consulta no encuentra filas, cómo se cierran los recursos y qué provoca un `rollback()`. Si alguna respuesta no está clara, vuelve al bloque correspondiente y reproduce el ejemplo.
+
+

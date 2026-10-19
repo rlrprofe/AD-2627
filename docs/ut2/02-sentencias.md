@@ -106,10 +106,123 @@ El proyecto descargable incluye además un procedimiento con parámetro `INOUT` 
 
 ## Ejercicios
 
-1. Crea una tabla de registro mediante `Statement`.
-2. Inserta un producto con `PreparedStatement`.
-3. Consulta productos cuyo precio sea inferior a un límite introducido por teclado.
-4. Actualiza el stock y comprueba las filas afectadas.
-5. Ejecuta `contarEmpleados` y explica por qué `registerOutParameter()` es necesario.
+Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.
+
+**1. Crea una tabla de registro mediante `Statement`.**
+
+??? success "Mostrar solución · Ejercicio 1"
+    Una posible tabla para registrar operaciones de la aplicación es `registro_operaciones`. Utiliza `executeUpdate()` porque `CREATE TABLE` no devuelve un `ResultSet`.
+
+    ```java
+    String sql = """
+        CREATE TABLE IF NOT EXISTS registro_operaciones (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            descripcion VARCHAR(200) NOT NULL,
+            fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """;
+    try (Connection con = ConexionBD.abrir();
+         Statement st = con.createStatement()) {
+        st.executeUpdate(sql);
+        System.out.println("Tabla preparada");
+    }
+    ```
+
+    **Comprobación:** ejecuta `SHOW TABLES` o `DESCRIBE registro_operaciones` en MySQL. El valor devuelto por `executeUpdate()` para DDL no representa filas insertadas; en MySQL suele ser `0`. Ejecuta DDL solo sobre una base de prácticas.
+
+
+**2. Inserta un producto con `PreparedStatement`.**
+
+??? success "Mostrar solución · Ejercicio 2"
+    ```java
+    String sql = """
+        INSERT INTO productos
+        (producto_no, descripcion, precio_actual, stock_disponible)
+        VALUES (?, ?, ?, ?)
+        """;
+    try (Connection con = ConexionBD.abrir();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, 9002);
+        ps.setString(2, "Ratón de prácticas");
+        ps.setBigDecimal(3, new BigDecimal("14.50"));
+        ps.setInt(4, 15);
+        int filas = ps.executeUpdate();
+        System.out.println("Filas insertadas: " + filas);
+    }
+    ```
+
+    **Resultado esperado:** `1` fila insertada, si el identificador no existe y se cumplen las restricciones. Usa los imports de `java.sql` y `java.math.BigDecimal`. Repite la consulta en MySQL para verificar la inserción.
+
+
+**3. Consulta productos cuyo precio sea inferior a un límite introducido por teclado.**
+
+??? success "Mostrar solución · Ejercicio 3"
+    ```java
+    Scanner teclado = new Scanner(System.in);
+    System.out.print("Precio máximo: ");
+    BigDecimal limite = new BigDecimal(teclado.nextLine());
+    String sql = """
+        SELECT producto_no, descripcion, precio_actual
+        FROM productos WHERE precio_actual < ?
+        ORDER BY precio_actual
+        """;
+    try (Connection con = ConexionBD.abrir();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setBigDecimal(1, limite);
+        try (ResultSet rs = ps.executeQuery()) {
+            boolean encontrado = false;
+            while (rs.next()) {
+                encontrado = true;
+                System.out.printf("%d - %s: %s €%n",
+                    rs.getInt("producto_no"),
+                    rs.getString("descripcion"),
+                    rs.getBigDecimal("precio_actual"));
+            }
+            if (!encontrado) System.out.println("Sin resultados");
+        }
+    }
+    ```
+
+    El límite se introduce como **valor parametrizado**, no se concatena al SQL. Controla `NumberFormatException` cuando integres este ejemplo en un menú.
+
+
+**4. Actualiza el stock y comprueba las filas afectadas.**
+
+??? success "Mostrar solución · Ejercicio 4"
+    ```java
+    String sql = "UPDATE productos SET stock_disponible = ? WHERE producto_no = ?";
+    try (Connection con = ConexionBD.abrir();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, 20);
+        ps.setInt(2, 9002);
+        int filas = ps.executeUpdate();
+        if (filas == 1) {
+            System.out.println("Stock actualizado");
+        } else if (filas == 0) {
+            System.out.println("Producto inexistente o sin filas afectadas");
+        } else {
+            System.out.println("Revisar actualización: " + filas);
+        }
+    }
+    ```
+
+    **Comprobación:** consulta el stock antes y después. La interpretación exacta del número de filas de `UPDATE` puede depender de la configuración del driver y de si se cuentan filas encontradas o modificadas.
+
+
+**5. Ejecuta `contarEmpleados` y explica por qué `registerOutParameter()` es necesario.**
+
+??? success "Mostrar solución · Ejercicio 5"
+    ```java
+    try (Connection con = ConexionBD.abrir();
+         CallableStatement cs = con.prepareCall("{call contarEmpleados(?)}")) {
+        cs.registerOutParameter(1, Types.INTEGER);
+        cs.execute();
+        int total = cs.getInt(1);
+        System.out.println("Empleados: " + total);
+    }
+    ```
+
+    `registerOutParameter(1, Types.INTEGER)` indica que el primer parámetro es **de salida** y cuál es su tipo SQL. Después de ejecutar el procedimiento, `getInt(1)` recupera el valor devuelto. El procedimiento debe haberse creado previamente con el script SQL correspondiente.
+
 
 **Descargas:** [Statement, PreparedStatement y CallableStatement](07-descargas.md).
