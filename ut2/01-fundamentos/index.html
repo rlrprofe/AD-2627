@@ -4229,13 +4229,45 @@
 </code></pre></div>
 <p><code>ConexionBD</code> es una clase auxiliar incluida en cada proyecto descargable. Lee la URL, el usuario y la contraseña de variables de entorno; así evitamos publicar credenciales dentro del código.</p>
 <h3 id="ejercicios-de-comprension">Ejercicios de comprensión<a class="headerlink" href="#ejercicios-de-comprension" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Identifica qué componente traduce las operaciones JDBC al protocolo MySQL.</li>
-<li>Explica por qué un driver tipo 1 no es adecuado para JDK 21.</li>
-<li>Indica la diferencia entre un gestor embebido y uno cliente-servidor.</li>
-<li>Explica qué ocurre si el servidor MySQL no está iniciado.</li>
-<li>¿Qué recurso debe cerrarse incluso si se produce una excepción?</li>
-</ol>
+<p>Intenta responder primero sin consultar los apuntes. Después, haz clic en <strong>Mostrar solución</strong> para comprobar tu respuesta y leer la explicación.</p>
+<p><strong>1. Identifica qué componente traduce las operaciones JDBC al protocolo MySQL.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 1</summary>
+<p>El <strong>driver JDBC de MySQL (MySQL Connector/J)</strong> implementa las interfaces de JDBC y se encarga de comunicarse con MySQL mediante su protocolo. La aplicación trabaja con interfaces como <code>Connection</code> y <code>PreparedStatement</code>, mientras que el driver realiza la comunicación específica con el gestor.</p>
+<p>Por tanto, <strong>JDBC define las interfaces</strong> y <strong>el driver aporta la implementación</strong> para MySQL.</p>
+</details>
+<p><strong>2. Explica por qué un driver tipo 1 no es adecuado para JDK 21.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 2</summary>
+<p>El driver de <strong>tipo 1</strong> era un puente entre JDBC y ODBC. El puente JDBC–ODBC que se incluía antiguamente en Java <strong>se eliminó del JDK a partir de Java 8</strong>, por lo que no forma parte de JDK 21.</p>
+<p>Para trabajar con MySQL en Java 21 utilizamos normalmente un <strong>driver de tipo 4</strong>, como MySQL Connector/J, que implementa directamente el protocolo del gestor desde Java.</p>
+</details>
+<p><strong>3. Indica la diferencia entre un gestor embebido y uno cliente-servidor.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 3</summary>
+<p>Un gestor <strong>embebido</strong>, como SQLite, se integra en la aplicación y normalmente almacena los datos en un archivo, sin requerir un servidor de bases de datos independiente.</p>
+<p>Un gestor <strong>cliente-servidor</strong>, como MySQL o PostgreSQL, funciona mediante un servicio de base de datos al que se conectan las aplicaciones, incluso a través de la red. Puede atender a distintos clientes y usuarios.</p>
+<p><strong>Ejemplo:</strong> una aplicación puede abrir un archivo SQLite local; para conectarse a MySQL necesita que el servicio MySQL esté disponible.</p>
+</details>
+<p><strong>4. Explica qué ocurre si el servidor MySQL no está iniciado.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 4</summary>
+<p>Si la aplicación intenta abrir una conexión y <strong>no hay un servidor MySQL escuchando en la dirección y el puerto configurados</strong>, no podrá establecerla. Normalmente el driver lanzará una <strong><code>SQLException</code></strong>, que deberá gestionarse.</p>
+<p>El mensaje concreto depende de la causa: servidor detenido, puerto incorrecto, problema de red, etc. Conviene comprobar que MySQL está iniciado y que la URL JDBC contiene el servidor y el puerto correctos.</p>
+</details>
+<p><strong>5. ¿Qué recurso debe cerrarse incluso si se produce una excepción?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 5</summary>
+<p>La <strong>conexión JDBC (<code>Connection</code>)</strong> debe cerrarse cuando deja de utilizarse, incluso si se produce un error. También deben cerrarse los objetos <code>Statement</code> o <code>PreparedStatement</code> y los <code>ResultSet</code> cuando corresponda.</p>
+<p>La forma recomendada es utilizar <strong><code>try-with-resources</code></strong>, porque Java cierra automáticamente los recursos declarados en el <code>try</code> al salir del bloque, incluso cuando se produce una excepción:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">conexion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Conexión establecida"</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">SQLException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Error de conexión: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Así evitamos mantener conexiones abiertas innecesariamente.</p>
+</details>
 
 
 
