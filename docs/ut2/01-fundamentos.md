@@ -92,8 +92,51 @@ try (Connection conexion = ConexionBD.abrir()) {
 
 ### Ejercicios de comprensión
 
-1. Identifica qué componente traduce las operaciones JDBC al protocolo MySQL.
-2. Explica por qué un driver tipo 1 no es adecuado para JDK 21.
-3. Indica la diferencia entre un gestor embebido y uno cliente-servidor.
-4. Explica qué ocurre si el servidor MySQL no está iniciado.
-5. ¿Qué recurso debe cerrarse incluso si se produce una excepción?
+Intenta responder primero sin consultar los apuntes. Después, haz clic en **Mostrar solución** para comprobar tu respuesta y leer la explicación.
+
+**1. Identifica qué componente traduce las operaciones JDBC al protocolo MySQL.**
+
+??? success "Mostrar solución · Ejercicio 1"
+    El **driver JDBC de MySQL (MySQL Connector/J)** implementa las interfaces de JDBC y se encarga de comunicarse con MySQL mediante su protocolo. La aplicación trabaja con interfaces como `Connection` y `PreparedStatement`, mientras que el driver realiza la comunicación específica con el gestor.
+
+    Por tanto, **JDBC define las interfaces** y **el driver aporta la implementación** para MySQL.
+
+**2. Explica por qué un driver tipo 1 no es adecuado para JDK 21.**
+
+??? success "Mostrar solución · Ejercicio 2"
+    El driver de **tipo 1** era un puente entre JDBC y ODBC. El puente JDBC–ODBC que se incluía antiguamente en Java **se eliminó del JDK a partir de Java 8**, por lo que no forma parte de JDK 21.
+
+    Para trabajar con MySQL en Java 21 utilizamos normalmente un **driver de tipo 4**, como MySQL Connector/J, que implementa directamente el protocolo del gestor desde Java.
+
+**3. Indica la diferencia entre un gestor embebido y uno cliente-servidor.**
+
+??? success "Mostrar solución · Ejercicio 3"
+    Un gestor **embebido**, como SQLite, se integra en la aplicación y normalmente almacena los datos en un archivo, sin requerir un servidor de bases de datos independiente.
+
+    Un gestor **cliente-servidor**, como MySQL o PostgreSQL, funciona mediante un servicio de base de datos al que se conectan las aplicaciones, incluso a través de la red. Puede atender a distintos clientes y usuarios.
+
+    **Ejemplo:** una aplicación puede abrir un archivo SQLite local; para conectarse a MySQL necesita que el servicio MySQL esté disponible.
+
+**4. Explica qué ocurre si el servidor MySQL no está iniciado.**
+
+??? success "Mostrar solución · Ejercicio 4"
+    Si la aplicación intenta abrir una conexión y **no hay un servidor MySQL escuchando en la dirección y el puerto configurados**, no podrá establecerla. Normalmente el driver lanzará una **`SQLException`**, que deberá gestionarse.
+
+    El mensaje concreto depende de la causa: servidor detenido, puerto incorrecto, problema de red, etc. Conviene comprobar que MySQL está iniciado y que la URL JDBC contiene el servidor y el puerto correctos.
+
+**5. ¿Qué recurso debe cerrarse incluso si se produce una excepción?**
+
+??? success "Mostrar solución · Ejercicio 5"
+    La **conexión JDBC (`Connection`)** debe cerrarse cuando deja de utilizarse, incluso si se produce un error. También deben cerrarse los objetos `Statement` o `PreparedStatement` y los `ResultSet` cuando corresponda.
+
+    La forma recomendada es utilizar **`try-with-resources`**, porque Java cierra automáticamente los recursos declarados en el `try` al salir del bloque, incluso cuando se produce una excepción:
+
+    ```java
+    try (Connection conexion = ConexionBD.abrir()) {
+        System.out.println("Conexión establecida");
+    } catch (SQLException e) {
+        System.err.println("Error de conexión: " + e.getMessage());
+    }
+    ```
+
+    Así evitamos mantener conexiones abiertas innecesariamente.
