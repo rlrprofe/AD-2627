@@ -4255,13 +4255,53 @@
 </code></pre></div>
 <p>Este fragmento es <strong>esquemático</strong>: <code>insertarAlbaran</code> representa una operación que implementarás en el DAO. Un <code>Savepoint</code> no debe utilizarse para dividir una transferencia que, por definición, debe ser indivisible.</p>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p>Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.</p>
+<p><strong>1. Ejecuta una transferencia válida y comprueba ambos saldos.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 1</summary>
+<p>Prepara dos cuentas de prueba, por ejemplo, origen con <strong>100,00 €</strong> y destino con <strong>50,00 €</strong>. Transfiere <strong>20,00 €</strong> utilizando el servicio del proyecto <code>jdbc-transacciones</code>.</p>
+<p><strong>Resultado esperado:</strong> origen <strong>80,00 €</strong>, destino <strong>70,00 €</strong>, siempre que no haya otras operaciones concurrentes. Verifica los saldos con una consulta <code>SELECT</code> antes y después. Ambas actualizaciones deben usar <strong>la misma <code>Connection</code></strong> y confirmarse con <code>commit()</code>.</p>
+</details>
+<p><strong>2. Intenta transferir más saldo del disponible; verifica que no cambian los saldos.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 2</summary>
+<p>Con origen <strong>100,00 €</strong> y destino <strong>50,00 €</strong>, intenta transferir <strong>150,00 €</strong>.</p>
+<p>La operación de descuento debe impedir saldos negativos mediante una condición como:</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">cuentas</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">?</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<p>Los nombres <code>cuentas</code>, <code>id</code> y <code>saldo</code> son orientativos; usa los del proyecto. Si no se actualiza exactamente una fila, el servicio debe lanzar un error y ejecutar <code>rollback()</code>. <strong>Resultado esperado:</strong> ambos saldos permanecen en 100,00 € y 50,00 €.</p>
+</details>
+<p><strong>3. Intenta ingresar en una cuenta inexistente; verifica que se deshace el descuento.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 3</summary>
+<p>Utiliza una cuenta de origen válida y un identificador de destino que no exista en la tabla. El primer <code>UPDATE</code> puede descontar el importe, pero el segundo afectará a <strong>cero filas</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filasOrigen</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">filasDestino</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SQLException</span><span class="p">(</span><span class="s">"No se pudo completar la transferencia"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El <code>catch</code> debe ejecutar <code>con.rollback()</code>. <strong>Comprobación:</strong> vuelve a consultar el saldo del origen; debe ser igual al inicial. Esto demuestra la <strong>atomicidad</strong> de la transacción.</p>
+</details>
+<p><strong>4. Explica qué sucedería si el DAO abriese una conexión nueva para cada actualización.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 4</summary>
+<p>Cada actualización podría ejecutarse en <strong>una transacción distinta</strong>, especialmente si las conexiones tienen <code>autoCommit</code> activado. Si se confirma el descuento y falla el ingreso, el <code>rollback()</code> de otra conexión <strong>no puede deshacer el descuento ya confirmado</strong>.</p>
+<p><strong>Solución de diseño:</strong> el servicio abre una sola conexión, desactiva <code>autoCommit</code> y se la pasa a los métodos del DAO. El servicio es quien decide <code>commit()</code> o <code>rollback()</code> para toda la operación.</p>
+</details>
+<p><strong>5. Diseña un caso en el que sí tenga sentido utilizar <code>Savepoint</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 5</summary>
+<p><strong>Ejemplo:</strong> registrar un pedido y, después, intentar crear un albarán opcional. Si falla el albarán, se desea conservar el pedido.</p>
 <ol>
-<li>Ejecuta una transferencia válida y comprueba ambos saldos.</li>
-<li>Intenta transferir más saldo del disponible; verifica que no cambian los saldos.</li>
-<li>Intenta ingresar en una cuenta inexistente; verifica que se deshace el descuento.</li>
-<li>Explica qué sucedería si el DAO abriese una conexión nueva para cada actualización.</li>
-<li>Diseña un caso en el que sí tenga sentido utilizar <code>Savepoint</code>.</li>
+<li>Se inicia la transacción y se registra el pedido.</li>
+<li>Se crea <code>Savepoint punto = con.setSavepoint("PEDIDO_CREADO")</code>.</li>
+<li>Se intenta insertar el albarán.</li>
+<li>Si falla, se ejecuta <code>con.rollback(punto)</code>.</li>
+<li>Se confirma el pedido con <code>con.commit()</code>.</li>
 </ol>
+<p><strong>Condición:</strong> la lógica de negocio debe permitir que el pedido exista sin albarán. No uses este enfoque en una transferencia bancaria, porque sus dos movimientos son indivisibles.</p>
+</details>
 <p><strong>Proyecto:</strong> <a href="../07-descargas/">jdbc-transacciones</a>.</p>
 
 

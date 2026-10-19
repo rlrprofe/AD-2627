@@ -4172,13 +4172,79 @@
 <p>Algunos drivers admiten <code>CONCUR_UPDATABLE</code> para modificar filas desde el cursor (<code>updateXxx</code>, <code>updateRow</code>, <code>insertRow</code>, <code>deleteRow</code>). La consulta debe cumplir restricciones del driver; por ejemplo, suele necesitar una tabla y su clave primaria.</p>
 <p>En aplicaciones ordinarias es preferible utilizar <code>UPDATE</code>, <code>INSERT</code> y <code>DELETE</code> mediante <code>PreparedStatement</code>, porque la operación queda explícita y es más fácil comprobar las filas afectadas.</p>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Lista empleados por departamento, indicando si la consulta no devuelve filas.</li>
-<li>Muestra nombre, tipo y número de columnas de una consulta con alias.</li>
-<li>Comprueba la diferencia entre <code>getColumnLabel()</code> y <code>getColumnName()</code>.</li>
-<li>Explica por qué <code>getInt()</code> puede requerir <code>wasNull()</code>.</li>
-<li>Investiga si tu driver permite <code>TYPE_SCROLL_SENSITIVE</code>.</li>
-</ol>
+<p>Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.</p>
+<p><strong>1. Lista empleados por departamento, indicando si la consulta no devuelve filas.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 1</summary>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SELECT emp_no, apellido FROM empleados WHERE dep_no = ?"</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">hayFilas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">hayFilas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"emp_no"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" - "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"apellido"</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">hayFilas</span><span class="p">)</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"No hay empleados en ese departamento"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El <code>ResultSet</code> empieza antes de la primera fila. Si <code>next()</code> devuelve <code>false</code> desde el principio, la consulta no ha encontrado registros.</p>
+</details>
+<p><strong>2. Muestra nombre, tipo y número de columnas de una consulta con alias.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 2</summary>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SELECT emp_no AS numero, apellido AS nombre FROM empleados"</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>
+<span class="w">     </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ResultSetMetaData</span><span class="w"> </span><span class="n">md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getMetaData</span><span class="p">();</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Número de columnas: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnCount</span><span class="p">());</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnCount</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">"%s | %s%n"</span><span class="p">,</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnLabel</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnTypeName</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Resultado:</strong> dos columnas; las etiquetas son <code>numero</code> y <code>nombre</code>. Los nombres concretos de los tipos dependen del esquema MySQL y del driver.</p>
+</details>
+<p><strong>3. Comprueba la diferencia entre <code>getColumnLabel()</code> y <code>getColumnName()</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 3</summary>
+<p>Con la consulta <code>SELECT apellido AS nombre FROM empleados</code>, <code>getColumnLabel(1)</code> devuelve normalmente <strong><code>nombre</code></strong> porque respeta el alias <code>AS</code>. <code>getColumnName(1)</code> se refiere al nombre de columna, pero su comportamiento <strong>depende del driver</strong>; algunos pueden devolver también el alias.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ResultSetMetaData</span><span class="w"> </span><span class="n">md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getMetaData</span><span class="p">();</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Etiqueta: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnLabel</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Nombre: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnName</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</code></pre></div>
+<p>Ejecuta ambos métodos con tu versión de MySQL Connector/J y anota el resultado observado. No supongas que todos los drivers se comportan igual.</p>
+</details>
+<p><strong>4. Explica por qué <code>getInt()</code> puede requerir <code>wasNull()</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 4</summary>
+<p><code>getInt()</code> devuelve <code>0</code> tanto si la columna contiene el número cero como si el valor SQL es <code>NULL</code>. Para distinguirlos, consulta <code>wasNull()</code> <strong>inmediatamente después</strong> de leer la columna.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">valor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"comision"</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">wasNull</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Comisión no informada (NULL)"</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Comisión: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">valor</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El ejemplo presupone que la consulta incluye una columna numérica anulable denominada <code>comision</code>; adapta el nombre a tu esquema.</p>
+</details>
+<p><strong>5. Investiga si tu driver permite <code>TYPE_SCROLL_SENSITIVE</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 5</summary>
+<p>Consulta los metadatos de la conexión:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DatabaseMetaData</span><span class="w"> </span><span class="n">md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">getMetaData</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">soportado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">supportsResultSetType</span><span class="p">(</span><span class="n">ResultSet</span><span class="p">.</span><span class="na">TYPE_SCROLL_SENSITIVE</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"¿Cursor sensible? "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">soportado</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Driver: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getDriverName</span><span class="p">());</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Versión: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getDriverVersion</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>No existe una respuesta universal</strong>: depende del driver y de su versión. Registra el resultado obtenido y explica que la sensibilidad a cambios externos puede tener limitaciones incluso cuando se admite un tipo de cursor.</p>
+</details>
 <p><strong>Proyecto:</strong> <a href="../07-descargas/">jdbc-resultados</a>.</p>
 
 

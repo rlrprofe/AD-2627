@@ -4237,13 +4237,108 @@
 </code></pre></div>
 <p>El proyecto descargable incluye además un procedimiento con parámetro <code>INOUT</code> y otro que modifica salarios (este último no se ejecuta automáticamente).</p>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Crea una tabla de registro mediante <code>Statement</code>.</li>
-<li>Inserta un producto con <code>PreparedStatement</code>.</li>
-<li>Consulta productos cuyo precio sea inferior a un límite introducido por teclado.</li>
-<li>Actualiza el stock y comprueba las filas afectadas.</li>
-<li>Ejecuta <code>contarEmpleados</code> y explica por qué <code>registerOutParameter()</code> es necesario.</li>
-</ol>
+<p>Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.</p>
+<p><strong>1. Crea una tabla de registro mediante <code>Statement</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 1</summary>
+<p>Una posible tabla para registrar operaciones de la aplicación es <code>registro_operaciones</code>. Utiliza <code>executeUpdate()</code> porque <code>CREATE TABLE</code> no devuelve un <code>ResultSet</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">    CREATE TABLE IF NOT EXISTS registro_operaciones (</span>
+<span class="s">        id INT AUTO_INCREMENT PRIMARY KEY,</span>
+<span class="s">        descripcion VARCHAR(200) NOT NULL,</span>
+<span class="s">        fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+<span class="s">    )</span>
+<span class="s">    """</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">Statement</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">createStatement</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">st</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Tabla preparada"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Comprobación:</strong> ejecuta <code>SHOW TABLES</code> o <code>DESCRIBE registro_operaciones</code> en MySQL. El valor devuelto por <code>executeUpdate()</code> para DDL no representa filas insertadas; en MySQL suele ser <code>0</code>. Ejecuta DDL solo sobre una base de prácticas.</p>
+</details>
+<p><strong>2. Inserta un producto con <code>PreparedStatement</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 2</summary>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">    INSERT INTO productos</span>
+<span class="s">    (producto_no, descripcion, precio_actual, stock_disponible)</span>
+<span class="s">    VALUES (?, ?, ?, ?)</span>
+<span class="s">    """</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">9002</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">"Ratón de prácticas"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setBigDecimal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">"14.50"</span><span class="p">));</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">filas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">();</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Filas insertadas: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">filas</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Resultado esperado:</strong> <code>1</code> fila insertada, si el identificador no existe y se cumplen las restricciones. Usa los imports de <code>java.sql</code> y <code>java.math.BigDecimal</code>. Repite la consulta en MySQL para verificar la inserción.</p>
+</details>
+<p><strong>3. Consulta productos cuyo precio sea inferior a un límite introducido por teclado.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 3</summary>
+<div class="highlight"><pre><span></span><code><span class="n">Scanner</span><span class="w"> </span><span class="n">teclado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">"Precio máximo: "</span><span class="p">);</span>
+<span class="n">BigDecimal</span><span class="w"> </span><span class="n">limite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="n">teclado</span><span class="p">.</span><span class="na">nextLine</span><span class="p">());</span>
+<span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">    SELECT producto_no, descripcion, precio_actual</span>
+<span class="s">    FROM productos WHERE precio_actual &lt; ?</span>
+<span class="s">    ORDER BY precio_actual</span>
+<span class="s">    """</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setBigDecimal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">limite</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">encontrado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">encontrado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">"%d - %s: %s €%n"</span><span class="p">,</span>
+<span class="w">                </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"producto_no"</span><span class="p">),</span>
+<span class="w">                </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"descripcion"</span><span class="p">),</span>
+<span class="w">                </span><span class="n">rs</span><span class="p">.</span><span class="na">getBigDecimal</span><span class="p">(</span><span class="s">"precio_actual"</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">encontrado</span><span class="p">)</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Sin resultados"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El límite se introduce como <strong>valor parametrizado</strong>, no se concatena al SQL. Controla <code>NumberFormatException</code> cuando integres este ejemplo en un menú.</p>
+</details>
+<p><strong>4. Actualiza el stock y comprueba las filas afectadas.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 4</summary>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"UPDATE productos SET stock_disponible = ? WHERE producto_no = ?"</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">9002</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">filas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filas</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Stock actualizado"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filas</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Producto inexistente o sin filas afectadas"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Revisar actualización: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">filas</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Comprobación:</strong> consulta el stock antes y después. La interpretación exacta del número de filas de <code>UPDATE</code> puede depender de la configuración del driver y de si se cuentan filas encontradas o modificadas.</p>
+</details>
+<p><strong>5. Ejecuta <code>contarEmpleados</code> y explica por qué <code>registerOutParameter()</code> es necesario.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 5</summary>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">CallableStatement</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareCall</span><span class="p">(</span><span class="s">"{call contarEmpleados(?)}"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cs</span><span class="p">.</span><span class="na">registerOutParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Types</span><span class="p">.</span><span class="na">INTEGER</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cs</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Empleados: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">total</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>registerOutParameter(1, Types.INTEGER)</code> indica que el primer parámetro es <strong>de salida</strong> y cuál es su tipo SQL. Después de ejecutar el procedimiento, <code>getInt(1)</code> recupera el valor devuelto. El procedimiento debe haberse creado previamente con el script SQL correspondiente.</p>
+</details>
 <p><strong>Descargas:</strong> <a href="../07-descargas/">Statement, PreparedStatement y CallableStatement</a>.</p>
 
 

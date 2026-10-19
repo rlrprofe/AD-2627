@@ -3221,6 +3221,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#orientaciones-de-solucion-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orientaciones de solución del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4093,6 +4104,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#orientaciones-de-solucion-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orientaciones de solución del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4120,26 +4142,126 @@
 
 <h1 id="26-actividades-y-proyecto-de-consolidacion">2.6 · Actividades y proyecto de consolidación<a class="headerlink" href="#26-actividades-y-proyecto-de-consolidacion" title="Permanent link">&para;</a></h1>
 <h2 id="actividades-de-introduccion">Actividades de introducción<a class="headerlink" href="#actividades-de-introduccion" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Dibuja el flujo Aplicación Java → API JDBC → Driver → MySQL.</li>
-<li>Compara un SGBD embebido y otro independiente.</li>
-<li>Localiza en un proyecto Maven la dependencia del driver.</li>
-<li>Interpreta una URL JDBC e identifica host, puerto y base de datos.</li>
-</ol>
+<p>Resuelve la actividad y comprueba tu trabajo desplegando la propuesta de solución.</p>
+<p><strong>1. Dibuja el flujo Aplicación Java → API JDBC → Driver → MySQL.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 1</summary>
+<pre class="mermaid"><code>flowchart LR
+    A[Aplicación Java] --&gt; B[API JDBC]
+    B --&gt; C[MySQL Connector/J]
+    C --&gt; D[(Servidor MySQL)]</code></pre>
+<p>La aplicación invoca interfaces JDBC; el driver implementa esas interfaces y traduce las operaciones al protocolo de MySQL. El servidor ejecuta SQL y devuelve los resultados.</p>
+</details>
+<p><strong>2. Compara un SGBD embebido y otro independiente.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 2</summary>
+<p><strong>SQLite</strong> suele funcionar integrado en el proceso de la aplicación y almacenar la base en un archivo. <strong>MySQL</strong> utiliza un servidor independiente al que se conectan uno o varios clientes. Ambos pueden utilizarse desde Java mediante un driver JDBC adecuado; la instalación y las URL son distintas.</p>
+</details>
+<p><strong>3. Localiza en un proyecto Maven la dependencia del driver.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 3</summary>
+<p>Abre <code>pom.xml</code> y localiza el bloque:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+<span class="w">  </span><span class="nt">&lt;groupId&gt;</span>com.mysql<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">  </span><span class="nt">&lt;artifactId&gt;</span>mysql-connector-j<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">  </span><span class="nt">&lt;version&gt;</span>9.3.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+<p>Maven gestiona la descarga y el classpath del driver. La versión mostrada es la utilizada como referencia en estos apuntes; comprueba la del proyecto entregado.</p>
+</details>
+<p><strong>4. Interpreta una URL JDBC e identifica host, puerto y base de datos.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 4</summary>
+<p>Para <code>jdbc:mysql://localhost:3306/curso</code>: <strong>subprotocolo:</strong> <code>mysql</code>; <strong>host:</strong> <code>localhost</code>; <strong>puerto:</strong> <code>3306</code>; <strong>base de datos:</strong> <code>curso</code>. Si MySQL se ejecuta en otro equipo, sustituye <code>localhost</code> por su nombre o dirección de red.</p>
+</details>
 <h2 id="actividades-de-desarrollo">Actividades de desarrollo<a class="headerlink" href="#actividades-de-desarrollo" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Ejecuta el ejemplo de <code>Statement</code> y explica qué hace cada instrucción.</li>
-<li>Inserta, consulta, modifica y elimina un producto con <code>PreparedStatement</code>.</li>
-<li>Ejecuta procedimientos con parámetros <code>OUT</code> e <code>INOUT</code>.</li>
-<li>Recorre un <code>ResultSet</code> y muestra sus metadatos.</li>
-</ol>
+<p>Resuelve la actividad y comprueba tu trabajo desplegando la propuesta de solución.</p>
+<p><strong>1. Ejecuta el ejemplo de <code>Statement</code> y explica qué hace cada instrucción.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 1</summary>
+<p>En el ejemplo del apartado 2.2, <code>ConexionBD.abrir()</code> obtiene una conexión; <code>createStatement()</code> crea la sentencia; <code>executeQuery(sql)</code> ejecuta el <code>SELECT</code>; <code>rs.next()</code> recorre las filas; <code>getInt()</code> y <code>getString()</code> leen columnas. El bloque <code>try-with-resources</code> cierra los recursos. Comprueba que la salida coincide con las filas de <code>empleados</code>.</p>
+</details>
+<p><strong>2. Inserta, consulta, modifica y elimina un producto con <code>PreparedStatement</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 2</summary>
+<p>Ejecuta el <strong>CRUD</strong> en este orden sobre un identificador de pruebas:</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="p">(</span><span class="n">producto_no</span><span class="p">,</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precio_actual</span><span class="p">,</span><span class="w"> </span><span class="n">stock_disponible</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">producto_no</span><span class="p">,</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precio_actual</span><span class="p">,</span><span class="w"> </span><span class="n">stock_disponible</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">stock_disponible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+<span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<p>Cada sentencia se prepara desde Java y recibe sus parámetros mediante <code>setInt</code>, <code>setString</code> o <code>setBigDecimal</code>. Para <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code> utiliza <code>executeUpdate()</code> y comprueba el número de filas. Para <code>SELECT</code>, <code>executeQuery()</code> y <code>ResultSet</code>. No ejecutes <code>DELETE</code> sin <code>WHERE</code>.</p>
+</details>
+<p><strong>3. Ejecuta procedimientos con parámetros <code>OUT</code> e <code>INOUT</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 3</summary>
+<p><strong>OUT:</strong> con <code>contarEmpleados</code>, registra el parámetro mediante <code>registerOutParameter(1, Types.INTEGER)</code>, ejecuta y recupera el total con <code>getInt(1)</code>.</p>
+<p><strong>INOUT:</strong> en el procedimiento suministrado en <code>jdbc-callablestatement</code>, asigna primero el valor de entrada con el <code>setXxx()</code> correspondiente, registra el mismo parámetro como salida mediante <code>registerOutParameter()</code> y recupera su valor tras <code>execute()</code>. El nombre y tipo exactos dependen del procedimiento del script SQL; no deben inventarse.</p>
+</details>
+<p><strong>4. Recorre un <code>ResultSet</code> y muestra sus metadatos.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 4</summary>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">"SELECT emp_no, apellido FROM empleados"</span><span class="p">);</span>
+<span class="w">     </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ResultSetMetaData</span><span class="w"> </span><span class="n">md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getMetaData</span><span class="p">();</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnCount</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">md</span><span class="p">.</span><span class="na">getColumnLabel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">getColumnTypeName</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"emp_no"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" - "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"apellido"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El número y tipo de columnas proceden de los metadatos; los valores de cada fila proceden del <code>ResultSet</code>.</p>
+</details>
 <h2 id="actividades-procedimentales">Actividades procedimentales<a class="headerlink" href="#actividades-procedimentales" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Provoca una violación de clave primaria y registra el <code>SQLState</code>.</li>
-<li>Ejecuta una actualización que no encuentre filas y comprueba el resultado.</li>
-<li>Simula un fallo en una transferencia y verifica el <code>rollback()</code>.</li>
-<li>Implementa una consulta por intervalo de precios usando dos parámetros <code>?</code>.</li>
-</ol>
+<p>Resuelve la actividad y comprueba tu trabajo desplegando la propuesta de solución.</p>
+<p><strong>1. Provoca una violación de clave primaria y registra el <code>SQLState</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 1</summary>
+<p>Inserta un producto de prueba con un <code>producto_no</code> nuevo y repite el <code>INSERT</code> con el <strong>mismo identificador</strong>. La segunda inserción debe fallar por clave duplicada.</p>
+<div class="highlight"><pre><span></span><code><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">SQLException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"SQLState: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getSQLState</span><span class="p">());</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Código: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getErrorCode</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>En MySQL es habitual <code>SQLState</code> <strong><code>23000</code></strong> para violación de integridad, aunque debes <strong>anotar el valor real</strong> obtenido. Hazlo únicamente en la base de pruebas.</p>
+</details>
+<p><strong>2. Ejecuta una actualización que no encuentre filas y comprueba el resultado.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 2</summary>
+<p>Prepara <code>UPDATE productos SET stock_disponible = ? WHERE producto_no = ?</code> y asigna un identificador que no exista. <code>executeUpdate()</code> debería devolver <strong>0</strong>. La aplicación debe informar de que no se encontró el producto, en lugar de mostrar un mensaje de actualización exitosa.</p>
+</details>
+<p><strong>3. Simula un fallo en una transferencia y verifica el <code>rollback()</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 3</summary>
+<p>Registra los saldos iniciales. Intenta transferir a una cuenta de destino inexistente, de manera que la segunda actualización afecte a cero filas. Comprueba que el servicio ejecuta <code>rollback()</code> y que <strong>ambos saldos permanecen como antes</strong>. Las dos operaciones deben compartir la misma conexión.</p>
+</details>
+<p><strong>4. Implementa una consulta por intervalo de precios usando dos parámetros <code>?</code>.</strong></p>
+<details class="success">
+<summary>Mostrar solución · Actividad 4</summary>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">    SELECT producto_no, descripcion, precio_actual</span>
+<span class="s">    FROM productos</span>
+<span class="s">    WHERE precio_actual BETWEEN ? AND ?</span>
+<span class="s">    ORDER BY precio_actual</span>
+<span class="s">    """</span><span class="p">;</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setBigDecimal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">"10.00"</span><span class="p">));</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setBigDecimal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">"50.00"</span><span class="p">));</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"descripcion"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" - "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getBigDecimal</span><span class="p">(</span><span class="s">"precio_actual"</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>BETWEEN</code> incluye ambos extremos. Valida que el precio mínimo no supere al máximo.</p>
+</details>
 <h2 id="proyecto-de-consolidacion-gestor-de-productos">Proyecto de consolidación: gestor de productos<a class="headerlink" href="#proyecto-de-consolidacion-gestor-de-productos" title="Permanent link">&para;</a></h2>
 <p><strong>Objetivo:</strong> aplicación de consola con MySQL que permita listar, buscar, insertar, modificar stock y eliminar productos.</p>
 <h3 id="requisitos-funcionales">Requisitos funcionales<a class="headerlink" href="#requisitos-funcionales" title="Permanent link">&para;</a></h3>
@@ -4178,6 +4300,52 @@ sql/01-curso-original.sql
 <li>[ ] El README permite reproducir la práctica.</li>
 <li>[ ] Puedo explicar cada clase y justificar su responsabilidad.</li>
 </ul>
+<h3 id="orientaciones-de-solucion-del-proyecto">Orientaciones de solución del proyecto<a class="headerlink" href="#orientaciones-de-solucion-del-proyecto" title="Permanent link">&para;</a></h3>
+<p>El proyecto de consolidación es una actividad de desarrollo individual. La siguiente guía permite <strong>comprobar el diseño y el funcionamiento</strong> sin sustituir la implementación que debes realizar.</p>
+<details class="success">
+<summary>Mostrar solución · Ver propuesta de estructura y responsabilidades</summary>
+<ul>
+<li><code>MenuProductos</code>: muestra opciones, lee datos y comunica mensajes.</li>
+<li><code>Producto</code>: representa los atributos del producto.</li>
+<li><code>ProductoService</code>: valida identificadores, precios y stock y coordina las operaciones.</li>
+<li><code>ProductoDAO</code>: implementa el CRUD con SQL parametrizado y convierte filas en objetos.</li>
+<li><code>ConexionBD</code>: centraliza la apertura de conexiones y su configuración.</li>
+</ul>
+<p><strong>Flujo esperado:</strong> menú → servicio → DAO → MySQL → DAO → servicio → menú.</p>
+<p>El DAO no debe utilizar <code>Scanner</code> ni imprimir el menú. El servicio no debe construir consultas SQL.</p>
+</details>
+<details class="success">
+<summary>Mostrar solución · Ver consultas SQL de referencia</summary>
+<p>Adapta las consultas a la estructura real de la tabla <code>productos</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">producto_no</span><span class="p">,</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precio_actual</span><span class="p">,</span><span class="w"> </span><span class="n">stock_disponible</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">producto_no</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">producto_no</span><span class="p">,</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precio_actual</span><span class="p">,</span><span class="w"> </span><span class="n">stock_disponible</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="p">(</span><span class="n">producto_no</span><span class="p">,</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precio_actual</span><span class="p">,</span><span class="w"> </span><span class="n">stock_disponible</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="p">);</span>
+
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">stock_disponible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+
+<span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">producto_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<p>En Java, utiliza <code>PreparedStatement</code> para los valores variables y <code>BigDecimal</code> para los precios.</p>
+</details>
+<details class="success">
+<summary>Mostrar solución · Ver pruebas de aceptación orientativas</summary>
+<ol>
+<li><strong>Inserción válida:</strong> el nuevo producto aparece al listar.</li>
+<li><strong>Búsqueda válida:</strong> se muestran los datos del identificador existente.</li>
+<li><strong>Modificación válida:</strong> el stock cambia y se informa de una fila afectada.</li>
+<li><strong>Eliminación válida:</strong> el producto deja de aparecer.</li>
+<li><strong>Error de búsqueda:</strong> un identificador inexistente produce un mensaje específico.</li>
+<li><strong>Error de validación:</strong> precio negativo o stock inválido se rechazan antes de ejecutar SQL.</li>
+<li><strong>Seguridad:</strong> las credenciales no están incluidas en el código ni en Git.</li>
+<li><strong>Recursos:</strong> las conexiones y sentencias se cierran mediante <code>try-with-resources</code>.</li>
+</ol>
+<p>El README debe explicar cómo preparar MySQL, configurar variables de entorno, compilar y ejecutar la aplicación.</p>
+</details>
 <div class="admonition info">
 <p class="admonition-title">Evaluación</p>
 <p>La valoración concreta de las prácticas seguirá los criterios y porcentajes indicados en la <a href="../">guía de la UT2</a> y las instrucciones de entrega del aula virtual.</p>

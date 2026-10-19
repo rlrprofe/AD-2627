@@ -4118,14 +4118,46 @@
 <li>Probar casos correctos, inexistentes, nulos y de error.</li>
 </ol>
 <h2 id="preguntas-para-revisar-un-proyecto">Preguntas para revisar un proyecto<a class="headerlink" href="#preguntas-para-revisar-un-proyecto" title="Permanent link">&para;</a></h2>
-<ul>
-<li>¿Qué clase contiene SQL y por qué?</li>
-<li>¿Qué ocurre si la conexión falla?</li>
-<li>¿Qué pasa cuando <code>executeUpdate()</code> devuelve cero?</li>
-<li>¿Se cierran <code>Connection</code>, <code>PreparedStatement</code> y <code>ResultSet</code>?</li>
-<li>¿Se comprueba el resultado de cada paso antes de confirmar una transacción?</li>
-<li>¿Es posible explicar el código sin consultar una solución externa?</li>
-</ul>
+<p>Utiliza estas preguntas como una <strong>lista de autoevaluación razonada</strong> antes de entregar tu proyecto. Primero revisa tu propio código y después consulta la explicación.</p>
+<p><strong>1. ¿Qué clase contiene SQL y por qué?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 1</summary>
+<p>La capa <strong>DAO</strong> debe contener las sentencias SQL y el mapeo de los resultados a objetos del modelo. Así, el menú no necesita conocer la estructura de las tablas y el servicio puede centrarse en reglas de negocio y transacciones.</p>
+</details>
+<p><strong>2. ¿Qué ocurre si la conexión falla?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 2</summary>
+<p><code>ConexionBD.abrir()</code> puede lanzar una <code>SQLException</code>. La operación debe detenerse y mostrar o registrar un mensaje adecuado, sin exponer contraseñas. El servicio o la capa que gestione la operación decidirá si reintenta, informa del error o aborta. No debe continuar como si existiera una conexión válida.</p>
+</details>
+<p><strong>3. ¿Qué pasa cuando <code>executeUpdate()</code> devuelve cero?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 3</summary>
+<p>Puede significar que <strong>no se encontró ningún registro</strong> que cumpla la condición o que no hubo filas contadas como afectadas, según la operación y la configuración del driver. En un <code>DELETE</code> por clave primaria, normalmente indica que no existía la fila. En una transferencia, si se exige actualizar exactamente una fila, el servicio debe considerarlo un fallo y deshacer la transacción.</p>
+</details>
+<p><strong>4. ¿Se cierran <code>Connection</code>, <code>PreparedStatement</code> y <code>ResultSet</code>?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 4</summary>
+<p>Compruébalo revisando los bloques <code>try-with-resources</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">"SELECT emp_no FROM empleados"</span><span class="p">);</span>
+<span class="w">     </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"emp_no"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Los tres recursos se cierran automáticamente, también si se lanza una excepción. Si el servicio gestiona una transacción, el DAO <strong>no debe cerrar la conexión recibida</strong> antes de que el servicio haga <code>commit()</code> o <code>rollback()</code>.</p>
+</details>
+<p><strong>5. ¿Se comprueba el resultado de cada paso antes de confirmar una transacción?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 5</summary>
+<p>Una transferencia correcta comprueba que <strong>cada actualización afecta exactamente a una fila</strong> y que se respetan las reglas de saldo. Solo entonces llama a <code>commit()</code>. Ante cualquier fallo debe ejecutar <code>rollback()</code>; de otro modo puede dejar datos inconsistentes.</p>
+</details>
+<p><strong>6. ¿Es posible explicar el código sin consultar una solución externa?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Ejercicio 6</summary>
+<p>Para comprobarlo, intenta justificar sin mirar apuntes: qué hace cada clase, de dónde viene la conexión, por qué se usa <code>PreparedStatement</code>, qué sucede si una consulta no encuentra filas, cómo se cierran los recursos y qué provoca un <code>rollback()</code>. Si alguna respuesta no está clara, vuelve al bloque correspondiente y reproduce el ejemplo.</p>
+</details>
 
 
 
