@@ -3048,6 +3048,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuracion-de-la-conexion-systemgetenv-y-variables-de-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración de la conexión: System.getenv() y variables de entorno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la conexión: System.getenv() y variables de entorno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-hace-systemgetenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué hace System.getenv()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurarlas-antes-de-ejecutar-el-programa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurarlas antes de ejecutar el programa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-comentado-clase-conexionbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo comentado: clase ConexionBD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprueba-que-lo-has-entendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba que lo has entendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ciclo-de-vida-de-una-operacion-jdbc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4060,6 +4121,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuracion-de-la-conexion-systemgetenv-y-variables-de-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración de la conexión: System.getenv() y variables de entorno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la conexión: System.getenv() y variables de entorno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-hace-systemgetenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué hace System.getenv()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurarlas-antes-de-ejecutar-el-programa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurarlas antes de ejecutar el programa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-comentado-clase-conexionbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo comentado: clase ConexionBD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprueba-que-lo-has-entendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprueba que lo has entendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ciclo-de-vida-de-una-operacion-jdbc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4209,6 +4331,104 @@
 <li><code>curso</code>: base de datos de los ejemplos de sentencias y consultas.</li>
 <li><code>empresa</code>: base de datos utilizada para las transacciones.</li>
 </ul>
+<h2 id="configuracion-de-la-conexion-systemgetenv-y-variables-de-entorno">Configuración de la conexión: <code>System.getenv()</code> y variables de entorno<a class="headerlink" href="#configuracion-de-la-conexion-systemgetenv-y-variables-de-entorno" title="Permanent link">&para;</a></h2>
+<p>En los proyectos de esta unidad, la clase <code>ConexionBD</code> obtiene los datos de conexión mediante <strong>variables de entorno</strong>. Son valores que proporciona el sistema operativo al proceso que ejecuta Java. Así podemos cambiar de equipo, usuario o contraseña <strong>sin modificar ni publicar el código fuente</strong>.</p>
+<h3 id="que-hace-systemgetenv">¿Qué hace <code>System.getenv()</code>?<a class="headerlink" href="#que-hace-systemgetenv" title="Permanent link">&para;</a></h3>
+<p><code>System</code> es una clase de Java (<code>java.lang.System</code>) y <code>getenv()</code> permite consultar las variables de entorno del proceso:</p>
+<ul>
+<li><code>System.getenv("JDBC_PASSWORD")</code> busca una variable llamada <code>JDBC_PASSWORD</code>. Devuelve su valor como <code>String</code> o <code>null</code> si no existe.</li>
+<li><code>System.getenv()</code> <strong>sin argumentos</strong> devuelve un <code>Map&lt;String, String&gt;</code> con las variables de entorno visibles para el proceso.</li>
+<li><code>getOrDefault(clave, valorPredeterminado)</code> es un método de <code>Map</code>, <strong>no de <code>System</code></strong>. Devuelve el valor asociado a la clave o, si no existe, el valor predeterminado.</li>
+</ul>
+<p>Por eso podemos escribir:</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span>
+<span class="w">        </span><span class="s">"JDBC_URL"</span><span class="p">,</span><span class="w"> </span><span class="s">"jdbc:mysql://localhost:3306/curso"</span><span class="p">);</span>
+<span class="n">String</span><span class="w"> </span><span class="n">usuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"JDBC_USER"</span><span class="p">,</span><span class="w"> </span><span class="s">"alumno"</span><span class="p">);</span>
+<span class="n">String</span><span class="w"> </span><span class="n">clave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">"JDBC_PASSWORD"</span><span class="p">);</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Si está definida</th>
+<th>Si no está definida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JDBC_URL</code></td>
+<td>Se utiliza su URL</td>
+<td><code>jdbc:mysql://localhost:3306/curso</code></td>
+</tr>
+<tr>
+<td><code>JDBC_USER</code></td>
+<td>Se utiliza su usuario</td>
+<td><code>alumno</code></td>
+</tr>
+<tr>
+<td><code>JDBC_PASSWORD</code></td>
+<td>Se utiliza su contraseña</td>
+<td><code>null</code>; el proyecto lanza una excepción</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">¿Por qué la contraseña no tiene valor por defecto?</p>
+<p>Porque no conviene guardar contraseñas en el código ni incluir una clave de ejemplo que pueda terminar utilizándose en entornos reales. El proyecto comprueba <code>clave == null || clave.isBlank()</code> y lanza una <code>SQLException</code> explicativa si falta.</p>
+</div>
+<h3 id="configurarlas-antes-de-ejecutar-el-programa">Configurarlas antes de ejecutar el programa<a class="headerlink" href="#configurarlas-antes-de-ejecutar-el-programa" title="Permanent link">&para;</a></h3>
+<p><strong>PowerShell (Windows)</strong>, en la misma sesión desde la que se inicia Java o el IDE:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:JDBC_URL</span> <span class="p">=</span> <span class="s2">"jdbc:mysql://localhost:3306/curso"</span>
+<span class="nv">$env:JDBC_USER</span> <span class="p">=</span> <span class="s2">"alumno"</span>
+<span class="nv">$env:JDBC_PASSWORD</span> <span class="p">=</span> <span class="s2">"TU_CLAVE_LOCAL"</span>
+</code></pre></div>
+<p><strong>Terminal Linux (Bash)</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">JDBC_URL</span><span class="o">=</span><span class="s2">"jdbc:mysql://localhost:3306/curso"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JDBC_USER</span><span class="o">=</span><span class="s2">"alumno"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JDBC_PASSWORD</span><span class="o">=</span><span class="s2">"TU_CLAVE_LOCAL"</span>
+</code></pre></div>
+<p>Estas asignaciones son temporales y se aplican a los procesos iniciados desde esa sesión. <strong>Si el IDE ya estaba abierto, es posible que no reciba las variables nuevas</strong>: reinícialo desde la terminal configurada o utiliza la configuración de entorno de ejecución del IDE. No confundas las variables de entorno con las propiedades de Java consultadas mediante <code>System.getProperty()</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Privacidad</p>
+<p>No imprimas la contraseña con <code>System.out.println</code>, no la incluyas en el repositorio Git y evita que aparezca en capturas. Para comprobar si está configurada, puedes consultar únicamente si existe, sin mostrar su contenido.</p>
+</div>
+<h3 id="ejemplo-comentado-clase-conexionbd">Ejemplo comentado: clase <code>ConexionBD</code><a class="headerlink" href="#ejemplo-comentado-clase-conexionbd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="nf">abrir</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">SQLException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Obtiene la URL del entorno. Si no existe JDBC_URL, usa MySQL local.</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span>
+<span class="w">            </span><span class="s">"JDBC_URL"</span><span class="p">,</span><span class="w"> </span><span class="s">"jdbc:mysql://localhost:3306/curso"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Obtiene el usuario; si no está definido, utiliza "alumno".</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">usuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"JDBC_USER"</span><span class="p">,</span><span class="w"> </span><span class="s">"alumno"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Obtiene la contraseña. Si no existe, getenv devuelve null.</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">clave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">"JDBC_PASSWORD"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Rechaza una contraseña ausente o formada solo por espacios.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clave</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">clave</span><span class="p">.</span><span class="na">isBlank</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SQLException</span><span class="p">(</span><span class="s">"Falta JDBC_PASSWORD. Configura la variable de entorno antes de ejecutar."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Abre la conexión usando el driver JDBC disponible en Maven.</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">usuario</span><span class="p">,</span><span class="w"> </span><span class="n">clave</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="comprueba-que-lo-has-entendido">Comprueba que lo has entendido<a class="headerlink" href="#comprueba-que-lo-has-entendido" title="Permanent link">&para;</a></h3>
+<p><strong>1. ¿Qué diferencia hay entre <code>System.getenv("JDBC_USER")</code> y <code>System.getenv().getOrDefault("JDBC_USER", "alumno")</code>?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Variables de entorno 1</summary>
+<p>La primera expresión devuelve <code>null</code> si la variable no existe. La segunda utiliza <code>"alumno"</code> como valor alternativo. <code>getOrDefault</code> es un método del mapa devuelto por <code>getenv()</code>.</p>
+</details>
+<p><strong>2. ¿Qué sucede si no configuras <code>JDBC_PASSWORD</code>?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Variables de entorno 2</summary>
+<p><code>System.getenv("JDBC_PASSWORD")</code> devuelve <code>null</code>; la comprobación de <code>ConexionBD</code> lanza una <code>SQLException</code> antes de llamar a <code>DriverManager.getConnection()</code>.</p>
+</details>
+<p><strong>3. ¿Por qué un programa Java lanzado desde un IDE abierto previamente puede no ver una variable que acabas de definir en PowerShell?</strong></p>
+<details class="success">
+<summary>Mostrar solución · Variables de entorno 3</summary>
+<p>Las variables de entorno se heredan cuando se inicia un proceso. Si el IDE ya estaba en ejecución, no recibe automáticamente las nuevas variables de la sesión de PowerShell. Puedes configurar las variables en la ejecución del IDE o iniciarlo de nuevo desde la sesión preparada.</p>
+</details>
 <h2 id="ciclo-de-vida-de-una-operacion-jdbc">Ciclo de vida de una operación JDBC<a class="headerlink" href="#ciclo-de-vida-de-una-operacion-jdbc" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
  A[Obtener Connection] --&gt; B[Preparar SQL]

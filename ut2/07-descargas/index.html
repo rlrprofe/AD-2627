@@ -4022,6 +4022,10 @@
 <p class="admonition-title">Atención antes de ejecutar</p>
 <p>El script de <code>curso</code> elimina y recrea la base de datos. <strong>Hazlo únicamente en un entorno de pruebas.</strong> Los ejemplos que insertan, actualizan o eliminan registros modifican datos reales de ese entorno.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Cómo funcionan las variables de entorno</p>
+<p>Los proyectos utilizan <code>System.getenv()</code> para consultar <code>JDBC_URL</code>, <code>JDBC_USER</code> y <code>JDBC_PASSWORD</code>. Si no conoces este método, revisa <a href="../01-fundamentos/">su explicación, el ejemplo comentado y las soluciones</a> antes de ejecutar el ZIP de <code>jdbc-statement</code>.</p>
+</div>
 <h2 id="orden-recomendado">Orden recomendado<a class="headerlink" href="#orden-recomendado" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Prepara MySQL y ejecuta el script SQL del proyecto.</li>

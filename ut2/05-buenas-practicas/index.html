@@ -3116,6 +3116,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#credenciales-y-configuracion-externa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciales y configuración externa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#try-with-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3977,6 +3988,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#credenciales-y-configuracion-externa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciales y configuración externa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#try-with-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4086,6 +4108,8 @@
 </tbody>
 </table>
 <p>No es obligatorio aplicar todas las capas en una primera demostración de <code>Statement</code>. En el CRUD y en las transferencias, esta separación evita mezclar responsabilidades.</p>
+<h2 id="credenciales-y-configuracion-externa">Credenciales y configuración externa<a class="headerlink" href="#credenciales-y-configuracion-externa" title="Permanent link">&para;</a></h2>
+<p>La clase <code>ConexionBD</code> utiliza <code>System.getenv()</code> para leer la configuración de conexión del proceso Java. <code>JDBC_URL</code> y <code>JDBC_USER</code> tienen valores predeterminados; <code>JDBC_PASSWORD</code> es obligatoria y <strong>no debe almacenarse en el código</strong>. <code>getOrDefault()</code> pertenece a <code>Map</code>, el objeto devuelto por <code>System.getenv()</code> sin argumentos. Consulta los <a href="../01-fundamentos/">ejemplos comentados y la configuración en Windows y Linux</a>.</p>
 <h2 id="try-with-resources"><code>try-with-resources</code><a class="headerlink" href="#try-with-resources" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">"SELECT apellido FROM empleados"</span><span class="p">);</span>
