@@ -27,6 +27,50 @@ flowchart TD
  R --> H
 ```
 
+## Proyecto descargable: `jdbc-transacciones`
+
+El [proyecto Maven de transacciones](07-descargas.md) utiliza **Java 21, MySQL/InnoDB y `db.properties`**. Contiene dos ejemplos complementarios: `DemoTransferencia` (todo o nada) y `DemoSavepoint` (confirmación parcial permitida).
+
+### Preparación y ejecución
+
+1. Ejecuta `sql/03-empresa-transacciones.sql` en MySQL. **Atención:** el script restablece los saldos de las cuentas de ejemplo y el estado del pedido 1001 cuando se vuelve a ejecutar.
+2. Copia `src/main/resources/db.properties.example` a `src/main/resources/db.properties` y configura `jdbc.url`, `jdbc.user` y `jdbc.password`. La URL debe apuntar a `empresa`.
+3. Compila desde la carpeta que contiene el `pom.xml` con `mvn clean compile`.
+4. Ejecuta `es.dam.jdbc.app.DemoTransferencia` y consulta los saldos antes y después. Ejecuta `es.dam.jdbc.app.DemoSavepoint` para comprobar el pedido y su albarán opcional.
+
+```properties
+jdbc.url=jdbc:mysql://localhost:3306/empresa
+jdbc.user=alumno
+jdbc.password=TU_CLAVE_LOCAL
+```
+
+!!! warning "Datos de prácticas"
+    `DemoTransferencia` **modifica los saldos cada vez que se ejecuta**. `DemoSavepoint` modifica el estado del pedido e intenta crear un albarán. Trabaja exclusivamente sobre la base de pruebas.
+
+### El modelo `Transferencia`
+
+La solicitud se representa mediante una **clase convencional**, no un `record`: atributos `private`, constructor, getters, setters y `toString()`. No contiene SQL ni abre conexiones. El servicio comprueba las reglas de negocio.
+
+```java
+Transferencia solicitud = new Transferencia(1, 2, new BigDecimal("20.00"));
+int cuentaOrigen = solicitud.getOrigen();
+BigDecimal importe = solicitud.getImporte();
+new TransferenciaService().transferir(solicitud);
+```
+
+### Responsabilidades y conexión compartida
+
+| Clase | Responsabilidad |
+|---|---|
+| `ConexionBD` | Lee `db.properties` con `Properties` y abre conexiones JDBC |
+| `Transferencia` | Guarda origen, destino e importe (`BigDecimal`) |
+| `CuentaDAO` | Ejecuta los `UPDATE` con `PreparedStatement` sin abrir ni cerrar la conexión recibida |
+| `TransferenciaService` | Valida, inicia la transacción, llama al DAO y decide `commit()` o `rollback()` |
+| `PedidoService` | Confirma un pedido y utiliza `Savepoint` para el albarán opcional |
+| `DemoTransferencia` / `DemoSavepoint` | Puntos de entrada con `main()` para ejecutar las demostraciones |
+
+**Idea esencial:** las dos llamadas a `CuentaDAO` reciben la **misma `Connection`**. Un `rollback()` solo puede deshacer operaciones pendientes de esa conexión; no deshace cambios confirmados en otra.
+
 ## Transacciones con JDBC
 
 Los métodos principales pertenecen a `Connection`:
@@ -95,6 +139,8 @@ try {
 }
 con.commit();
 ```
+
+En el proyecto descargable, `PedidoService.confirmarPedidoConAlbaranOpcional(1001)` muestra una implementación completa: confirma el pedido, crea el `Savepoint`, intenta insertar el albarán y, si este falla, ejecuta `rollback(antesAlbaran)` antes del `commit()` final.
 
 Este fragmento es **esquemático**: `insertarAlbaran` representa una operación que implementarás en el DAO. Un `Savepoint` no debe utilizarse para dividir una transferencia que, por definición, debe ser indivisible.
 

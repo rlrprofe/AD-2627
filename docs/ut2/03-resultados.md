@@ -84,6 +84,111 @@ Algunos drivers admiten `CONCUR_UPDATABLE` para modificar filas desde el cursor 
 
 En aplicaciones ordinarias es preferible utilizar `UPDATE`, `INSERT` y `DELETE` mediante `PreparedStatement`, porque la operación queda explícita y es más fácil comprobar las filas afectadas.
 
+
+## Navegación por el cursor: estados y movimientos
+
+Un `ResultSet` es el conjunto de resultados de una consulta JDBC; no es una lista de objetos Java. Su **cursor** señala la fila desde la que se leen las columnas. Inicialmente se encuentra **antes de la primera fila**. `next()` devuelve `true` cuando logra situarse sobre una fila y `false` al alcanzar el final.
+
+| Método | Efecto |
+|---|---|
+| `next()` | Avanza a la fila siguiente. |
+| `previous()` | Retrocede una fila. |
+| `first()` / `last()` | Se sitúa en la primera o última fila. |
+| `absolute(n)` | Se sitúa en la fila `n` (desde 1); con valores negativos cuenta desde el final. |
+| `relative(n)` | Se desplaza `n` filas respecto a la posición actual. |
+| `beforeFirst()` / `afterLast()` | Coloca el cursor fuera de las filas, al inicio o al final. |
+| `getRow()` | Devuelve el número de fila actual; `0` si no está situado sobre una fila válida. |
+| `isBeforeFirst()` / `isAfterLast()` | Comprueba posiciones fuera del conjunto, con particularidades si está vacío. |
+
+!!! warning "No todos los cursores admiten estos movimientos"
+    El cursor habitual `TYPE_FORWARD_ONLY` permite avanzar con `next()`, pero no presupongas que admite retroceder o saltar a otra fila. Para navegar en ambas direcciones solicita un cursor desplazable, por ejemplo `TYPE_SCROLL_INSENSITIVE`, y comprueba el soporte del driver.
+
+El proyecto descargable incluye **`es.dam.jdbc.app.DemoCursorDesplazable`**, que solicita `TYPE_SCROLL_INSENSITIVE` y `CONCUR_READ_ONLY`, muestra el tipo de cursor efectivo y practica `first()`, `last()`, `absolute(2)`, `previous()` y `getRow()`.
+
+```java
+try (Connection con = ConexionBD.abrir();
+     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+             ResultSet.CONCUR_READ_ONLY);
+     ResultSet rs = st.executeQuery(
+             "SELECT emp_no, apellido FROM empleados ORDER BY emp_no")) {
+    if (rs.first()) {
+        System.out.println("Primera fila: " + rs.getString("apellido"));
+    }
+    if (rs.last()) {
+        System.out.println("Última fila, posición " + rs.getRow());
+    }
+    if (rs.absolute(2)) {
+        System.out.println("Segunda fila: " + rs.getString("apellido"));
+    }
+}
+```
+
+## Convertir filas de `ResultSet` en objetos del modelo
+
+Un `ResultSet` pertenece a JDBC y se cierra al terminar la consulta. Para trabajar con los datos fuera del bloque de conexión, el DAO puede construir **objetos Java independientes** a partir de cada fila. En `jdbc-resultados`, `ConsultaDAO.buscarPorDepartamento(int)` devuelve una `List<Empleado>`.
+
+La clase `modelo/Empleado.java` es una **clase convencional** con atributos privados, constructor, getters, setters, `toString()` y documentación Javadoc. No realiza consultas SQL.
+
+```java
+List<Empleado> empleados = new ArrayList<>();
+try (Connection con = ConexionBD.abrir();
+     PreparedStatement ps = con.prepareStatement(
+             "SELECT emp_no, apellido, salario, comision " +
+             "FROM empleados WHERE dep_no = ? ORDER BY emp_no")) {
+    ps.setInt(1, 30);
+    try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            empleados.add(new Empleado(
+                    rs.getInt("emp_no"),
+                    rs.getString("apellido"),
+                    rs.getBigDecimal("salario"),
+                    rs.getBigDecimal("comision")));
+        }
+    }
+}
+// La lista contiene objetos independientes del ResultSet, ya cerrado.
+```
+
+`getBigDecimal()` devuelve `null` si el valor SQL es `NULL`. En cambio, al utilizar getters primitivos como `getInt()` hay que comprobar `wasNull()` cuando sea necesario distinguir un cero de un valor nulo.
+
+## `ResultSetMetaData` frente a `DatabaseMetaData`
+
+- **`ResultSetMetaData`** describe las columnas de una consulta concreta: número, etiqueta, nombre, tipo y posibilidad de `NULL`. Se obtiene mediante `rs.getMetaData()`.
+- **`DatabaseMetaData`** describe el gestor y el driver, así como las capacidades de la conexión. Se obtiene mediante `con.getMetaData()` y permite consultar `supportsResultSetType(...)` o `supportsResultSetConcurrency(...)`.
+
+En el proyecto, `ConsultaDAO.mostrarMetadatos()` y `ConsultaDAO.mostrarCapacidadesCursor()` muestran ambos usos.
+
+## Actualización de filas desde un `ResultSet`
+
+Con `CONCUR_UPDATABLE`, y **solo cuando el driver y la consulta lo permiten**, puede actualizarse la fila actual. `updateInt(...)` prepara el nuevo valor en el cursor y `updateRow()` envía la modificación a la base de datos.
+
+```java
+if (rs.next()) {
+    int nuevoStock = rs.getInt("stock_disponible") + 1;
+    rs.updateInt("stock_disponible", nuevoStock);
+    rs.updateRow();
+}
+```
+
+!!! danger "Demostración que modifica datos"
+    `DemoResultSetActualizable` busca el producto **9001** e incrementa su stock en una unidad si existe y el cursor es actualizable. Ejecútala únicamente en una base de datos de pruebas. Si no existe el producto, no realiza cambios. Para aplicaciones habituales se recomienda `UPDATE ... WHERE ...` con `PreparedStatement`.
+
+## Ejecutar el proyecto `jdbc-resultados`
+
+1. Descomprime el ZIP y abre la carpeta raíz `jdbc-resultados` como proyecto Maven en VS Code.
+2. Copia `src/main/resources/db.properties.example` a `src/main/resources/db.properties` y configura `jdbc.url`, `jdbc.user` y `jdbc.password` con los datos de MySQL local. **Este proyecto no utiliza `System.getenv()`**.
+3. Prepara la base de prácticas `curso` siguiendo el README. Ten presente que el script incluido puede recrear la base de datos.
+4. Ejecuta `mvn clean compile` y después, desde **Run Java**, las clases indicadas:
+
+| Clase principal | Qué demuestra |
+|---|---|
+| `es.dam.jdbc.app.DemoResultados` | Recorrido de filas, objetos `Empleado`, metadatos de columnas y capacidades del driver. |
+| `es.dam.jdbc.app.DemoCursorDesplazable` | Movimientos y posiciones de un cursor desplazable de solo lectura. |
+| `es.dam.jdbc.app.DemoResultSetActualizable` | Modificación opcional del stock del producto 9001 desde el cursor. |
+
+!!! tip "Orden de aprendizaje"
+    Empieza por `DemoResultados`, continúa con `DemoCursorDesplazable` y deja la demostración actualizable para el final. Revisa los comentarios internos y Javadoc del proyecto para comprender qué hace cada clase.
+
 ## Ejercicios
 
 Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.

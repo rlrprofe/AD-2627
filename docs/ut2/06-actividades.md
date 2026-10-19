@@ -254,3 +254,35 @@ El proyecto de consolidación es una actividad de desarrollo individual. La sigu
 
 !!! info "Evaluación"
     La valoración concreta de las prácticas seguirá los criterios y porcentajes indicados en la [guía de la UT2](index.md) y las instrucciones de entrega del aula virtual.
+
+## Orientaciones para practicar transacciones con el proyecto descargable
+
+Para las actividades de transferencia y `rollback()`, utiliza [`jdbc-transacciones`](07-descargas.md). Configura primero `db.properties` con la base `empresa` y ejecuta el script `03-empresa-transacciones.sql`.
+
+- **Caso correcto:** ejecuta `DemoTransferencia` y comprueba los dos saldos con `SELECT` antes y después.
+- **Error de destino:** prueba `new Transferencia(1, 9999, new BigDecimal("20.00"))` y comprueba que el saldo del origen no cambia gracias al `rollback()`.
+- **Savepoint:** ejecuta `DemoSavepoint` y explica por qué el pedido puede confirmarse aunque no se cree su albarán opcional.
+- **Análisis del código:** identifica qué clase abre la conexión, cuál ejecuta el SQL y cuál decide `commit()` o `rollback()`.
+
+!!! warning "Repetición de pruebas"
+    Cada transferencia correcta vuelve a modificar los saldos. El script SQL repone los saldos iniciales, pero no borra los albaranes que ya existan.
+
+
+## Actividad complementaria: llamadas a procedimientos almacenados
+
+Utiliza el proyecto [`jdbc-callablestatement`](07-descargas.md), configura `db.properties` y ejecuta los scripts SQL en el orden indicado en el README.
+
+**1. Parámetro OUT.** Ejecuta `contarEmpleados()` y explica por qué es necesario registrar el parámetro de salida antes de llamar a `execute()`.
+
+??? success "Orientación · OUT"
+    `registerOutParameter(1, Types.INTEGER)` declara el tipo del primer parámetro de salida. Tras `execute()`, `getInt(1)` recupera el total calculado en MySQL.
+
+**2. Parámetro INOUT.** Ejecuta `doblarNumero(12)` y repite con otro número. Identifica la diferencia entre `setInt()` y `registerOutParameter()`.
+
+??? success "Orientación · INOUT"
+    `setInt(1, 12)` proporciona el valor de entrada y `registerOutParameter(1, Types.INTEGER)` indica que el mismo parámetro devolverá un valor. Tras `execute()`, el resultado de la primera prueba será `24`.
+
+**3. Parámetros IN.** Localiza `aumentarSalario()` y explica por qué no se ejecuta automáticamente. Si realizas la prueba en una base de datos desechable, compara salarios y `log_acciones` antes y después.
+
+??? success "Orientación · IN"
+    El procedimiento recibe departamento y porcentaje, actualiza la tabla `empleados` y registra la acción. No tiene un parámetro `OUT` que comunique filas afectadas. Su ejecución cambia datos persistentes, por lo que se debe controlar cuidadosamente.

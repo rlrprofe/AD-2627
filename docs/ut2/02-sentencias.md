@@ -30,7 +30,7 @@ classDiagram
 | `execute()` | SQL que puede producir distintos resultados | `boolean`: indica si el primer resultado es un `ResultSet` |
 
 !!! tip "Antes de ejecutar los ejemplos"
-    `ConexionBD.abrir()` lee las variables `JDBC_URL`, `JDBC_USER` y `JDBC_PASSWORD` mediante `System.getenv()`. Consulta la explicación paso a paso en [2.1 · Fundamentos](01-fundamentos.md).
+    En el proyecto **`jdbc-statement`**, `ConexionBD.abrir()` utiliza la variante V3 basada en variables de entorno. En **`jdbc-preparedstatement`**, `ConexionBD.abrir()` lee `db.properties` mediante `Properties`, **sin `System.getenv()`**. Prepara el archivo a partir de `src/main/resources/db.properties.example` antes de ejecutar `MenuProductos`. Consulta [2.1 · Fundamentos](01-fundamentos.md).
 
 ### `Statement`: SQL fijo
 
@@ -106,6 +106,23 @@ try (Connection con = ConexionBD.abrir();
 ```
 
 El proyecto descargable incluye además un procedimiento con parámetro `INOUT` y otro que modifica salarios (este último no se ejecuta automáticamente).
+
+### Proyecto descargable: `jdbc-callablestatement` (OUT, INOUT e IN)
+
+El proyecto de prácticas utiliza **`db.properties`** para conectarse a la base de datos `curso`. Ejecuta primero los scripts SQL y después la clase principal `es.dam.jdbc.app.DemoCallable`.
+
+El proyecto separa `DemoCallable` (presentación), `ProcedimientoDAO` (llamadas a procedimientos) y `ConexionBD` (configuración). **No necesita una clase de modelo** porque los ejemplos devuelven valores enteros, no registros completos.
+
+| Procedimiento | Parámetro | Operación JDBC | Efecto |
+|---|---|---|---|
+| `contarEmpleados` | `OUT` | `registerOutParameter` y `getInt` | Devuelve un total |
+| `doblarNumero` | `INOUT` | `setInt`, `registerOutParameter` y `getInt` | Recibe un número y devuelve el doble |
+| `aumentarSalario` | `IN` | `setInt`, `setBigDecimal` y `execute` | **Modifica salarios y añade un registro al log** |
+
+!!! warning "Procedimiento que modifica datos"
+    `DemoCallable` no ejecuta `aumentarSalario` automáticamente. Hazlo solo en la base de pruebas, comprueba los valores antes y después y ten en cuenta que el procedimiento SQL no devuelve el número de filas modificadas.
+
+**Recuerda:** para un parámetro `OUT` se registra el tipo antes de `execute()`; para `INOUT`, además, se establece su valor de entrada. El índice de los parámetros empieza en **1**. El DAO cierra automáticamente `CallableStatement` y `Connection` mediante `try-with-resources`.
 
 ## Ejercicios
 

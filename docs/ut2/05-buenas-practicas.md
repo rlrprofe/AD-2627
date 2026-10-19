@@ -117,3 +117,24 @@ Utiliza estas preguntas como una **lista de autoevaluación razonada** antes de 
     Para comprobarlo, intenta justificar sin mirar apuntes: qué hace cada clase, de dónde viene la conexión, por qué se usa `PreparedStatement`, qué sucede si una consulta no encuentra filas, cómo se cierran los recursos y qué provoca un `rollback()`. Si alguna respuesta no está clara, vuelve al bloque correspondiente y reproduce el ejemplo.
 
 
+
+## Ejemplo aplicado: transacciones con DAO y servicio
+
+En [`jdbc-transacciones`](07-descargas.md), `ConexionBD` obtiene la conexión desde `src/main/resources/db.properties` con `Properties`. La clase `Transferencia` es un modelo Java convencional con atributos privados, constructor, getters, setters y `toString()`.
+
+`TransferenciaService` controla el límite transaccional: abre la conexión, desactiva `autoCommit`, llama dos veces al DAO con **la misma conexión** y decide `commit()` o `rollback()`. `CuentaDAO` cierra cada `PreparedStatement` mediante `try-with-resources`, pero **no cierra la conexión** que ha recibido.
+
+Los ejemplos están documentados con **Javadoc** en clases y métodos públicos, y con comentarios internos que explican las decisiones importantes (validación, comprobación de filas, `rollback()` y `Savepoint`). Los comentarios complementan el código; no sustituyen a nombres claros ni a una separación adecuada de responsabilidades.
+
+!!! warning "Configuración de los proyectos"
+    Los ejemplos descargables no utilizan necesariamente el mismo mecanismo de configuración. `jdbc-transacciones` utiliza **exclusivamente `db.properties`**; las tres variantes de conexión de `jdbc-statement` se explican en [2.1 · Fundamentos](01-fundamentos.md).
+
+
+## Caso específico: procedimientos almacenados (`jdbc-callablestatement`)
+
+En este proyecto, `DemoCallable` se encarga de mostrar los resultados, `ProcedimientoDAO` concentra las llamadas `CallableStatement` y `ConexionBD` carga `db.properties`. Cada método del DAO abre y cierra sus propios recursos con `try-with-resources`.
+
+- Los métodos incluyen **Javadoc** para describir parámetros, resultados y excepciones, y comentarios internos que justifican el orden de `setXxx`, `registerOutParameter`, `execute` y `getXxx`.
+- No es necesario crear una clase modelo si un procedimiento solo devuelve un valor escalar. Los modelos con atributos privados, getters y setters se reservan para entidades que realmente lo requieran.
+- No debe devolverse `0` como supuesto número de filas afectadas si el procedimiento no proporciona ese resultado. El ejemplo `aumentarSalario` devuelve `void`.
+- Los procedimientos que modifican datos se ejecutan únicamente en un entorno de pruebas controlado.

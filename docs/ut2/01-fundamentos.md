@@ -63,39 +63,96 @@ jdbc:mysql://localhost:3306/curso
 - `curso`: base de datos de los ejemplos de sentencias y consultas.
 - `empresa`: base de datos utilizada para las transacciones.
 
-## Configuración de la conexión: `System.getenv()` y variables de entorno
+## Configuración de la conexión: tres versiones para aprender JDBC
 
-En los proyectos de esta unidad, la clase `ConexionBD` obtiene los datos de conexión mediante **variables de entorno**. Son valores que proporciona el sistema operativo al proceso que ejecuta Java. Así podemos cambiar de equipo, usuario o contraseña **sin modificar ni publicar el código fuente**.
+Para conectar con MySQL, `DriverManager.getConnection(url, usuario, clave)` necesita tres datos: la dirección de la base de datos, el usuario y la contraseña. **JDBC funciona igual en las tres versiones**; lo que cambia es de dónde obtenemos esos datos.
 
-### ¿Qué hace `System.getenv()`?
+### V1 · Constantes dentro del código (solo aprendizaje)
 
-`System` es una clase de Java (`java.lang.System`) y `getenv()` permite consultar las variables de entorno del proceso:
-
-- `System.getenv("JDBC_PASSWORD")` busca una variable llamada `JDBC_PASSWORD`. Devuelve su valor como `String` o `null` si no existe.
-- `System.getenv()` **sin argumentos** devuelve un `Map<String, String>` con las variables de entorno visibles para el proceso.
-- `getOrDefault(clave, valorPredeterminado)` es un método de `Map`, **no de `System`**. Devuelve el valor asociado a la clave o, si no existe, el valor predeterminado.
-
-Por eso podemos escribir:
+Esta primera versión es fácil de comprender: los datos se escriben directamente como constantes de clase.
 
 ```java
-String url = System.getenv().getOrDefault(
-        "JDBC_URL", "jdbc:mysql://localhost:3306/curso");
-String usuario = System.getenv().getOrDefault("JDBC_USER", "alumno");
-String clave = System.getenv("JDBC_PASSWORD");
+public final class ConexionBD_V1 {
+    private static final String URL = "jdbc:mysql://localhost:3306/curso";
+    private static final String USUARIO = "alumno";
+    private static final String CLAVE = "clave_de_prueba";
+
+    private ConexionBD_V1() { }
+
+    public static Connection abrir() throws SQLException {
+        return DriverManager.getConnection(URL, USUARIO, CLAVE);
+    }
+}
 ```
 
-| Variable | Si está definida | Si no está definida |
-|---|---|---|
-| `JDBC_URL` | Se utiliza su URL | `jdbc:mysql://localhost:3306/curso` |
-| `JDBC_USER` | Se utiliza su usuario | `alumno` |
-| `JDBC_PASSWORD` | Se utiliza su contraseña | `null`; el proyecto lanza una excepción |
+- `private`: solo permite acceder directamente a esas constantes desde la propia clase.
+- `static`: pertenecen a la clase, no a cada objeto.
+- `final`: impide asignarles otro valor después de inicializarlas.
+- **Ninguna de estas palabras cifra ni oculta la contraseña**: se puede leer en el código y puede recuperarse de un JAR.
 
-!!! important "¿Por qué la contraseña no tiene valor por defecto?"
-    Porque no conviene guardar contraseñas en el código ni incluir una clave de ejemplo que pueda terminar utilizándose en entornos reales. El proyecto comprueba `clave == null || clave.isBlank()` y lanza una `SQLException` explicativa si falta.
+!!! danger "No guardar contraseñas reales en constantes"
+    V1 es **exclusivamente didáctica** y utiliza una cuenta local de pruebas sin datos sensibles. No copies credenciales reales al código, no las subas a GitHub y recuerda que, aunque borres una contraseña de un archivo, puede permanecer en el historial de Git.
 
-### Configurarlas antes de ejecutar el programa
+### V2 · Archivo de propiedades (`db.properties`)
 
-**PowerShell (Windows)**, en la misma sesión desde la que se inicia Java o el IDE:
+Esta opción evita escribir la configuración en el código Java. El proyecto Maven incluye `src/main/resources/db.properties.example`, una **plantilla sin credenciales reales**. Cada alumno debe copiarla a `db.properties` y completar los datos de su MySQL local. El fichero real se excluye de Git mediante `.gitignore`.
+
+```properties
+# src/main/resources/db.properties (archivo privado)
+jdbc.url=jdbc:mysql://localhost:3306/curso
+jdbc.user=alumno
+jdbc.password=TU_CLAVE_LOCAL
+```
+
+La clase `ConexionBD_V2` utiliza `Properties` para cargar ese archivo:
+
+```java
+Properties datos = new Properties();
+try (InputStream entrada = ConexionBD_V2.class.getClassLoader()
+        .getResourceAsStream("db.properties")) {
+    if (entrada == null) {
+        throw new SQLException("No se encuentra db.properties");
+    }
+    datos.load(entrada);
+} catch (IOException e) {
+    throw new SQLException("Error leyendo db.properties", e);
+}
+String url = datos.getProperty("jdbc.url");
+String usuario = datos.getProperty("jdbc.user");
+String clave = datos.getProperty("jdbc.password");
+return DriverManager.getConnection(url, usuario, clave);
+```
+
+`Properties.load()` lee las parejas `clave=valor`; `getProperty()` recupera cada valor. El código anterior resume la idea: **el proyecto descargable comprueba también que no falten valores**. Aunque no esté en Git, un archivo con contraseña puede quedar dentro de los archivos compilados o de un JAR; no distribuyas esos artefactos con credenciales.
+
+!!! info "Conexión en el proyecto `jdbc-preparedstatement`"
+    A diferencia de `jdbc-statement`, que presenta tres variantes didácticas, el proyecto **`jdbc-preparedstatement` utiliza únicamente `db.properties`**. Su clase `ConexionBD` carga `jdbc.url`, `jdbc.user` y `jdbc.password` con `Properties`, sin utilizar `System.getenv()`. Copia `src/main/resources/db.properties.example` a `db.properties` y completa los datos de tu MySQL local. El archivo real no debe subirse al repositorio.
+
+### V3 · Variables de entorno (recomendada para despliegues)
+
+En esta versión el sistema operativo proporciona la configuración al programa. Así se pueden cambiar URL, usuario y contraseña **sin modificar el código Java**.
+
+```java
+public static Connection abrir() throws SQLException {
+    // getenv() devuelve un mapa; getOrDefault es un método de ese mapa.
+    String url = System.getenv().getOrDefault(
+            "JDBC_URL", "jdbc:mysql://localhost:3306/curso");
+    String usuario = System.getenv().getOrDefault("JDBC_USER", "alumno");
+
+    // getenv("NOMBRE") devuelve su valor, o null si no existe.
+    String clave = System.getenv("JDBC_PASSWORD");
+    if (clave == null || clave.isBlank()) {
+        throw new SQLException("Falta JDBC_PASSWORD. Configura la variable de entorno.");
+    }
+    return DriverManager.getConnection(url, usuario, clave);
+}
+```
+
+`System` pertenece a `java.lang`. `System.getenv("JDBC_PASSWORD")` busca **una** variable; `System.getenv()` sin argumentos devuelve un `Map<String, String>` con las variables visibles para Java. `getOrDefault()` es un método de `Map`, **no de `System`**. Si falta `JDBC_URL`, usa la URL local; si falta `JDBC_USER`, usa `alumno`; si falta la contraseña, se detiene con una excepción.
+
+#### Cómo definir las variables
+
+En **Windows PowerShell**, antes de iniciar Java desde esa sesión:
 
 ```powershell
 $env:JDBC_URL = "jdbc:mysql://localhost:3306/curso"
@@ -103,7 +160,7 @@ $env:JDBC_USER = "alumno"
 $env:JDBC_PASSWORD = "TU_CLAVE_LOCAL"
 ```
 
-**Terminal Linux (Bash)**:
+En **Linux (Bash)**:
 
 ```bash
 export JDBC_URL="jdbc:mysql://localhost:3306/curso"
@@ -111,51 +168,54 @@ export JDBC_USER="alumno"
 export JDBC_PASSWORD="TU_CLAVE_LOCAL"
 ```
 
-Estas asignaciones son temporales y se aplican a los procesos iniciados desde esa sesión. **Si el IDE ya estaba abierto, es posible que no reciba las variables nuevas**: reinícialo desde la terminal configurada o utiliza la configuración de entorno de ejecución del IDE. No confundas las variables de entorno con las propiedades de Java consultadas mediante `System.getProperty()`.
+Las variables son temporales para esa sesión y sus procesos descendientes. Si el IDE ya estaba abierto, puede no heredarlas: configúralas en la ejecución del IDE o inícialo desde la terminal preparada. No muestres contraseñas en la consola, capturas ni repositorios.
 
-!!! warning "Privacidad"
-    No imprimas la contraseña con `System.out.println`, no la incluyas en el repositorio Git y evita que aparezca en capturas. Para comprobar si está configurada, puedes consultar únicamente si existe, sin mostrar su contenido.
+### Comparación y seguridad
 
-### Ejemplo comentado: clase `ConexionBD`
+| Característica | V1 · Constantes | V2 · Properties | V3 · Entorno |
+|---|---|---|---|
+| Dificultad inicial | Menor | Requiere un archivo | Requiere configurar variables |
+| Contraseña en Java | Sí | No | No |
+| Cambiar de ordenador | Cambiar código | Cambiar fichero | Cambiar entorno |
+| Subir el proyecto a GitHub | Riesgo de revelar claves | Seguro solo si se excluye `db.properties` | Menor riesgo de revelar claves |
+| Uso recomendado | Primer ejemplo local | Desarrollo local | Proyectos y despliegues |
+
+!!! note "¿V2 y V3 son completamente seguras?"
+    No. Las variables de entorno no cifran por sí solas los secretos y pueden ser visibles para procesos o personas con permisos suficientes. En producción se utilizan además controles de acceso y, cuando procede, gestores de secretos. En aplicaciones de escritorio o móviles distribuidas, **no se debe incorporar una contraseña de la base de datos central**: suele utilizarse una API de servidor que gestione ese acceso.
+
+### ¿Cómo utilizar las tres clases?
+
+El proyecto `jdbc-statement` contiene `ConexionBD_V1`, `ConexionBD_V2`, `ConexionBD_V3` y `DemoConexion`. Al pulsar **Run Java** sobre `DemoConexion`, se prueban **las tres conexiones consecutivamente**, sin argumentos de entrada. Cada intento tiene su propio `try/catch`, por lo que un fallo no detiene los siguientes. `ConexionBD.abrir()` sigue disponible y delega en V3 para mantener la compatibilidad con ejercicios anteriores.
 
 ```java
-public static Connection abrir() throws SQLException {
-    // Obtiene la URL del entorno. Si no existe JDBC_URL, usa MySQL local.
-    String url = System.getenv().getOrDefault(
-            "JDBC_URL", "jdbc:mysql://localhost:3306/curso");
-
-    // Obtiene el usuario; si no está definido, utiliza "alumno".
-    String usuario = System.getenv().getOrDefault("JDBC_USER", "alumno");
-
-    // Obtiene la contraseña. Si no existe, getenv devuelve null.
-    String clave = System.getenv("JDBC_PASSWORD");
-
-    // Rechaza una contraseña ausente o formada solo por espacios.
-    if (clave == null || clave.isBlank()) {
-        throw new SQLException("Falta JDBC_PASSWORD. Configura la variable de entorno antes de ejecutar.");
-    }
-
-    // Abre la conexión usando el driver JDBC disponible en Maven.
-    return DriverManager.getConnection(url, usuario, clave);
-}
+try (Connection c1 = ConexionBD_V1.abrir()) { /* Constantes */ }
+try (Connection c2 = ConexionBD_V2.abrir()) { /* db.properties */ }
+try (Connection c3 = ConexionBD_V3.abrir()) { /* Variables de entorno */ }
 ```
+
+Son **tres alternativas independientes**, no tres conexiones que deban mantenerse abiertas a la vez. `try-with-resources` cierra cada conexión. Consulta el `README.md` para preparar el archivo `.properties` y las variables de entorno.
 
 ### Comprueba que lo has entendido
 
-**1. ¿Qué diferencia hay entre `System.getenv("JDBC_USER")` y `System.getenv().getOrDefault("JDBC_USER", "alumno")`?**
+**1. ¿Por qué `private static final String CLAVE` no protege una contraseña?**
 
-??? success "Mostrar solución · Variables de entorno 1"
-    La primera expresión devuelve `null` si la variable no existe. La segunda utiliza `"alumno"` como valor alternativo. `getOrDefault` es un método del mapa devuelto por `getenv()`.
+??? success "Mostrar solución · Constantes"
+    `private` limita el acceso desde otras clases y `final` impide reasignar, pero ninguno cifra el valor. Una contraseña literal sigue apareciendo en el código y puede recuperarse de un JAR.
 
-**2. ¿Qué sucede si no configuras `JDBC_PASSWORD`?**
+**2. ¿Qué diferencia hay entre `System.getenv("JDBC_USER")` y `System.getenv().getOrDefault("JDBC_USER", "alumno")`?**
 
-??? success "Mostrar solución · Variables de entorno 2"
-    `System.getenv("JDBC_PASSWORD")` devuelve `null`; la comprobación de `ConexionBD` lanza una `SQLException` antes de llamar a `DriverManager.getConnection()`.
+??? success "Mostrar solución · Variables de entorno"
+    La primera devuelve `null` si no existe la variable. La segunda utiliza `"alumno"` como alternativa. `getOrDefault` pertenece al mapa que devuelve `getenv()`.
 
-**3. ¿Por qué un programa Java lanzado desde un IDE abierto previamente puede no ver una variable que acabas de definir en PowerShell?**
+**3. ¿Por qué V2 y V3 son preferibles cuando compartimos el proyecto en GitHub?**
 
-??? success "Mostrar solución · Variables de entorno 3"
-    Las variables de entorno se heredan cuando se inicia un proceso. Si el IDE ya estaba en ejecución, no recibe automáticamente las nuevas variables de la sesión de PowerShell. Puedes configurar las variables en la ejecución del IDE o iniciarlo de nuevo desde la sesión preparada.
+??? success "Mostrar solución · Seguridad"
+    Porque evitan escribir las credenciales en el código fuente y permite configurarlas en cada entorno. No elimina todos los riesgos: también hay que proteger el equipo, el entorno de ejecución y los permisos de acceso.
+
+**4. ¿Qué pasa si no se configura `JDBC_PASSWORD` en V3?**
+
+??? success "Mostrar solución · Contraseña ausente"
+    `System.getenv()` devuelve `null` y la clase lanza una `SQLException` antes de intentar conectarse.
 
 ## Ciclo de vida de una operación JDBC
 
@@ -182,7 +242,7 @@ try (Connection conexion = ConexionBD.abrir()) {
 }
 ```
 
-`ConexionBD` es una clase auxiliar incluida en cada proyecto descargable. Lee la URL, el usuario y la contraseña de variables de entorno; así evitamos publicar credenciales dentro del código.
+En este proyecto, `ConexionBD.abrir()` delega en `ConexionBD_V3.abrir()`, que lee la configuración desde variables de entorno. Las versiones V1 y V2 quedan disponibles para comparar alternativas.
 
 ### Ejercicios de comprensión
 
