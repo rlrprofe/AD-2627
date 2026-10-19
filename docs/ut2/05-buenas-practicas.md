@@ -22,6 +22,10 @@ flowchart TD
 
 No es obligatorio aplicar todas las capas en una primera demostración de `Statement`. En el CRUD y en las transferencias, esta separación evita mezclar responsabilidades.
 
+## Credenciales y configuración externa
+
+La clase `ConexionBD` utiliza `System.getenv()` para leer la configuración de conexión del proceso Java. `JDBC_URL` y `JDBC_USER` tienen valores predeterminados; `JDBC_PASSWORD` es obligatoria y **no debe almacenarse en el código**. `getOrDefault()` pertenece a `Map`, el objeto devuelto por `System.getenv()` sin argumentos. Consulta los [ejemplos comentados y la configuración en Windows y Linux](01-fundamentos.md).
+
 ## `try-with-resources`
 
 ```java

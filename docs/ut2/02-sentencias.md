@@ -29,6 +29,9 @@ classDiagram
 | `executeUpdate()` | INSERT, UPDATE, DELETE y DDL compatibles | Número de filas afectadas; para DDL, normalmente 0 |
 | `execute()` | SQL que puede producir distintos resultados | `boolean`: indica si el primer resultado es un `ResultSet` |
 
+!!! tip "Antes de ejecutar los ejemplos"
+    `ConexionBD.abrir()` lee las variables `JDBC_URL`, `JDBC_USER` y `JDBC_PASSWORD` mediante `System.getenv()`. Consulta la explicación paso a paso en [2.1 · Fundamentos](01-fundamentos.md).
+
 ### `Statement`: SQL fijo
 
 ```java

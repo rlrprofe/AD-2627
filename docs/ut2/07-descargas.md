@@ -19,6 +19,9 @@ Los proyectos están organizados por concepto y preparados para **Java 21 + MySQ
 !!! danger "Atención antes de ejecutar"
     El script de `curso` elimina y recrea la base de datos. **Hazlo únicamente en un entorno de pruebas.** Los ejemplos que insertan, actualizan o eliminan registros modifican datos reales de ese entorno.
 
+!!! tip "Cómo funcionan las variables de entorno"
+    Los proyectos utilizan `System.getenv()` para consultar `JDBC_URL`, `JDBC_USER` y `JDBC_PASSWORD`. Si no conoces este método, revisa [su explicación, el ejemplo comentado y las soluciones](01-fundamentos.md) antes de ejecutar el ZIP de `jdbc-statement`.
+
 ## Orden recomendado
 
 1. Prepara MySQL y ejecuta el script SQL del proyecto.

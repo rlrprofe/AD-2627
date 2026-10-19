@@ -63,6 +63,100 @@ jdbc:mysql://localhost:3306/curso
 - `curso`: base de datos de los ejemplos de sentencias y consultas.
 - `empresa`: base de datos utilizada para las transacciones.
 
+## Configuración de la conexión: `System.getenv()` y variables de entorno
+
+En los proyectos de esta unidad, la clase `ConexionBD` obtiene los datos de conexión mediante **variables de entorno**. Son valores que proporciona el sistema operativo al proceso que ejecuta Java. Así podemos cambiar de equipo, usuario o contraseña **sin modificar ni publicar el código fuente**.
+
+### ¿Qué hace `System.getenv()`?
+
+`System` es una clase de Java (`java.lang.System`) y `getenv()` permite consultar las variables de entorno del proceso:
+
+- `System.getenv("JDBC_PASSWORD")` busca una variable llamada `JDBC_PASSWORD`. Devuelve su valor como `String` o `null` si no existe.
+- `System.getenv()` **sin argumentos** devuelve un `Map<String, String>` con las variables de entorno visibles para el proceso.
+- `getOrDefault(clave, valorPredeterminado)` es un método de `Map`, **no de `System`**. Devuelve el valor asociado a la clave o, si no existe, el valor predeterminado.
+
+Por eso podemos escribir:
+
+```java
+String url = System.getenv().getOrDefault(
+        "JDBC_URL", "jdbc:mysql://localhost:3306/curso");
+String usuario = System.getenv().getOrDefault("JDBC_USER", "alumno");
+String clave = System.getenv("JDBC_PASSWORD");
+```
+
+| Variable | Si está definida | Si no está definida |
+|---|---|---|
+| `JDBC_URL` | Se utiliza su URL | `jdbc:mysql://localhost:3306/curso` |
+| `JDBC_USER` | Se utiliza su usuario | `alumno` |
+| `JDBC_PASSWORD` | Se utiliza su contraseña | `null`; el proyecto lanza una excepción |
+
+!!! important "¿Por qué la contraseña no tiene valor por defecto?"
+    Porque no conviene guardar contraseñas en el código ni incluir una clave de ejemplo que pueda terminar utilizándose en entornos reales. El proyecto comprueba `clave == null || clave.isBlank()` y lanza una `SQLException` explicativa si falta.
+
+### Configurarlas antes de ejecutar el programa
+
+**PowerShell (Windows)**, en la misma sesión desde la que se inicia Java o el IDE:
+
+```powershell
+$env:JDBC_URL = "jdbc:mysql://localhost:3306/curso"
+$env:JDBC_USER = "alumno"
+$env:JDBC_PASSWORD = "TU_CLAVE_LOCAL"
+```
+
+**Terminal Linux (Bash)**:
+
+```bash
+export JDBC_URL="jdbc:mysql://localhost:3306/curso"
+export JDBC_USER="alumno"
+export JDBC_PASSWORD="TU_CLAVE_LOCAL"
+```
+
+Estas asignaciones son temporales y se aplican a los procesos iniciados desde esa sesión. **Si el IDE ya estaba abierto, es posible que no reciba las variables nuevas**: reinícialo desde la terminal configurada o utiliza la configuración de entorno de ejecución del IDE. No confundas las variables de entorno con las propiedades de Java consultadas mediante `System.getProperty()`.
+
+!!! warning "Privacidad"
+    No imprimas la contraseña con `System.out.println`, no la incluyas en el repositorio Git y evita que aparezca en capturas. Para comprobar si está configurada, puedes consultar únicamente si existe, sin mostrar su contenido.
+
+### Ejemplo comentado: clase `ConexionBD`
+
+```java
+public static Connection abrir() throws SQLException {
+    // Obtiene la URL del entorno. Si no existe JDBC_URL, usa MySQL local.
+    String url = System.getenv().getOrDefault(
+            "JDBC_URL", "jdbc:mysql://localhost:3306/curso");
+
+    // Obtiene el usuario; si no está definido, utiliza "alumno".
+    String usuario = System.getenv().getOrDefault("JDBC_USER", "alumno");
+
+    // Obtiene la contraseña. Si no existe, getenv devuelve null.
+    String clave = System.getenv("JDBC_PASSWORD");
+
+    // Rechaza una contraseña ausente o formada solo por espacios.
+    if (clave == null || clave.isBlank()) {
+        throw new SQLException("Falta JDBC_PASSWORD. Configura la variable de entorno antes de ejecutar.");
+    }
+
+    // Abre la conexión usando el driver JDBC disponible en Maven.
+    return DriverManager.getConnection(url, usuario, clave);
+}
+```
+
+### Comprueba que lo has entendido
+
+**1. ¿Qué diferencia hay entre `System.getenv("JDBC_USER")` y `System.getenv().getOrDefault("JDBC_USER", "alumno")`?**
+
+??? success "Mostrar solución · Variables de entorno 1"
+    La primera expresión devuelve `null` si la variable no existe. La segunda utiliza `"alumno"` como valor alternativo. `getOrDefault` es un método del mapa devuelto por `getenv()`.
+
+**2. ¿Qué sucede si no configuras `JDBC_PASSWORD`?**
+
+??? success "Mostrar solución · Variables de entorno 2"
+    `System.getenv("JDBC_PASSWORD")` devuelve `null`; la comprobación de `ConexionBD` lanza una `SQLException` antes de llamar a `DriverManager.getConnection()`.
+
+**3. ¿Por qué un programa Java lanzado desde un IDE abierto previamente puede no ver una variable que acabas de definir en PowerShell?**
+
+??? success "Mostrar solución · Variables de entorno 3"
+    Las variables de entorno se heredan cuando se inicia un proceso. Si el IDE ya estaba en ejecución, no recibe automáticamente las nuevas variables de la sesión de PowerShell. Puedes configurar las variables en la ejecución del IDE o iniciarlo de nuevo desde la sesión preparada.
+
 ## Ciclo de vida de una operación JDBC
 
 ```mermaid
