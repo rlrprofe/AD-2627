@@ -3099,6 +3099,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#proyecto-descargable-jdbc-transacciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto descargable: jdbc-transacciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto descargable: jdbc-transacciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-y-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparación y ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-modelo-transferencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El modelo Transferencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responsabilidades-y-conexion-compartida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsabilidades y conexión compartida
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transacciones-con-jdbc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4016,6 +4066,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#proyecto-descargable-jdbc-transacciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto descargable: jdbc-transacciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto descargable: jdbc-transacciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-y-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparación y ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-modelo-transferencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El modelo Transferencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responsabilidades-y-conexion-compartida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsabilidades y conexión compartida
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transacciones-con-jdbc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4142,6 +4242,66 @@
  F -- Sí --&gt; G[COMMIT]
  G --&gt; H[Fin]
  R --&gt; H</code></pre>
+<h2 id="proyecto-descargable-jdbc-transacciones">Proyecto descargable: <code>jdbc-transacciones</code><a class="headerlink" href="#proyecto-descargable-jdbc-transacciones" title="Permanent link">&para;</a></h2>
+<p>El <a href="../07-descargas/">proyecto Maven de transacciones</a> utiliza <strong>Java 21, MySQL/InnoDB y <code>db.properties</code></strong>. Contiene dos ejemplos complementarios: <code>DemoTransferencia</code> (todo o nada) y <code>DemoSavepoint</code> (confirmación parcial permitida).</p>
+<h3 id="preparacion-y-ejecucion">Preparación y ejecución<a class="headerlink" href="#preparacion-y-ejecucion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ejecuta <code>sql/03-empresa-transacciones.sql</code> en MySQL. <strong>Atención:</strong> el script restablece los saldos de las cuentas de ejemplo y el estado del pedido 1001 cuando se vuelve a ejecutar.</li>
+<li>Copia <code>src/main/resources/db.properties.example</code> a <code>src/main/resources/db.properties</code> y configura <code>jdbc.url</code>, <code>jdbc.user</code> y <code>jdbc.password</code>. La URL debe apuntar a <code>empresa</code>.</li>
+<li>Compila desde la carpeta que contiene el <code>pom.xml</code> con <code>mvn clean compile</code>.</li>
+<li>Ejecuta <code>es.dam.jdbc.app.DemoTransferencia</code> y consulta los saldos antes y después. Ejecuta <code>es.dam.jdbc.app.DemoSavepoint</code> para comprobar el pedido y su albarán opcional.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="na">jdbc.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/empresa</span>
+<span class="na">jdbc.user</span><span class="o">=</span><span class="s">alumno</span>
+<span class="na">jdbc.password</span><span class="o">=</span><span class="s">TU_CLAVE_LOCAL</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Datos de prácticas</p>
+<p><code>DemoTransferencia</code> <strong>modifica los saldos cada vez que se ejecuta</strong>. <code>DemoSavepoint</code> modifica el estado del pedido e intenta crear un albarán. Trabaja exclusivamente sobre la base de pruebas.</p>
+</div>
+<h3 id="el-modelo-transferencia">El modelo <code>Transferencia</code><a class="headerlink" href="#el-modelo-transferencia" title="Permanent link">&para;</a></h3>
+<p>La solicitud se representa mediante una <strong>clase convencional</strong>, no un <code>record</code>: atributos <code>private</code>, constructor, getters, setters y <code>toString()</code>. No contiene SQL ni abre conexiones. El servicio comprueba las reglas de negocio.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Transferencia</span><span class="w"> </span><span class="n">solicitud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transferencia</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">(</span><span class="s">"20.00"</span><span class="p">));</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">cuentaOrigen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">solicitud</span><span class="p">.</span><span class="na">getOrigen</span><span class="p">();</span>
+<span class="n">BigDecimal</span><span class="w"> </span><span class="n">importe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">solicitud</span><span class="p">.</span><span class="na">getImporte</span><span class="p">();</span>
+<span class="k">new</span><span class="w"> </span><span class="n">TransferenciaService</span><span class="p">().</span><span class="na">transferir</span><span class="p">(</span><span class="n">solicitud</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="responsabilidades-y-conexion-compartida">Responsabilidades y conexión compartida<a class="headerlink" href="#responsabilidades-y-conexion-compartida" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Responsabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ConexionBD</code></td>
+<td>Lee <code>db.properties</code> con <code>Properties</code> y abre conexiones JDBC</td>
+</tr>
+<tr>
+<td><code>Transferencia</code></td>
+<td>Guarda origen, destino e importe (<code>BigDecimal</code>)</td>
+</tr>
+<tr>
+<td><code>CuentaDAO</code></td>
+<td>Ejecuta los <code>UPDATE</code> con <code>PreparedStatement</code> sin abrir ni cerrar la conexión recibida</td>
+</tr>
+<tr>
+<td><code>TransferenciaService</code></td>
+<td>Valida, inicia la transacción, llama al DAO y decide <code>commit()</code> o <code>rollback()</code></td>
+</tr>
+<tr>
+<td><code>PedidoService</code></td>
+<td>Confirma un pedido y utiliza <code>Savepoint</code> para el albarán opcional</td>
+</tr>
+<tr>
+<td><code>DemoTransferencia</code> / <code>DemoSavepoint</code></td>
+<td>Puntos de entrada con <code>main()</code> para ejecutar las demostraciones</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Idea esencial:</strong> las dos llamadas a <code>CuentaDAO</code> reciben la <strong>misma <code>Connection</code></strong>. Un <code>rollback()</code> solo puede deshacer operaciones pendientes de esa conexión; no deshace cambios confirmados en otra.</p>
 <h2 id="transacciones-con-jdbc">Transacciones con JDBC<a class="headerlink" href="#transacciones-con-jdbc" title="Permanent link">&para;</a></h2>
 <p>Los métodos principales pertenecen a <code>Connection</code>:</p>
 <table>
@@ -4253,6 +4413,7 @@
 <span class="p">}</span>
 <span class="n">con</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
 </code></pre></div>
+<p>En el proyecto descargable, <code>PedidoService.confirmarPedidoConAlbaranOpcional(1001)</code> muestra una implementación completa: confirma el pedido, crea el <code>Savepoint</code>, intenta insertar el albarán y, si este falla, ejecuta <code>rollback(antesAlbaran)</code> antes del <code>commit()</code> final.</p>
 <p>Este fragmento es <strong>esquemático</strong>: <code>insertarAlbaran</code> representa una operación que implementarás en el DAO. Un <code>Savepoint</code> no debe utilizarse para dividir una transferencia que, por definición, debe ser indivisible.</p>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
 <p>Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.</p>

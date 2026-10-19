@@ -3104,6 +3104,61 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#navegacion-por-el-cursor-estados-y-movimientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegación por el cursor: estados y movimientos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convertir-filas-de-resultset-en-objetos-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convertir filas de ResultSet en objetos del modelo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultsetmetadata-frente-a-databasemetadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResultSetMetaData frente a DatabaseMetaData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actualizacion-de-filas-desde-un-resultset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualización de filas desde un ResultSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejecutar-el-proyecto-jdbc-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejecutar el proyecto jdbc-resultados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4032,6 +4087,61 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#navegacion-por-el-cursor-estados-y-movimientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegación por el cursor: estados y movimientos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convertir-filas-de-resultset-en-objetos-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convertir filas de ResultSet en objetos del modelo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultsetmetadata-frente-a-databasemetadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResultSetMetaData frente a DatabaseMetaData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actualizacion-de-filas-desde-un-resultset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualización de filas desde un ResultSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejecutar-el-proyecto-jdbc-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejecutar el proyecto jdbc-resultados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4171,6 +4281,144 @@
 <h2 id="resultset-actualizables"><code>ResultSet</code> actualizables<a class="headerlink" href="#resultset-actualizables" title="Permanent link">&para;</a></h2>
 <p>Algunos drivers admiten <code>CONCUR_UPDATABLE</code> para modificar filas desde el cursor (<code>updateXxx</code>, <code>updateRow</code>, <code>insertRow</code>, <code>deleteRow</code>). La consulta debe cumplir restricciones del driver; por ejemplo, suele necesitar una tabla y su clave primaria.</p>
 <p>En aplicaciones ordinarias es preferible utilizar <code>UPDATE</code>, <code>INSERT</code> y <code>DELETE</code> mediante <code>PreparedStatement</code>, porque la operación queda explícita y es más fácil comprobar las filas afectadas.</p>
+<h2 id="navegacion-por-el-cursor-estados-y-movimientos">Navegación por el cursor: estados y movimientos<a class="headerlink" href="#navegacion-por-el-cursor-estados-y-movimientos" title="Permanent link">&para;</a></h2>
+<p>Un <code>ResultSet</code> es el conjunto de resultados de una consulta JDBC; no es una lista de objetos Java. Su <strong>cursor</strong> señala la fila desde la que se leen las columnas. Inicialmente se encuentra <strong>antes de la primera fila</strong>. <code>next()</code> devuelve <code>true</code> cuando logra situarse sobre una fila y <code>false</code> al alcanzar el final.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>next()</code></td>
+<td>Avanza a la fila siguiente.</td>
+</tr>
+<tr>
+<td><code>previous()</code></td>
+<td>Retrocede una fila.</td>
+</tr>
+<tr>
+<td><code>first()</code> / <code>last()</code></td>
+<td>Se sitúa en la primera o última fila.</td>
+</tr>
+<tr>
+<td><code>absolute(n)</code></td>
+<td>Se sitúa en la fila <code>n</code> (desde 1); con valores negativos cuenta desde el final.</td>
+</tr>
+<tr>
+<td><code>relative(n)</code></td>
+<td>Se desplaza <code>n</code> filas respecto a la posición actual.</td>
+</tr>
+<tr>
+<td><code>beforeFirst()</code> / <code>afterLast()</code></td>
+<td>Coloca el cursor fuera de las filas, al inicio o al final.</td>
+</tr>
+<tr>
+<td><code>getRow()</code></td>
+<td>Devuelve el número de fila actual; <code>0</code> si no está situado sobre una fila válida.</td>
+</tr>
+<tr>
+<td><code>isBeforeFirst()</code> / <code>isAfterLast()</code></td>
+<td>Comprueba posiciones fuera del conjunto, con particularidades si está vacío.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">No todos los cursores admiten estos movimientos</p>
+<p>El cursor habitual <code>TYPE_FORWARD_ONLY</code> permite avanzar con <code>next()</code>, pero no presupongas que admite retroceder o saltar a otra fila. Para navegar en ambas direcciones solicita un cursor desplazable, por ejemplo <code>TYPE_SCROLL_INSENSITIVE</code>, y comprueba el soporte del driver.</p>
+</div>
+<p>El proyecto descargable incluye <strong><code>es.dam.jdbc.app.DemoCursorDesplazable</code></strong>, que solicita <code>TYPE_SCROLL_INSENSITIVE</code> y <code>CONCUR_READ_ONLY</code>, muestra el tipo de cursor efectivo y practica <code>first()</code>, <code>last()</code>, <code>absolute(2)</code>, <code>previous()</code> y <code>getRow()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">Statement</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">createStatement</span><span class="p">(</span><span class="n">ResultSet</span><span class="p">.</span><span class="na">TYPE_SCROLL_INSENSITIVE</span><span class="p">,</span>
+<span class="w">             </span><span class="n">ResultSet</span><span class="p">.</span><span class="na">CONCUR_READ_ONLY</span><span class="p">);</span>
+<span class="w">     </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">(</span>
+<span class="w">             </span><span class="s">"SELECT emp_no, apellido FROM empleados ORDER BY emp_no"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">first</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Primera fila: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"apellido"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">last</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Última fila, posición "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getRow</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">absolute</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Segunda fila: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"apellido"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="convertir-filas-de-resultset-en-objetos-del-modelo">Convertir filas de <code>ResultSet</code> en objetos del modelo<a class="headerlink" href="#convertir-filas-de-resultset-en-objetos-del-modelo" title="Permanent link">&para;</a></h2>
+<p>Un <code>ResultSet</code> pertenece a JDBC y se cierra al terminar la consulta. Para trabajar con los datos fuera del bloque de conexión, el DAO puede construir <strong>objetos Java independientes</strong> a partir de cada fila. En <code>jdbc-resultados</code>, <code>ConsultaDAO.buscarPorDepartamento(int)</code> devuelve una <code>List&lt;Empleado&gt;</code>.</p>
+<p>La clase <code>modelo/Empleado.java</code> es una <strong>clase convencional</strong> con atributos privados, constructor, getters, setters, <code>toString()</code> y documentación Javadoc. No realiza consultas SQL.</p>
+<div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Empleado</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empleados</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">     </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span>
+<span class="w">             </span><span class="s">"SELECT emp_no, apellido, salario, comision "</span><span class="w"> </span><span class="o">+</span>
+<span class="w">             </span><span class="s">"FROM empleados WHERE dep_no = ? ORDER BY emp_no"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">empleados</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Empleado</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"emp_no"</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"apellido"</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">rs</span><span class="p">.</span><span class="na">getBigDecimal</span><span class="p">(</span><span class="s">"salario"</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">rs</span><span class="p">.</span><span class="na">getBigDecimal</span><span class="p">(</span><span class="s">"comision"</span><span class="p">)));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// La lista contiene objetos independientes del ResultSet, ya cerrado.</span>
+</code></pre></div>
+<p><code>getBigDecimal()</code> devuelve <code>null</code> si el valor SQL es <code>NULL</code>. En cambio, al utilizar getters primitivos como <code>getInt()</code> hay que comprobar <code>wasNull()</code> cuando sea necesario distinguir un cero de un valor nulo.</p>
+<h2 id="resultsetmetadata-frente-a-databasemetadata"><code>ResultSetMetaData</code> frente a <code>DatabaseMetaData</code><a class="headerlink" href="#resultsetmetadata-frente-a-databasemetadata" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>ResultSetMetaData</code></strong> describe las columnas de una consulta concreta: número, etiqueta, nombre, tipo y posibilidad de <code>NULL</code>. Se obtiene mediante <code>rs.getMetaData()</code>.</li>
+<li><strong><code>DatabaseMetaData</code></strong> describe el gestor y el driver, así como las capacidades de la conexión. Se obtiene mediante <code>con.getMetaData()</code> y permite consultar <code>supportsResultSetType(...)</code> o <code>supportsResultSetConcurrency(...)</code>.</li>
+</ul>
+<p>En el proyecto, <code>ConsultaDAO.mostrarMetadatos()</code> y <code>ConsultaDAO.mostrarCapacidadesCursor()</code> muestran ambos usos.</p>
+<h2 id="actualizacion-de-filas-desde-un-resultset">Actualización de filas desde un <code>ResultSet</code><a class="headerlink" href="#actualizacion-de-filas-desde-un-resultset" title="Permanent link">&para;</a></h2>
+<p>Con <code>CONCUR_UPDATABLE</code>, y <strong>solo cuando el driver y la consulta lo permiten</strong>, puede actualizarse la fila actual. <code>updateInt(...)</code> prepara el nuevo valor en el cursor y <code>updateRow()</code> envía la modificación a la base de datos.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nuevoStock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">"stock_disponible"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rs</span><span class="p">.</span><span class="na">updateInt</span><span class="p">(</span><span class="s">"stock_disponible"</span><span class="p">,</span><span class="w"> </span><span class="n">nuevoStock</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rs</span><span class="p">.</span><span class="na">updateRow</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Demostración que modifica datos</p>
+<p><code>DemoResultSetActualizable</code> busca el producto <strong>9001</strong> e incrementa su stock en una unidad si existe y el cursor es actualizable. Ejecútala únicamente en una base de datos de pruebas. Si no existe el producto, no realiza cambios. Para aplicaciones habituales se recomienda <code>UPDATE ... WHERE ...</code> con <code>PreparedStatement</code>.</p>
+</div>
+<h2 id="ejecutar-el-proyecto-jdbc-resultados">Ejecutar el proyecto <code>jdbc-resultados</code><a class="headerlink" href="#ejecutar-el-proyecto-jdbc-resultados" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Descomprime el ZIP y abre la carpeta raíz <code>jdbc-resultados</code> como proyecto Maven en VS Code.</li>
+<li>Copia <code>src/main/resources/db.properties.example</code> a <code>src/main/resources/db.properties</code> y configura <code>jdbc.url</code>, <code>jdbc.user</code> y <code>jdbc.password</code> con los datos de MySQL local. <strong>Este proyecto no utiliza <code>System.getenv()</code></strong>.</li>
+<li>Prepara la base de prácticas <code>curso</code> siguiendo el README. Ten presente que el script incluido puede recrear la base de datos.</li>
+<li>Ejecuta <code>mvn clean compile</code> y después, desde <strong>Run Java</strong>, las clases indicadas:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Clase principal</th>
+<th>Qué demuestra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>es.dam.jdbc.app.DemoResultados</code></td>
+<td>Recorrido de filas, objetos <code>Empleado</code>, metadatos de columnas y capacidades del driver.</td>
+</tr>
+<tr>
+<td><code>es.dam.jdbc.app.DemoCursorDesplazable</code></td>
+<td>Movimientos y posiciones de un cursor desplazable de solo lectura.</td>
+</tr>
+<tr>
+<td><code>es.dam.jdbc.app.DemoResultSetActualizable</code></td>
+<td>Modificación opcional del stock del producto 9001 desde el cursor.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Orden de aprendizaje</p>
+<p>Empieza por <code>DemoResultados</code>, continúa con <code>DemoCursorDesplazable</code> y deja la demostración actualizable para el final. Revisa los comentarios internos y Javadoc del proyecto para comprender qué hace cada clase.</p>
+</div>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
 <p>Intenta resolver cada ejercicio antes de desplegar la solución. Los ejemplos son orientativos y deben adaptarse a la base de datos y al proyecto Maven de prácticas.</p>
 <p><strong>1. Lista empleados por departamento, indicando si la consulta no devuelve filas.</strong></p>

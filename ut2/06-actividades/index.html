@@ -3237,6 +3237,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#orientaciones-para-practicar-transacciones-con-el-proyecto-descargable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orientaciones para practicar transacciones con el proyecto descargable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividad-complementaria-llamadas-a-procedimientos-almacenados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad complementaria: llamadas a procedimientos almacenados
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4120,6 +4142,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#orientaciones-para-practicar-transacciones-con-el-proyecto-descargable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orientaciones para practicar transacciones con el proyecto descargable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividad-complementaria-llamadas-a-procedimientos-almacenados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad complementaria: llamadas a procedimientos almacenados
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4350,6 +4394,35 @@ sql/01-curso-original.sql
 <p class="admonition-title">Evaluación</p>
 <p>La valoración concreta de las prácticas seguirá los criterios y porcentajes indicados en la <a href="../">guía de la UT2</a> y las instrucciones de entrega del aula virtual.</p>
 </div>
+<h2 id="orientaciones-para-practicar-transacciones-con-el-proyecto-descargable">Orientaciones para practicar transacciones con el proyecto descargable<a class="headerlink" href="#orientaciones-para-practicar-transacciones-con-el-proyecto-descargable" title="Permanent link">&para;</a></h2>
+<p>Para las actividades de transferencia y <code>rollback()</code>, utiliza <a href="../07-descargas/"><code>jdbc-transacciones</code></a>. Configura primero <code>db.properties</code> con la base <code>empresa</code> y ejecuta el script <code>03-empresa-transacciones.sql</code>.</p>
+<ul>
+<li><strong>Caso correcto:</strong> ejecuta <code>DemoTransferencia</code> y comprueba los dos saldos con <code>SELECT</code> antes y después.</li>
+<li><strong>Error de destino:</strong> prueba <code>new Transferencia(1, 9999, new BigDecimal("20.00"))</code> y comprueba que el saldo del origen no cambia gracias al <code>rollback()</code>.</li>
+<li><strong>Savepoint:</strong> ejecuta <code>DemoSavepoint</code> y explica por qué el pedido puede confirmarse aunque no se cree su albarán opcional.</li>
+<li><strong>Análisis del código:</strong> identifica qué clase abre la conexión, cuál ejecuta el SQL y cuál decide <code>commit()</code> o <code>rollback()</code>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Repetición de pruebas</p>
+<p>Cada transferencia correcta vuelve a modificar los saldos. El script SQL repone los saldos iniciales, pero no borra los albaranes que ya existan.</p>
+</div>
+<h2 id="actividad-complementaria-llamadas-a-procedimientos-almacenados">Actividad complementaria: llamadas a procedimientos almacenados<a class="headerlink" href="#actividad-complementaria-llamadas-a-procedimientos-almacenados" title="Permanent link">&para;</a></h2>
+<p>Utiliza el proyecto <a href="../07-descargas/"><code>jdbc-callablestatement</code></a>, configura <code>db.properties</code> y ejecuta los scripts SQL en el orden indicado en el README.</p>
+<p><strong>1. Parámetro OUT.</strong> Ejecuta <code>contarEmpleados()</code> y explica por qué es necesario registrar el parámetro de salida antes de llamar a <code>execute()</code>.</p>
+<details class="success">
+<summary>Orientación · OUT</summary>
+<p><code>registerOutParameter(1, Types.INTEGER)</code> declara el tipo del primer parámetro de salida. Tras <code>execute()</code>, <code>getInt(1)</code> recupera el total calculado en MySQL.</p>
+</details>
+<p><strong>2. Parámetro INOUT.</strong> Ejecuta <code>doblarNumero(12)</code> y repite con otro número. Identifica la diferencia entre <code>setInt()</code> y <code>registerOutParameter()</code>.</p>
+<details class="success">
+<summary>Orientación · INOUT</summary>
+<p><code>setInt(1, 12)</code> proporciona el valor de entrada y <code>registerOutParameter(1, Types.INTEGER)</code> indica que el mismo parámetro devolverá un valor. Tras <code>execute()</code>, el resultado de la primera prueba será <code>24</code>.</p>
+</details>
+<p><strong>3. Parámetros IN.</strong> Localiza <code>aumentarSalario()</code> y explica por qué no se ejecuta automáticamente. Si realizas la prueba en una base de datos desechable, compara salarios y <code>log_acciones</code> antes y después.</p>
+<details class="success">
+<summary>Orientación · IN</summary>
+<p>El procedimiento recibe departamento y porcentaje, actualiza la tabla <code>empleados</code> y registra la acción. No tiene un parámetro <code>OUT</code> que comunique filas afectadas. Su ejecución cambia datos persistentes, por lo que se debe controlar cuidadosamente.</p>
+</details>
 
 
 

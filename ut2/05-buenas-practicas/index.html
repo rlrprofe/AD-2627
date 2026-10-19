@@ -3170,6 +3170,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-aplicado-transacciones-con-dao-y-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo aplicado: transacciones con DAO y servicio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-especifico-procedimientos-almacenados-jdbc-callablestatement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso específico: procedimientos almacenados (jdbc-callablestatement)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4042,6 +4064,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-aplicado-transacciones-con-dao-y-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo aplicado: transacciones con DAO y servicio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-especifico-procedimientos-almacenados-jdbc-callablestatement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso específico: procedimientos almacenados (jdbc-callablestatement)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4182,6 +4226,22 @@
 <summary>Mostrar solución · Ejercicio 6</summary>
 <p>Para comprobarlo, intenta justificar sin mirar apuntes: qué hace cada clase, de dónde viene la conexión, por qué se usa <code>PreparedStatement</code>, qué sucede si una consulta no encuentra filas, cómo se cierran los recursos y qué provoca un <code>rollback()</code>. Si alguna respuesta no está clara, vuelve al bloque correspondiente y reproduce el ejemplo.</p>
 </details>
+<h2 id="ejemplo-aplicado-transacciones-con-dao-y-servicio">Ejemplo aplicado: transacciones con DAO y servicio<a class="headerlink" href="#ejemplo-aplicado-transacciones-con-dao-y-servicio" title="Permanent link">&para;</a></h2>
+<p>En <a href="../07-descargas/"><code>jdbc-transacciones</code></a>, <code>ConexionBD</code> obtiene la conexión desde <code>src/main/resources/db.properties</code> con <code>Properties</code>. La clase <code>Transferencia</code> es un modelo Java convencional con atributos privados, constructor, getters, setters y <code>toString()</code>.</p>
+<p><code>TransferenciaService</code> controla el límite transaccional: abre la conexión, desactiva <code>autoCommit</code>, llama dos veces al DAO con <strong>la misma conexión</strong> y decide <code>commit()</code> o <code>rollback()</code>. <code>CuentaDAO</code> cierra cada <code>PreparedStatement</code> mediante <code>try-with-resources</code>, pero <strong>no cierra la conexión</strong> que ha recibido.</p>
+<p>Los ejemplos están documentados con <strong>Javadoc</strong> en clases y métodos públicos, y con comentarios internos que explican las decisiones importantes (validación, comprobación de filas, <code>rollback()</code> y <code>Savepoint</code>). Los comentarios complementan el código; no sustituyen a nombres claros ni a una separación adecuada de responsabilidades.</p>
+<div class="admonition warning">
+<p class="admonition-title">Configuración de los proyectos</p>
+<p>Los ejemplos descargables no utilizan necesariamente el mismo mecanismo de configuración. <code>jdbc-transacciones</code> utiliza <strong>exclusivamente <code>db.properties</code></strong>; las tres variantes de conexión de <code>jdbc-statement</code> se explican en <a href="../01-fundamentos/">2.1 · Fundamentos</a>.</p>
+</div>
+<h2 id="caso-especifico-procedimientos-almacenados-jdbc-callablestatement">Caso específico: procedimientos almacenados (<code>jdbc-callablestatement</code>)<a class="headerlink" href="#caso-especifico-procedimientos-almacenados-jdbc-callablestatement" title="Permanent link">&para;</a></h2>
+<p>En este proyecto, <code>DemoCallable</code> se encarga de mostrar los resultados, <code>ProcedimientoDAO</code> concentra las llamadas <code>CallableStatement</code> y <code>ConexionBD</code> carga <code>db.properties</code>. Cada método del DAO abre y cierra sus propios recursos con <code>try-with-resources</code>.</p>
+<ul>
+<li>Los métodos incluyen <strong>Javadoc</strong> para describir parámetros, resultados y excepciones, y comentarios internos que justifican el orden de <code>setXxx</code>, <code>registerOutParameter</code>, <code>execute</code> y <code>getXxx</code>.</li>
+<li>No es necesario crear una clase modelo si un procedimiento solo devuelve un valor escalar. Los modelos con atributos privados, getters y setters se reservan para entidades que realmente lo requieran.</li>
+<li>No debe devolverse <code>0</code> como supuesto número de filas afectadas si el procedimiento no proporciona ese resultado. El ejemplo <code>aumentarSalario</code> devuelve <code>void</code>.</li>
+<li>Los procedimientos que modifican datos se ejecutan únicamente en un entorno de pruebas controlado.</li>
+</ul>
 
 
 

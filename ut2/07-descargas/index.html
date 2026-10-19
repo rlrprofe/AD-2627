@@ -3180,6 +3180,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Orden recomendado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jdbc-transacciones-clases-ejecutables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        jdbc-transacciones: clases ejecutables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jdbc-callablestatement-instrucciones-especificas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto jdbc-callablestatement: instrucciones específicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3952,6 +3980,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Orden recomendado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jdbc-transacciones-clases-ejecutables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        jdbc-transacciones: clases ejecutables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jdbc-callablestatement-instrucciones-especificas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto jdbc-callablestatement: instrucciones específicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3997,7 +4053,7 @@
 </tr>
 <tr>
 <td><code>jdbc-callablestatement</code></td>
-<td>Procedimientos <code>OUT</code> e <code>INOUT</code></td>
+<td>Procedimientos <code>OUT</code>, <code>INOUT</code> e <code>IN</code>; configuración <code>db.properties</code></td>
 <td><a href="../../descargas/ut2/jdbc-callablestatement.zip">ZIP</a></td>
 </tr>
 <tr>
@@ -4007,7 +4063,7 @@
 </tr>
 <tr>
 <td><code>jdbc-transacciones</code></td>
-<td>Transferencia con <code>commit</code>/<code>rollback</code></td>
+<td>Transferencia con <code>commit</code>/<code>rollback</code>, pedido con <code>Savepoint</code> y conexión por <code>db.properties</code></td>
 <td><a href="../../descargas/ut2/jdbc-transacciones.zip">ZIP</a></td>
 </tr>
 </tbody>
@@ -4024,18 +4080,32 @@
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Cómo funcionan las variables de entorno</p>
-<p>Los proyectos utilizan <code>System.getenv()</code> para consultar <code>JDBC_URL</code>, <code>JDBC_USER</code> y <code>JDBC_PASSWORD</code>. Si no conoces este método, revisa <a href="../01-fundamentos/">su explicación, el ejemplo comentado y las soluciones</a> antes de ejecutar el ZIP de <code>jdbc-statement</code>.</p>
+<p>El proyecto <code>jdbc-statement</code> muestra también la variante con <code>System.getenv()</code> y variables <code>JDBC_URL</code>, <code>JDBC_USER</code> y <code>JDBC_PASSWORD</code>. <strong><code>jdbc-transacciones</code> utiliza <code>db.properties</code>, no variables de entorno.</strong> Si no conoces este método, revisa <a href="../01-fundamentos/">su explicación, el ejemplo comentado y las soluciones</a> antes de ejecutar el ZIP de <code>jdbc-statement</code>.</p>
 </div>
 <h2 id="orden-recomendado">Orden recomendado<a class="headerlink" href="#orden-recomendado" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Prepara MySQL y ejecuta el script SQL del proyecto.</li>
-<li>Configura <code>JDBC_URL</code>, <code>JDBC_USER</code> y <code>JDBC_PASSWORD</code>.</li>
+<li>Configura la conexión según el README de cada proyecto. Para <code>jdbc-transacciones</code>, copia <code>src/main/resources/db.properties.example</code> a <code>db.properties</code> en esa misma carpeta y completa <code>jdbc.url</code>, <code>jdbc.user</code> y <code>jdbc.password</code> (base <code>empresa</code>).</li>
 <li>Abre la carpeta Maven en VS Code.</li>
 <li>Ejecuta <code>mvn clean compile</code> y después la clase principal.</li>
 <li>Compara la salida de consola con los datos de MySQL.</li>
 <li>Modifica el ejemplo y explica el efecto de cada cambio.</li>
 </ol>
 <p><strong>No es necesario utilizar expresiones lambda para resolver ninguna actividad.</strong></p>
+<h3 id="jdbc-transacciones-clases-ejecutables"><code>jdbc-transacciones</code>: clases ejecutables<a class="headerlink" href="#jdbc-transacciones-clases-ejecutables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>es.dam.jdbc.app.DemoTransferencia</code>: transferencia bancaria con <code>setAutoCommit(false)</code>, <code>commit()</code> y <code>rollback()</code>. <strong>Cada ejecución correcta cambia los saldos.</strong></li>
+<li><code>es.dam.jdbc.app.DemoSavepoint</code>: confirmación del pedido 1001 con un albarán opcional y <code>Savepoint</code>.</li>
+</ul>
+<p>Ambas demostraciones utilizan la base <strong><code>empresa</code></strong> y la configuración privada <code>src/main/resources/db.properties</code>. Consulta la explicación en <a href="../04-transacciones/">2.4 · Transacciones</a>.</p>
+<h3 id="proyecto-jdbc-callablestatement-instrucciones-especificas">Proyecto <code>jdbc-callablestatement</code>: instrucciones específicas<a class="headerlink" href="#proyecto-jdbc-callablestatement-instrucciones-especificas" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ejecuta <code>sql/01-curso-original.sql</code> y después <code>sql/02-procedimientos-curso.sql</code> (<strong>el primero elimina y recrea <code>curso</code></strong>).</li>
+<li>Copia <code>src/main/resources/db.properties.example</code> a <code>src/main/resources/db.properties</code> y configura URL, usuario y contraseña de MySQL.</li>
+<li>Compila con <code>mvn clean compile</code> y ejecuta <code>es.dam.jdbc.app.DemoCallable</code> desde VS Code.</li>
+<li>Observa las demostraciones <code>OUT</code> e <code>INOUT</code>. El procedimiento <code>aumentarSalario</code> con parámetros <code>IN</code> modifica datos y no se ejecuta automáticamente.</li>
+</ol>
+<p>El proyecto contiene Javadoc y comentarios internos. <strong>No tiene una clase modelo</strong> porque devuelve valores escalares y no objetos de dominio.</p>
 
 
 
