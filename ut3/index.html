@@ -3875,13 +3875,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+  <a href="#arquitectura-de-la-aplicacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Arquitectura definitiva: MVC, servicio y DAO
+        Arquitectura de la aplicación
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Arquitectura de la aplicación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsabilidades-de-las-clases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsabilidades de las clases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4031,76 +4048,93 @@
 <li><strong><a href="08-actividades-descargas/">Actividades, proyecto y descargas</a>.</strong> Prácticas de consolidación y solución de referencia.</li>
 </ol>
 <p>Para ampliar la configuración y el uso de Maven, consulta el <strong><a href="../anexo-maven/">Anexo · Apache Maven para proyectos Java</a></strong>.</p>
-<h2 id="arquitectura-definitiva-mvc-servicio-y-dao">Arquitectura definitiva: MVC, servicio y DAO<a class="headerlink" href="#arquitectura-definitiva-mvc-servicio-y-dao" title="Permanent link">&para;</a></h2>
-<p>El proyecto conserva el <strong>objetivo del RA6</strong>: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: <strong>lo complementa</strong>.</p>
-<pre class="mermaid"><code>flowchart TD
-    A["App: crea y conecta objetos"] --&gt; C["ProductoControlador"]
-    A --&gt; V["ConsolaVista"]
-    A --&gt; S["ProductoService"]
-    A --&gt; CFG["Configuracion"]
-    CFG --&gt; I["ProductoDAO: contrato"]
-    C &lt;--&gt; V
-    C --&gt; S
-    S --&gt; I
-    I -. "implementado por" .-&gt; F["ProductoFicheroDAO"]
-    I -. "implementado por" .-&gt; J["ProductoJdbcDAO"]
-    F --&gt; CSV[("productos.csv")]
-    J --&gt; MYSQL[("MySQL")]</code></pre>
+<h2 id="arquitectura-de-la-aplicacion">Arquitectura de la aplicación<a class="headerlink" href="#arquitectura-de-la-aplicacion" title="Permanent link">&para;</a></h2>
+<p>En una operación normal, el usuario interactúa con la <strong>vista</strong>, el <strong>controlador</strong> coordina la acción, el <strong>servicio</strong> valida los datos y el <strong>DAO</strong> realiza el acceso al almacenamiento. El siguiente esquema representa el <strong>flujo de una operación</strong>, no el orden en el que se crean los objetos:</p>
+<pre class="mermaid"><code>flowchart TB
+    vista["ConsolaVista: interacción con el usuario"]
+    controlador["ProductoControlador: coordina"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: contrato de persistencia"]
+    vista &lt;--&gt; controlador
+    controlador --&gt; servicio
+    servicio --&gt; dao</code></pre>
+<p>La interfaz <code>ProductoDAO</code> tiene dos implementaciones alternativas:</p>
 <table>
 <thead>
 <tr>
-<th>Elemento</th>
-<th>Responsabilidad</th>
-<th>Qué <strong>no</strong> debe hacer</th>
+<th>Implementación</th>
+<th>Almacenamiento</th>
+<th>Se utiliza cuando...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProductoFicheroDAO</code></td>
+<td>Fichero <code>datos/productos.csv</code></td>
+<td><code>almacenamiento.tipo=csv</code></td>
+</tr>
+<tr>
+<td><code>ProductoJdbcDAO</code></td>
+<td>Base de datos MySQL</td>
+<td><code>almacenamiento.tipo=mysql</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>¿Dónde quedan <code>App</code> y la configuración?</strong> <code>App</code> es el punto de entrada. Al arrancar, <code>Configuracion</code> lee el fichero <code>.properties</code>; <code>FabricaDao</code> crea el DAO elegido y <code>App</code> construye el servicio, la vista y el controlador. <code>ConexionBD</code> proporciona conexiones JDBC al DAO MySQL. Estas tareas de <strong>inicialización</strong> no forman parte del flujo de cada operación.</p>
+<h3 id="responsabilidades-de-las-clases">Responsabilidades de las clases<a class="headerlink" href="#responsabilidades-de-las-clases" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Responsabilidad principal</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>Producto</code></td>
-<td>Representar los datos del producto (<code>record</code>).</td>
-<td>Leer del teclado o ejecutar SQL.</td>
+<td>Representar un producto mediante un <code>record</code>.</td>
 </tr>
 <tr>
 <td><code>ConsolaVista</code></td>
-<td>Mostrar el menú, solicitar entradas y presentar resultados.</td>
-<td>Ejecutar operaciones CRUD en el DAO.</td>
+<td>Mostrar el menú, leer datos y presentar resultados.</td>
 </tr>
 <tr>
 <td><code>ProductoControlador</code></td>
-<td>Interpretar la opción elegida y coordinar vista y servicio.</td>
-<td>Leer con <code>Scanner</code> o construir sentencias SQL.</td>
+<td>Coordinar los casos de uso: alta, búsqueda, listado, modificación y baja.</td>
 </tr>
 <tr>
 <td><code>ProductoService</code></td>
-<td>Validar datos y aplicar las reglas de negocio.</td>
-<td>Mostrar mensajes o elegir CSV/MySQL.</td>
+<td>Validar y aplicar reglas de negocio.</td>
 </tr>
 <tr>
 <td><code>ProductoDAO</code></td>
-<td>Definir el contrato CRUD.</td>
-<td>Imponer una tecnología de persistencia.</td>
+<td>Definir las operaciones CRUD sin imponer CSV ni MySQL.</td>
 </tr>
 <tr>
-<td><code>ProductoFicheroDAO</code> / <code>ProductoJdbcDAO</code></td>
-<td>Implementar el contrato en CSV / MySQL.</td>
-<td>Mostrar el menú.</td>
+<td><code>ProductoFicheroDAO</code> y <code>ProductoJdbcDAO</code></td>
+<td>Implementar el contrato en CSV y MySQL.</td>
 </tr>
 <tr>
 <td><code>Configuracion</code></td>
-<td>Seleccionar la implementación DAO al arrancar.</td>
-<td>Contener reglas de negocio.</td>
+<td>Leer el fichero <code>config/configuracion.properties</code>.</td>
+</tr>
+<tr>
+<td><code>FabricaDao</code></td>
+<td>Crear la implementación de <code>ProductoDAO</code> seleccionada.</td>
+</tr>
+<tr>
+<td><code>ConexionBD</code></td>
+<td>Abrir conexiones a MySQL.</td>
 </tr>
 <tr>
 <td><code>App</code></td>
-<td>Crear los objetos y poner en marcha el controlador.</td>
-<td>Acumular el menú y todas las operaciones.</td>
+<td>Ensamblar las dependencias y arrancar el controlador.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Recorrido de un alta:</strong> la vista solicita los datos → el controlador recibe un <code>Producto</code> → el servicio valida y llama a <code>ProductoDAO</code> → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.</p>
 <div class="admonition info">
-<p class="admonition-title">MVC en una aplicación de consola</p>
-<p>MVC no exige una interfaz gráfica. En esta práctica la <strong>vista</strong> es una clase de consola, el <strong>controlador</strong> coordina las acciones del usuario y el <strong>modelo</strong> representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.</p>
+<p class="admonition-title">MVC en consola</p>
+<p>No hace falta una interfaz gráfica para separar vista, controlador y modelo. El objetivo principal de esta UT3 sigue siendo <strong>desarrollar componentes de acceso a datos</strong>; MVC organiza la aplicación que los utiliza.</p>
 </div>
 <h2 id="resultado-de-aprendizaje">Resultado de aprendizaje<a class="headerlink" href="#resultado-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <p><strong>RA6.</strong> Programa componentes de acceso a datos identificando las características que debe poseer un componente y utilizando herramientas de desarrollo.</p>
@@ -4218,15 +4252,67 @@
 </ul>
 <p>Estos son formatos posibles y no implican una distribución fija de preguntas ni de puntuaciones dentro del examen.</p>
 <h2 id="mapa-de-la-unidad">Mapa de la unidad<a class="headerlink" href="#mapa-de-la-unidad" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
-    A["Componentes software"] --&gt; B["Herramientas y proyecto Maven"]
-    B --&gt; C["Arquitectura por capas e interfaces"]
-    C --&gt; D["Patrón DAO y MVC"]
-    D --&gt; E["Componente para ficheros CSV"]
-    D --&gt; F["Componente JDBC para MySQL"]
-    E --&gt; G["Pruebas y documentación"]
-    F --&gt; G
-    G --&gt; H["Integración en la aplicación"]</code></pre>
+<p>El recorrido está organizado en ocho apartados. Primero identificamos qué es un componente; después construimos progresivamente una aplicación que utiliza <strong>dos componentes de persistencia intercambiables</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Apartado</th>
+<th>Qué aprenderemos</th>
+<th>Resultado en el proyecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="01-componentes/">3.1. Componentes</a></td>
+<td>Cohesión, acoplamiento y reutilización</td>
+<td>Entender el problema y el diseño propuesto</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="02-herramientas/">3.2. Herramientas</a></td>
+<td>JDK 21, Maven y estructura del proyecto</td>
+<td>Proyecto inicial compilable</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="03-arquitectura-dao/">3.3. Arquitectura y DAO</a></td>
+<td>Interfaces, modelo, servicio y MVC</td>
+<td>Contrato <code>ProductoDAO</code> y reglas de negocio</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="04-componentes-ficheros/">3.4. Ficheros</a></td>
+<td>CRUD en CSV y vista de consola</td>
+<td>Primera aplicación funcional</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="05-componentes-jdbc/">3.5. JDBC</a></td>
+<td>CRUD en MySQL y conexiones</td>
+<td>Segunda implementación del DAO</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="06-pruebas-documentacion/">3.6. Pruebas</a></td>
+<td>JUnit, pruebas aisladas y Javadoc</td>
+<td>Comprobación de componentes</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="07-integracion/">3.7. Integración</a></td>
+<td><code>.properties</code>, fábrica DAO y JAR</td>
+<td>Aplicación final configurable</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="08-actividades-descargas/">3.8. Actividades</a></td>
+<td>Consolidación y entrega</td>
+<td>Solución de referencia</td>
+</tr>
+</tbody>
+</table>
 <h2 id="materiales-didacticos">Materiales didácticos<a class="headerlink" href="#materiales-didacticos" title="Permanent link">&para;</a></h2>
 <p>Los apuntes, ejemplos y recursos necesarios para esta unidad se encuentran disponibles en:</p>
 <ul>

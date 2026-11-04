@@ -3352,22 +3352,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+  <a href="#arquitectura-de-la-aplicacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Arquitectura definitiva: MVC, servicio y DAO
+        Arquitectura de la aplicación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Arquitectura definitiva: MVC, servicio y DAO">
+    <nav class="md-nav" aria-label="Arquitectura de la aplicación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" class="md-nav__link">
+  <a href="#ejemplo-registrar-un-producto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La configuración también tiene su propia responsabilidad
+        Ejemplo: registrar un producto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-separar-tambien-la-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué separar también la configuración?
       
     </span>
   </a>
@@ -4055,22 +4066,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+  <a href="#arquitectura-de-la-aplicacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Arquitectura definitiva: MVC, servicio y DAO
+        Arquitectura de la aplicación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Arquitectura definitiva: MVC, servicio y DAO">
+    <nav class="md-nav" aria-label="Arquitectura de la aplicación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" class="md-nav__link">
+  <a href="#ejemplo-registrar-un-producto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La configuración también tiene su propia responsabilidad
+        Ejemplo: registrar un producto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-separar-tambien-la-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué separar también la configuración?
       
     </span>
   </a>
@@ -4186,81 +4208,50 @@
 <li>Crear el modelo y el servicio de la aplicación.</li>
 </ul>
 <h2 id="1-separacion-de-responsabilidades-mvc-servicio-dao">1. Separación de responsabilidades: MVC + servicio + DAO<a class="headerlink" href="#1-separacion-de-responsabilidades-mvc-servicio-dao" title="Permanent link">&para;</a></h2>
-<p>Antes de programar, debemos decidir <strong>qué responsabilidad tiene cada parte</strong>. El DAO encapsula la persistencia, pero no debe gestionar menús. El servicio aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una <strong>vista</strong> y un <strong>controlador</strong>.</p>
-<h2 id="arquitectura-definitiva-mvc-servicio-y-dao">Arquitectura definitiva: MVC, servicio y DAO<a class="headerlink" href="#arquitectura-definitiva-mvc-servicio-y-dao" title="Permanent link">&para;</a></h2>
-<p>El proyecto conserva el <strong>objetivo del RA6</strong>: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: <strong>lo complementa</strong>.</p>
-<pre class="mermaid"><code>flowchart TD
-    A["App: crea y conecta objetos"] --&gt; C["ProductoControlador"]
-    A --&gt; V["ConsolaVista"]
-    A --&gt; S["ProductoService"]
-    A --&gt; CFG["Configuracion"]
-    CFG --&gt; I["ProductoDAO: contrato"]
-    C &lt;--&gt; V
-    C --&gt; S
-    S --&gt; I
-    I -. "implementado por" .-&gt; F["ProductoFicheroDAO"]
-    I -. "implementado por" .-&gt; J["ProductoJdbcDAO"]
-    F --&gt; CSV[("productos.csv")]
-    J --&gt; MYSQL[("MySQL")]</code></pre>
+<p>El <strong>DAO</strong> encapsula el acceso a datos, pero no debe gestionar menús. El <strong>servicio</strong> aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una <strong>vista</strong> y un <strong>controlador</strong>.</p>
+<h2 id="arquitectura-de-la-aplicacion">Arquitectura de la aplicación<a class="headerlink" href="#arquitectura-de-la-aplicacion" title="Permanent link">&para;</a></h2>
+<p>En una operación normal, el usuario interactúa con la <strong>vista</strong>, el <strong>controlador</strong> coordina la acción, el <strong>servicio</strong> valida los datos y el <strong>DAO</strong> realiza el acceso al almacenamiento. El siguiente esquema representa el <strong>flujo de una operación</strong>, no el orden en el que se crean los objetos:</p>
+<pre class="mermaid"><code>flowchart TB
+    vista["ConsolaVista: interacción con el usuario"]
+    controlador["ProductoControlador: coordina"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: contrato de persistencia"]
+    vista &lt;--&gt; controlador
+    controlador --&gt; servicio
+    servicio --&gt; dao</code></pre>
+<p>La interfaz <code>ProductoDAO</code> tiene dos implementaciones alternativas:</p>
 <table>
 <thead>
 <tr>
-<th>Elemento</th>
-<th>Responsabilidad</th>
-<th>Qué <strong>no</strong> debe hacer</th>
+<th>Implementación</th>
+<th>Almacenamiento</th>
+<th>Se utiliza cuando...</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Producto</code></td>
-<td>Representar los datos del producto (<code>record</code>).</td>
-<td>Leer del teclado o ejecutar SQL.</td>
+<td><code>ProductoFicheroDAO</code></td>
+<td>Fichero <code>datos/productos.csv</code></td>
+<td><code>almacenamiento.tipo=csv</code></td>
 </tr>
 <tr>
-<td><code>ConsolaVista</code></td>
-<td>Mostrar el menú, solicitar entradas y presentar resultados.</td>
-<td>Ejecutar operaciones CRUD en el DAO.</td>
-</tr>
-<tr>
-<td><code>ProductoControlador</code></td>
-<td>Interpretar la opción elegida y coordinar vista y servicio.</td>
-<td>Leer con <code>Scanner</code> o construir sentencias SQL.</td>
-</tr>
-<tr>
-<td><code>ProductoService</code></td>
-<td>Validar datos y aplicar las reglas de negocio.</td>
-<td>Mostrar mensajes o elegir CSV/MySQL.</td>
-</tr>
-<tr>
-<td><code>ProductoDAO</code></td>
-<td>Definir el contrato CRUD.</td>
-<td>Imponer una tecnología de persistencia.</td>
-</tr>
-<tr>
-<td><code>ProductoFicheroDAO</code> / <code>ProductoJdbcDAO</code></td>
-<td>Implementar el contrato en CSV / MySQL.</td>
-<td>Mostrar el menú.</td>
-</tr>
-<tr>
-<td><code>Configuracion</code></td>
-<td>Seleccionar la implementación DAO al arrancar.</td>
-<td>Contener reglas de negocio.</td>
-</tr>
-<tr>
-<td><code>App</code></td>
-<td>Crear los objetos y poner en marcha el controlador.</td>
-<td>Acumular el menú y todas las operaciones.</td>
+<td><code>ProductoJdbcDAO</code></td>
+<td>Base de datos MySQL</td>
+<td><code>almacenamiento.tipo=mysql</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Recorrido de un alta:</strong> la vista solicita los datos → el controlador recibe un <code>Producto</code> → el servicio valida y llama a <code>ProductoDAO</code> → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.</p>
-<div class="admonition info">
-<p class="admonition-title">MVC en una aplicación de consola</p>
-<p>MVC no exige una interfaz gráfica. En esta práctica la <strong>vista</strong> es una clase de consola, el <strong>controlador</strong> coordina las acciones del usuario y el <strong>modelo</strong> representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.</p>
-</div>
-<h3 id="la-configuracion-tambien-tiene-su-propia-responsabilidad">La configuración también tiene su propia responsabilidad<a class="headerlink" href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" title="Permanent link">&para;</a></h3>
-<p>En la solución final separamos <code>Configuracion</code> (leer el archivo <code>.properties</code>), <code>FabricaDao</code> (elegir la implementación del DAO) y <code>ConexionBD</code> (abrir conexiones JDBC). Ninguna de estas clases debe contener el menú ni reglas de negocio.</p>
-<p><strong>Importante:</strong> <code>App</code> solo crea y conecta los componentes; no consulta variables de entorno, no contiene SQL y no gestiona el menú.</p>
+<p><strong>¿Dónde quedan <code>App</code> y la configuración?</strong> <code>App</code> es el punto de entrada. Al arrancar, <code>Configuracion</code> lee el fichero <code>.properties</code>; <code>FabricaDao</code> crea el DAO elegido y <code>App</code> construye el servicio, la vista y el controlador. <code>ConexionBD</code> proporciona conexiones JDBC al DAO MySQL. Estas tareas de <strong>inicialización</strong> no forman parte del flujo de cada operación.</p>
+<h3 id="ejemplo-registrar-un-producto">Ejemplo: registrar un producto<a class="headerlink" href="#ejemplo-registrar-un-producto" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>ConsolaVista.solicitarProducto()</code> recoge los datos introducidos.</li>
+<li><code>ProductoControlador.alta()</code> recibe el producto y llama a <code>ProductoService.alta(...)</code>.</li>
+<li>El servicio comprueba las reglas de negocio y delega en <code>ProductoDAO.insertar(...)</code>.</li>
+<li>El DAO elegido guarda el producto en CSV o MySQL.</li>
+<li>El controlador pide a la vista que muestre la confirmación.</li>
+</ol>
+<h3 id="por-que-separar-tambien-la-configuracion">¿Por qué separar también la configuración?<a class="headerlink" href="#por-que-separar-tambien-la-configuracion" title="Permanent link">&para;</a></h3>
+<p>En la solución final <code>Configuracion</code> <strong>lee propiedades</strong>, <code>FabricaDao</code> <strong>elige el DAO</strong> y <code>ConexionBD</code> <strong>abre conexiones JDBC</strong>. <code>App</code> se limita a crear y conectar objetos. Así no mezclamos el menú, la lógica de negocio y las credenciales de la base de datos.</p>
 <h2 id="2-crear-el-modelo">2. Crear el modelo<a class="headerlink" href="#2-crear-el-modelo" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/modelo/Producto.java</code></strong>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">es.iesisidra.inventario.modelo</span><span class="p">;</span>

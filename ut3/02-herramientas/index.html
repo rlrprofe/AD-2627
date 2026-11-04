@@ -4219,6 +4219,7 @@ mvn<span class="w"> </span>-version
 ├── dao/ProductoFicheroDAO.java
 ├── dao/ProductoJdbcDAO.java
 ├── configuracion/Configuracion.java
+├── configuracion/FabricaDao.java
 └── util/ConexionBD.java
 </code></pre></div>
 <p>No debes crear todo de una vez. El objetivo es comprender <strong>por qué aparece cada clase</strong> a medida que añadimos funcionalidades.</p>
@@ -4249,7 +4250,7 @@ mvn<span class="w"> </span>compile
 git<span class="w"> </span>add<span class="w"> </span>.
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Crear estructura inicial del proyecto Maven"</span>
 </code></pre></div>
-<p>Crea un <code>.gitignore</code> para excluir <code>target/</code>, los archivos propios del IDE y los secretos locales. No subas contraseñas de MySQL al repositorio.</p>
+<p>Crea un <code>.gitignore</code> para excluir <code>target/</code>, los archivos propios del IDE y <code>config/configuracion.properties</code> (puede contener contraseñas). No subas contraseñas de MySQL al repositorio.</p>
 <h2 id="7-comprobacion">7. Comprobación<a class="headerlink" href="#7-comprobacion" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[ ] El IDE reconoce el JDK 21.</li>

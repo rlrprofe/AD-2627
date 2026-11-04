@@ -4314,20 +4314,42 @@
 </code></pre></div>
 <p>El código mostrado es el núcleo del método <code>main</code>; consulta la clase completa en el ZIP de la solución.</p>
 <h3 id="15-recorrido-de-una-operacion">1.5. Recorrido de una operación<a class="headerlink" href="#15-recorrido-de-una-operacion" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
-    actor Usuario
-    participant Vista as ConsolaVista
-    participant Controlador as ProductoControlador
-    participant Servicio as ProductoService
-    participant DAO as ProductoDAO
-    Usuario-&gt;&gt;Vista: Introduce datos
-    Vista--&gt;&gt;Controlador: Producto
-    Controlador-&gt;&gt;Servicio: alta(producto)
-    Servicio-&gt;&gt;Servicio: Validar reglas
-    Servicio-&gt;&gt;DAO: insertar(producto)
-    DAO--&gt;&gt;Servicio: Resultado
-    Controlador-&gt;&gt;Vista: mostrarMensaje(...)
-    Vista--&gt;&gt;Usuario: Confirmación</code></pre>
+<table>
+<thead>
+<tr>
+<th>Orden</th>
+<th>Interviene</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Usuario y <code>ConsolaVista</code></td>
+<td>Introducir los datos de un producto.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ProductoControlador</code></td>
+<td>Solicitar el alta al servicio.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>ProductoService</code></td>
+<td>Validar el producto y llamar al DAO.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>ProductoDAO</code> (CSV o MySQL)</td>
+<td>Guardar el producto.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>ProductoControlador</code> y <code>ConsolaVista</code></td>
+<td>Mostrar el resultado al usuario.</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Observa:</strong> la vista no accede al DAO, el servicio no lee del teclado y el DAO no decide cómo presentar mensajes.</p>
 <h2 id="2-preparar-el-jar-ejecutable">2. Preparar el JAR ejecutable<a class="headerlink" href="#2-preparar-el-jar-ejecutable" title="Permanent link">&para;</a></h2>
 <p>Para distribuir el proyecto necesitamos un JAR que contenga la aplicación y, cuando utilicemos MySQL, también las dependencias necesarias.</p>
