@@ -4212,10 +4212,11 @@
 <h2 id="arquitectura-de-la-aplicacion">Arquitectura de la aplicación<a class="headerlink" href="#arquitectura-de-la-aplicacion" title="Permanent link">&para;</a></h2>
 <p>En una operación normal, el usuario interactúa con la <strong>vista</strong>, el <strong>controlador</strong> coordina la acción, el <strong>servicio</strong> valida los datos y el <strong>DAO</strong> realiza el acceso al almacenamiento. El siguiente esquema representa el <strong>flujo de una operación</strong>, no el orden en el que se crean los objetos:</p>
 <pre class="mermaid"><code>flowchart TB
-    vista["ConsolaVista: interacción con el usuario"]
-    controlador["ProductoControlador: coordina"]
-    servicio["ProductoService: reglas de negocio"]
-    dao["ProductoDAO: contrato de persistencia"]
+    vista["ConsolaVista"]
+    controlador["ProductoControlador"]
+    servicio["ProductoService"]
+    dao["ProductoDAO"]
+
     vista &lt;--&gt; controlador
     controlador --&gt; servicio
     servicio --&gt; dao</code></pre>
