@@ -4171,14 +4171,24 @@
 </div>
 <h2 id="3-arquitectura-que-construiremos">3. Arquitectura que construiremos<a class="headerlink" href="#3-arquitectura-que-construiremos" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A[App: composición] --&gt; C[ProductoControlador]
-    C &lt;--&gt; V[ConsolaVista: menú y mensajes]
-    C --&gt; S[ProductoService: reglas de negocio]
-    S --&gt; I[ProductoDAO: interfaz]
-    I --&gt; F[ProductoFicheroDAO]
-    I --&gt; J[ProductoJdbcDAO]
-    F --&gt; C[(productos.csv)]
-    J --&gt; M[(MySQL)]</code></pre>
+    app["App: composición"]
+    controlador["ProductoControlador"]
+    vista["ConsolaVista: menú y mensajes"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: interfaz"]
+    fichero["ProductoFicheroDAO"]
+    jdbc["ProductoJdbcDAO"]
+    csv[("productos.csv")]
+    mysql[("MySQL")]
+
+    app --&gt; controlador
+    controlador &lt;--&gt; vista
+    controlador --&gt; servicio
+    servicio --&gt; dao
+    dao --&gt; fichero
+    dao --&gt; jdbc
+    fichero --&gt; csv
+    jdbc --&gt; mysql</code></pre>
 <p>La aplicación compartirá <strong>modelo, vista, controlador y servicio</strong>. Lo que cambia es el componente de persistencia. La clase <code>App</code> se limitará a conectar los objetos y arrancar el controlador.</p>
 <h2 id="4-por-que-no-concentrar-todo-en-main">4. ¿Por qué no concentrar todo en <code>main</code>?<a class="headerlink" href="#4-por-que-no-concentrar-todo-en-main" title="Permanent link">&para;</a></h2>
 <p>En una aplicación pequeña puede parecer cómodo escribir el menú, las lecturas de teclado, las validaciones y el acceso al fichero dentro de <code>main</code>. El problema aparece cuando necesitamos cambiar una de esas partes: una modificación de la presentación puede afectar a las consultas o a las reglas de negocio.</p>
