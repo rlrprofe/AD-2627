@@ -126,7 +126,7 @@ try (Scanner scanner = new Scanner(entradas);
      PrintStream salida = new PrintStream(salidaBytes)) {
     ConsolaVista vista = new ConsolaVista(scanner, salida);
     ProductoService servicio = new ProductoService(new DaoMemoria());
-    new ProductoControlador(servicio, vista).iniciar();
+    new ProductoControlador(vista, servicio).iniciar();
 }
 
 String resultado = salidaBytes.toString();

@@ -1,7 +1,7 @@
 
 # UT3 · Diseño y desarrollo de componentes de acceso a datos
 
-En la UT1 aprendimos a gestionar información almacenada en **ficheros** y en la UT2 a acceder a **bases de datos relacionales mediante JDBC**. En esta unidad aprenderás a diseñar y desarrollar **componentes de acceso a datos reutilizables**, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración. La solución de referencia aplica **MVC + capa de servicio + patrón DAO**: el menú se sitúa en la vista, la coordinación en el controlador y el acceso a datos en componentes intercambiables.
+En la UT1 aprendimos a gestionar información almacenada en **ficheros** y en la UT2 a acceder a **bases de datos relacionales mediante JDBC**. En esta unidad aprenderás a diseñar y desarrollar **componentes de acceso a datos reutilizables**, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración. La solución de referencia aplica **MVC + capa de servicio + patrón DAO**, con configuración mediante fichero `.properties` y cierre seguro de recursos con `try-with-resources`: el menú se sitúa en la vista, la coordinación en el controlador y el acceso a datos en componentes intercambiables.
 
 Como proyecto conductor utilizaremos una aplicación de **gestión de productos** que podrá almacenar información en un fichero CSV o en una base de datos MySQL mediante distintas implementaciones de una misma interfaz.
 

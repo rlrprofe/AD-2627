@@ -69,35 +69,41 @@ En `pom.xml`, dentro de `<dependencies>`:
 
 La versión indicada es la del proyecto de ejemplo. Si tu instalación o el repositorio de Maven requieren otra versión compatible, adapta la dependencia.
 
-## 4. Crear el proveedor de conexiones
+## 4. Configurar la conexión a MySQL con `.properties`
 
-Archivo: **`src/main/java/es/iesisidra/inventario/util/ConexionBD.java`**.
+No escribiremos usuario y contraseña en Java ni pediremos al alumnado que defina variables de entorno. En su lugar, `Configuracion` lee `config/configuracion.properties` al arrancar y `FabricaDao` crea `ConexionBD` con los datos obtenidos.
+
+```properties
+almacenamiento.tipo=mysql
+db.url=jdbc:mysql://localhost:3306/inventario
+db.usuario=inventario_app
+db.password=TU_CONTRASENA_LOCAL
+```
+
+La clase `util/ConexionBD.java` **no guarda una conexión abierta permanentemente**: contiene los datos necesarios para abrir una nueva cuando el DAO la necesita.
 
 ```java
-package es.iesisidra.inventario.util;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 public final class ConexionBD {
-    private ConexionBD() { }
+    private final String url;
+    private final String usuario;
+    private final String password;
 
-    public static Connection abrir() throws SQLException {
-        String url = System.getenv().getOrDefault(
-                "INVENTARIO_DB_URL", "jdbc:mysql://localhost:3306/inventario");
-        String usuario = System.getenv().getOrDefault("INVENTARIO_DB_USER", "inventario_app");
-        String clave = System.getenv("INVENTARIO_DB_PASSWORD");
-        if (clave == null) {
-            throw new IllegalStateException("Falta INVENTARIO_DB_PASSWORD");
-        }
-        return DriverManager.getConnection(url, usuario, clave);
+    public ConexionBD(String url, String usuario, String password) {
+        this.url = url;
+        this.usuario = usuario;
+        this.password = password;
+    }
+
+    public Connection abrir() throws SQLException {
+        return DriverManager.getConnection(url, usuario, password);
     }
 }
 ```
 
-!!! warning "Seguridad"
-    No escribas contraseñas en el código ni las subas a GitHub. Utiliza variables de entorno locales. El usuario y la contraseña de MySQL deben existir previamente.
+**¿Quién cierra la conexión?** El método del DAO que llama a `conexion.abrir()` la utiliza dentro de un `try-with-resources`. Al finalizar, Java cierra la conexión automáticamente, también si se produce un error.
+
+!!! warning "No publiques las credenciales"
+    Mantén `config/configuracion.properties` en `.gitignore` y distribuye solo `configuracion.properties.example`. Ejecuta el programa desde la raíz del proyecto, ya que allí se espera la carpeta `config`.
 
 ## 5. Implementar el DAO JDBC
 
@@ -112,10 +118,16 @@ import java.sql.*;
 import java.util.*;
 
 public class ProductoJdbcDAO implements ProductoDAO {
+    private final ConexionBD conexion;
+
+    public ProductoJdbcDAO(ConexionBD conexion) {
+        this.conexion = conexion;
+    }
+
     @Override
     public void insertar(Producto p) {
         String sql = "INSERT INTO producto(id,nombre,precio,stock) VALUES(?,?,?,?)";
-        try (Connection c = ConexionBD.abrir();
+        try (Connection c = conexion.abrir();
              PreparedStatement ps = c.prepareStatement(sql)) {
             asignar(ps, p);
             ps.executeUpdate();
@@ -127,7 +139,7 @@ public class ProductoJdbcDAO implements ProductoDAO {
     @Override
     public Optional<Producto> buscarPorId(int id) {
         String sql = "SELECT id,nombre,precio,stock FROM producto WHERE id=?";
-        try (Connection c = ConexionBD.abrir();
+        try (Connection c = conexion.abrir();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -141,7 +153,7 @@ public class ProductoJdbcDAO implements ProductoDAO {
     @Override
     public List<Producto> listar() {
         String sql = "SELECT id,nombre,precio,stock FROM producto ORDER BY id";
-        try (Connection c = ConexionBD.abrir();
+        try (Connection c = conexion.abrir();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             List<Producto> lista = new ArrayList<>();
@@ -155,7 +167,7 @@ public class ProductoJdbcDAO implements ProductoDAO {
     @Override
     public boolean actualizar(Producto p) {
         String sql = "UPDATE producto SET nombre=?, precio=?, stock=? WHERE id=?";
-        try (Connection c = ConexionBD.abrir();
+        try (Connection c = conexion.abrir();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, p.nombre());
             ps.setDouble(2, p.precio());
@@ -169,7 +181,7 @@ public class ProductoJdbcDAO implements ProductoDAO {
 
     @Override
     public boolean eliminar(int id) {
-        try (Connection c = ConexionBD.abrir();
+        try (Connection c = conexion.abrir();
              PreparedStatement ps = c.prepareStatement("DELETE FROM producto WHERE id=?")) {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
@@ -196,19 +208,16 @@ Observa el uso de `PreparedStatement`, `try-with-resources` y un método de conv
 
 ## 6. Seleccionar MySQL al ejecutar
 
-Al integrar las dos implementaciones en 3.7, la clase `Configuracion` permitirá elegir el DAO mediante la variable de entorno `INVENTARIO_STORAGE`:
+La elección se realiza en el fichero `config/configuracion.properties`:
 
-- Valor `csv` (o variable ausente): `ProductoFicheroDAO`.
-- Valor `mysql`: `ProductoJdbcDAO`.
-
-Ejemplo en **PowerShell**:
-
-```powershell
-$env:INVENTARIO_STORAGE = "mysql"
-$env:INVENTARIO_DB_USER = "inventario_app"
-$env:INVENTARIO_DB_PASSWORD = "TU_CLAVE_LOCAL"
-java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
+```properties
+almacenamiento.tipo=mysql
+db.url=jdbc:mysql://localhost:3306/inventario
+db.usuario=inventario_app
+db.password=TU_CONTRASENA_LOCAL
 ```
+
+Guarda el fichero y ejecuta el programa desde la raíz del proyecto. Para regresar a CSV, establece `almacenamiento.tipo=csv`. No se necesitan comandos especiales de PowerShell ni variables de entorno.
 
 !!! tip "Resultado que queremos comprobar"
     La vista, el controlador y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa `ProductoDAO`.

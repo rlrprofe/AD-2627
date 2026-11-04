@@ -35,6 +35,21 @@ Antes de consultar la solución, comprueba que:
 - [ ] Cambiar de CSV a MySQL no obliga a modificar la vista ni el controlador.
 - [ ] Las pruebas pueden ejecutarse sin una conexión MySQL real cuando verifican reglas de negocio.
 
+### Configuración que debes poder explicar en la defensa
+
+1. ¿Por qué `App` no debería contener SQL ni el menú?
+2. ¿Qué diferencia existe entre `Configuracion`, `FabricaDao` y `ConexionBD`?
+3. ¿Cómo cambias entre CSV y MySQL sin tocar el código Java?
+4. ¿Qué recursos se cierran mediante `try-with-resources`?
+5. ¿Por qué no debes subir `config/configuracion.properties` con contraseñas?
+
+??? success "Orientaciones para la solución"
+    - `App` es el punto de composición; la vista muestra el menú y el DAO ejecuta la persistencia.
+    - `Configuracion` lee las propiedades, `FabricaDao` elige el DAO y `ConexionBD` abre conexiones.
+    - Se modifica `almacenamiento.tipo` en `config/configuracion.properties`.
+    - Se cierran flujos de lectura/escritura, `Scanner` y recursos JDBC.
+    - El archivo real puede contener credenciales; se comparte solo la plantilla `.example`.
+
 ## 4. Solución de referencia (al finalizar la unidad)
 
 !!! warning "Consultar después de completar las actividades"
@@ -42,7 +57,7 @@ Antes de consultar la solución, comprueba que:
 
 [**Descargar proyecto completo / solución de referencia (ZIP)**](../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip)
 
-Incluye la aplicación de consola **modularizada con MVC**, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el `pom.xml` final. `App` solo conecta los componentes; `ConsolaVista` gestiona la interacción y `ProductoControlador` coordina las operaciones.
+Incluye la aplicación de consola **modularizada con MVC**, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL, el `pom.xml` final y `config/configuracion.properties.example`. La configuración real se crea localmente y no debe publicarse. `App` solo conecta los componentes; `ConsolaVista` gestiona la interacción y `ProductoControlador` coordina las operaciones.
 
 !!! note "Requisitos"
     Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.

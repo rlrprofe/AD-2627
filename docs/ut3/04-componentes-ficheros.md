@@ -186,13 +186,13 @@ ProductoService servicio = new ProductoService(dao);
 
 try (Scanner scanner = new Scanner(System.in)) {
     ConsolaVista vista = new ConsolaVista(scanner, System.out);
-    new ProductoControlador(servicio, vista).iniciar();
+    new ProductoControlador(vista, servicio).iniciar();
 }
 ```
 
 Para que compile, incorpora las importaciones de las clases y de `Path` y `Scanner`. La solución final contiene la clase completa.
 
-En 3.7 sustituiremos la construcción directa del DAO por `Configuracion.crearDao()`, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.
+En 3.7 sustituiremos la construcción directa del DAO por `FabricaDao.crear(configuracion)`, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.
 
 !!! note "Proyecto inicial y solución final"
     El proyecto inicial es un **esqueleto de trabajo**. La solución final contiene las clases `ConsolaVista`, `ProductoControlador` y `Configuracion`, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.

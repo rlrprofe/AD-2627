@@ -44,7 +44,6 @@ El modelo será:
 
 ## 3. Arquitectura que construiremos
 
-
 ```mermaid
 flowchart TD
     app["App: composición"]
@@ -66,7 +65,6 @@ flowchart TD
     fichero --> csv
     jdbc --> mysql
 ```
-
 
 La aplicación compartirá **modelo, vista, controlador y servicio**. Lo que cambia es el componente de persistencia. La clase `App` se limitará a conectar los objetos y arrancar el controlador.
 

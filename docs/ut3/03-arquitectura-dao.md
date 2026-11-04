@@ -51,6 +51,12 @@ flowchart TD
 !!! info "MVC en una aplicación de consola"
     MVC no exige una interfaz gráfica. En esta práctica la **vista** es una clase de consola, el **controlador** coordina las acciones del usuario y el **modelo** representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.
 
+### La configuración también tiene su propia responsabilidad
+
+En la solución final separamos `Configuracion` (leer el archivo `.properties`), `FabricaDao` (elegir la implementación del DAO) y `ConexionBD` (abrir conexiones JDBC). Ninguna de estas clases debe contener el menú ni reglas de negocio.
+
+**Importante:** `App` solo crea y conecta los componentes; no consulta variables de entorno, no contiene SQL y no gestiona el menú.
+
 ## 2. Crear el modelo
 
 Archivo: **`src/main/java/es/iesisidra/inventario/modelo/Producto.java`**.

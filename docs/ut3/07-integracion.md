@@ -10,68 +10,99 @@
 - Elegir el mecanismo de persistencia sin modificar las reglas de negocio.
 - Construir un JAR ejecutable con Maven y documentar su puesta en marcha.
 
-## 1. Punto de integración: `App` ya no contiene el menú
+## 1. Integrar las capas: composición en `App`
 
-En la solución inicial de la unidad, `App` reunía varias tareas. Ahora la hemos simplificado: **solo crea los objetos y los conecta**. Esta operación suele llamarse *composición* o *ensamblaje de dependencias*.
+Hasta ahora hemos construido componentes con responsabilidades diferentes. **La aplicación no debe decidir cómo se conecta a MySQL dentro del menú**: la configuración se lee una vez al arrancar y una fábrica construye el DAO correspondiente.
 
-La clase `Configuracion` decide qué implementación de `ProductoDAO` utilizar según la variable de entorno `INVENTARIO_STORAGE`.
+### 1.1. Fichero de configuración externo
 
-Archivo: `src/main/java/es/iesisidra/inventario/configuracion/Configuracion.java`.
+El proyecto incorpora `config/configuracion.properties.example`. Haz una copia con el nombre `config/configuracion.properties`, dentro del proyecto:
+
+```properties
+# CSV (modo inicial)
+almacenamiento.tipo=csv
+csv.ruta=datos/productos.csv
+
+# Solo se utilizan cuando seleccionamos MySQL
+db.url=jdbc:mysql://localhost:3306/inventario
+db.usuario=inventario_app
+db.password=
+```
+
+Para cambiar a MySQL, cambia `almacenamiento.tipo=mysql`, completa el usuario y la contraseña y ejecuta antes `sql/inventario.sql`. **No es necesario introducir variables de entorno en PowerShell o Bash.**
+
+!!! warning "Contraseñas y repositorios"
+    `config/configuracion.properties` contiene información local y se excluye mediante `.gitignore`. Comparte únicamente `configuracion.properties.example`, sin contraseñas reales. El fichero se busca respecto al **directorio de trabajo**, que debe ser la raíz del proyecto.
+
+### 1.2. `Configuracion`: lectura con `Properties` y try-with-resources
+
+La clase `configuracion/Configuracion.java` encapsula la lectura y la consulta de propiedades. No crea conexiones ni imprime menús.
 
 ```java
-public static ProductoDAO crearDao() {
-    String modo = System.getenv()
-            .getOrDefault("INVENTARIO_STORAGE", "csv")
-            .trim()
-            .toLowerCase(Locale.ROOT);
-
-    return switch (modo) {
-        case "csv" -> new ProductoFicheroDAO(Path.of("datos", "productos.csv"));
-        case "mysql" -> new ProductoJdbcDAO();
-        default -> throw new IllegalArgumentException(
-                "INVENTARIO_STORAGE debe ser csv o mysql: " + modo);
-    };
+Path ruta = Path.of("config", "configuracion.properties");
+Properties propiedades = new Properties();
+try (InputStream entrada = Files.newInputStream(ruta)) {
+    propiedades.load(entrada);
+} catch (IOException e) {
+    throw new IllegalStateException("No se puede leer la configuración", e);
 }
 ```
 
-Este fragmento pertenece a la clase `Configuracion` e incorpora las importaciones de `ProductoDAO`, sus implementaciones, `Path` y `Locale`.
+El `try-with-resources` cierra el flujo incluso si se produce una excepción. El código completo comprueba además que el fichero existe y que las propiedades obligatorias tienen valor.
 
-La clase `App` utiliza el DAO seleccionado para crear el servicio, después crea la vista y finalmente arranca el controlador:
+### 1.3. `FabricaDao`: decidir CSV o MySQL
+
+La clase `configuracion/FabricaDao.java` interpreta `almacenamiento.tipo` y crea la implementación correspondiente. Es el único lugar donde se elige entre `ProductoFicheroDAO` y `ProductoJdbcDAO`.
 
 ```java
-ProductoDAO dao = Configuracion.crearDao();
-ProductoService servicio = new ProductoService(dao);
+return switch (config.obtener("almacenamiento.tipo", "csv")) {
+    case "csv" -> new ProductoFicheroDAO(Path.of(config.obligatorio("csv.ruta")));
+    case "mysql" -> new ProductoJdbcDAO(new ConexionBD(
+            config.obligatorio("db.url"),
+            config.obligatorio("db.usuario"),
+            config.obligatorio("db.password")));
+    default -> throw new IllegalArgumentException("Modo de almacenamiento no válido");
+};
+```
 
-try (Scanner scanner = new Scanner(System.in)) {
-    ConsolaVista vista = new ConsolaVista(scanner, System.out);
-    new ProductoControlador(servicio, vista).iniciar();
+Este fragmento resume la decisión. La implementación completa también normaliza las mayúsculas/minúsculas del modo.
+
+### 1.4. `App`: punto de entrada mínimo
+
+La clase `App` **no contiene el menú, las operaciones CRUD, sentencias SQL ni lectura de propiedades**. Solo conecta los objetos:
+
+```java
+Configuracion configuracion = Configuracion.cargar();
+ProductoService servicio = new ProductoService(FabricaDao.crear(configuracion));
+
+try (Scanner teclado = new Scanner(System.in)) {
+    ConsolaVista vista = new ConsolaVista(teclado, System.out);
+    new ProductoControlador(vista, servicio).iniciar();
 }
 ```
 
-### ¿Qué ocurre cuando el usuario elige una opción?
+El código mostrado es el núcleo del método `main`; consulta la clase completa en el ZIP de la solución.
+
+### 1.5. Recorrido de una operación
 
 ```mermaid
 sequenceDiagram
-    actor U as Usuario
-    participant V as ConsolaVista
-    participant C as ProductoControlador
-    participant S as ProductoService
-    participant D as ProductoDAO
-    U->>V: Elige "Alta" e introduce datos
-    V-->>C: Producto
-    C->>S: alta(producto)
-    S->>S: validar(producto)
-    S->>D: insertar(producto)
-    D-->>S: Operación terminada
-    S-->>C: Retorno
-    C->>V: mostrarMensaje(...)
-    V-->>U: "Producto registrado"
+    actor Usuario
+    participant Vista as ConsolaVista
+    participant Controlador as ProductoControlador
+    participant Servicio as ProductoService
+    participant DAO as ProductoDAO
+    Usuario->>Vista: Introduce datos
+    Vista-->>Controlador: Producto
+    Controlador->>Servicio: alta(producto)
+    Servicio->>Servicio: Validar reglas
+    Servicio->>DAO: insertar(producto)
+    DAO-->>Servicio: Resultado
+    Controlador->>Vista: mostrarMensaje(...)
+    Vista-->>Usuario: Confirmación
 ```
 
-La vista **no conoce** la base de datos; el servicio **no conoce** el menú; el controlador **no conoce** los detalles de CSV o JDBC.
-
-!!! important "Concepto clave"
-    `ProductoService` depende de la interfaz `ProductoDAO`. Cambiar la variable de entorno solo modifica qué implementación se construye al arrancar. No requiere cambios en `ConsolaVista`, `ProductoControlador` ni `ProductoService`.
+**Observa:** la vista no accede al DAO, el servicio no lee del teclado y el DAO no decide cómo presentar mensajes.
 
 ## 2. Preparar el JAR ejecutable
 
@@ -130,39 +161,38 @@ La solución de referencia incorpora `maven-shade-plugin` en su `pom.xml`. Si es
 
 ## 4. Ejecutar con CSV
 
-Por defecto:
+En `config/configuracion.properties` establece:
+
+```properties
+almacenamiento.tipo=csv
+csv.ruta=datos/productos.csv
+```
+
+Desde la **raíz del proyecto**:
 
 ```bash
+mvn clean package
 java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
 ```
 
-El fichero se guarda en `datos/productos.csv`, relativo al directorio desde el que ejecutamos el programa.
+El fichero CSV se leerá y guardará en `datos/productos.csv`.
 
 ## 5. Ejecutar con MySQL
 
-Primero ejecuta `sql/inventario.sql` en MySQL y configura las variables de entorno.
+1. Inicia MySQL y ejecuta `sql/inventario.sql`.
+2. Crea o utiliza un usuario con permisos sobre la base de datos.
+3. Modifica `config/configuracion.properties`:
 
-**PowerShell:**
-
-```powershell
-$env:INVENTARIO_STORAGE = "mysql"
-$env:INVENTARIO_DB_URL = "jdbc:mysql://localhost:3306/inventario"
-$env:INVENTARIO_DB_USER = "inventario_app"
-$env:INVENTARIO_DB_PASSWORD = "TU_CLAVE_LOCAL"
-java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
+```properties
+almacenamiento.tipo=mysql
+db.url=jdbc:mysql://localhost:3306/inventario
+db.usuario=inventario_app
+db.password=TU_CONTRASENA_LOCAL
 ```
 
-**Linux (bash):**
+4. Ejecuta `java -jar target/gestion-inventario-1.0-SNAPSHOT.jar` desde la raíz.
 
-```bash
-export INVENTARIO_STORAGE=mysql
-export INVENTARIO_DB_URL=jdbc:mysql://localhost:3306/inventario
-export INVENTARIO_DB_USER=inventario_app
-export INVENTARIO_DB_PASSWORD='TU_CLAVE_LOCAL'
-java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
-```
-
-No compartas las contraseñas ni las guardes en el repositorio.
+**No hay que definir variables de entorno.** Para volver a CSV, cambia únicamente `almacenamiento.tipo=csv`.
 
 ## 6. Comprobar la integración
 
