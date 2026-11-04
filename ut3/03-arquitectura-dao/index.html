@@ -3360,6 +3360,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Arquitectura definitiva: MVC, servicio y DAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La configuración también tiene su propia responsabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4046,6 +4063,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Arquitectura definitiva: MVC, servicio y DAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La configuración también tiene su propia responsabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4224,6 +4258,9 @@
 <p class="admonition-title">MVC en una aplicación de consola</p>
 <p>MVC no exige una interfaz gráfica. En esta práctica la <strong>vista</strong> es una clase de consola, el <strong>controlador</strong> coordina las acciones del usuario y el <strong>modelo</strong> representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.</p>
 </div>
+<h3 id="la-configuracion-tambien-tiene-su-propia-responsabilidad">La configuración también tiene su propia responsabilidad<a class="headerlink" href="#la-configuracion-tambien-tiene-su-propia-responsabilidad" title="Permanent link">&para;</a></h3>
+<p>En la solución final separamos <code>Configuracion</code> (leer el archivo <code>.properties</code>), <code>FabricaDao</code> (elegir la implementación del DAO) y <code>ConexionBD</code> (abrir conexiones JDBC). Ninguna de estas clases debe contener el menú ni reglas de negocio.</p>
+<p><strong>Importante:</strong> <code>App</code> solo crea y conecta los componentes; no consulta variables de entorno, no contiene SQL y no gestiona el menú.</p>
 <h2 id="2-crear-el-modelo">2. Crear el modelo<a class="headerlink" href="#2-crear-el-modelo" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/modelo/Producto.java</code></strong>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">es.iesisidra.inventario.modelo</span><span class="p">;</span>

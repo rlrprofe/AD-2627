@@ -3531,6 +3531,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configuracion-que-debes-poder-explicar-en-la-defensa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración que debes poder explicar en la defensa
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4050,6 +4061,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configuracion-que-debes-poder-explicar-en-la-defensa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración que debes poder explicar en la defensa
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4114,13 +4136,31 @@
 <li>[ ] Cambiar de CSV a MySQL no obliga a modificar la vista ni el controlador.</li>
 <li>[ ] Las pruebas pueden ejecutarse sin una conexión MySQL real cuando verifican reglas de negocio.</li>
 </ul>
+<h3 id="configuracion-que-debes-poder-explicar-en-la-defensa">Configuración que debes poder explicar en la defensa<a class="headerlink" href="#configuracion-que-debes-poder-explicar-en-la-defensa" title="Permanent link">&para;</a></h3>
+<ol>
+<li>¿Por qué <code>App</code> no debería contener SQL ni el menú?</li>
+<li>¿Qué diferencia existe entre <code>Configuracion</code>, <code>FabricaDao</code> y <code>ConexionBD</code>?</li>
+<li>¿Cómo cambias entre CSV y MySQL sin tocar el código Java?</li>
+<li>¿Qué recursos se cierran mediante <code>try-with-resources</code>?</li>
+<li>¿Por qué no debes subir <code>config/configuracion.properties</code> con contraseñas?</li>
+</ol>
+<details class="success">
+<summary>Orientaciones para la solución</summary>
+<ul>
+<li><code>App</code> es el punto de composición; la vista muestra el menú y el DAO ejecuta la persistencia.</li>
+<li><code>Configuracion</code> lee las propiedades, <code>FabricaDao</code> elige el DAO y <code>ConexionBD</code> abre conexiones.</li>
+<li>Se modifica <code>almacenamiento.tipo</code> en <code>config/configuracion.properties</code>.</li>
+<li>Se cierran flujos de lectura/escritura, <code>Scanner</code> y recursos JDBC.</li>
+<li>El archivo real puede contener credenciales; se comparte solo la plantilla <code>.example</code>.</li>
+</ul>
+</details>
 <h2 id="4-solucion-de-referencia-al-finalizar-la-unidad">4. Solución de referencia (al finalizar la unidad)<a class="headerlink" href="#4-solucion-de-referencia-al-finalizar-la-unidad" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Consultar después de completar las actividades</p>
 <p>El siguiente ZIP contiene <strong>la aplicación resuelta</strong>. Se facilita para contrastar el trabajo una vez terminados los apartados 3.1 a 3.7 y las actividades de consolidación.</p>
 </div>
 <p><a href="../../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip"><strong>Descargar proyecto completo / solución de referencia (ZIP)</strong></a></p>
-<p>Incluye la aplicación de consola <strong>modularizada con MVC</strong>, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el <code>pom.xml</code> final. <code>App</code> solo conecta los componentes; <code>ConsolaVista</code> gestiona la interacción y <code>ProductoControlador</code> coordina las operaciones.</p>
+<p>Incluye la aplicación de consola <strong>modularizada con MVC</strong>, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL, el <code>pom.xml</code> final y <code>config/configuracion.properties.example</code>. La configuración real se crea localmente y no debe publicarse. <code>App</code> solo conecta los componentes; <code>ConsolaVista</code> gestiona la interacción y <code>ProductoControlador</code> coordina las operaciones.</p>
 <div class="admonition note">
 <p class="admonition-title">Requisitos</p>
 <p>Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.</p>

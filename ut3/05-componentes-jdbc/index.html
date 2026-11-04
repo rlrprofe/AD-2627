@@ -3447,10 +3447,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-crear-el-proveedor-de-conexiones" class="md-nav__link">
+  <a href="#4-configurar-la-conexion-a-mysql-con-properties" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Crear el proveedor de conexiones
+        4. Configurar la conexión a MySQL con .properties
       
     </span>
   </a>
@@ -4094,10 +4094,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-crear-el-proveedor-de-conexiones" class="md-nav__link">
+  <a href="#4-configurar-la-conexion-a-mysql-con-properties" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Crear el proveedor de conexiones
+        4. Configurar la conexión a MySQL con .properties
       
     </span>
   </a>
@@ -4226,32 +4226,34 @@
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div>
 <p>La versión indicada es la del proyecto de ejemplo. Si tu instalación o el repositorio de Maven requieren otra versión compatible, adapta la dependencia.</p>
-<h2 id="4-crear-el-proveedor-de-conexiones">4. Crear el proveedor de conexiones<a class="headerlink" href="#4-crear-el-proveedor-de-conexiones" title="Permanent link">&para;</a></h2>
-<p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/util/ConexionBD.java</code></strong>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">es.iesisidra.inventario.util</span><span class="p">;</span>
+<h2 id="4-configurar-la-conexion-a-mysql-con-properties">4. Configurar la conexión a MySQL con <code>.properties</code><a class="headerlink" href="#4-configurar-la-conexion-a-mysql-con-properties" title="Permanent link">&para;</a></h2>
+<p>No escribiremos usuario y contraseña en Java ni pediremos al alumnado que defina variables de entorno. En su lugar, <code>Configuracion</code> lee <code>config/configuracion.properties</code> al arrancar y <code>FabricaDao</code> crea <code>ConexionBD</code> con los datos obtenidos.</p>
+<div class="highlight"><pre><span></span><code><span class="na">almacenamiento.tipo</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">db.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/inventario</span>
+<span class="na">db.usuario</span><span class="o">=</span><span class="s">inventario_app</span>
+<span class="na">db.password</span><span class="o">=</span><span class="s">TU_CONTRASENA_LOCAL</span>
+</code></pre></div>
+<p>La clase <code>util/ConexionBD.java</code> <strong>no guarda una conexión abierta permanentemente</strong>: contiene los datos necesarios para abrir una nueva cuando el DAO la necesita.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ConexionBD</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">usuario</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">password</span><span class="p">;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.Connection</span><span class="p">;</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.DriverManager</span><span class="p">;</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.SQLException</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ConexionBD</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">usuario</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">url</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">usuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">usuario</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">password</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ConexionBD</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">ConexionBD</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="nf">abrir</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">SQLException</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span>
-<span class="w">                </span><span class="s">"INVENTARIO_DB_URL"</span><span class="p">,</span><span class="w"> </span><span class="s">"jdbc:mysql://localhost:3306/inventario"</span><span class="p">);</span>
-<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">usuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"INVENTARIO_DB_USER"</span><span class="p">,</span><span class="w"> </span><span class="s">"inventario_app"</span><span class="p">);</span>
-<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">clave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">"INVENTARIO_DB_PASSWORD"</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clave</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">"Falta INVENTARIO_DB_PASSWORD"</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">usuario</span><span class="p">,</span><span class="w"> </span><span class="n">clave</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="nf">abrir</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">SQLException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">usuario</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><strong>¿Quién cierra la conexión?</strong> El método del DAO que llama a <code>conexion.abrir()</code> la utiliza dentro de un <code>try-with-resources</code>. Al finalizar, Java cierra la conexión automáticamente, también si se produce un error.</p>
 <div class="admonition warning">
-<p class="admonition-title">Seguridad</p>
-<p>No escribas contraseñas en el código ni las subas a GitHub. Utiliza variables de entorno locales. El usuario y la contraseña de MySQL deben existir previamente.</p>
+<p class="admonition-title">No publiques las credenciales</p>
+<p>Mantén <code>config/configuracion.properties</code> en <code>.gitignore</code> y distribuye solo <code>configuracion.properties.example</code>. Ejecuta el programa desde la raíz del proyecto, ya que allí se espera la carpeta <code>config</code>.</p>
 </div>
 <h2 id="5-implementar-el-dao-jdbc">5. Implementar el DAO JDBC<a class="headerlink" href="#5-implementar-el-dao-jdbc" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/dao/ProductoJdbcDAO.java</code></strong>.</p>
@@ -4263,10 +4265,16 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">java.util.*</span><span class="p">;</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ProductoJdbcDAO</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ProductoDAO</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ConexionBD</span><span class="w"> </span><span class="n">conexion</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ProductoJdbcDAO</span><span class="p">(</span><span class="n">ConexionBD</span><span class="w"> </span><span class="n">conexion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">conexion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
 <span class="w">    </span><span class="nd">@Override</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">insertar</span><span class="p">(</span><span class="n">Producto</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"INSERT INTO producto(id,nombre,precio,stock) VALUES(?,?,?,?)"</span><span class="p">;</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">             </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">asignar</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
 <span class="w">            </span><span class="n">ps</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">();</span>
@@ -4278,7 +4286,7 @@
 <span class="w">    </span><span class="nd">@Override</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Producto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">buscarPorId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SELECT id,nombre,precio,stock FROM producto WHERE id=?"</span><span class="p">;</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">             </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
 <span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
@@ -4292,7 +4300,7 @@
 <span class="w">    </span><span class="nd">@Override</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Producto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">listar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SELECT id,nombre,precio,stock FROM producto ORDER BY id"</span><span class="p">;</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">             </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>
 <span class="w">             </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Producto</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
@@ -4306,7 +4314,7 @@
 <span class="w">    </span><span class="nd">@Override</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">actualizar</span><span class="p">(</span><span class="n">Producto</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"UPDATE producto SET nombre=?, precio=?, stock=? WHERE id=?"</span><span class="p">;</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">             </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">ps</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">nombre</span><span class="p">());</span>
 <span class="w">            </span><span class="n">ps</span><span class="p">.</span><span class="na">setDouble</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">precio</span><span class="p">());</span>
@@ -4320,7 +4328,7 @@
 
 <span class="w">    </span><span class="nd">@Override</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">eliminar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Connection</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conexion</span><span class="p">.</span><span class="na">abrir</span><span class="p">();</span>
 <span class="w">             </span><span class="n">PreparedStatement</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">"DELETE FROM producto WHERE id=?"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">ps</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ps</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -4344,17 +4352,13 @@
 </code></pre></div>
 <p>Observa el uso de <code>PreparedStatement</code>, <code>try-with-resources</code> y un método de conversión común <code>leer(...)</code>.</p>
 <h2 id="6-seleccionar-mysql-al-ejecutar">6. Seleccionar MySQL al ejecutar<a class="headerlink" href="#6-seleccionar-mysql-al-ejecutar" title="Permanent link">&para;</a></h2>
-<p>Al integrar las dos implementaciones en 3.7, la clase <code>Configuracion</code> permitirá elegir el DAO mediante la variable de entorno <code>INVENTARIO_STORAGE</code>:</p>
-<ul>
-<li>Valor <code>csv</code> (o variable ausente): <code>ProductoFicheroDAO</code>.</li>
-<li>Valor <code>mysql</code>: <code>ProductoJdbcDAO</code>.</li>
-</ul>
-<p>Ejemplo en <strong>PowerShell</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">$env:INVENTARIO_STORAGE</span> <span class="p">=</span> <span class="s2">"mysql"</span>
-<span class="nv">$env:INVENTARIO_DB_USER</span> <span class="p">=</span> <span class="s2">"inventario_app"</span>
-<span class="nv">$env:INVENTARIO_DB_PASSWORD</span> <span class="p">=</span> <span class="s2">"TU_CLAVE_LOCAL"</span>
-<span class="n">java</span> <span class="n">-jar</span> <span class="n">target</span><span class="p">/</span><span class="n">gestion-inventario</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">0-SNAPSHOT</span><span class="p">.</span><span class="n">jar</span>
+<p>La elección se realiza en el fichero <code>config/configuracion.properties</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="na">almacenamiento.tipo</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">db.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/inventario</span>
+<span class="na">db.usuario</span><span class="o">=</span><span class="s">inventario_app</span>
+<span class="na">db.password</span><span class="o">=</span><span class="s">TU_CONTRASENA_LOCAL</span>
 </code></pre></div>
+<p>Guarda el fichero y ejecuta el programa desde la raíz del proyecto. Para regresar a CSV, establece <code>almacenamiento.tipo=csv</code>. No se necesitan comandos especiales de PowerShell ni variables de entorno.</p>
 <div class="admonition tip">
 <p class="admonition-title">Resultado que queremos comprobar</p>
 <p>La vista, el controlador y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa <code>ProductoDAO</code>.</p>

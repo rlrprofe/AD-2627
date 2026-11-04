@@ -3453,22 +3453,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" class="md-nav__link">
+  <a href="#1-integrar-las-capas-composicion-en-app" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Punto de integración: App ya no contiene el menú
+        1. Integrar las capas: composición en App
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Punto de integración: App ya no contiene el menú">
+    <nav class="md-nav" aria-label="1. Integrar las capas: composición en App">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#que-ocurre-cuando-el-usuario-elige-una-opcion" class="md-nav__link">
+  <a href="#11-fichero-de-configuracion-externo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Qué ocurre cuando el usuario elige una opción?
+        1.1. Fichero de configuración externo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-configuracion-lectura-con-properties-y-try-with-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Configuracion: lectura con Properties y try-with-resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fabricadao-decidir-csv-o-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. FabricaDao: decidir CSV o MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-app-punto-de-entrada-minimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. App: punto de entrada mínimo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-recorrido-de-una-operacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. Recorrido de una operación
       
     </span>
   </a>
@@ -4038,22 +4082,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" class="md-nav__link">
+  <a href="#1-integrar-las-capas-composicion-en-app" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Punto de integración: App ya no contiene el menú
+        1. Integrar las capas: composición en App
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Punto de integración: App ya no contiene el menú">
+    <nav class="md-nav" aria-label="1. Integrar las capas: composición en App">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#que-ocurre-cuando-el-usuario-elige-una-opcion" class="md-nav__link">
+  <a href="#11-fichero-de-configuracion-externo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Qué ocurre cuando el usuario elige una opción?
+        1.1. Fichero de configuración externo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-configuracion-lectura-con-properties-y-try-with-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Configuracion: lectura con Properties y try-with-resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fabricadao-decidir-csv-o-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. FabricaDao: decidir CSV o MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-app-punto-de-entrada-minimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. App: punto de entrada mínimo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-recorrido-de-una-operacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. Recorrido de una operación
       
     </span>
   </a>
@@ -4173,55 +4261,74 @@
 <li>Elegir el mecanismo de persistencia sin modificar las reglas de negocio.</li>
 <li>Construir un JAR ejecutable con Maven y documentar su puesta en marcha.</li>
 </ul>
-<h2 id="1-punto-de-integracion-app-ya-no-contiene-el-menu">1. Punto de integración: <code>App</code> ya no contiene el menú<a class="headerlink" href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" title="Permanent link">&para;</a></h2>
-<p>En la solución inicial de la unidad, <code>App</code> reunía varias tareas. Ahora la hemos simplificado: <strong>solo crea los objetos y los conecta</strong>. Esta operación suele llamarse <em>composición</em> o <em>ensamblaje de dependencias</em>.</p>
-<p>La clase <code>Configuracion</code> decide qué implementación de <code>ProductoDAO</code> utilizar según la variable de entorno <code>INVENTARIO_STORAGE</code>.</p>
-<p>Archivo: <code>src/main/java/es/iesisidra/inventario/configuracion/Configuracion.java</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ProductoDAO</span><span class="w"> </span><span class="nf">crearDao</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">modo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">()</span>
-<span class="w">            </span><span class="p">.</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"INVENTARIO_STORAGE"</span><span class="p">,</span><span class="w"> </span><span class="s">"csv"</span><span class="p">)</span>
-<span class="w">            </span><span class="p">.</span><span class="na">trim</span><span class="p">()</span>
-<span class="w">            </span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">(</span><span class="n">Locale</span><span class="p">.</span><span class="na">ROOT</span><span class="p">);</span>
+<h2 id="1-integrar-las-capas-composicion-en-app">1. Integrar las capas: composición en <code>App</code><a class="headerlink" href="#1-integrar-las-capas-composicion-en-app" title="Permanent link">&para;</a></h2>
+<p>Hasta ahora hemos construido componentes con responsabilidades diferentes. <strong>La aplicación no debe decidir cómo se conecta a MySQL dentro del menú</strong>: la configuración se lee una vez al arrancar y una fábrica construye el DAO correspondiente.</p>
+<h3 id="11-fichero-de-configuracion-externo">1.1. Fichero de configuración externo<a class="headerlink" href="#11-fichero-de-configuracion-externo" title="Permanent link">&para;</a></h3>
+<p>El proyecto incorpora <code>config/configuracion.properties.example</code>. Haz una copia con el nombre <code>config/configuracion.properties</code>, dentro del proyecto:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># CSV (modo inicial)</span>
+<span class="na">almacenamiento.tipo</span><span class="o">=</span><span class="s">csv</span>
+<span class="na">csv.ruta</span><span class="o">=</span><span class="s">datos/productos.csv</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">modo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"csv"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoFicheroDAO</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"datos"</span><span class="p">,</span><span class="w"> </span><span class="s">"productos.csv"</span><span class="p">));</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"mysql"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoJdbcDAO</span><span class="p">();</span>
-<span class="w">        </span><span class="k">default</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span>
-<span class="w">                </span><span class="s">"INVENTARIO_STORAGE debe ser csv o mysql: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">modo</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="p">}</span>
+<span class="c1"># Solo se utilizan cuando seleccionamos MySQL</span>
+<span class="na">db.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/inventario</span>
+<span class="na">db.usuario</span><span class="o">=</span><span class="s">inventario_app</span>
+<span class="na">db.password</span><span class="o">=</span>
 </code></pre></div>
-<p>Este fragmento pertenece a la clase <code>Configuracion</code> e incorpora las importaciones de <code>ProductoDAO</code>, sus implementaciones, <code>Path</code> y <code>Locale</code>.</p>
-<p>La clase <code>App</code> utiliza el DAO seleccionado para crear el servicio, después crea la vista y finalmente arranca el controlador:</p>
-<div class="highlight"><pre><span></span><code><span class="n">ProductoDAO</span><span class="w"> </span><span class="n">dao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Configuracion</span><span class="p">.</span><span class="na">crearDao</span><span class="p">();</span>
-<span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="n">dao</span><span class="p">);</span>
-
-<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">);</span>
-<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">servicio</span><span class="p">,</span><span class="w"> </span><span class="n">vista</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="que-ocurre-cuando-el-usuario-elige-una-opcion">¿Qué ocurre cuando el usuario elige una opción?<a class="headerlink" href="#que-ocurre-cuando-el-usuario-elige-una-opcion" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
-    actor U as Usuario
-    participant V as ConsolaVista
-    participant C as ProductoControlador
-    participant S as ProductoService
-    participant D as ProductoDAO
-    U-&gt;&gt;V: Elige "Alta" e introduce datos
-    V--&gt;&gt;C: Producto
-    C-&gt;&gt;S: alta(producto)
-    S-&gt;&gt;S: validar(producto)
-    S-&gt;&gt;D: insertar(producto)
-    D--&gt;&gt;S: Operación terminada
-    S--&gt;&gt;C: Retorno
-    C-&gt;&gt;V: mostrarMensaje(...)
-    V--&gt;&gt;U: "Producto registrado"</code></pre>
-<p>La vista <strong>no conoce</strong> la base de datos; el servicio <strong>no conoce</strong> el menú; el controlador <strong>no conoce</strong> los detalles de CSV o JDBC.</p>
-<div class="admonition important">
-<p class="admonition-title">Concepto clave</p>
-<p><code>ProductoService</code> depende de la interfaz <code>ProductoDAO</code>. Cambiar la variable de entorno solo modifica qué implementación se construye al arrancar. No requiere cambios en <code>ConsolaVista</code>, <code>ProductoControlador</code> ni <code>ProductoService</code>.</p>
+<p>Para cambiar a MySQL, cambia <code>almacenamiento.tipo=mysql</code>, completa el usuario y la contraseña y ejecuta antes <code>sql/inventario.sql</code>. <strong>No es necesario introducir variables de entorno en PowerShell o Bash.</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Contraseñas y repositorios</p>
+<p><code>config/configuracion.properties</code> contiene información local y se excluye mediante <code>.gitignore</code>. Comparte únicamente <code>configuracion.properties.example</code>, sin contraseñas reales. El fichero se busca respecto al <strong>directorio de trabajo</strong>, que debe ser la raíz del proyecto.</p>
 </div>
+<h3 id="12-configuracion-lectura-con-properties-y-try-with-resources">1.2. <code>Configuracion</code>: lectura con <code>Properties</code> y try-with-resources<a class="headerlink" href="#12-configuracion-lectura-con-properties-y-try-with-resources" title="Permanent link">&para;</a></h3>
+<p>La clase <code>configuracion/Configuracion.java</code> encapsula la lectura y la consulta de propiedades. No crea conexiones ni imprime menús.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Path</span><span class="w"> </span><span class="n">ruta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"config"</span><span class="p">,</span><span class="w"> </span><span class="s">"configuracion.properties"</span><span class="p">);</span>
+<span class="n">Properties</span><span class="w"> </span><span class="n">propiedades</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Properties</span><span class="p">();</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">entrada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newInputStream</span><span class="p">(</span><span class="n">ruta</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">propiedades</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">entrada</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">"No se puede leer la configuración"</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El <code>try-with-resources</code> cierra el flujo incluso si se produce una excepción. El código completo comprueba además que el fichero existe y que las propiedades obligatorias tienen valor.</p>
+<h3 id="13-fabricadao-decidir-csv-o-mysql">1.3. <code>FabricaDao</code>: decidir CSV o MySQL<a class="headerlink" href="#13-fabricadao-decidir-csv-o-mysql" title="Permanent link">&para;</a></h3>
+<p>La clase <code>configuracion/FabricaDao.java</code> interpreta <code>almacenamiento.tipo</code> y crea la implementación correspondiente. Es el único lugar donde se elige entre <code>ProductoFicheroDAO</code> y <code>ProductoJdbcDAO</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">obtener</span><span class="p">(</span><span class="s">"almacenamiento.tipo"</span><span class="p">,</span><span class="w"> </span><span class="s">"csv"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">"csv"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoFicheroDAO</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">obligatorio</span><span class="p">(</span><span class="s">"csv.ruta"</span><span class="p">)));</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">"mysql"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoJdbcDAO</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ConexionBD</span><span class="p">(</span>
+<span class="w">            </span><span class="n">config</span><span class="p">.</span><span class="na">obligatorio</span><span class="p">(</span><span class="s">"db.url"</span><span class="p">),</span>
+<span class="w">            </span><span class="n">config</span><span class="p">.</span><span class="na">obligatorio</span><span class="p">(</span><span class="s">"db.usuario"</span><span class="p">),</span>
+<span class="w">            </span><span class="n">config</span><span class="p">.</span><span class="na">obligatorio</span><span class="p">(</span><span class="s">"db.password"</span><span class="p">)));</span>
+<span class="w">    </span><span class="k">default</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"Modo de almacenamiento no válido"</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Este fragmento resume la decisión. La implementación completa también normaliza las mayúsculas/minúsculas del modo.</p>
+<h3 id="14-app-punto-de-entrada-minimo">1.4. <code>App</code>: punto de entrada mínimo<a class="headerlink" href="#14-app-punto-de-entrada-minimo" title="Permanent link">&para;</a></h3>
+<p>La clase <code>App</code> <strong>no contiene el menú, las operaciones CRUD, sentencias SQL ni lectura de propiedades</strong>. Solo conecta los objetos:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Configuracion</span><span class="w"> </span><span class="n">configuracion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Configuracion</span><span class="p">.</span><span class="na">cargar</span><span class="p">();</span>
+<span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="n">FabricaDao</span><span class="p">.</span><span class="na">crear</span><span class="p">(</span><span class="n">configuracion</span><span class="p">));</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">teclado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">teclado</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">);</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">vista</span><span class="p">,</span><span class="w"> </span><span class="n">servicio</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>El código mostrado es el núcleo del método <code>main</code>; consulta la clase completa en el ZIP de la solución.</p>
+<h3 id="15-recorrido-de-una-operacion">1.5. Recorrido de una operación<a class="headerlink" href="#15-recorrido-de-una-operacion" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    actor Usuario
+    participant Vista as ConsolaVista
+    participant Controlador as ProductoControlador
+    participant Servicio as ProductoService
+    participant DAO as ProductoDAO
+    Usuario-&gt;&gt;Vista: Introduce datos
+    Vista--&gt;&gt;Controlador: Producto
+    Controlador-&gt;&gt;Servicio: alta(producto)
+    Servicio-&gt;&gt;Servicio: Validar reglas
+    Servicio-&gt;&gt;DAO: insertar(producto)
+    DAO--&gt;&gt;Servicio: Resultado
+    Controlador-&gt;&gt;Vista: mostrarMensaje(...)
+    Vista--&gt;&gt;Usuario: Confirmación</code></pre>
+<p><strong>Observa:</strong> la vista no accede al DAO, el servicio no lee del teclado y el DAO no decide cómo presentar mensajes.</p>
 <h2 id="2-preparar-el-jar-ejecutable">2. Preparar el JAR ejecutable<a class="headerlink" href="#2-preparar-el-jar-ejecutable" title="Permanent link">&para;</a></h2>
 <p>Para distribuir el proyecto necesitamos un JAR que contenga la aplicación y, cuando utilicemos MySQL, también las dependencias necesarias.</p>
 <p>Un JAR creado únicamente con <code>maven-jar-plugin</code> <strong>no incluye automáticamente</strong> el driver JDBC. Por eso la solución final utiliza <code>maven-shade-plugin</code>: construye un JAR con dependencias e incorpora la clase principal al manifiesto.</p>
@@ -4264,27 +4371,30 @@
 </code></pre></div>
 <p>La solución de referencia incorpora <code>maven-shade-plugin</code> en su <code>pom.xml</code>. Si estás construyendo el proyecto desde la plantilla inicial, debes añadir esa configuración antes de ejecutar el JAR con <code>java -jar</code>.</p>
 <h2 id="4-ejecutar-con-csv">4. Ejecutar con CSV<a class="headerlink" href="#4-ejecutar-con-csv" title="Permanent link">&para;</a></h2>
-<p>Por defecto:</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>target/gestion-inventario-1.0-SNAPSHOT.jar
+<p>En <code>config/configuracion.properties</code> establece:</p>
+<div class="highlight"><pre><span></span><code><span class="na">almacenamiento.tipo</span><span class="o">=</span><span class="s">csv</span>
+<span class="na">csv.ruta</span><span class="o">=</span><span class="s">datos/productos.csv</span>
 </code></pre></div>
-<p>El fichero se guarda en <code>datos/productos.csv</code>, relativo al directorio desde el que ejecutamos el programa.</p>
-<h2 id="5-ejecutar-con-mysql">5. Ejecutar con MySQL<a class="headerlink" href="#5-ejecutar-con-mysql" title="Permanent link">&para;</a></h2>
-<p>Primero ejecuta <code>sql/inventario.sql</code> en MySQL y configura las variables de entorno.</p>
-<p><strong>PowerShell:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nv">$env:INVENTARIO_STORAGE</span> <span class="p">=</span> <span class="s2">"mysql"</span>
-<span class="nv">$env:INVENTARIO_DB_URL</span> <span class="p">=</span> <span class="s2">"jdbc:mysql://localhost:3306/inventario"</span>
-<span class="nv">$env:INVENTARIO_DB_USER</span> <span class="p">=</span> <span class="s2">"inventario_app"</span>
-<span class="nv">$env:INVENTARIO_DB_PASSWORD</span> <span class="p">=</span> <span class="s2">"TU_CLAVE_LOCAL"</span>
-<span class="n">java</span> <span class="n">-jar</span> <span class="n">target</span><span class="p">/</span><span class="n">gestion-inventario</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">0-SNAPSHOT</span><span class="p">.</span><span class="n">jar</span>
-</code></pre></div>
-<p><strong>Linux (bash):</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">INVENTARIO_STORAGE</span><span class="o">=</span>mysql
-<span class="nb">export</span><span class="w"> </span><span class="nv">INVENTARIO_DB_URL</span><span class="o">=</span>jdbc:mysql://localhost:3306/inventario
-<span class="nb">export</span><span class="w"> </span><span class="nv">INVENTARIO_DB_USER</span><span class="o">=</span>inventario_app
-<span class="nb">export</span><span class="w"> </span><span class="nv">INVENTARIO_DB_PASSWORD</span><span class="o">=</span><span class="s1">'TU_CLAVE_LOCAL'</span>
+<p>Desde la <strong>raíz del proyecto</strong>:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>package
 java<span class="w"> </span>-jar<span class="w"> </span>target/gestion-inventario-1.0-SNAPSHOT.jar
 </code></pre></div>
-<p>No compartas las contraseñas ni las guardes en el repositorio.</p>
+<p>El fichero CSV se leerá y guardará en <code>datos/productos.csv</code>.</p>
+<h2 id="5-ejecutar-con-mysql">5. Ejecutar con MySQL<a class="headerlink" href="#5-ejecutar-con-mysql" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Inicia MySQL y ejecuta <code>sql/inventario.sql</code>.</li>
+<li>Crea o utiliza un usuario con permisos sobre la base de datos.</li>
+<li>Modifica <code>config/configuracion.properties</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="na">almacenamiento.tipo</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">db.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost:3306/inventario</span>
+<span class="na">db.usuario</span><span class="o">=</span><span class="s">inventario_app</span>
+<span class="na">db.password</span><span class="o">=</span><span class="s">TU_CONTRASENA_LOCAL</span>
+</code></pre></div>
+<ol>
+<li>Ejecuta <code>java -jar target/gestion-inventario-1.0-SNAPSHOT.jar</code> desde la raíz.</li>
+</ol>
+<p><strong>No hay que definir variables de entorno.</strong> Para volver a CSV, cambia únicamente <code>almacenamiento.tipo=csv</code>.</p>
 <h2 id="6-comprobar-la-integracion">6. Comprobar la integración<a class="headerlink" href="#6-comprobar-la-integracion" title="Permanent link">&para;</a></h2>
 <p>Realiza estas operaciones en <strong>ambos modos</strong>:</p>
 <ol>

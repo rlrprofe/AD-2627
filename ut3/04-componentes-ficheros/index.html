@@ -4380,11 +4380,11 @@
 
 <span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">);</span>
-<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">servicio</span><span class="p">,</span><span class="w"> </span><span class="n">vista</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">vista</span><span class="p">,</span><span class="w"> </span><span class="n">servicio</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Para que compile, incorpora las importaciones de las clases y de <code>Path</code> y <code>Scanner</code>. La solución final contiene la clase completa.</p>
-<p>En 3.7 sustituiremos la construcción directa del DAO por <code>Configuracion.crearDao()</code>, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.</p>
+<p>En 3.7 sustituiremos la construcción directa del DAO por <code>FabricaDao.crear(configuracion)</code>, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.</p>
 <div class="admonition note">
 <p class="admonition-title">Proyecto inicial y solución final</p>
 <p>El proyecto inicial es un <strong>esqueleto de trabajo</strong>. La solución final contiene las clases <code>ConsolaVista</code>, <code>ProductoControlador</code> y <code>Configuracion</code>, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.</p>
