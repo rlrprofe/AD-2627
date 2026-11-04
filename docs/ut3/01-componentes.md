@@ -46,7 +46,9 @@ El modelo será:
 
 ```mermaid
 flowchart TD
-    A[App: menú de consola] --> S[ProductoService: reglas de negocio]
+    A[App: composición] --> C[ProductoControlador]
+    C <--> V[ConsolaVista: menú y mensajes]
+    C --> S[ProductoService: reglas de negocio]
     S --> I[ProductoDAO: interfaz]
     I --> F[ProductoFicheroDAO]
     I --> J[ProductoJdbcDAO]
@@ -54,20 +56,28 @@ flowchart TD
     J --> M[(MySQL)]
 ```
 
-La aplicación compartirá **modelo, menú y servicio**. Lo que cambia es el componente de persistencia.
+La aplicación compartirá **modelo, vista, controlador y servicio**. Lo que cambia es el componente de persistencia. La clase `App` se limitará a conectar los objetos y arrancar el controlador.
 
-## 4. Plan de desarrollo
+## 4. ¿Por qué no concentrar todo en `main`?
+
+En una aplicación pequeña puede parecer cómodo escribir el menú, las lecturas de teclado, las validaciones y el acceso al fichero dentro de `main`. El problema aparece cuando necesitamos cambiar una de esas partes: una modificación de la presentación puede afectar a las consultas o a las reglas de negocio.
+
+En esta unidad aprenderemos a **modularizar por responsabilidad**. Cada método debe hacer una tarea comprensible y cada clase debe tener un motivo claro para cambiar. Por ejemplo, `ConsolaVista` podrá modificar el formato de los mensajes sin tocar `ProductoJdbcDAO`.
+
+El objetivo no es crear el mayor número posible de clases, sino conseguir que **cada clase tenga una responsabilidad coherente**.
+
+## 5. Plan de desarrollo
 
 | Apartado | Resultado |
 |---|---|
 | 3.2 | Proyecto Maven preparado con Java 21. |
-| 3.3 | Modelo, interfaz DAO, servicio y menú. |
-| 3.4 | Primera versión funcional con CSV. |
+| 3.3 | Modelo, interfaz DAO, servicio y diseño de vista/controlador. |
+| 3.4 | Primera versión funcional con CSV y menú separado en `ConsolaVista`. |
 | 3.5 | Segunda implementación con MySQL/JDBC. |
 | 3.6 | Pruebas unitarias y documentación. |
-| 3.7 | Selección de persistencia y generación del JAR ejecutable. |
+| 3.7 | Composición MVC, selección de persistencia y generación del JAR ejecutable. |
 
-## 5. Actividad de inicio
+## 6. Actividad de inicio
 
 1. Explica por qué no conviene escribir consultas SQL directamente en cada opción del menú.
 2. ¿Qué parte debería permanecer igual al pasar de CSV a MySQL?

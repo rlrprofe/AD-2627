@@ -36,6 +36,12 @@ En el `pom.xml` que estás construyendo a partir del proyecto inicial, incorpora
 
 Además, configuramos `maven-surefire-plugin` para ejecutar las pruebas con `mvn test`.
 
+### ¿Por qué no necesitamos abrir la aplicación completa para probar el servicio?
+
+Una prueba unitaria debe comprobar una responsabilidad concreta. Para verificar las validaciones de `ProductoService`, no necesitamos mostrar menús ni conectarnos a MySQL. Basta con proporcionarle una implementación de `ProductoDAO` en memoria.
+
+Esta es una consecuencia práctica de la **inyección de dependencias** que estudiamos en 3.3.
+
 ## 3. Probar sin depender de MySQL ni del CSV
 
 Una ventaja de depender de la interfaz `ProductoDAO` es que podemos usar una implementación **en memoria** durante las pruebas.
@@ -106,7 +112,34 @@ Para compilar, ejecutar pruebas y generar el JAR:
 mvn clean package
 ```
 
-## 5. Documentación con Javadoc
+## 5. Probar la integración entre controlador y vista
+
+Además de las pruebas del servicio, la solución de referencia incluye pruebas de `ProductoControlador` y `ProductoFicheroDAO`.
+
+Para comprobar el controlador podemos **simular la entrada del usuario** con un `Scanner` creado a partir de una cadena y **capturar la salida** con `ByteArrayOutputStream`. Así verificamos el menú sin introducir datos manualmente.
+
+```java
+String entradas = "3\n0\n";
+ByteArrayOutputStream salidaBytes = new ByteArrayOutputStream();
+
+try (Scanner scanner = new Scanner(entradas);
+     PrintStream salida = new PrintStream(salidaBytes)) {
+    ConsolaVista vista = new ConsolaVista(scanner, salida);
+    ProductoService servicio = new ProductoService(new DaoMemoria());
+    new ProductoControlador(servicio, vista).iniciar();
+}
+
+String resultado = salidaBytes.toString();
+assertTrue(resultado.contains("GESTIÓN DE INVENTARIO"));
+```
+
+Este fragmento requiere las importaciones de `Scanner`, `ByteArrayOutputStream`, `PrintStream` y JUnit, así como un DAO de prueba que implemente `ProductoDAO`.
+
+**¿Qué estamos comprobando?** Que el controlador coordina correctamente la vista y el servicio; no que MySQL esté funcionando.
+
+Para el DAO CSV, las pruebas deben utilizar un archivo temporal y comprobar que los cambios se mantienen tras volver a leerlo.
+
+## 6. Documentación con Javadoc
 
 En nuestro proyecto documentaremos especialmente la interfaz `ProductoDAO`, porque es el contrato que otras clases deben conocer.
 
@@ -123,7 +156,7 @@ Optional<Producto> buscarPorId(int id);
 
 La documentación debe describir las operaciones públicas, sus parámetros, sus resultados y las excepciones relevantes, sin limitarse a repetir el nombre del método.
 
-## 6. Pruebas de integración
+## 7. Pruebas de integración
 
 Las pruebas anteriores son **unitarias**. También conviene comprobar cada implementación real:
 
@@ -132,7 +165,7 @@ Las pruebas anteriores son **unitarias**. También conviene comprobar cada imple
 
 No utilizaremos la base de datos de producción para realizar pruebas destructivas.
 
-## 7. Actividades
+## 8. Actividades
 
 1. Añade una prueba que verifique el resultado de una búsqueda inexistente.
 2. Añade una prueba que compruebe la eliminación de un producto.

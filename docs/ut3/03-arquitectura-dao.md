@@ -10,22 +10,46 @@
 - Definir un contrato DAO independiente de la tecnología de almacenamiento.
 - Crear el modelo y el servicio de la aplicación.
 
-## 1. Separación de responsabilidades
+## 1. Separación de responsabilidades: MVC + servicio + DAO
 
-| Capa | Clase | Responsabilidad |
-|---|---|---|
-| Presentación | `App` | Mostrar menú y recoger datos. |
-| Negocio | `ProductoService` | Validar datos y coordinar operaciones. |
-| Persistencia | `ProductoDAO` | Definir el contrato CRUD. |
-| Persistencia | `ProductoFicheroDAO` / `ProductoJdbcDAO` | Guardar y recuperar datos. |
+Antes de programar, debemos decidir **qué responsabilidad tiene cada parte**. El DAO encapsula la persistencia, pero no debe gestionar menús. El servicio aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una **vista** y un **controlador**.
+
+
+## Arquitectura definitiva: MVC, servicio y DAO
+
+El proyecto conserva el **objetivo del RA6**: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: **lo complementa**.
 
 ```mermaid
-flowchart LR
-    A[App] --> B[ProductoService]
-    B --> C[ProductoDAO]
-    C --> D[Implementación CSV]
-    C --> E[Implementación JDBC]
+flowchart TD
+    A["App: crea y conecta objetos"] --> C["ProductoControlador"]
+    A --> V["ConsolaVista"]
+    A --> S["ProductoService"]
+    A --> CFG["Configuracion"]
+    CFG --> I["ProductoDAO: contrato"]
+    C <--> V
+    C --> S
+    S --> I
+    I -. "implementado por" .-> F["ProductoFicheroDAO"]
+    I -. "implementado por" .-> J["ProductoJdbcDAO"]
+    F --> CSV[("productos.csv")]
+    J --> MYSQL[("MySQL")]
 ```
+
+| Elemento | Responsabilidad | Qué **no** debe hacer |
+|---|---|---|
+| `Producto` | Representar los datos del producto (`record`). | Leer del teclado o ejecutar SQL. |
+| `ConsolaVista` | Mostrar el menú, solicitar entradas y presentar resultados. | Ejecutar operaciones CRUD en el DAO. |
+| `ProductoControlador` | Interpretar la opción elegida y coordinar vista y servicio. | Leer con `Scanner` o construir sentencias SQL. |
+| `ProductoService` | Validar datos y aplicar las reglas de negocio. | Mostrar mensajes o elegir CSV/MySQL. |
+| `ProductoDAO` | Definir el contrato CRUD. | Imponer una tecnología de persistencia. |
+| `ProductoFicheroDAO` / `ProductoJdbcDAO` | Implementar el contrato en CSV / MySQL. | Mostrar el menú. |
+| `Configuracion` | Seleccionar la implementación DAO al arrancar. | Contener reglas de negocio. |
+| `App` | Crear los objetos y poner en marcha el controlador. | Acumular el menú y todas las operaciones. |
+
+**Recorrido de un alta:** la vista solicita los datos → el controlador recibe un `Producto` → el servicio valida y llama a `ProductoDAO` → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.
+
+!!! info "MVC en una aplicación de consola"
+    MVC no exige una interfaz gráfica. En esta práctica la **vista** es una clase de consola, el **controlador** coordina las acciones del usuario y el **modelo** representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.
 
 ## 2. Crear el modelo
 
@@ -122,14 +146,26 @@ public class ProductoService {
 !!! important "Inyección de dependencias"
     El servicio recibe un `ProductoDAO` en el constructor. No crea un DAO concreto con `new ProductoFicheroDAO(...)` ni con `new ProductoJdbcDAO(...)`. Esto permite sustituir la persistencia sin modificar el servicio.
 
-## 5. ¿Dónde está el menú?
+## 5. ¿Dónde están la vista y el controlador?
 
-La clase `App` se añadirá cuando dispongamos de la primera implementación de persistencia, en el apartado 3.4. Así podremos ejecutar operaciones reales desde el primer momento.
+En este apartado definimos el **contrato de persistencia** y las **reglas de negocio**. En 3.4, al disponer de un DAO CSV funcional, incorporaremos `ConsolaVista` y `ProductoControlador`.
+
+La vista se ocupará de `Scanner`, mensajes y formato de salida. El controlador interpretará las opciones y llamará a los métodos de `ProductoService`. `App` quedará reducida a crear las dependencias y arrancar el controlador.
+
+### Ejemplo: reparto de tareas durante un alta
+
+1. `ConsolaVista.solicitarProducto()` recoge ID, nombre, precio y stock.
+2. `ProductoControlador.alta()` recibe el producto y llama a `servicio.alta(producto)`.
+3. `ProductoService.alta()` valida y comprueba que no exista el identificador.
+4. `ProductoDAO.insertar()` delega el almacenamiento en la implementación seleccionada.
+5. El controlador solicita a la vista que muestre «Producto registrado».
+
+**Importante:** la vista no debe llamar directamente al DAO y el DAO no debe imprimir mensajes para el usuario.
 
 ## 6. Actividad
 
 1. Añade al modelo un atributo `categoria`. ¿Qué componentes tendrían que adaptarse?
 2. Explica por qué `ProductoService` depende de `ProductoDAO` y no de `ProductoFicheroDAO`.
-3. Dibuja un diagrama UML de clases con `App`, `ProductoService`, `ProductoDAO` y las dos implementaciones.
+3. Dibuja un diagrama UML de clases con `App`, `ConsolaVista`, `ProductoControlador`, `ProductoService`, `ProductoDAO` y las dos implementaciones.
 
 **Continúa con:** [3.4. Componentes de acceso a ficheros](04-componentes-ficheros.md).

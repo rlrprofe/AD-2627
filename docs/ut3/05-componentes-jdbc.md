@@ -16,13 +16,21 @@ Ya sabemos utilizar JDBC desde UT2. Ahora el objetivo es **encapsular las senten
 
 ```mermaid
 flowchart TD
-    A[App] --> B[ProductoService]
+    A[App] --> K[ProductoControlador]
+    K <--> V[ConsolaVista]
+    K --> B[ProductoService]
     B --> C[ProductoDAO]
     C --> D[ProductoFicheroDAO]
     C --> E[ProductoJdbcDAO]
     D --> F[(CSV)]
     E --> G[(MySQL)]
 ```
+
+### ¿Por qué JDBC debe quedar fuera del controlador?
+
+La UT2 ya nos permitió practicar `Connection`, `PreparedStatement` y `ResultSet`. En la UT3 no buscamos repetir esas operaciones desde el menú: queremos **encapsularlas en un componente**. Si el controlador conociera SQL, cambiar de CSV a MySQL obligaría a modificar también la interacción con el usuario.
+
+`ProductoJdbcDAO` implementa exactamente el contrato de `ProductoDAO`, igual que el DAO de fichero. Por ello `ProductoService` trabaja con cualquiera de los dos sin conocer sus detalles.
 
 ## 2. Crear la base de datos
 
@@ -188,7 +196,7 @@ Observa el uso de `PreparedStatement`, `try-with-resources` y un método de conv
 
 ## 6. Seleccionar MySQL al ejecutar
 
-Al integrar las dos implementaciones en 3.7, la clase `App` permitirá elegir el DAO mediante la variable de entorno `INVENTARIO_STORAGE`:
+Al integrar las dos implementaciones en 3.7, la clase `Configuracion` permitirá elegir el DAO mediante la variable de entorno `INVENTARIO_STORAGE`:
 
 - Valor `csv` (o variable ausente): `ProductoFicheroDAO`.
 - Valor `mysql`: `ProductoJdbcDAO`.
@@ -203,7 +211,18 @@ java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
 ```
 
 !!! tip "Resultado que queremos comprobar"
-    El menú y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa `ProductoDAO`.
+    La vista, el controlador y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa `ProductoDAO`.
+
+### Comprobación de responsabilidades
+
+Cuando revises `ProductoJdbcDAO`, localiza:
+
+1. `PreparedStatement`: envía consultas parametrizadas a MySQL.
+2. `try-with-resources`: cierra conexiones y resultados.
+3. `leer(ResultSet)`: transforma una fila en un objeto `Producto`.
+4. `ConexionBD`: concentra la apertura de conexiones.
+
+Comprueba que **ninguno** de esos elementos aparece en `ConsolaVista` ni en `ProductoControlador`.
 
 ## 7. Actividades
 

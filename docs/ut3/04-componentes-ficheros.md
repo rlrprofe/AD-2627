@@ -126,32 +126,93 @@ public class ProductoFicheroDAO implements ProductoDAO {
 
 La aplicación **no necesita saber** cómo se guarda físicamente la información.
 
-## 3. Crear el menú de consola
+## 3. Crear una interfaz de consola sin mezclar responsabilidades
 
-Archivo: **`src/main/java/es/iesisidra/inventario/App.java`**.
+Una vez que `ProductoFicheroDAO` puede guardar y recuperar productos, necesitamos que el usuario pueda interactuar con la aplicación. **No escribiremos el menú dentro de `main`**: crearemos una vista y un controlador.
 
-Partiendo del [proyecto inicial](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip), implementa la clase siguiendo los ejemplos anteriores. La parte fundamental es la creación del servicio:
+### 3.1. La vista: `ConsolaVista`
+
+Archivo: `src/main/java/es/iesisidra/inventario/vista/ConsolaVista.java`.
+
+La vista es responsable de **toda la entrada y salida**. Contiene métodos como:
+
+| Método | Función |
+|---|---|
+| `solicitarOpcion()` | Muestra el menú y devuelve la opción elegida. |
+| `solicitarProducto()` | Solicita ID, nombre, precio y stock y crea un `Producto`. |
+| `solicitarId()` | Pide el identificador de un producto. |
+| `mostrarProducto(...)` | Presenta un producto con formato. |
+| `mostrarProductos(...)` | Presenta un listado o indica que está vacío. |
+| `mostrarMensaje(...)` y `mostrarError(...)` | Centralizan los mensajes de salida. |
+
+Fragmento del código de la solución:
+
+```java
+public void mostrarProducto(Producto producto) {
+    salida.printf("ID: %d | Nombre: %s | Precio: %.2f | Stock: %d%n",
+            producto.id(), producto.nombre(), producto.precio(), producto.stock());
+}
+```
+
+La vista puede utilizar `Scanner` para leer, pero **no ejecuta SQL, no lee el CSV y no valida las reglas de negocio**. Sí comprueba el formato de entrada (por ejemplo, que el usuario introduzca un número entero).
+
+### 3.2. El controlador: `ProductoControlador`
+
+Archivo: `src/main/java/es/iesisidra/inventario/controlador/ProductoControlador.java`.
+
+El controlador recibe en el constructor un servicio y una vista. Su trabajo es **coordinar**, no implementar el almacenamiento:
+
+```java
+private void alta() {
+    Producto producto = vista.solicitarProducto();
+    servicio.alta(producto);
+    vista.mostrarMensaje("Producto registrado.");
+}
+```
+
+Observa que este método tiene solo tres instrucciones y cada una tiene una finalidad clara: solicitar datos, ejecutar la operación y mostrar el resultado.
+
+El controlador contiene métodos distintos para `alta`, `buscar`, `listar`, `modificar` y `eliminar`. Así evitamos que el `switch` del menú acumule toda la lógica.
+
+### 3.3. `App`: conectar los objetos
+
+Archivo: `src/main/java/es/iesisidra/inventario/App.java`.
+
+Por ahora utilizaremos el DAO CSV:
 
 ```java
 ProductoDAO dao = new ProductoFicheroDAO(Path.of("datos", "productos.csv"));
 ProductoService servicio = new ProductoService(dao);
+
+try (Scanner scanner = new Scanner(System.in)) {
+    ConsolaVista vista = new ConsolaVista(scanner, System.out);
+    new ProductoControlador(servicio, vista).iniciar();
+}
 ```
 
-A partir de ahí, el menú llama a `servicio.alta(...)`, `servicio.buscar(...)`, `servicio.listar()`, `servicio.modificar(...)` y `servicio.baja(...)`.
+Para que compile, incorpora las importaciones de las clases y de `Path` y `Scanner`. La solución final contiene la clase completa.
 
-!!! note "Por qué no copiamos aquí dos veces el menú"
-    El menú completo se conserva en **un único archivo `App.java`** y será idéntico para CSV y MySQL. Constrúyelo progresivamente a partir del proyecto inicial, siguiendo las indicaciones de este apartado.
+En 3.7 sustituiremos la construcción directa del DAO por `Configuracion.crearDao()`, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.
+
+!!! note "Proyecto inicial y solución final"
+    El proyecto inicial es un **esqueleto de trabajo**. La solución final contiene las clases `ConsolaVista`, `ProductoControlador` y `Configuracion`, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.
 
 ## 4. Compilar y ejecutar
 
 Desde la raíz del proyecto:
 
 ```bash
+mvn clean compile
+```
+
+En este punto, ejecuta `App` desde el IDE. **Todavía no hemos configurado el JAR ejecutable**; completaremos su empaquetado en 3.7.
+
+Una vez terminada la unidad podrás utilizar:
+
+```bash
 mvn clean package
 java -jar target/gestion-inventario-1.0-SNAPSHOT.jar
 ```
-
-Con el `pom.xml` del proyecto inicial, ejecuta la clase `App` desde el IDE. La generación de un JAR ejecutable se completará en 3.7.
 
 Por defecto, la aplicación utiliza **CSV**.
 
@@ -160,13 +221,13 @@ Ejemplo de interacción:
 ```text
 1. Alta  2. Buscar  3. Listar  4. Modificar  5. Eliminar  0. Salir
 Opción: 3
-Producto[id=1, nombre=Teclado, precio=19.95, stock=12]
-Producto[id=2, nombre=Raton, precio=9.5, stock=20]
+ID: 1 | Nombre: Teclado | Precio: 19.95 | Stock: 12
+ID: 2 | Nombre: Raton | Precio: 9.50 | Stock: 20
 ```
 
 ## 5. Limitaciones de esta implementación
 
-Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. No hay control de acceso concurrente ni escritura atómica. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.
+Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. La solución de referencia utiliza un fichero temporal y procura sustituir el original de forma segura; aun así, no ofrece control de acceso concurrente ni garantías de transacción equivalentes a una base de datos. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.
 
 ## 6. Actividades
 

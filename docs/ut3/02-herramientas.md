@@ -53,9 +53,27 @@ gestion-inventario/
     └── test/java/es/iesisidra/inventario/
 ```
 
-Descarga el **proyecto inicial** para comenzar con la misma estructura que utilizaremos en toda la unidad. Tendrás que ir incorporando las clases y configuraciones siguiendo los apartados siguientes.
+Descarga el **proyecto inicial** para comenzar con el esqueleto de la aplicación. **No incluye todavía** todas las clases de MVC, servicio y persistencia: las incorporaremos progresivamente. Tendrás que ir incorporando las clases y configuraciones siguiendo los apartados siguientes.
 
 [**Descargar proyecto inicial de Gestión de inventario (ZIP)**](../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip)
+
+### Estructura de paquetes que iremos construyendo
+
+```text
+es/iesisidra/inventario/
+├── App.java
+├── modelo/Producto.java
+├── vista/ConsolaVista.java
+├── controlador/ProductoControlador.java
+├── servicio/ProductoService.java
+├── dao/ProductoDAO.java
+├── dao/ProductoFicheroDAO.java
+├── dao/ProductoJdbcDAO.java
+├── configuracion/Configuracion.java
+└── util/ConexionBD.java
+```
+
+No debes crear todo de una vez. El objetivo es comprender **por qué aparece cada clase** a medida que añadimos funcionalidades.
 
 ## 4. Configurar `pom.xml`
 

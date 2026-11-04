@@ -2,7 +2,7 @@
 
 ## 1. Proyecto transversal: Gestión de inventario
 
-A lo largo de la UT3 hemos desarrollado una misma aplicación Java 21 con Maven, separando el modelo, el servicio y el acceso a datos mediante una interfaz DAO. Hemos implementado dos mecanismos de persistencia: CSV y MySQL con JDBC.
+A lo largo de la UT3 hemos desarrollado una misma aplicación Java 21 con Maven, separando **modelo, vista, controlador, servicio y acceso a datos**. El patrón MVC organiza la interacción con el usuario y el patrón DAO permite cambiar de almacenamiento sin modificar la lógica de negocio. Hemos implementado dos mecanismos de persistencia: CSV y MySQL con JDBC.
 
 ### Material de partida
 
@@ -12,16 +12,28 @@ Este proyecto contiene la estructura Maven, `pom.xml` mínimo, el modelo `Produc
 
 ## 2. Actividades de consolidación
 
-1. **Arquitectura:** explica la función de `Producto`, `ProductoDAO`, `ProductoService` y `App`.
+1. **Arquitectura:** explica la función de `Producto`, `ConsolaVista`, `ProductoControlador`, `ProductoDAO`, `ProductoService`, `Configuracion` y `App`.
 2. **CSV:** implementa y comprueba las cinco operaciones CRUD con `ProductoFicheroDAO`.
 3. **JDBC:** crea la tabla MySQL e implementa las mismas operaciones en `ProductoJdbcDAO` con `PreparedStatement`.
 4. **Pruebas:** añade pruebas JUnit para las reglas de negocio y documenta la interfaz DAO.
-5. **Integración:** ejecuta la misma aplicación con ambas persistencias sin modificar la capa de servicio.
+5. **Integración:** ejecuta la misma aplicación con ambas persistencias sin modificar la vista, el controlador ni el servicio.
 6. **Empaquetado:** construye y prueba el JAR ejecutable mediante Maven.
 
 ## 3. Entrega del alumno
 
 Entrega el proyecto Maven con el código fuente, el `pom.xml`, el script SQL, las pruebas y un README que explique cómo ejecutarlo. Adjunta también el enlace al repositorio Git con historial de cambios.
+
+### Comprobación de la modularización
+
+Antes de consultar la solución, comprueba que:
+
+- [ ] `App` no contiene el menú ni operaciones CRUD.
+- [ ] `ConsolaVista` es la única clase que lee del teclado y muestra mensajes.
+- [ ] `ProductoControlador` tiene métodos diferenciados para alta, búsqueda, listado, modificación y baja.
+- [ ] `ProductoService` valida los datos sin conocer el almacenamiento.
+- [ ] El servicio depende de `ProductoDAO`, no de una implementación concreta.
+- [ ] Cambiar de CSV a MySQL no obliga a modificar la vista ni el controlador.
+- [ ] Las pruebas pueden ejecutarse sin una conexión MySQL real cuando verifican reglas de negocio.
 
 ## 4. Solución de referencia (al finalizar la unidad)
 
@@ -30,7 +42,7 @@ Entrega el proyecto Maven con el código fuente, el `pom.xml`, el script SQL, la
 
 [**Descargar proyecto completo / solución de referencia (ZIP)**](../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip)
 
-Incluye la aplicación de consola, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el `pom.xml` final.
+Incluye la aplicación de consola **modularizada con MVC**, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el `pom.xml` final. `App` solo conecta los componentes; `ConsolaVista` gestiona la interacción y `ProductoControlador` coordina las operaciones.
 
 !!! note "Requisitos"
     Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.
