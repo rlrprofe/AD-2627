@@ -3341,10 +3341,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-separacion-de-responsabilidades" class="md-nav__link">
+  <a href="#1-separacion-de-responsabilidades-mvc-servicio-dao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Separación de responsabilidades
+        1. Separación de responsabilidades: MVC + servicio + DAO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura definitiva: MVC, servicio y DAO
       
     </span>
   </a>
@@ -3385,13 +3396,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-donde-esta-el-menu" class="md-nav__link">
+  <a href="#5-donde-estan-la-vista-y-el-controlador" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. ¿Dónde está el menú?
+        5. ¿Dónde están la vista y el controlador?
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="5. ¿Dónde están la vista y el controlador?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-reparto-de-tareas-durante-un-alta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo: reparto de tareas durante un alta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3999,10 +4027,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-separacion-de-responsabilidades" class="md-nav__link">
+  <a href="#1-separacion-de-responsabilidades-mvc-servicio-dao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Separación de responsabilidades
+        1. Separación de responsabilidades: MVC + servicio + DAO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura definitiva: MVC, servicio y DAO
       
     </span>
   </a>
@@ -4043,13 +4082,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-donde-esta-el-menu" class="md-nav__link">
+  <a href="#5-donde-estan-la-vista-y-el-controlador" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. ¿Dónde está el menú?
+        5. ¿Dónde están la vista y el controlador?
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="5. ¿Dónde están la vista y el controlador?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-reparto-de-tareas-durante-un-alta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo: reparto de tareas durante un alta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4095,43 +4151,79 @@
 <li>Definir un contrato DAO independiente de la tecnología de almacenamiento.</li>
 <li>Crear el modelo y el servicio de la aplicación.</li>
 </ul>
-<h2 id="1-separacion-de-responsabilidades">1. Separación de responsabilidades<a class="headerlink" href="#1-separacion-de-responsabilidades" title="Permanent link">&para;</a></h2>
+<h2 id="1-separacion-de-responsabilidades-mvc-servicio-dao">1. Separación de responsabilidades: MVC + servicio + DAO<a class="headerlink" href="#1-separacion-de-responsabilidades-mvc-servicio-dao" title="Permanent link">&para;</a></h2>
+<p>Antes de programar, debemos decidir <strong>qué responsabilidad tiene cada parte</strong>. El DAO encapsula la persistencia, pero no debe gestionar menús. El servicio aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una <strong>vista</strong> y un <strong>controlador</strong>.</p>
+<h2 id="arquitectura-definitiva-mvc-servicio-y-dao">Arquitectura definitiva: MVC, servicio y DAO<a class="headerlink" href="#arquitectura-definitiva-mvc-servicio-y-dao" title="Permanent link">&para;</a></h2>
+<p>El proyecto conserva el <strong>objetivo del RA6</strong>: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: <strong>lo complementa</strong>.</p>
+<pre class="mermaid"><code>flowchart TD
+    A["App: crea y conecta objetos"] --&gt; C["ProductoControlador"]
+    A --&gt; V["ConsolaVista"]
+    A --&gt; S["ProductoService"]
+    A --&gt; CFG["Configuracion"]
+    CFG --&gt; I["ProductoDAO: contrato"]
+    C &lt;--&gt; V
+    C --&gt; S
+    S --&gt; I
+    I -. "implementado por" .-&gt; F["ProductoFicheroDAO"]
+    I -. "implementado por" .-&gt; J["ProductoJdbcDAO"]
+    F --&gt; CSV[("productos.csv")]
+    J --&gt; MYSQL[("MySQL")]</code></pre>
 <table>
 <thead>
 <tr>
-<th>Capa</th>
-<th>Clase</th>
+<th>Elemento</th>
 <th>Responsabilidad</th>
+<th>Qué <strong>no</strong> debe hacer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Presentación</td>
-<td><code>App</code></td>
-<td>Mostrar menú y recoger datos.</td>
+<td><code>Producto</code></td>
+<td>Representar los datos del producto (<code>record</code>).</td>
+<td>Leer del teclado o ejecutar SQL.</td>
 </tr>
 <tr>
-<td>Negocio</td>
+<td><code>ConsolaVista</code></td>
+<td>Mostrar el menú, solicitar entradas y presentar resultados.</td>
+<td>Ejecutar operaciones CRUD en el DAO.</td>
+</tr>
+<tr>
+<td><code>ProductoControlador</code></td>
+<td>Interpretar la opción elegida y coordinar vista y servicio.</td>
+<td>Leer con <code>Scanner</code> o construir sentencias SQL.</td>
+</tr>
+<tr>
 <td><code>ProductoService</code></td>
-<td>Validar datos y coordinar operaciones.</td>
+<td>Validar datos y aplicar las reglas de negocio.</td>
+<td>Mostrar mensajes o elegir CSV/MySQL.</td>
 </tr>
 <tr>
-<td>Persistencia</td>
 <td><code>ProductoDAO</code></td>
 <td>Definir el contrato CRUD.</td>
+<td>Imponer una tecnología de persistencia.</td>
 </tr>
 <tr>
-<td>Persistencia</td>
 <td><code>ProductoFicheroDAO</code> / <code>ProductoJdbcDAO</code></td>
-<td>Guardar y recuperar datos.</td>
+<td>Implementar el contrato en CSV / MySQL.</td>
+<td>Mostrar el menú.</td>
+</tr>
+<tr>
+<td><code>Configuracion</code></td>
+<td>Seleccionar la implementación DAO al arrancar.</td>
+<td>Contener reglas de negocio.</td>
+</tr>
+<tr>
+<td><code>App</code></td>
+<td>Crear los objetos y poner en marcha el controlador.</td>
+<td>Acumular el menú y todas las operaciones.</td>
 </tr>
 </tbody>
 </table>
-<pre class="mermaid"><code>flowchart LR
-    A[App] --&gt; B[ProductoService]
-    B --&gt; C[ProductoDAO]
-    C --&gt; D[Implementación CSV]
-    C --&gt; E[Implementación JDBC]</code></pre>
+<p><strong>Recorrido de un alta:</strong> la vista solicita los datos → el controlador recibe un <code>Producto</code> → el servicio valida y llama a <code>ProductoDAO</code> → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.</p>
+<div class="admonition info">
+<p class="admonition-title">MVC en una aplicación de consola</p>
+<p>MVC no exige una interfaz gráfica. En esta práctica la <strong>vista</strong> es una clase de consola, el <strong>controlador</strong> coordina las acciones del usuario y el <strong>modelo</strong> representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.</p>
+</div>
 <h2 id="2-crear-el-modelo">2. Crear el modelo<a class="headerlink" href="#2-crear-el-modelo" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/modelo/Producto.java</code></strong>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">es.iesisidra.inventario.modelo</span><span class="p">;</span>
@@ -4215,13 +4307,23 @@
 <p class="admonition-title">Inyección de dependencias</p>
 <p>El servicio recibe un <code>ProductoDAO</code> en el constructor. No crea un DAO concreto con <code>new ProductoFicheroDAO(...)</code> ni con <code>new ProductoJdbcDAO(...)</code>. Esto permite sustituir la persistencia sin modificar el servicio.</p>
 </div>
-<h2 id="5-donde-esta-el-menu">5. ¿Dónde está el menú?<a class="headerlink" href="#5-donde-esta-el-menu" title="Permanent link">&para;</a></h2>
-<p>La clase <code>App</code> se añadirá cuando dispongamos de la primera implementación de persistencia, en el apartado 3.4. Así podremos ejecutar operaciones reales desde el primer momento.</p>
+<h2 id="5-donde-estan-la-vista-y-el-controlador">5. ¿Dónde están la vista y el controlador?<a class="headerlink" href="#5-donde-estan-la-vista-y-el-controlador" title="Permanent link">&para;</a></h2>
+<p>En este apartado definimos el <strong>contrato de persistencia</strong> y las <strong>reglas de negocio</strong>. En 3.4, al disponer de un DAO CSV funcional, incorporaremos <code>ConsolaVista</code> y <code>ProductoControlador</code>.</p>
+<p>La vista se ocupará de <code>Scanner</code>, mensajes y formato de salida. El controlador interpretará las opciones y llamará a los métodos de <code>ProductoService</code>. <code>App</code> quedará reducida a crear las dependencias y arrancar el controlador.</p>
+<h3 id="ejemplo-reparto-de-tareas-durante-un-alta">Ejemplo: reparto de tareas durante un alta<a class="headerlink" href="#ejemplo-reparto-de-tareas-durante-un-alta" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>ConsolaVista.solicitarProducto()</code> recoge ID, nombre, precio y stock.</li>
+<li><code>ProductoControlador.alta()</code> recibe el producto y llama a <code>servicio.alta(producto)</code>.</li>
+<li><code>ProductoService.alta()</code> valida y comprueba que no exista el identificador.</li>
+<li><code>ProductoDAO.insertar()</code> delega el almacenamiento en la implementación seleccionada.</li>
+<li>El controlador solicita a la vista que muestre «Producto registrado».</li>
+</ol>
+<p><strong>Importante:</strong> la vista no debe llamar directamente al DAO y el DAO no debe imprimir mensajes para el usuario.</p>
 <h2 id="6-actividad">6. Actividad<a class="headerlink" href="#6-actividad" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Añade al modelo un atributo <code>categoria</code>. ¿Qué componentes tendrían que adaptarse?</li>
 <li>Explica por qué <code>ProductoService</code> depende de <code>ProductoDAO</code> y no de <code>ProductoFicheroDAO</code>.</li>
-<li>Dibuja un diagrama UML de clases con <code>App</code>, <code>ProductoService</code>, <code>ProductoDAO</code> y las dos implementaciones.</li>
+<li>Dibuja un diagrama UML de clases con <code>App</code>, <code>ConsolaVista</code>, <code>ProductoControlador</code>, <code>ProductoService</code>, <code>ProductoDAO</code> y las dos implementaciones.</li>
 </ol>
 <p><strong>Continúa con:</strong> <a href="../04-componentes-ficheros/">3.4. Componentes de acceso a ficheros</a>.</p>
 

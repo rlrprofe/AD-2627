@@ -3405,6 +3405,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="1. La misma aplicación, otra persistencia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-jdbc-debe-quedar-fuera-del-controlador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué JDBC debe quedar fuera del controlador?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3459,6 +3476,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="6. Seleccionar MySQL al ejecutar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobacion-de-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobación de responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4018,6 +4052,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="1. La misma aplicación, otra persistencia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-jdbc-debe-quedar-fuera-del-controlador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué JDBC debe quedar fuera del controlador?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4073,6 +4124,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="6. Seleccionar MySQL al ejecutar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobacion-de-responsabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobación de responsabilidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4120,12 +4188,17 @@
 <h2 id="1-la-misma-aplicacion-otra-persistencia">1. La misma aplicación, otra persistencia<a class="headerlink" href="#1-la-misma-aplicacion-otra-persistencia" title="Permanent link">&para;</a></h2>
 <p>Ya sabemos utilizar JDBC desde UT2. Ahora el objetivo es <strong>encapsular las sentencias SQL en un componente</strong> que implemente <code>ProductoDAO</code>.</p>
 <pre class="mermaid"><code>flowchart TD
-    A[App] --&gt; B[ProductoService]
+    A[App] --&gt; K[ProductoControlador]
+    K &lt;--&gt; V[ConsolaVista]
+    K --&gt; B[ProductoService]
     B --&gt; C[ProductoDAO]
     C --&gt; D[ProductoFicheroDAO]
     C --&gt; E[ProductoJdbcDAO]
     D --&gt; F[(CSV)]
     E --&gt; G[(MySQL)]</code></pre>
+<h3 id="por-que-jdbc-debe-quedar-fuera-del-controlador">¿Por qué JDBC debe quedar fuera del controlador?<a class="headerlink" href="#por-que-jdbc-debe-quedar-fuera-del-controlador" title="Permanent link">&para;</a></h3>
+<p>La UT2 ya nos permitió practicar <code>Connection</code>, <code>PreparedStatement</code> y <code>ResultSet</code>. En la UT3 no buscamos repetir esas operaciones desde el menú: queremos <strong>encapsularlas en un componente</strong>. Si el controlador conociera SQL, cambiar de CSV a MySQL obligaría a modificar también la interacción con el usuario.</p>
+<p><code>ProductoJdbcDAO</code> implementa exactamente el contrato de <code>ProductoDAO</code>, igual que el DAO de fichero. Por ello <code>ProductoService</code> trabaja con cualquiera de los dos sin conocer sus detalles.</p>
 <h2 id="2-crear-la-base-de-datos">2. Crear la base de datos<a class="headerlink" href="#2-crear-la-base-de-datos" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>sql/inventario.sql</code></strong>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">inventario</span>
@@ -4271,7 +4344,7 @@
 </code></pre></div>
 <p>Observa el uso de <code>PreparedStatement</code>, <code>try-with-resources</code> y un método de conversión común <code>leer(...)</code>.</p>
 <h2 id="6-seleccionar-mysql-al-ejecutar">6. Seleccionar MySQL al ejecutar<a class="headerlink" href="#6-seleccionar-mysql-al-ejecutar" title="Permanent link">&para;</a></h2>
-<p>Al integrar las dos implementaciones en 3.7, la clase <code>App</code> permitirá elegir el DAO mediante la variable de entorno <code>INVENTARIO_STORAGE</code>:</p>
+<p>Al integrar las dos implementaciones en 3.7, la clase <code>Configuracion</code> permitirá elegir el DAO mediante la variable de entorno <code>INVENTARIO_STORAGE</code>:</p>
 <ul>
 <li>Valor <code>csv</code> (o variable ausente): <code>ProductoFicheroDAO</code>.</li>
 <li>Valor <code>mysql</code>: <code>ProductoJdbcDAO</code>.</li>
@@ -4284,8 +4357,17 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Resultado que queremos comprobar</p>
-<p>El menú y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa <code>ProductoDAO</code>.</p>
+<p>La vista, el controlador y el servicio son los mismos que en 3.4. Solo cambia el objeto que implementa <code>ProductoDAO</code>.</p>
 </div>
+<h3 id="comprobacion-de-responsabilidades">Comprobación de responsabilidades<a class="headerlink" href="#comprobacion-de-responsabilidades" title="Permanent link">&para;</a></h3>
+<p>Cuando revises <code>ProductoJdbcDAO</code>, localiza:</p>
+<ol>
+<li><code>PreparedStatement</code>: envía consultas parametrizadas a MySQL.</li>
+<li><code>try-with-resources</code>: cierra conexiones y resultados.</li>
+<li><code>leer(ResultSet)</code>: transforma una fila en un objeto <code>Producto</code>.</li>
+<li><code>ConexionBD</code>: concentra la apertura de conexiones.</li>
+</ol>
+<p>Comprueba que <strong>ninguno</strong> de esos elementos aparece en <code>ConsolaVista</code> ni en <code>ProductoControlador</code>.</p>
 <h2 id="7-actividades">7. Actividades<a class="headerlink" href="#7-actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Da de alta un producto desde la aplicación en modo MySQL.</li>

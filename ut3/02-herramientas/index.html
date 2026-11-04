@@ -3343,6 +3343,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Crear el proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estructura-de-paquetes-que-iremos-construyendo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de paquetes que iremos construyendo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4040,6 +4057,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Crear el proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estructura-de-paquetes-que-iremos-construyendo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de paquetes que iremos construyendo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4172,8 +4206,22 @@ mvn<span class="w"> </span>-version
     ├── main/java/es/iesisidra/inventario/
     └── test/java/es/iesisidra/inventario/
 </code></pre></div>
-<p>Descarga el <strong>proyecto inicial</strong> para comenzar con la misma estructura que utilizaremos en toda la unidad. Tendrás que ir incorporando las clases y configuraciones siguiendo los apartados siguientes.</p>
+<p>Descarga el <strong>proyecto inicial</strong> para comenzar con el esqueleto de la aplicación. <strong>No incluye todavía</strong> todas las clases de MVC, servicio y persistencia: las incorporaremos progresivamente. Tendrás que ir incorporando las clases y configuraciones siguiendo los apartados siguientes.</p>
 <p><a href="../../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip"><strong>Descargar proyecto inicial de Gestión de inventario (ZIP)</strong></a></p>
+<h3 id="estructura-de-paquetes-que-iremos-construyendo">Estructura de paquetes que iremos construyendo<a class="headerlink" href="#estructura-de-paquetes-que-iremos-construyendo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>es/iesisidra/inventario/
+├── App.java
+├── modelo/Producto.java
+├── vista/ConsolaVista.java
+├── controlador/ProductoControlador.java
+├── servicio/ProductoService.java
+├── dao/ProductoDAO.java
+├── dao/ProductoFicheroDAO.java
+├── dao/ProductoJdbcDAO.java
+├── configuracion/Configuracion.java
+└── util/ConexionBD.java
+</code></pre></div>
+<p>No debes crear todo de una vez. El objetivo es comprender <strong>por qué aparece cada clase</strong> a medida que añadimos funcionalidades.</p>
 <h2 id="4-configurar-pomxml">4. Configurar <code>pom.xml</code><a class="headerlink" href="#4-configurar-pomxml" title="Permanent link">&para;</a></h2>
 <p>Archivo: <strong><code>gestion-inventario/pom.xml</code></strong>.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;project</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>

@@ -3875,6 +3875,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#arquitectura-definitiva-mvc-servicio-y-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura definitiva: MVC, servicio y DAO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#resultado-de-aprendizaje" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4006,7 +4017,7 @@
 
 
 <h1 id="ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos">UT3 · Diseño y desarrollo de componentes de acceso a datos<a class="headerlink" href="#ut3-diseno-y-desarrollo-de-componentes-de-acceso-a-datos" title="Permanent link">&para;</a></h1>
-<p>En la UT1 aprendimos a gestionar información almacenada en <strong>ficheros</strong> y en la UT2 a acceder a <strong>bases de datos relacionales mediante JDBC</strong>. En esta unidad aprenderás a diseñar y desarrollar <strong>componentes de acceso a datos reutilizables</strong>, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración.</p>
+<p>En la UT1 aprendimos a gestionar información almacenada en <strong>ficheros</strong> y en la UT2 a acceder a <strong>bases de datos relacionales mediante JDBC</strong>. En esta unidad aprenderás a diseñar y desarrollar <strong>componentes de acceso a datos reutilizables</strong>, separando las responsabilidades de una aplicación para facilitar su mantenimiento, las pruebas y la integración. La solución de referencia aplica <strong>MVC + capa de servicio + patrón DAO</strong>: el menú se sitúa en la vista, la coordinación en el controlador y el acceso a datos en componentes intercambiables.</p>
 <p>Como proyecto conductor utilizaremos una aplicación de <strong>gestión de productos</strong> que podrá almacenar información en un fichero CSV o en una base de datos MySQL mediante distintas implementaciones de una misma interfaz.</p>
 <h2 id="contenidos">Contenidos<a class="headerlink" href="#contenidos" title="Permanent link">&para;</a></h2>
 <ol>
@@ -4016,9 +4027,81 @@
 <li><strong><a href="04-componentes-ficheros/">Componentes de acceso a ficheros</a>.</strong> Encapsulación de operaciones de lectura y escritura en ficheros CSV.</li>
 <li><strong><a href="05-componentes-jdbc/">Componentes de acceso mediante JDBC</a>.</strong> Desarrollo de componentes que gestionan información almacenada en bases de datos MySQL mediante conectores.</li>
 <li><strong><a href="06-pruebas-documentacion/">Pruebas y documentación</a>.</strong> Pruebas de componentes, JUnit 5, Javadoc y documentación de uso.</li>
-<li><strong><a href="07-integracion/">Integración de componentes</a>.</strong> Utilización de componentes desde una aplicación y sustitución de implementaciones.</li>
+<li><strong><a href="07-integracion/">Integración de componentes</a>.</strong> Composición de la aplicación MVC, selección de persistencia y empaquetado.</li>
+<li><strong><a href="08-actividades-descargas/">Actividades, proyecto y descargas</a>.</strong> Prácticas de consolidación y solución de referencia.</li>
 </ol>
 <p>Para ampliar la configuración y el uso de Maven, consulta el <strong><a href="../anexo-maven/">Anexo · Apache Maven para proyectos Java</a></strong>.</p>
+<h2 id="arquitectura-definitiva-mvc-servicio-y-dao">Arquitectura definitiva: MVC, servicio y DAO<a class="headerlink" href="#arquitectura-definitiva-mvc-servicio-y-dao" title="Permanent link">&para;</a></h2>
+<p>El proyecto conserva el <strong>objetivo del RA6</strong>: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: <strong>lo complementa</strong>.</p>
+<pre class="mermaid"><code>flowchart TD
+    A["App: crea y conecta objetos"] --&gt; C["ProductoControlador"]
+    A --&gt; V["ConsolaVista"]
+    A --&gt; S["ProductoService"]
+    A --&gt; CFG["Configuracion"]
+    CFG --&gt; I["ProductoDAO: contrato"]
+    C &lt;--&gt; V
+    C --&gt; S
+    S --&gt; I
+    I -. "implementado por" .-&gt; F["ProductoFicheroDAO"]
+    I -. "implementado por" .-&gt; J["ProductoJdbcDAO"]
+    F --&gt; CSV[("productos.csv")]
+    J --&gt; MYSQL[("MySQL")]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Responsabilidad</th>
+<th>Qué <strong>no</strong> debe hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Producto</code></td>
+<td>Representar los datos del producto (<code>record</code>).</td>
+<td>Leer del teclado o ejecutar SQL.</td>
+</tr>
+<tr>
+<td><code>ConsolaVista</code></td>
+<td>Mostrar el menú, solicitar entradas y presentar resultados.</td>
+<td>Ejecutar operaciones CRUD en el DAO.</td>
+</tr>
+<tr>
+<td><code>ProductoControlador</code></td>
+<td>Interpretar la opción elegida y coordinar vista y servicio.</td>
+<td>Leer con <code>Scanner</code> o construir sentencias SQL.</td>
+</tr>
+<tr>
+<td><code>ProductoService</code></td>
+<td>Validar datos y aplicar las reglas de negocio.</td>
+<td>Mostrar mensajes o elegir CSV/MySQL.</td>
+</tr>
+<tr>
+<td><code>ProductoDAO</code></td>
+<td>Definir el contrato CRUD.</td>
+<td>Imponer una tecnología de persistencia.</td>
+</tr>
+<tr>
+<td><code>ProductoFicheroDAO</code> / <code>ProductoJdbcDAO</code></td>
+<td>Implementar el contrato en CSV / MySQL.</td>
+<td>Mostrar el menú.</td>
+</tr>
+<tr>
+<td><code>Configuracion</code></td>
+<td>Seleccionar la implementación DAO al arrancar.</td>
+<td>Contener reglas de negocio.</td>
+</tr>
+<tr>
+<td><code>App</code></td>
+<td>Crear los objetos y poner en marcha el controlador.</td>
+<td>Acumular el menú y todas las operaciones.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recorrido de un alta:</strong> la vista solicita los datos → el controlador recibe un <code>Producto</code> → el servicio valida y llama a <code>ProductoDAO</code> → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.</p>
+<div class="admonition info">
+<p class="admonition-title">MVC en una aplicación de consola</p>
+<p>MVC no exige una interfaz gráfica. En esta práctica la <strong>vista</strong> es una clase de consola, el <strong>controlador</strong> coordina las acciones del usuario y el <strong>modelo</strong> representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.</p>
+</div>
 <h2 id="resultado-de-aprendizaje">Resultado de aprendizaje<a class="headerlink" href="#resultado-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <p><strong>RA6.</strong> Programa componentes de acceso a datos identificando las características que debe poseer un componente y utilizando herramientas de desarrollo.</p>
 <p>En esta unidad se trabajan los criterios <strong>a), b), c), d), h) e i)</strong> del RA6. Los restantes criterios se desarrollarán en otras unidades del módulo.</p>
@@ -4138,7 +4221,7 @@
 <pre class="mermaid"><code>flowchart TD
     A["Componentes software"] --&gt; B["Herramientas y proyecto Maven"]
     B --&gt; C["Arquitectura por capas e interfaces"]
-    C --&gt; D["Patrón DAO"]
+    C --&gt; D["Patrón DAO y MVC"]
     D --&gt; E["Componente para ficheros CSV"]
     D --&gt; F["Componente JDBC para MySQL"]
     E --&gt; G["Pruebas y documentación"]

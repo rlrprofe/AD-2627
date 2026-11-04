@@ -3408,13 +3408,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-crear-el-menu-de-consola" class="md-nav__link">
+  <a href="#3-crear-una-interfaz-de-consola-sin-mezclar-responsabilidades" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Crear el menú de consola
+        3. Crear una interfaz de consola sin mezclar responsabilidades
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3. Crear una interfaz de consola sin mezclar responsabilidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-la-vista-consolavista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. La vista: ConsolaVista
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-el-controlador-productocontrolador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. El controlador: ProductoControlador
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-app-conectar-los-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. App: conectar los objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4055,13 +4094,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-crear-el-menu-de-consola" class="md-nav__link">
+  <a href="#3-crear-una-interfaz-de-consola-sin-mezclar-responsabilidades" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Crear el menú de consola
+        3. Crear una interfaz de consola sin mezclar responsabilidades
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3. Crear una interfaz de consola sin mezclar responsabilidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-la-vista-consolavista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. La vista: ConsolaVista
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-el-controlador-productocontrolador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. El controlador: ProductoControlador
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-app-conectar-los-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. App: conectar los objetos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4237,32 +4315,98 @@
 <li>Las operaciones CRUD sobre el conjunto de productos.</li>
 </ul>
 <p>La aplicación <strong>no necesita saber</strong> cómo se guarda físicamente la información.</p>
-<h2 id="3-crear-el-menu-de-consola">3. Crear el menú de consola<a class="headerlink" href="#3-crear-el-menu-de-consola" title="Permanent link">&para;</a></h2>
-<p>Archivo: <strong><code>src/main/java/es/iesisidra/inventario/App.java</code></strong>.</p>
-<p>Partiendo del <a href="../../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip">proyecto inicial</a>, implementa la clase siguiendo los ejemplos anteriores. La parte fundamental es la creación del servicio:</p>
+<h2 id="3-crear-una-interfaz-de-consola-sin-mezclar-responsabilidades">3. Crear una interfaz de consola sin mezclar responsabilidades<a class="headerlink" href="#3-crear-una-interfaz-de-consola-sin-mezclar-responsabilidades" title="Permanent link">&para;</a></h2>
+<p>Una vez que <code>ProductoFicheroDAO</code> puede guardar y recuperar productos, necesitamos que el usuario pueda interactuar con la aplicación. <strong>No escribiremos el menú dentro de <code>main</code></strong>: crearemos una vista y un controlador.</p>
+<h3 id="31-la-vista-consolavista">3.1. La vista: <code>ConsolaVista</code><a class="headerlink" href="#31-la-vista-consolavista" title="Permanent link">&para;</a></h3>
+<p>Archivo: <code>src/main/java/es/iesisidra/inventario/vista/ConsolaVista.java</code>.</p>
+<p>La vista es responsable de <strong>toda la entrada y salida</strong>. Contiene métodos como:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>solicitarOpcion()</code></td>
+<td>Muestra el menú y devuelve la opción elegida.</td>
+</tr>
+<tr>
+<td><code>solicitarProducto()</code></td>
+<td>Solicita ID, nombre, precio y stock y crea un <code>Producto</code>.</td>
+</tr>
+<tr>
+<td><code>solicitarId()</code></td>
+<td>Pide el identificador de un producto.</td>
+</tr>
+<tr>
+<td><code>mostrarProducto(...)</code></td>
+<td>Presenta un producto con formato.</td>
+</tr>
+<tr>
+<td><code>mostrarProductos(...)</code></td>
+<td>Presenta un listado o indica que está vacío.</td>
+</tr>
+<tr>
+<td><code>mostrarMensaje(...)</code> y <code>mostrarError(...)</code></td>
+<td>Centralizan los mensajes de salida.</td>
+</tr>
+</tbody>
+</table>
+<p>Fragmento del código de la solución:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mostrarProducto</span><span class="p">(</span><span class="n">Producto</span><span class="w"> </span><span class="n">producto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">salida</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">"ID: %d | Nombre: %s | Precio: %.2f | Stock: %d%n"</span><span class="p">,</span>
+<span class="w">            </span><span class="n">producto</span><span class="p">.</span><span class="na">id</span><span class="p">(),</span><span class="w"> </span><span class="n">producto</span><span class="p">.</span><span class="na">nombre</span><span class="p">(),</span><span class="w"> </span><span class="n">producto</span><span class="p">.</span><span class="na">precio</span><span class="p">(),</span><span class="w"> </span><span class="n">producto</span><span class="p">.</span><span class="na">stock</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>La vista puede utilizar <code>Scanner</code> para leer, pero <strong>no ejecuta SQL, no lee el CSV y no valida las reglas de negocio</strong>. Sí comprueba el formato de entrada (por ejemplo, que el usuario introduzca un número entero).</p>
+<h3 id="32-el-controlador-productocontrolador">3.2. El controlador: <code>ProductoControlador</code><a class="headerlink" href="#32-el-controlador-productocontrolador" title="Permanent link">&para;</a></h3>
+<p>Archivo: <code>src/main/java/es/iesisidra/inventario/controlador/ProductoControlador.java</code>.</p>
+<p>El controlador recibe en el constructor un servicio y una vista. Su trabajo es <strong>coordinar</strong>, no implementar el almacenamiento:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">alta</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Producto</span><span class="w"> </span><span class="n">producto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vista</span><span class="p">.</span><span class="na">solicitarProducto</span><span class="p">();</span>
+<span class="w">    </span><span class="n">servicio</span><span class="p">.</span><span class="na">alta</span><span class="p">(</span><span class="n">producto</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vista</span><span class="p">.</span><span class="na">mostrarMensaje</span><span class="p">(</span><span class="s">"Producto registrado."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Observa que este método tiene solo tres instrucciones y cada una tiene una finalidad clara: solicitar datos, ejecutar la operación y mostrar el resultado.</p>
+<p>El controlador contiene métodos distintos para <code>alta</code>, <code>buscar</code>, <code>listar</code>, <code>modificar</code> y <code>eliminar</code>. Así evitamos que el <code>switch</code> del menú acumule toda la lógica.</p>
+<h3 id="33-app-conectar-los-objetos">3.3. <code>App</code>: conectar los objetos<a class="headerlink" href="#33-app-conectar-los-objetos" title="Permanent link">&para;</a></h3>
+<p>Archivo: <code>src/main/java/es/iesisidra/inventario/App.java</code>.</p>
+<p>Por ahora utilizaremos el DAO CSV:</p>
 <div class="highlight"><pre><span></span><code><span class="n">ProductoDAO</span><span class="w"> </span><span class="n">dao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoFicheroDAO</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"datos"</span><span class="p">,</span><span class="w"> </span><span class="s">"productos.csv"</span><span class="p">));</span>
 <span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="n">dao</span><span class="p">);</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">);</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">servicio</span><span class="p">,</span><span class="w"> </span><span class="n">vista</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>A partir de ahí, el menú llama a <code>servicio.alta(...)</code>, <code>servicio.buscar(...)</code>, <code>servicio.listar()</code>, <code>servicio.modificar(...)</code> y <code>servicio.baja(...)</code>.</p>
+<p>Para que compile, incorpora las importaciones de las clases y de <code>Path</code> y <code>Scanner</code>. La solución final contiene la clase completa.</p>
+<p>En 3.7 sustituiremos la construcción directa del DAO por <code>Configuracion.crearDao()</code>, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.</p>
 <div class="admonition note">
-<p class="admonition-title">Por qué no copiamos aquí dos veces el menú</p>
-<p>El menú completo se conserva en <strong>un único archivo <code>App.java</code></strong> y será idéntico para CSV y MySQL. Constrúyelo progresivamente a partir del proyecto inicial, siguiendo las indicaciones de este apartado.</p>
+<p class="admonition-title">Proyecto inicial y solución final</p>
+<p>El proyecto inicial es un <strong>esqueleto de trabajo</strong>. La solución final contiene las clases <code>ConsolaVista</code>, <code>ProductoControlador</code> y <code>Configuracion</code>, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.</p>
 </div>
 <h2 id="4-compilar-y-ejecutar">4. Compilar y ejecutar<a class="headerlink" href="#4-compilar-y-ejecutar" title="Permanent link">&para;</a></h2>
 <p>Desde la raíz del proyecto:</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>compile
+</code></pre></div>
+<p>En este punto, ejecuta <code>App</code> desde el IDE. <strong>Todavía no hemos configurado el JAR ejecutable</strong>; completaremos su empaquetado en 3.7.</p>
+<p>Una vez terminada la unidad podrás utilizar:</p>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>package
 java<span class="w"> </span>-jar<span class="w"> </span>target/gestion-inventario-1.0-SNAPSHOT.jar
 </code></pre></div>
-<p>Con el <code>pom.xml</code> del proyecto inicial, ejecuta la clase <code>App</code> desde el IDE. La generación de un JAR ejecutable se completará en 3.7.</p>
 <p>Por defecto, la aplicación utiliza <strong>CSV</strong>.</p>
 <p>Ejemplo de interacción:</p>
 <div class="highlight"><pre><span></span><code>1. Alta  2. Buscar  3. Listar  4. Modificar  5. Eliminar  0. Salir
 Opción: 3
-Producto[id=1, nombre=Teclado, precio=19.95, stock=12]
-Producto[id=2, nombre=Raton, precio=9.5, stock=20]
+ID: 1 | Nombre: Teclado | Precio: 19.95 | Stock: 12
+ID: 2 | Nombre: Raton | Precio: 9.50 | Stock: 20
 </code></pre></div>
 <h2 id="5-limitaciones-de-esta-implementacion">5. Limitaciones de esta implementación<a class="headerlink" href="#5-limitaciones-de-esta-implementacion" title="Permanent link">&para;</a></h2>
-<p>Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. No hay control de acceso concurrente ni escritura atómica. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.</p>
+<p>Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. La solución de referencia utiliza un fichero temporal y procura sustituir el original de forma segura; aun así, no ofrece control de acceso concurrente ni garantías de transacción equivalentes a una base de datos. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.</p>
 <h2 id="6-actividades">6. Actividades<a class="headerlink" href="#6-actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Añade un producto y comprueba que aparece en <code>productos.csv</code>.</li>

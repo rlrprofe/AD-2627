@@ -3517,6 +3517,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Entrega del alumno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobacion-de-la-modularizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobación de la modularización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4019,6 +4036,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Entrega del alumno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobacion-de-la-modularizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobación de la modularización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4054,28 +4088,39 @@
 
 <h1 id="38-actividades-proyecto-y-descargas">3.8. Actividades, proyecto y descargas<a class="headerlink" href="#38-actividades-proyecto-y-descargas" title="Permanent link">&para;</a></h1>
 <h2 id="1-proyecto-transversal-gestion-de-inventario">1. Proyecto transversal: Gestión de inventario<a class="headerlink" href="#1-proyecto-transversal-gestion-de-inventario" title="Permanent link">&para;</a></h2>
-<p>A lo largo de la UT3 hemos desarrollado una misma aplicación Java 21 con Maven, separando el modelo, el servicio y el acceso a datos mediante una interfaz DAO. Hemos implementado dos mecanismos de persistencia: CSV y MySQL con JDBC.</p>
+<p>A lo largo de la UT3 hemos desarrollado una misma aplicación Java 21 con Maven, separando <strong>modelo, vista, controlador, servicio y acceso a datos</strong>. El patrón MVC organiza la interacción con el usuario y el patrón DAO permite cambiar de almacenamiento sin modificar la lógica de negocio. Hemos implementado dos mecanismos de persistencia: CSV y MySQL con JDBC.</p>
 <h3 id="material-de-partida">Material de partida<a class="headerlink" href="#material-de-partida" title="Permanent link">&para;</a></h3>
 <p><a href="../../descargas/ut3/Gestion_Inventario_Inicial_Java21_Maven.zip"><strong>Descargar proyecto inicial (ZIP)</strong></a></p>
 <p>Este proyecto contiene la estructura Maven, <code>pom.xml</code> mínimo, el modelo <code>Producto</code> y la interfaz <code>ProductoDAO</code>. No incluye las implementaciones DAO ni la aplicación terminada. Completa el desarrollo siguiendo los apartados 3.2 a 3.7.</p>
 <h2 id="2-actividades-de-consolidacion">2. Actividades de consolidación<a class="headerlink" href="#2-actividades-de-consolidacion" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Arquitectura:</strong> explica la función de <code>Producto</code>, <code>ProductoDAO</code>, <code>ProductoService</code> y <code>App</code>.</li>
+<li><strong>Arquitectura:</strong> explica la función de <code>Producto</code>, <code>ConsolaVista</code>, <code>ProductoControlador</code>, <code>ProductoDAO</code>, <code>ProductoService</code>, <code>Configuracion</code> y <code>App</code>.</li>
 <li><strong>CSV:</strong> implementa y comprueba las cinco operaciones CRUD con <code>ProductoFicheroDAO</code>.</li>
 <li><strong>JDBC:</strong> crea la tabla MySQL e implementa las mismas operaciones en <code>ProductoJdbcDAO</code> con <code>PreparedStatement</code>.</li>
 <li><strong>Pruebas:</strong> añade pruebas JUnit para las reglas de negocio y documenta la interfaz DAO.</li>
-<li><strong>Integración:</strong> ejecuta la misma aplicación con ambas persistencias sin modificar la capa de servicio.</li>
+<li><strong>Integración:</strong> ejecuta la misma aplicación con ambas persistencias sin modificar la vista, el controlador ni el servicio.</li>
 <li><strong>Empaquetado:</strong> construye y prueba el JAR ejecutable mediante Maven.</li>
 </ol>
 <h2 id="3-entrega-del-alumno">3. Entrega del alumno<a class="headerlink" href="#3-entrega-del-alumno" title="Permanent link">&para;</a></h2>
 <p>Entrega el proyecto Maven con el código fuente, el <code>pom.xml</code>, el script SQL, las pruebas y un README que explique cómo ejecutarlo. Adjunta también el enlace al repositorio Git con historial de cambios.</p>
+<h3 id="comprobacion-de-la-modularizacion">Comprobación de la modularización<a class="headerlink" href="#comprobacion-de-la-modularizacion" title="Permanent link">&para;</a></h3>
+<p>Antes de consultar la solución, comprueba que:</p>
+<ul>
+<li>[ ] <code>App</code> no contiene el menú ni operaciones CRUD.</li>
+<li>[ ] <code>ConsolaVista</code> es la única clase que lee del teclado y muestra mensajes.</li>
+<li>[ ] <code>ProductoControlador</code> tiene métodos diferenciados para alta, búsqueda, listado, modificación y baja.</li>
+<li>[ ] <code>ProductoService</code> valida los datos sin conocer el almacenamiento.</li>
+<li>[ ] El servicio depende de <code>ProductoDAO</code>, no de una implementación concreta.</li>
+<li>[ ] Cambiar de CSV a MySQL no obliga a modificar la vista ni el controlador.</li>
+<li>[ ] Las pruebas pueden ejecutarse sin una conexión MySQL real cuando verifican reglas de negocio.</li>
+</ul>
 <h2 id="4-solucion-de-referencia-al-finalizar-la-unidad">4. Solución de referencia (al finalizar la unidad)<a class="headerlink" href="#4-solucion-de-referencia-al-finalizar-la-unidad" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Consultar después de completar las actividades</p>
 <p>El siguiente ZIP contiene <strong>la aplicación resuelta</strong>. Se facilita para contrastar el trabajo una vez terminados los apartados 3.1 a 3.7 y las actividades de consolidación.</p>
 </div>
 <p><a href="../../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip"><strong>Descargar proyecto completo / solución de referencia (ZIP)</strong></a></p>
-<p>Incluye la aplicación de consola, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el <code>pom.xml</code> final.</p>
+<p>Incluye la aplicación de consola <strong>modularizada con MVC</strong>, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL y el <code>pom.xml</code> final. <code>App</code> solo conecta los componentes; <code>ConsolaVista</code> gestiona la interacción y <code>ProductoControlador</code> coordina las operaciones.</p>
 <div class="admonition note">
 <p class="admonition-title">Requisitos</p>
 <p>Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.</p>

@@ -3444,6 +3444,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. Añadir JUnit 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-no-necesitamos-abrir-la-aplicacion-completa-para-probar-el-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué no necesitamos abrir la aplicación completa para probar el servicio?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3469,10 +3486,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-documentacion-con-javadoc" class="md-nav__link">
+  <a href="#5-probar-la-integracion-entre-controlador-y-vista" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Documentación con Javadoc
+        5. Probar la integración entre controlador y vista
       
     </span>
   </a>
@@ -3480,10 +3497,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-pruebas-de-integracion" class="md-nav__link">
+  <a href="#6-documentacion-con-javadoc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Pruebas de integración
+        6. Documentación con Javadoc
       
     </span>
   </a>
@@ -3491,10 +3508,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-actividades" class="md-nav__link">
+  <a href="#7-pruebas-de-integracion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Actividades
+        7. Pruebas de integración
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Actividades
       
     </span>
   </a>
@@ -4029,6 +4057,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. Añadir JUnit 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-que-no-necesitamos-abrir-la-aplicacion-completa-para-probar-el-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué no necesitamos abrir la aplicación completa para probar el servicio?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4054,10 +4099,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-documentacion-con-javadoc" class="md-nav__link">
+  <a href="#5-probar-la-integracion-entre-controlador-y-vista" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Documentación con Javadoc
+        5. Probar la integración entre controlador y vista
       
     </span>
   </a>
@@ -4065,10 +4110,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-pruebas-de-integracion" class="md-nav__link">
+  <a href="#6-documentacion-con-javadoc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Pruebas de integración
+        6. Documentación con Javadoc
       
     </span>
   </a>
@@ -4076,10 +4121,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-actividades" class="md-nav__link">
+  <a href="#7-pruebas-de-integracion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Actividades
+        7. Pruebas de integración
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Actividades
       
     </span>
   </a>
@@ -4162,6 +4218,9 @@
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div>
 <p>Además, configuramos <code>maven-surefire-plugin</code> para ejecutar las pruebas con <code>mvn test</code>.</p>
+<h3 id="por-que-no-necesitamos-abrir-la-aplicacion-completa-para-probar-el-servicio">¿Por qué no necesitamos abrir la aplicación completa para probar el servicio?<a class="headerlink" href="#por-que-no-necesitamos-abrir-la-aplicacion-completa-para-probar-el-servicio" title="Permanent link">&para;</a></h3>
+<p>Una prueba unitaria debe comprobar una responsabilidad concreta. Para verificar las validaciones de <code>ProductoService</code>, no necesitamos mostrar menús ni conectarnos a MySQL. Basta con proporcionarle una implementación de <code>ProductoDAO</code> en memoria.</p>
+<p>Esta es una consecuencia práctica de la <strong>inyección de dependencias</strong> que estudiamos en 3.3.</p>
 <h2 id="3-probar-sin-depender-de-mysql-ni-del-csv">3. Probar sin depender de MySQL ni del CSV<a class="headerlink" href="#3-probar-sin-depender-de-mysql-ni-del-csv" title="Permanent link">&para;</a></h2>
 <p>Una ventaja de depender de la interfaz <code>ProductoDAO</code> es que podemos usar una implementación <strong>en memoria</strong> durante las pruebas.</p>
 <p>Archivo: <strong><code>src/test/java/es/iesisidra/inventario/servicio/ProductoServiceTest.java</code></strong>.</p>
@@ -4221,7 +4280,26 @@
 <p>Para compilar, ejecutar pruebas y generar el JAR:</p>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>package
 </code></pre></div>
-<h2 id="5-documentacion-con-javadoc">5. Documentación con Javadoc<a class="headerlink" href="#5-documentacion-con-javadoc" title="Permanent link">&para;</a></h2>
+<h2 id="5-probar-la-integracion-entre-controlador-y-vista">5. Probar la integración entre controlador y vista<a class="headerlink" href="#5-probar-la-integracion-entre-controlador-y-vista" title="Permanent link">&para;</a></h2>
+<p>Además de las pruebas del servicio, la solución de referencia incluye pruebas de <code>ProductoControlador</code> y <code>ProductoFicheroDAO</code>.</p>
+<p>Para comprobar el controlador podemos <strong>simular la entrada del usuario</strong> con un <code>Scanner</code> creado a partir de una cadena y <strong>capturar la salida</strong> con <code>ByteArrayOutputStream</code>. Así verificamos el menú sin introducir datos manualmente.</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">entradas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"3\n0\n"</span><span class="p">;</span>
+<span class="n">ByteArrayOutputStream</span><span class="w"> </span><span class="n">salidaBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="p">();</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">entradas</span><span class="p">);</span>
+<span class="w">     </span><span class="n">PrintStream</span><span class="w"> </span><span class="n">salida</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintStream</span><span class="p">(</span><span class="n">salidaBytes</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span><span class="w"> </span><span class="n">salida</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DaoMemoria</span><span class="p">());</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">servicio</span><span class="p">,</span><span class="w"> </span><span class="n">vista</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">String</span><span class="w"> </span><span class="n">resultado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">salidaBytes</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+<span class="n">assertTrue</span><span class="p">(</span><span class="n">resultado</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="s">"GESTIÓN DE INVENTARIO"</span><span class="p">));</span>
+</code></pre></div>
+<p>Este fragmento requiere las importaciones de <code>Scanner</code>, <code>ByteArrayOutputStream</code>, <code>PrintStream</code> y JUnit, así como un DAO de prueba que implemente <code>ProductoDAO</code>.</p>
+<p><strong>¿Qué estamos comprobando?</strong> Que el controlador coordina correctamente la vista y el servicio; no que MySQL esté funcionando.</p>
+<p>Para el DAO CSV, las pruebas deben utilizar un archivo temporal y comprobar que los cambios se mantienen tras volver a leerlo.</p>
+<h2 id="6-documentacion-con-javadoc">6. Documentación con Javadoc<a class="headerlink" href="#6-documentacion-con-javadoc" title="Permanent link">&para;</a></h2>
 <p>En nuestro proyecto documentaremos especialmente la interfaz <code>ProductoDAO</code>, porque es el contrato que otras clases deben conocer.</p>
 <p>Ejemplo:</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
@@ -4232,14 +4310,14 @@
 <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Producto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">buscarPorId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
 </code></pre></div>
 <p>La documentación debe describir las operaciones públicas, sus parámetros, sus resultados y las excepciones relevantes, sin limitarse a repetir el nombre del método.</p>
-<h2 id="6-pruebas-de-integracion">6. Pruebas de integración<a class="headerlink" href="#6-pruebas-de-integracion" title="Permanent link">&para;</a></h2>
+<h2 id="7-pruebas-de-integracion">7. Pruebas de integración<a class="headerlink" href="#7-pruebas-de-integracion" title="Permanent link">&para;</a></h2>
 <p>Las pruebas anteriores son <strong>unitarias</strong>. También conviene comprobar cada implementación real:</p>
 <ul>
 <li>CSV: insertar, leer, actualizar y eliminar sobre un archivo temporal.</li>
 <li>JDBC: ejecutar las mismas operaciones contra una base de datos de pruebas independiente.</li>
 </ul>
 <p>No utilizaremos la base de datos de producción para realizar pruebas destructivas.</p>
-<h2 id="7-actividades">7. Actividades<a class="headerlink" href="#7-actividades" title="Permanent link">&para;</a></h2>
+<h2 id="8-actividades">8. Actividades<a class="headerlink" href="#8-actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Añade una prueba que verifique el resultado de una búsqueda inexistente.</li>
 <li>Añade una prueba que compruebe la eliminación de un producto.</li>

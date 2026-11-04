@@ -3318,10 +3318,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-plan-de-desarrollo" class="md-nav__link">
+  <a href="#4-por-que-no-concentrar-todo-en-main" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Plan de desarrollo
+        4. ¿Por qué no concentrar todo en main?
       
     </span>
   </a>
@@ -3329,10 +3329,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-actividad-de-inicio" class="md-nav__link">
+  <a href="#5-plan-de-desarrollo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Actividad de inicio
+        5. Plan de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-actividad-de-inicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Actividad de inicio
       
     </span>
   </a>
@@ -4021,10 +4032,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-plan-de-desarrollo" class="md-nav__link">
+  <a href="#4-por-que-no-concentrar-todo-en-main" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Plan de desarrollo
+        4. ¿Por qué no concentrar todo en main?
       
     </span>
   </a>
@@ -4032,10 +4043,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-actividad-de-inicio" class="md-nav__link">
+  <a href="#5-plan-de-desarrollo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Actividad de inicio
+        5. Plan de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-actividad-de-inicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Actividad de inicio
       
     </span>
   </a>
@@ -4149,14 +4171,20 @@
 </div>
 <h2 id="3-arquitectura-que-construiremos">3. Arquitectura que construiremos<a class="headerlink" href="#3-arquitectura-que-construiremos" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A[App: menú de consola] --&gt; S[ProductoService: reglas de negocio]
+    A[App: composición] --&gt; C[ProductoControlador]
+    C &lt;--&gt; V[ConsolaVista: menú y mensajes]
+    C --&gt; S[ProductoService: reglas de negocio]
     S --&gt; I[ProductoDAO: interfaz]
     I --&gt; F[ProductoFicheroDAO]
     I --&gt; J[ProductoJdbcDAO]
     F --&gt; C[(productos.csv)]
     J --&gt; M[(MySQL)]</code></pre>
-<p>La aplicación compartirá <strong>modelo, menú y servicio</strong>. Lo que cambia es el componente de persistencia.</p>
-<h2 id="4-plan-de-desarrollo">4. Plan de desarrollo<a class="headerlink" href="#4-plan-de-desarrollo" title="Permanent link">&para;</a></h2>
+<p>La aplicación compartirá <strong>modelo, vista, controlador y servicio</strong>. Lo que cambia es el componente de persistencia. La clase <code>App</code> se limitará a conectar los objetos y arrancar el controlador.</p>
+<h2 id="4-por-que-no-concentrar-todo-en-main">4. ¿Por qué no concentrar todo en <code>main</code>?<a class="headerlink" href="#4-por-que-no-concentrar-todo-en-main" title="Permanent link">&para;</a></h2>
+<p>En una aplicación pequeña puede parecer cómodo escribir el menú, las lecturas de teclado, las validaciones y el acceso al fichero dentro de <code>main</code>. El problema aparece cuando necesitamos cambiar una de esas partes: una modificación de la presentación puede afectar a las consultas o a las reglas de negocio.</p>
+<p>En esta unidad aprenderemos a <strong>modularizar por responsabilidad</strong>. Cada método debe hacer una tarea comprensible y cada clase debe tener un motivo claro para cambiar. Por ejemplo, <code>ConsolaVista</code> podrá modificar el formato de los mensajes sin tocar <code>ProductoJdbcDAO</code>.</p>
+<p>El objetivo no es crear el mayor número posible de clases, sino conseguir que <strong>cada clase tenga una responsabilidad coherente</strong>.</p>
+<h2 id="5-plan-de-desarrollo">5. Plan de desarrollo<a class="headerlink" href="#5-plan-de-desarrollo" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -4171,11 +4199,11 @@
 </tr>
 <tr>
 <td>3.3</td>
-<td>Modelo, interfaz DAO, servicio y menú.</td>
+<td>Modelo, interfaz DAO, servicio y diseño de vista/controlador.</td>
 </tr>
 <tr>
 <td>3.4</td>
-<td>Primera versión funcional con CSV.</td>
+<td>Primera versión funcional con CSV y menú separado en <code>ConsolaVista</code>.</td>
 </tr>
 <tr>
 <td>3.5</td>
@@ -4187,11 +4215,11 @@
 </tr>
 <tr>
 <td>3.7</td>
-<td>Selección de persistencia y generación del JAR ejecutable.</td>
+<td>Composición MVC, selección de persistencia y generación del JAR ejecutable.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="5-actividad-de-inicio">5. Actividad de inicio<a class="headerlink" href="#5-actividad-de-inicio" title="Permanent link">&para;</a></h2>
+<h2 id="6-actividad-de-inicio">6. Actividad de inicio<a class="headerlink" href="#6-actividad-de-inicio" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Explica por qué no conviene escribir consultas SQL directamente en cada opción del menú.</li>
 <li>¿Qué parte debería permanecer igual al pasar de CSV a MySQL?</li>

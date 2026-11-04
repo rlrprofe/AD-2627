@@ -3453,13 +3453,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-punto-de-integracion" class="md-nav__link">
+  <a href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Punto de integración
+        1. Punto de integración: App ya no contiene el menú
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="1. Punto de integración: App ya no contiene el menú">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-ocurre-cuando-el-usuario-elige-una-opcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre cuando el usuario elige una opción?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4021,13 +4038,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-punto-de-integracion" class="md-nav__link">
+  <a href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Punto de integración
+        1. Punto de integración: App ya no contiene el menú
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="1. Punto de integración: App ya no contiene el menú">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-ocurre-cuando-el-usuario-elige-una-opcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué ocurre cuando el usuario elige una opción?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4139,55 +4173,96 @@
 <li>Elegir el mecanismo de persistencia sin modificar las reglas de negocio.</li>
 <li>Construir un JAR ejecutable con Maven y documentar su puesta en marcha.</li>
 </ul>
-<h2 id="1-punto-de-integracion">1. Punto de integración<a class="headerlink" href="#1-punto-de-integracion" title="Permanent link">&para;</a></h2>
-<p>La clase <code>App</code> utiliza un único servicio:</p>
-<div class="highlight"><pre><span></span><code><span class="n">ProductoDAO</span><span class="w"> </span><span class="n">dao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crearDao</span><span class="p">();</span>
-<span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="n">dao</span><span class="p">);</span>
-</code></pre></div>
-<p>El método <code>crearDao()</code> selecciona la implementación:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ProductoDAO</span><span class="w"> </span><span class="nf">crearDao</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">modo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">().</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"INVENTARIO_STORAGE"</span><span class="p">,</span><span class="w"> </span><span class="s">"csv"</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">modo</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<h2 id="1-punto-de-integracion-app-ya-no-contiene-el-menu">1. Punto de integración: <code>App</code> ya no contiene el menú<a class="headerlink" href="#1-punto-de-integracion-app-ya-no-contiene-el-menu" title="Permanent link">&para;</a></h2>
+<p>En la solución inicial de la unidad, <code>App</code> reunía varias tareas. Ahora la hemos simplificado: <strong>solo crea los objetos y los conecta</strong>. Esta operación suele llamarse <em>composición</em> o <em>ensamblaje de dependencias</em>.</p>
+<p>La clase <code>Configuracion</code> decide qué implementación de <code>ProductoDAO</code> utilizar según la variable de entorno <code>INVENTARIO_STORAGE</code>.</p>
+<p>Archivo: <code>src/main/java/es/iesisidra/inventario/configuracion/Configuracion.java</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ProductoDAO</span><span class="w"> </span><span class="nf">crearDao</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">modo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">getOrDefault</span><span class="p">(</span><span class="s">"INVENTARIO_STORAGE"</span><span class="p">,</span><span class="w"> </span><span class="s">"csv"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">trim</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">(</span><span class="n">Locale</span><span class="p">.</span><span class="na">ROOT</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">modo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"csv"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoFicheroDAO</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"datos"</span><span class="p">,</span><span class="w"> </span><span class="s">"productos.csv"</span><span class="p">));</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"mysql"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoJdbcDAO</span><span class="p">();</span>
-<span class="w">        </span><span class="k">default</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"Persistencia desconocida: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">modo</span><span class="p">);</span>
+<span class="w">        </span><span class="k">default</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span>
+<span class="w">                </span><span class="s">"INVENTARIO_STORAGE debe ser csv o mysql: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">modo</span><span class="p">);</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Este fragmento pertenece a la clase <code>Configuracion</code> e incorpora las importaciones de <code>ProductoDAO</code>, sus implementaciones, <code>Path</code> y <code>Locale</code>.</p>
+<p>La clase <code>App</code> utiliza el DAO seleccionado para crear el servicio, después crea la vista y finalmente arranca el controlador:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ProductoDAO</span><span class="w"> </span><span class="n">dao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Configuracion</span><span class="p">.</span><span class="na">crearDao</span><span class="p">();</span>
+<span class="n">ProductoService</span><span class="w"> </span><span class="n">servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoService</span><span class="p">(</span><span class="n">dao</span><span class="p">);</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ConsolaVista</span><span class="w"> </span><span class="n">vista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsolaVista</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">);</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ProductoControlador</span><span class="p">(</span><span class="n">servicio</span><span class="p">,</span><span class="w"> </span><span class="n">vista</span><span class="p">).</span><span class="na">iniciar</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="que-ocurre-cuando-el-usuario-elige-una-opcion">¿Qué ocurre cuando el usuario elige una opción?<a class="headerlink" href="#que-ocurre-cuando-el-usuario-elige-una-opcion" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    actor U as Usuario
+    participant V as ConsolaVista
+    participant C as ProductoControlador
+    participant S as ProductoService
+    participant D as ProductoDAO
+    U-&gt;&gt;V: Elige "Alta" e introduce datos
+    V--&gt;&gt;C: Producto
+    C-&gt;&gt;S: alta(producto)
+    S-&gt;&gt;S: validar(producto)
+    S-&gt;&gt;D: insertar(producto)
+    D--&gt;&gt;S: Operación terminada
+    S--&gt;&gt;C: Retorno
+    C-&gt;&gt;V: mostrarMensaje(...)
+    V--&gt;&gt;U: "Producto registrado"</code></pre>
+<p>La vista <strong>no conoce</strong> la base de datos; el servicio <strong>no conoce</strong> el menú; el controlador <strong>no conoce</strong> los detalles de CSV o JDBC.</p>
 <div class="admonition important">
 <p class="admonition-title">Concepto clave</p>
-<p><code>ProductoService</code> desconoce si el almacenamiento es un fichero o una base de datos. La selección se realiza al arrancar la aplicación.</p>
+<p><code>ProductoService</code> depende de la interfaz <code>ProductoDAO</code>. Cambiar la variable de entorno solo modifica qué implementación se construye al arrancar. No requiere cambios en <code>ConsolaVista</code>, <code>ProductoControlador</code> ni <code>ProductoService</code>.</p>
 </div>
 <h2 id="2-preparar-el-jar-ejecutable">2. Preparar el JAR ejecutable<a class="headerlink" href="#2-preparar-el-jar-ejecutable" title="Permanent link">&para;</a></h2>
-<p>En el <code>pom.xml</code> incorporamos <code>maven-jar-plugin</code> para indicar la clase principal:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;build&gt;</span>
-<span class="w">    </span><span class="nt">&lt;plugins&gt;</span>
-<span class="w">        </span><span class="nt">&lt;plugin&gt;</span>
-<span class="w">            </span><span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">            </span><span class="nt">&lt;artifactId&gt;</span>maven-jar-plugin<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">            </span><span class="nt">&lt;version&gt;</span>3.4.2<span class="nt">&lt;/version&gt;</span>
+<p>Para distribuir el proyecto necesitamos un JAR que contenga la aplicación y, cuando utilicemos MySQL, también las dependencias necesarias.</p>
+<p>Un JAR creado únicamente con <code>maven-jar-plugin</code> <strong>no incluye automáticamente</strong> el driver JDBC. Por eso la solución final utiliza <code>maven-shade-plugin</code>: construye un JAR con dependencias e incorpora la clase principal al manifiesto.</p>
+<p>En el <code>pom.xml</code>, dentro de <code>&lt;build&gt;&lt;plugins&gt;</code>, se configura:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;plugin&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>maven-shade-plugin<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>3.6.0<span class="nt">&lt;/version&gt;</span>
+<span class="w">    </span><span class="nt">&lt;executions&gt;</span>
+<span class="w">        </span><span class="nt">&lt;execution&gt;</span>
+<span class="w">            </span><span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+<span class="w">            </span><span class="nt">&lt;goals&gt;</span>
+<span class="w">                </span><span class="nt">&lt;goal&gt;</span>shade<span class="nt">&lt;/goal&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/goals&gt;</span>
 <span class="w">            </span><span class="nt">&lt;configuration&gt;</span>
-<span class="w">                </span><span class="nt">&lt;archive&gt;</span>
-<span class="w">                    </span><span class="nt">&lt;manifest&gt;</span>
+<span class="w">                </span><span class="nt">&lt;createDependencyReducedPom&gt;</span>false<span class="nt">&lt;/createDependencyReducedPom&gt;</span>
+<span class="w">                </span><span class="nt">&lt;transformers&gt;</span>
+<span class="w">                    </span><span class="nt">&lt;transformer</span><span class="w"> </span><span class="na">implementation=</span><span class="s">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span><span class="nt">&gt;</span>
 <span class="w">                        </span><span class="nt">&lt;mainClass&gt;</span>es.iesisidra.inventario.App<span class="nt">&lt;/mainClass&gt;</span>
-<span class="w">                    </span><span class="nt">&lt;/manifest&gt;</span>
-<span class="w">                </span><span class="nt">&lt;/archive&gt;</span>
+<span class="w">                    </span><span class="nt">&lt;/transformer&gt;</span>
+<span class="w">                </span><span class="nt">&lt;/transformers&gt;</span>
 <span class="w">            </span><span class="nt">&lt;/configuration&gt;</span>
-<span class="w">        </span><span class="nt">&lt;/plugin&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/plugins&gt;</span>
-<span class="nt">&lt;/build&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/execution&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
 </code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Dependencias externas</p>
-<p>El JAR básico no incluye las dependencias externas dentro del mismo archivo. Para generar un JAR autónomo con el driver JDBC incluido, incorpora también <code>maven-shade-plugin</code>. El proyecto completo, disponible al terminar la unidad, contiene esa configuración.</p>
-</div>
+<p><strong>Lectura guiada del XML:</strong></p>
+<ul>
+<li><code>phase=package</code>: el plugin actúa al empaquetar.</li>
+<li><code>goal=shade</code>: construye el artefacto con las dependencias.</li>
+<li><code>ManifestResourceTransformer</code>: incorpora al manifiesto la clase que inicia la aplicación.</li>
+<li><code>mainClass</code>: señala <code>es.iesisidra.inventario.App</code>, aunque esa clase ya no contiene el menú.</li>
+</ul>
+<p>No es necesario memorizar el XML: comprende <strong>qué problema resuelve</strong> cada parte.</p>
 <h2 id="3-construccion-final">3. Construcción final<a class="headerlink" href="#3-construccion-final" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>package
 </code></pre></div>
 <p>Resultado esperado:</p>
 <div class="highlight"><pre><span></span><code>target/gestion-inventario-1.0-SNAPSHOT.jar
 </code></pre></div>
-<p>Este resultado requiere completar la configuración de empaquetado con <code>maven-shade-plugin</code>, además de los cambios indicados en esta sección.</p>
+<p>La solución de referencia incorpora <code>maven-shade-plugin</code> en su <code>pom.xml</code>. Si estás construyendo el proyecto desde la plantilla inicial, debes añadir esa configuración antes de ejecutar el JAR con <code>java -jar</code>.</p>
 <h2 id="4-ejecutar-con-csv">4. Ejecutar con CSV<a class="headerlink" href="#4-ejecutar-con-csv" title="Permanent link">&para;</a></h2>
 <p>Por defecto:</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>target/gestion-inventario-1.0-SNAPSHOT.jar
@@ -4219,9 +4294,9 @@ java<span class="w"> </span>-jar<span class="w"> </span>target/gestion-inventari
 <li>Modificar el precio y el stock.</li>
 <li>Eliminarlo.</li>
 </ol>
-<p>Anota si el menú cambia y qué componente es responsable de la persistencia.</p>
+<p>Anota si el menú cambia y qué componente es responsable de la persistencia. Identifica además los métodos del controlador que se ejecutan en cada operación.</p>
 <h2 id="7-propuesta-de-ampliacion">7. Propuesta de ampliación<a class="headerlink" href="#7-propuesta-de-ampliacion" title="Permanent link">&para;</a></h2>
-<p>Añade una tercera implementación <code>ProductoMemoriaDAO</code> y comprueba que no necesitas modificar ni la interfaz de usuario ni <code>ProductoService</code>.</p>
+<p>Añade una tercera implementación <code>ProductoMemoriaDAO</code> y comprueba que no necesitas modificar ni <code>ConsolaVista</code>, ni <code>ProductoControlador</code>, ni <code>ProductoService</code>. Solo tendrás que adaptar la composición de dependencias en <code>Configuracion</code>.</p>
 <p>Como reto adicional, puedes sustituir el CSV simplificado por una biblioteca que gestione correctamente campos entrecomillados y separadores.</p>
 <h2 id="8-entrega-del-proyecto">8. Entrega del proyecto<a class="headerlink" href="#8-entrega-del-proyecto" title="Permanent link">&para;</a></h2>
 <p>Entrega:</p>
