@@ -12,50 +12,43 @@
 
 ## 1. Separación de responsabilidades: MVC + servicio + DAO
 
-Antes de programar, debemos decidir **qué responsabilidad tiene cada parte**. El DAO encapsula la persistencia, pero no debe gestionar menús. El servicio aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una **vista** y un **controlador**.
+El **DAO** encapsula el acceso a datos, pero no debe gestionar menús. El **servicio** aplica reglas de negocio, pero no debe leer del teclado. Para separar la interacción con el usuario utilizaremos una **vista** y un **controlador**.
 
+## Arquitectura de la aplicación
 
-## Arquitectura definitiva: MVC, servicio y DAO
-
-El proyecto conserva el **objetivo del RA6**: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: **lo complementa**.
+En una operación normal, el usuario interactúa con la **vista**, el **controlador** coordina la acción, el **servicio** valida los datos y el **DAO** realiza el acceso al almacenamiento. El siguiente esquema representa el **flujo de una operación**, no el orden en el que se crean los objetos:
 
 ```mermaid
-flowchart TD
-    A["App: crea y conecta objetos"] --> C["ProductoControlador"]
-    A --> V["ConsolaVista"]
-    A --> S["ProductoService"]
-    A --> CFG["Configuracion"]
-    CFG --> I["ProductoDAO: contrato"]
-    C <--> V
-    C --> S
-    S --> I
-    I -. "implementado por" .-> F["ProductoFicheroDAO"]
-    I -. "implementado por" .-> J["ProductoJdbcDAO"]
-    F --> CSV[("productos.csv")]
-    J --> MYSQL[("MySQL")]
+flowchart TB
+    vista["ConsolaVista: interacción con el usuario"]
+    controlador["ProductoControlador: coordina"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: contrato de persistencia"]
+    vista <--> controlador
+    controlador --> servicio
+    servicio --> dao
 ```
 
-| Elemento | Responsabilidad | Qué **no** debe hacer |
+La interfaz `ProductoDAO` tiene dos implementaciones alternativas:
+
+| Implementación | Almacenamiento | Se utiliza cuando... |
 |---|---|---|
-| `Producto` | Representar los datos del producto (`record`). | Leer del teclado o ejecutar SQL. |
-| `ConsolaVista` | Mostrar el menú, solicitar entradas y presentar resultados. | Ejecutar operaciones CRUD en el DAO. |
-| `ProductoControlador` | Interpretar la opción elegida y coordinar vista y servicio. | Leer con `Scanner` o construir sentencias SQL. |
-| `ProductoService` | Validar datos y aplicar las reglas de negocio. | Mostrar mensajes o elegir CSV/MySQL. |
-| `ProductoDAO` | Definir el contrato CRUD. | Imponer una tecnología de persistencia. |
-| `ProductoFicheroDAO` / `ProductoJdbcDAO` | Implementar el contrato en CSV / MySQL. | Mostrar el menú. |
-| `Configuracion` | Seleccionar la implementación DAO al arrancar. | Contener reglas de negocio. |
-| `App` | Crear los objetos y poner en marcha el controlador. | Acumular el menú y todas las operaciones. |
+| `ProductoFicheroDAO` | Fichero `datos/productos.csv` | `almacenamiento.tipo=csv` |
+| `ProductoJdbcDAO` | Base de datos MySQL | `almacenamiento.tipo=mysql` |
 
-**Recorrido de un alta:** la vista solicita los datos → el controlador recibe un `Producto` → el servicio valida y llama a `ProductoDAO` → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.
+**¿Dónde quedan `App` y la configuración?** `App` es el punto de entrada. Al arrancar, `Configuracion` lee el fichero `.properties`; `FabricaDao` crea el DAO elegido y `App` construye el servicio, la vista y el controlador. `ConexionBD` proporciona conexiones JDBC al DAO MySQL. Estas tareas de **inicialización** no forman parte del flujo de cada operación.
 
-!!! info "MVC en una aplicación de consola"
-    MVC no exige una interfaz gráfica. En esta práctica la **vista** es una clase de consola, el **controlador** coordina las acciones del usuario y el **modelo** representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.
+### Ejemplo: registrar un producto
 
-### La configuración también tiene su propia responsabilidad
+1. `ConsolaVista.solicitarProducto()` recoge los datos introducidos.
+2. `ProductoControlador.alta()` recibe el producto y llama a `ProductoService.alta(...)`.
+3. El servicio comprueba las reglas de negocio y delega en `ProductoDAO.insertar(...)`.
+4. El DAO elegido guarda el producto en CSV o MySQL.
+5. El controlador pide a la vista que muestre la confirmación.
 
-En la solución final separamos `Configuracion` (leer el archivo `.properties`), `FabricaDao` (elegir la implementación del DAO) y `ConexionBD` (abrir conexiones JDBC). Ninguna de estas clases debe contener el menú ni reglas de negocio.
+### ¿Por qué separar también la configuración?
 
-**Importante:** `App` solo crea y conecta los componentes; no consulta variables de entorno, no contiene SQL y no gestiona el menú.
+En la solución final `Configuracion` **lee propiedades**, `FabricaDao` **elige el DAO** y `ConexionBD` **abre conexiones JDBC**. `App` se limita a crear y conectar objetos. Así no mezclamos el menú, la lógica de negocio y las credenciales de la base de datos.
 
 ## 2. Crear el modelo
 

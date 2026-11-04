@@ -70,6 +70,7 @@ es/iesisidra/inventario/
 ├── dao/ProductoFicheroDAO.java
 ├── dao/ProductoJdbcDAO.java
 ├── configuracion/Configuracion.java
+├── configuracion/FabricaDao.java
 └── util/ConexionBD.java
 ```
 
@@ -115,7 +116,7 @@ git add .
 git commit -m "Crear estructura inicial del proyecto Maven"
 ```
 
-Crea un `.gitignore` para excluir `target/`, los archivos propios del IDE y los secretos locales. No subas contraseñas de MySQL al repositorio.
+Crea un `.gitignore` para excluir `target/`, los archivos propios del IDE y `config/configuracion.properties` (puede contener contraseñas). No subas contraseñas de MySQL al repositorio.
 
 ## 7. Comprobación
 

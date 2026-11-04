@@ -57,7 +57,7 @@ Antes de consultar la solución, comprueba que:
 
 [**Descargar proyecto completo / solución de referencia (ZIP)**](../descargas/ut3/Gestion_Inventario_Completo_Java21_Maven.zip)
 
-Incluye la aplicación de consola **modularizada con MVC**, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL, el `pom.xml` final y `config/configuracion.properties.example`. La configuración real se crea localmente y no debe publicarse. `App` solo conecta los componentes; `ConsolaVista` gestiona la interacción y `ProductoControlador` coordina las operaciones.
+Incluye la aplicación de consola **modularizada con MVC**, los DAO CSV y JDBC, la capa de servicio, pruebas JUnit, el script MySQL, el `pom.xml` final y `config/configuracion.properties.example`. Cada estudiante crea localmente su fichero de configuración; no debe publicarse con contraseñas. `App` solo conecta los componentes; `ConsolaVista` gestiona la interacción y `ProductoControlador` coordina las operaciones.
 
 !!! note "Requisitos"
     Se necesita JDK 21 y Maven. Para probar la versión JDBC se necesita además MySQL y configurar la conexión. No publiques contraseñas en el repositorio.

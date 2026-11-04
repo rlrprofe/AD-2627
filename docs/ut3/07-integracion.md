@@ -85,22 +85,13 @@ El código mostrado es el núcleo del método `main`; consulta la clase completa
 
 ### 1.5. Recorrido de una operación
 
-```mermaid
-sequenceDiagram
-    actor Usuario
-    participant Vista as ConsolaVista
-    participant Controlador as ProductoControlador
-    participant Servicio as ProductoService
-    participant DAO as ProductoDAO
-    Usuario->>Vista: Introduce datos
-    Vista-->>Controlador: Producto
-    Controlador->>Servicio: alta(producto)
-    Servicio->>Servicio: Validar reglas
-    Servicio->>DAO: insertar(producto)
-    DAO-->>Servicio: Resultado
-    Controlador->>Vista: mostrarMensaje(...)
-    Vista-->>Usuario: Confirmación
-```
+| Orden | Interviene | Acción |
+|---|---|---|
+| 1 | Usuario y `ConsolaVista` | Introducir los datos de un producto. |
+| 2 | `ProductoControlador` | Solicitar el alta al servicio. |
+| 3 | `ProductoService` | Validar el producto y llamar al DAO. |
+| 4 | `ProductoDAO` (CSV o MySQL) | Guardar el producto. |
+| 5 | `ProductoControlador` y `ConsolaVista` | Mostrar el resultado al usuario. |
 
 **Observa:** la vista no accede al DAO, el servicio no lee del teclado y el DAO no decide cómo presentar mensajes.
 

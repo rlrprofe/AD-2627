@@ -19,41 +19,47 @@ Como proyecto conductor utilizaremos una aplicación de **gestión de productos*
 Para ampliar la configuración y el uso de Maven, consulta el **[Anexo · Apache Maven para proyectos Java](../anexo-maven/index.md)**.
 
 
-## Arquitectura definitiva: MVC, servicio y DAO
+## Arquitectura de la aplicación
 
-El proyecto conserva el **objetivo del RA6**: desarrollar componentes de acceso a datos reutilizables. El patrón MVC se utiliza para que la aplicación que integra esos componentes sea también un ejemplo de separación de responsabilidades. No sustituye al patrón DAO: **lo complementa**.
+En una operación normal, el usuario interactúa con la **vista**, el **controlador** coordina la acción, el **servicio** valida los datos y el **DAO** realiza el acceso al almacenamiento. El siguiente esquema representa el **flujo de una operación**, no el orden en el que se crean los objetos:
 
 ```mermaid
-flowchart TD
-    A["App: crea y conecta objetos"] --> C["ProductoControlador"]
-    A --> V["ConsolaVista"]
-    A --> S["ProductoService"]
-    A --> CFG["Configuracion"]
-    CFG --> I["ProductoDAO: contrato"]
-    C <--> V
-    C --> S
-    S --> I
-    I -. "implementado por" .-> F["ProductoFicheroDAO"]
-    I -. "implementado por" .-> J["ProductoJdbcDAO"]
-    F --> CSV[("productos.csv")]
-    J --> MYSQL[("MySQL")]
+flowchart TB
+    vista["ConsolaVista: interacción con el usuario"]
+    controlador["ProductoControlador: coordina"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: contrato de persistencia"]
+    vista <--> controlador
+    controlador --> servicio
+    servicio --> dao
 ```
 
-| Elemento | Responsabilidad | Qué **no** debe hacer |
+La interfaz `ProductoDAO` tiene dos implementaciones alternativas:
+
+| Implementación | Almacenamiento | Se utiliza cuando... |
 |---|---|---|
-| `Producto` | Representar los datos del producto (`record`). | Leer del teclado o ejecutar SQL. |
-| `ConsolaVista` | Mostrar el menú, solicitar entradas y presentar resultados. | Ejecutar operaciones CRUD en el DAO. |
-| `ProductoControlador` | Interpretar la opción elegida y coordinar vista y servicio. | Leer con `Scanner` o construir sentencias SQL. |
-| `ProductoService` | Validar datos y aplicar las reglas de negocio. | Mostrar mensajes o elegir CSV/MySQL. |
-| `ProductoDAO` | Definir el contrato CRUD. | Imponer una tecnología de persistencia. |
-| `ProductoFicheroDAO` / `ProductoJdbcDAO` | Implementar el contrato en CSV / MySQL. | Mostrar el menú. |
-| `Configuracion` | Seleccionar la implementación DAO al arrancar. | Contener reglas de negocio. |
-| `App` | Crear los objetos y poner en marcha el controlador. | Acumular el menú y todas las operaciones. |
+| `ProductoFicheroDAO` | Fichero `datos/productos.csv` | `almacenamiento.tipo=csv` |
+| `ProductoJdbcDAO` | Base de datos MySQL | `almacenamiento.tipo=mysql` |
 
-**Recorrido de un alta:** la vista solicita los datos → el controlador recibe un `Producto` → el servicio valida y llama a `ProductoDAO` → el DAO guarda en CSV o MySQL → el controlador pide a la vista mostrar el resultado.
+**¿Dónde quedan `App` y la configuración?** `App` es el punto de entrada. Al arrancar, `Configuracion` lee el fichero `.properties`; `FabricaDao` crea el DAO elegido y `App` construye el servicio, la vista y el controlador. `ConexionBD` proporciona conexiones JDBC al DAO MySQL. Estas tareas de **inicialización** no forman parte del flujo de cada operación.
 
-!!! info "MVC en una aplicación de consola"
-    MVC no exige una interfaz gráfica. En esta práctica la **vista** es una clase de consola, el **controlador** coordina las acciones del usuario y el **modelo** representa los datos. Añadimos una capa de servicio y el patrón DAO para que las reglas de negocio y el almacenamiento queden separados.
+### Responsabilidades de las clases
+
+| Clase | Responsabilidad principal |
+|---|---|
+| `Producto` | Representar un producto mediante un `record`. |
+| `ConsolaVista` | Mostrar el menú, leer datos y presentar resultados. |
+| `ProductoControlador` | Coordinar los casos de uso: alta, búsqueda, listado, modificación y baja. |
+| `ProductoService` | Validar y aplicar reglas de negocio. |
+| `ProductoDAO` | Definir las operaciones CRUD sin imponer CSV ni MySQL. |
+| `ProductoFicheroDAO` y `ProductoJdbcDAO` | Implementar el contrato en CSV y MySQL. |
+| `Configuracion` | Leer el fichero `config/configuracion.properties`. |
+| `FabricaDao` | Crear la implementación de `ProductoDAO` seleccionada. |
+| `ConexionBD` | Abrir conexiones a MySQL. |
+| `App` | Ensamblar las dependencias y arrancar el controlador. |
+
+!!! info "MVC en consola"
+    No hace falta una interfaz gráfica para separar vista, controlador y modelo. El objetivo principal de esta UT3 sigue siendo **desarrollar componentes de acceso a datos**; MVC organiza la aplicación que los utiliza.
 
 ## Resultado de aprendizaje
 
@@ -130,17 +136,18 @@ Estos son formatos posibles y no implican una distribución fija de preguntas ni
 
 ## Mapa de la unidad
 
-```mermaid
-flowchart TD
-    A["Componentes software"] --> B["Herramientas y proyecto Maven"]
-    B --> C["Arquitectura por capas e interfaces"]
-    C --> D["Patrón DAO y MVC"]
-    D --> E["Componente para ficheros CSV"]
-    D --> F["Componente JDBC para MySQL"]
-    E --> G["Pruebas y documentación"]
-    F --> G
-    G --> H["Integración en la aplicación"]
-```
+El recorrido está organizado en ocho apartados. Primero identificamos qué es un componente; después construimos progresivamente una aplicación que utiliza **dos componentes de persistencia intercambiables**.
+
+| Paso | Apartado | Qué aprenderemos | Resultado en el proyecto |
+|---|---|---|---|
+| 1 | [3.1. Componentes](01-componentes.md) | Cohesión, acoplamiento y reutilización | Entender el problema y el diseño propuesto |
+| 2 | [3.2. Herramientas](02-herramientas.md) | JDK 21, Maven y estructura del proyecto | Proyecto inicial compilable |
+| 3 | [3.3. Arquitectura y DAO](03-arquitectura-dao.md) | Interfaces, modelo, servicio y MVC | Contrato `ProductoDAO` y reglas de negocio |
+| 4 | [3.4. Ficheros](04-componentes-ficheros.md) | CRUD en CSV y vista de consola | Primera aplicación funcional |
+| 5 | [3.5. JDBC](05-componentes-jdbc.md) | CRUD en MySQL y conexiones | Segunda implementación del DAO |
+| 6 | [3.6. Pruebas](06-pruebas-documentacion.md) | JUnit, pruebas aisladas y Javadoc | Comprobación de componentes |
+| 7 | [3.7. Integración](07-integracion.md) | `.properties`, fábrica DAO y JAR | Aplicación final configurable |
+| 8 | [3.8. Actividades](08-actividades-descargas.md) | Consolidación y entrega | Solución de referencia |
 
 ## Materiales didácticos
 

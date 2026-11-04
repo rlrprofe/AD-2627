@@ -14,17 +14,7 @@
 
 Ya sabemos utilizar JDBC desde UT2. Ahora el objetivo es **encapsular las sentencias SQL en un componente** que implemente `ProductoDAO`.
 
-```mermaid
-flowchart TD
-    A[App] --> K[ProductoControlador]
-    K <--> V[ConsolaVista]
-    K --> B[ProductoService]
-    B --> C[ProductoDAO]
-    C --> D[ProductoFicheroDAO]
-    C --> E[ProductoJdbcDAO]
-    D --> F[(CSV)]
-    E --> G[(MySQL)]
-```
+El componente JDBC encaja en la misma arquitectura ya estudiada: `ProductoControlador` → `ProductoService` → `ProductoDAO` → `ProductoJdbcDAO` → MySQL. **No cambia la vista ni el controlador**: solo la implementación de persistencia que se crea al arrancar.
 
 ### ¿Por qué JDBC debe quedar fuera del controlador?
 

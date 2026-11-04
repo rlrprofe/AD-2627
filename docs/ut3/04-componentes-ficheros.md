@@ -29,90 +29,93 @@ Archivo: **`src/main/java/es/iesisidra/inventario/dao/ProductoFicheroDAO.java`**
 
 ```java
 package es.iesisidra.inventario.dao;
-
 import es.iesisidra.inventario.modelo.Producto;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
-
 public class ProductoFicheroDAO implements ProductoDAO {
     private final Path ruta;
-
-    public ProductoFicheroDAO(Path ruta) {
-        this.ruta = ruta;
-    }
-
-    @Override
-    public List<Producto> listar() {
+    public ProductoFicheroDAO(Path ruta) { this.ruta = ruta; }
+    @Override public List<Producto> listar() {
         if (!Files.exists(ruta)) return new ArrayList<>();
         try {
             List<Producto> productos = new ArrayList<>();
-            for (String linea : Files.readAllLines(ruta, StandardCharsets.UTF_8)) {
+            try (var lector = Files.newBufferedReader(ruta, StandardCharsets.UTF_8)) {
+                String linea;
+                int numeroLinea = 0;
+                while ((linea = lector.readLine()) != null) {
+                numeroLinea++;
                 if (linea.isBlank() || linea.equals("id;nombre;precio;stock")) continue;
                 String[] c = linea.split(";", -1);
                 if (c.length != 4) throw new IllegalStateException("CSV incorrecto: " + linea);
-                productos.add(new Producto(Integer.parseInt(c[0]), c[1],
-                        Double.parseDouble(c[2]), Integer.parseInt(c[3])));
+                try {
+                    productos.add(new Producto(Integer.parseInt(c[0]), c[1],
+                            Double.parseDouble(c[2]), Integer.parseInt(c[3])));
+                } catch (NumberFormatException e) {
+                    throw new IllegalStateException("Valores incorrectos en CSV, línea " + numeroLinea, e);
+                }
+            }
             }
             return productos;
-        } catch (IOException e) {
-            throw new IllegalStateException("Error al leer CSV", e);
-        }
+        } catch (IOException e) { throw new IllegalStateException("Error al leer CSV", e); }
     }
-
-    @Override
-    public Optional<Producto> buscarPorId(int id) {
+    @Override public Optional<Producto> buscarPorId(int id) {
         return listar().stream().filter(p -> p.id() == id).findFirst();
     }
-
-    @Override
-    public void insertar(Producto p) {
+    @Override public void insertar(Producto p) {
         List<Producto> productos = listar();
-        if (productos.stream().anyMatch(x -> x.id() == p.id())) {
-            throw new IllegalArgumentException("El ID ya existe");
-        }
+        if (productos.stream().anyMatch(x -> x.id() == p.id())) throw new IllegalArgumentException("El ID ya existe");
         productos.add(p);
         guardar(productos);
     }
-
-    @Override
-    public boolean actualizar(Producto p) {
+    @Override public boolean actualizar(Producto p) {
         List<Producto> productos = listar();
         for (int i = 0; i < productos.size(); i++) {
             if (productos.get(i).id() == p.id()) {
-                productos.set(i, p);
-                guardar(productos);
-                return true;
+                productos.set(i, p); guardar(productos); return true;
             }
         }
         return false;
     }
-
-    @Override
-    public boolean eliminar(int id) {
+    @Override public boolean eliminar(int id) {
         List<Producto> productos = listar();
         boolean eliminado = productos.removeIf(p -> p.id() == id);
         if (eliminado) guardar(productos);
         return eliminado;
     }
-
     private void guardar(List<Producto> productos) {
+        Path temporal = null;
         try {
-            Path carpeta = ruta.toAbsolutePath().getParent();
-            if (carpeta != null) Files.createDirectories(carpeta);
-            List<String> lineas = new ArrayList<>();
-            lineas.add("id;nombre;precio;stock");
-            for (Producto p : productos) {
-                if (p.nombre().contains(";") || p.nombre().contains("\n")
-                        || p.nombre().contains("\r")) {
-                    throw new IllegalArgumentException("Nombre incompatible con el CSV simplificado");
+            Path destino = ruta.toAbsolutePath();
+            Path carpeta = destino.getParent();
+            Files.createDirectories(carpeta);
+            temporal = Files.createTempFile(carpeta, "inventario-", ".tmp");
+            try (var escritor = Files.newBufferedWriter(temporal, StandardCharsets.UTF_8)) {
+                escritor.write("id;nombre;precio;stock");
+                escritor.newLine();
+                for (Producto p : productos) {
+                    if (p.nombre().contains(";") || p.nombre().contains("\\n")
+                            || p.nombre().contains("\\r")) {
+                        throw new IllegalArgumentException("Nombre incompatible con el CSV simplificado");
+                    }
+                    escritor.write(p.id() + ";" + p.nombre() + ";" + p.precio() + ";" + p.stock());
+                    escritor.newLine();
                 }
-                lineas.add(p.id() + ";" + p.nombre() + ";" + p.precio() + ";" + p.stock());
             }
-            Files.write(ruta, lineas, StandardCharsets.UTF_8);
+            try {
+                Files.move(temporal, destino, StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.ATOMIC_MOVE);
+            } catch (AtomicMoveNotSupportedException e) {
+                Files.move(temporal, destino, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
             throw new IllegalStateException("Error al guardar CSV", e);
+        } finally {
+            if (temporal != null) {
+                try { Files.deleteIfExists(temporal); }
+                catch (IOException ignored) { /* El temporal se eliminará manualmente si es necesario. */ }
+            }
         }
     }
 }
@@ -120,7 +123,7 @@ public class ProductoFicheroDAO implements ProductoDAO {
 
 ### ¿Qué hemos encapsulado?
 
-- La lectura y escritura con `Files`.
+- La lectura y escritura con `BufferedReader` y `BufferedWriter` mediante `try-with-resources`.
 - La conversión de líneas CSV a objetos `Producto`.
 - Las operaciones CRUD sobre el conjunto de productos.
 
@@ -160,7 +163,7 @@ La vista puede utilizar `Scanner` para leer, pero **no ejecuta SQL, no lee el CS
 
 Archivo: `src/main/java/es/iesisidra/inventario/controlador/ProductoControlador.java`.
 
-El controlador recibe en el constructor un servicio y una vista. Su trabajo es **coordinar**, no implementar el almacenamiento:
+El controlador recibe en el constructor una vista y un servicio. Su trabajo es **coordinar**, no implementar el almacenamiento:
 
 ```java
 private void alta() {
@@ -195,7 +198,7 @@ Para que compile, incorpora las importaciones de las clases y de `Path` y `Scann
 En 3.7 sustituiremos la construcción directa del DAO por `FabricaDao.crear(configuracion)`, que permitirá elegir CSV o MySQL sin cambiar la vista, el controlador ni el servicio.
 
 !!! note "Proyecto inicial y solución final"
-    El proyecto inicial es un **esqueleto de trabajo**. La solución final contiene las clases `ConsolaVista`, `ProductoControlador` y `Configuracion`, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.
+    El proyecto inicial es un **esqueleto de trabajo**. La solución final contiene las clases `ConsolaVista`, `ProductoControlador`, `Configuracion` y `FabricaDao`, que deben incorporarse durante el desarrollo. No es necesario copiar toda la solución desde el principio.
 
 ## 4. Compilar y ejecutar
 
@@ -227,7 +230,7 @@ ID: 2 | Nombre: Raton | Precio: 9.50 | Stock: 20
 
 ## 5. Limitaciones de esta implementación
 
-Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. La solución de referencia utiliza un fichero temporal y procura sustituir el original de forma segura; aun así, no ofrece control de acceso concurrente ni garantías de transacción equivalentes a una base de datos. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.
+Para facilitar el aprendizaje, cada operación vuelve a leer el archivo y las modificaciones reescriben su contenido completo. El DAO escribe primero en un fichero temporal y después lo sustituye por el definitivo; aun así, no ofrece control de acceso concurrente ni garantías de transacción equivalentes a una base de datos. Son limitaciones que debemos conocer antes de utilizar esta solución en una aplicación real.
 
 ## 6. Actividades
 
