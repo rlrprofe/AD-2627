@@ -18,16 +18,19 @@ El **DAO** encapsula el acceso a datos, pero no debe gestionar menús. El **serv
 
 En una operación normal, el usuario interactúa con la **vista**, el **controlador** coordina la acción, el **servicio** valida los datos y el **DAO** realiza el acceso al almacenamiento. El siguiente esquema representa el **flujo de una operación**, no el orden en el que se crean los objetos:
 
+
 ```mermaid
 flowchart TB
-    vista["ConsolaVista: interacción con el usuario"]
-    controlador["ProductoControlador: coordina"]
-    servicio["ProductoService: reglas de negocio"]
-    dao["ProductoDAO: contrato de persistencia"]
+    vista["ConsolaVista"]
+    controlador["ProductoControlador"]
+    servicio["ProductoService"]
+    dao["ProductoDAO"]
+
     vista <--> controlador
     controlador --> servicio
     servicio --> dao
 ```
+
 
 La interfaz `ProductoDAO` tiene dos implementaciones alternativas:
 
