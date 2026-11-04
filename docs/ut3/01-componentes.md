@@ -44,17 +44,29 @@ El modelo será:
 
 ## 3. Arquitectura que construiremos
 
+
 ```mermaid
 flowchart TD
-    A[App: composición] --> C[ProductoControlador]
-    C <--> V[ConsolaVista: menú y mensajes]
-    C --> S[ProductoService: reglas de negocio]
-    S --> I[ProductoDAO: interfaz]
-    I --> F[ProductoFicheroDAO]
-    I --> J[ProductoJdbcDAO]
-    F --> C[(productos.csv)]
-    J --> M[(MySQL)]
+    app["App: composición"]
+    controlador["ProductoControlador"]
+    vista["ConsolaVista: menú y mensajes"]
+    servicio["ProductoService: reglas de negocio"]
+    dao["ProductoDAO: interfaz"]
+    fichero["ProductoFicheroDAO"]
+    jdbc["ProductoJdbcDAO"]
+    csv[("productos.csv")]
+    mysql[("MySQL")]
+
+    app --> controlador
+    controlador <--> vista
+    controlador --> servicio
+    servicio --> dao
+    dao --> fichero
+    dao --> jdbc
+    fichero --> csv
+    jdbc --> mysql
 ```
+
 
 La aplicación compartirá **modelo, vista, controlador y servicio**. Lo que cambia es el componente de persistencia. La clase `App` se limitará a conectar los objetos y arrancar el controlador.
 
