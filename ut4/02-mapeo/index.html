@@ -4397,7 +4397,8 @@
 <h2 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">&para;</a></h2>
 <p>Instalar la herramienta mediante Maven, configurarla y comprender el mapeo mediante <strong>ficheros XML</strong> y <strong>anotaciones</strong>. Criterios <strong>RA3 a), b), c)</strong>.</p>
 <h2 id="1-dos-enfoques-que-debemos-distinguir">1. Dos enfoques que debemos distinguir<a class="headerlink" href="#1-dos-enfoques-que-debemos-distinguir" title="Permanent link">&para;</a></h2>
-<p><strong>Hibernate nativo</strong> utiliza <code>SessionFactory</code>, <code>Session</code> y puede definir el mapeo con archivos <code>*.hbm.xml</code>. <strong>Jakarta Persistence</strong> utiliza <code>EntityManagerFactory</code>, <code>EntityManager</code> y habitualmente anotaciones <code>@Entity</code>, <code>@Id</code>, etc. Hibernate puede ser el proveedor de Jakarta Persistence.</p>
+<p><strong>Hibernate nativo</strong> utiliza <code>SessionFactory</code>, <code>Session</code> y puede definir el mapeo con archivos <code>*.hbm.xml</code>.</p>
+<p><strong>Jakarta Persistence</strong> utiliza <code>EntityManagerFactory</code>, <code>EntityManager</code> y habitualmente anotaciones <code>@Entity</code>, <code>@Id</code>, etc. Hibernate puede ser el proveedor de Jakarta Persistence.</p>
 <p>No debemos mezclar ejemplos sin explicar qué API utiliza cada uno.</p>
 <h2 id="2-preparar-un-proyecto-maven-java-21">2. Preparar un proyecto Maven (Java 21)<a class="headerlink" href="#2-preparar-un-proyecto-maven-java-21" title="Permanent link">&para;</a></h2>
 <p>En <code>pom.xml</code> configuramos Java 21 e incluimos Hibernate, el controlador MySQL y las dependencias de prueba. El proyecto completo está en Descargas.</p>

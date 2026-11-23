@@ -4226,7 +4226,7 @@
 
 
 <h1 id="ut4-persistencia-con-orm-hibernate">UT4. Persistencia con ORM (Hibernate)<a class="headerlink" href="#ut4-persistencia-con-orm-hibernate" title="Permanent link">&para;</a></h1>
-<p><strong>Módulo:</strong> Acceso a Datos · 2.º DAM · <strong>2.ª evaluación</strong> · <strong>15 horas</strong>.</p>
+<p><strong>Módulo:</strong> Acceso a Datos · 2.º DAM · <strong>2.ª evaluación</strong> · </p>
 <p>En las unidades anteriores hemos trabajado con ficheros, JDBC y componentes de acceso a datos. Ahora aprenderemos a <strong>guardar y recuperar objetos Java en una base de datos relacional</strong> mediante Hibernate. En vez de escribir manualmente cada <code>INSERT</code>, <code>UPDATE</code> o <code>DELETE</code>, describiremos cómo se corresponde una clase Java con una tabla y dejaremos que el ORM gestione muchas operaciones.</p>
 <div class="admonition info">
 <p class="admonition-title">Resultados de aprendizaje</p>
@@ -4236,60 +4236,19 @@
 </ul>
 </div>
 <h2 id="contenidos-de-la-programacion">Contenidos de la programación<a class="headerlink" href="#contenidos-de-la-programacion" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Bloque</th>
-<th>Qué aprenderemos</th>
-<th>Criterios principales</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="01-introduccion/">4.1. Concepto de ORM</a></td>
-<td>Persistencia, ventajas y limitaciones frente a JDBC</td>
-<td>RA3 a</td>
-</tr>
-<tr>
-<td><a href="02-mapeo/">4.2. Mapeo</a></td>
-<td>Configuración de Hibernate, XML y anotaciones</td>
-<td>RA3 a, b, c</td>
-</tr>
-<tr>
-<td><a href="03-estados/">4.3. Clases y estados</a></td>
-<td>Entidades, sesiones y estados de persistencia</td>
-<td>RA3 c, d</td>
-</tr>
-<tr>
-<td><a href="04-relaciones/">4.4. Relaciones</a></td>
-<td>Asociaciones entre entidades y carga diferida</td>
-<td>RA3 c, d</td>
-</tr>
-<tr>
-<td><a href="05-crud/">4.5. CRUD</a></td>
-<td>Crear, recuperar, modificar, eliminar y transacciones</td>
-<td>RA3 d, e, g</td>
-</tr>
-<tr>
-<td><a href="06-consultas/">4.6. Consultas HQL</a></td>
-<td>HQL/JPQL, parámetros y consultas SQL nativas</td>
-<td>RA3 e, f</td>
-</tr>
-<tr>
-<td><a href="07-desarrollo/">4.7. Desarrollo con ORM</a></td>
-<td>Integración con DAO y pruebas</td>
-<td>RA3 a–g; RA6 e</td>
-</tr>
-<tr>
-<td><a href="08-actividades/">4.8. Actividades y descargas</a></td>
-<td>Prácticas guiadas y proyecto integrador</td>
-<td>RA3 y RA6 e</td>
-</tr>
-</tbody>
-</table>
+<p>| Bloque | Qué aprenderemos | 
+|---|---|---|
+| <a href="01-introduccion/">4.1. Concepto de ORM</a> | Persistencia, ventajas y limitaciones frente a JDBC |
+| <a href="02-mapeo/">4.2. Mapeo</a> | Configuración de Hibernate, XML y anotaciones | 
+| <a href="03-estados/">4.3. Clases y estados</a> | Entidades, sesiones y estados de persistencia | 
+| <a href="04-relaciones/">4.4. Relaciones</a> | Asociaciones entre entidades y carga diferida |
+| <a href="05-crud/">4.5. CRUD</a> | Crear, recuperar, modificar, eliminar y transacciones | 
+| <a href="06-consultas/">4.6. Consultas HQL</a> | HQL/JPQL, parámetros y consultas SQL nativas | 
+| <a href="07-desarrollo/">4.7. Desarrollo con ORM</a> | Integración con DAO y pruebas | 
+| <a href="08-actividades/">4.8. Actividades y descargas</a> | Prácticas guiadas y proyecto integrador |</p>
 <h2 id="evaluacion">Evaluación<a class="headerlink" href="#evaluacion" title="Permanent link">&para;</a></h2>
 <p>La UT4 se evalúa con <strong>prueba objetiva (40 %)</strong> y <strong>práctica o prácticas (60 %)</strong>, según la programación. El RA3 representa el <strong>20 % de la calificación del módulo</strong>. Los siete CE del RA3 tienen el mismo peso dentro de ese RA (aproximadamente 14,28 % cada uno).</p>
-<p>La práctica puede requerir una comprobación individual de funcionamiento y comprensión del código, conforme a la programación.</p>
+<p>La práctica requerirá de un examen oral sobre la entrega realizada. </p>
 <h2 id="como-utilizar-estos-apuntes">Cómo utilizar estos apuntes<a class="headerlink" href="#como-utilizar-estos-apuntes" title="Permanent link">&para;</a></h2>
 <p>Avanza en orden: comienza por un objeto simple, añade el mapeo, observa sus estados, realiza CRUD y finalmente integra las consultas y el componente DAO. Los fragmentos son didácticos: el <strong>proyecto descargable</strong> reúne las piezas en una aplicación Maven.</p>
 <div class="admonition warning">
