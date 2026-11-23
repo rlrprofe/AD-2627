@@ -6,7 +6,10 @@ Instalar la herramienta mediante Maven, configurarla y comprender el mapeo media
 
 ## 1. Dos enfoques que debemos distinguir
 
-**Hibernate nativo** utiliza `SessionFactory`, `Session` y puede definir el mapeo con archivos `*.hbm.xml`. **Jakarta Persistence** utiliza `EntityManagerFactory`, `EntityManager` y habitualmente anotaciones `@Entity`, `@Id`, etc. Hibernate puede ser el proveedor de Jakarta Persistence.
+**Hibernate nativo** utiliza `SessionFactory`, `Session` y puede definir el mapeo con archivos `*.hbm.xml`.
+
+
+**Jakarta Persistence** utiliza `EntityManagerFactory`, `EntityManager` y habitualmente anotaciones `@Entity`, `@Id`, etc. Hibernate puede ser el proveedor de Jakarta Persistence.
 
 No debemos mezclar ejemplos sin explicar qué API utiliza cada uno.
 
