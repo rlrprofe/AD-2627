@@ -10,15 +10,17 @@ En las unidades anteriores hemos trabajado con ficheros, JDBC y componentes de a
 
 ## Contenidos de la programación
 
-| Bloque | Qué aprenderemos | 
-|---|---|---|
+Antes de comenzar los contenidos de ORM, consulta **[Antes de empezar: Hibernate nativo y Jakarta Persistence](00-antes-de-empezar.md)**. Este apartado explica las dos API que encontrarás en los ejemplos y cómo distinguirlas.
+
+| Bloque | Qué aprenderemos |
+|---|---|
 | [4.1. Concepto de ORM](01-introduccion.md) | Persistencia, ventajas y limitaciones frente a JDBC |
-| [4.2. Mapeo](02-mapeo.md) | Configuración de Hibernate, XML y anotaciones | 
-| [4.3. Clases y estados](03-estados.md) | Entidades, sesiones y estados de persistencia | 
+| [4.2. Mapeo](02-mapeo.md) | Configuración de Hibernate, XML y anotaciones |
+| [4.3. Clases y estados](03-estados.md) | Entidades, sesiones y estados de persistencia |
 | [4.4. Relaciones](04-relaciones.md) | Asociaciones entre entidades y carga diferida |
-| [4.5. CRUD](05-crud.md) | Crear, recuperar, modificar, eliminar y transacciones | 
-| [4.6. Consultas HQL](06-consultas.md) | HQL/JPQL, parámetros y consultas SQL nativas | 
-| [4.7. Desarrollo con ORM](07-desarrollo.md) | Integración con DAO y pruebas | 
+| [4.5. CRUD](05-crud.md) | Crear, recuperar, modificar, eliminar y transacciones |
+| [4.6. Consultas HQL](06-consultas.md) | HQL/JPQL, parámetros y consultas SQL nativas |
+| [4.7. Desarrollo con ORM](07-desarrollo.md) | Integración con DAO y pruebas |
 | [4.8. Actividades y descargas](08-actividades.md) | Prácticas guiadas y proyecto integrador |
 
 ## Evaluación
