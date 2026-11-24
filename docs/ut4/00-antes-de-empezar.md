@@ -1,69 +1,115 @@
-# Antes de empezar: Hibernate nativo y Jakarta Persistence
+# Antes de empezar la unidad
 
-Antes de comenzar a trabajar con persistencia en Java, conviene aclarar una cuestión que genera confusión al consultar vídeos, tutoriales y ejemplos de Internet: **Hibernate se ha utilizado de distintas formas a lo largo de su evolución**. Por eso encontraremos ejemplos con API, ficheros de configuración y versiones diferentes.
+Antes de comenzar a trabajar con persistencia en Java, es importante aclarar algo que genera mucha confusión en vídeos, tutoriales y ejemplos de Internet.
 
-### 1. Primero apareció Hibernate nativo
+Hibernate se ha usado de muchas formas diferentes a lo largo de más de 20 años, y por eso hoy existen varias API, varios tipos de configuración y muchos tutoriales mezclados.
 
-Hibernate nació como una herramienta de mapeo objeto-relacional y originalmente ofrecía **su propia API**, basada en elementos como:
+## 1. Hibernate nació primero (años 2001–2006)
 
-- `SessionFactory`: fábrica que permite crear sesiones.
-- `Session`: objeto utilizado para interactuar con la persistencia.
-- `Transaction`: mecanismo para delimitar transacciones.
-- `hibernate.cfg.xml`: fichero de configuración habitual en ejemplos de Hibernate nativo.
+En sus inicios, Hibernate funcionaba solo con su propia API, usando:
 
-A esta forma de trabajar la llamaremos **Hibernate nativo (Session API)**. Encontrarás muchos tutoriales antiguos —y también ejemplos actuales— que utilizan esta API.
+- `SessionFactory`
+- `Session`
+- `Transaction`
+- `hibernate.cfg.xml`
 
-### 2. Después apareció JPA, actualmente Jakarta Persistence
+Esto se llama **Hibernate nativo**. Muchos tutoriales antiguos están escritos así.
 
-Más tarde se definió una API estándar de persistencia, conocida originalmente como **JPA (Java Persistence API)**. En documentación antigua verás importaciones como `javax.persistence.*`. En el ecosistema Jakarta EE actual se utiliza **Jakarta Persistence**, con importaciones `jakarta.persistence.*`.
+## 2. Más tarde apareció JPA (Java Persistence API)
 
-!!! info "Terminología de estos apuntes"
-    Cuando en esta unidad aparezca «JPA», nos referiremos a la API estándar **Jakarta Persistence**. Los ejemplos modernos utilizarán `jakarta.persistence.*`.
+!!! info "Nota de terminología: JPA vs Jakarta Persistence"
+    En muchos materiales antiguos verás «JPA (Java Persistence API)» y paquetes `javax.persistence.*`. Actualmente, el estándar se llama **Jakarta Persistence** y los paquetes han pasado a `jakarta.persistence.*`. En esta unidad, cuando digamos «JPA» nos referiremos a Jakarta Persistence, y por eso en el código usaremos `jakarta.persistence`.
 
-**JPA/Jakarta Persistence es una especificación**, no un motor ORM que funcione por sí solo. Define contratos y anotaciones que debe proporcionar una implementación, como **Hibernate**. Entre sus elementos principales están:
+JPA es una especificación estándar de persistencia en Java que define cómo deben trabajar las implementaciones ORM que se ajustan a ella. Pero:
 
-- `EntityManager`: interfaz estándar para gestionar entidades persistentes.
-- `persistence.xml`: fichero habitual para declarar una unidad de persistencia.
-- `@Entity`, `@Id`, `@Column` y otras anotaciones estándar para describir el mapeo.
+- JPA no es un framework.
+- JPA no funciona sola.
+- JPA necesita una implementación.
 
-Hibernate puede utilizarse como **proveedor de Jakarta Persistence**, de manera que el código de nuestra aplicación trabaja con la API estándar y Hibernate realiza las operaciones de persistencia.
+Una de las implementaciones más utilizadas es precisamente **Hibernate**.
 
-### 3. ¿Por qué hay ejemplos tan distintos en Internet?
+A partir de ese momento:
 
-Porque durante años han coexistido distintas versiones y formas de trabajar. Es posible encontrar:
+- Se introduce `EntityManager`.
+- Se usa `persistence.xml`.
+- Aparecen las anotaciones estándar (`@Entity`, `@Id`, `@Column`, etc.).
 
-- Código que utiliza `Session` y código que utiliza `EntityManager`.
-- Anotaciones de `javax.persistence` y de `jakarta.persistence`.
-- Configuraciones mediante `hibernate.cfg.xml` o `persistence.xml`.
-- Ejemplos correspondientes a distintas versiones de Hibernate, con métodos y configuraciones que han cambiado.
+Y Hibernate decide soportar esta nueva API también.
 
-**No debemos copiar fragmentos de tutoriales diferentes sin comprobar su versión y la API que utilizan.** Una combinación de ejemplos incompatibles puede producir errores difíciles de interpretar.
+## 3. Entonces… ¿qué pasó? Se mezclaron las API
 
-### 4. ¿Qué enfoque utilizaremos en esta unidad?
+Durante años se podían usar:
 
-Estudiaremos las dos formas **de manera diferenciada** para comprender sus conceptos sin mezclar las API en un mismo ejemplo:
+- La API original de Hibernate (`Session`).
+- La API estándar JPA (`EntityManager`).
+- Y las dos juntas, según el proyecto.
 
-**Parte 1. Hibernate nativo (`Session`)**
+Con el tiempo, los tutoriales mezclaron:
 
-Comenzaremos por reconocer `SessionFactory`, `Session` y `Transaction`, comprender el mapeo de una clase Java a una tabla, realizar operaciones CRUD sencillas y observar el SQL que genera Hibernate.
+- `Session` + anotaciones JPA.
+- `EntityManager` + `hibernate.cfg.xml`.
+- `.get()`, método marcado como obsoleto en Hibernate 7.
+- Configuraciones antiguas y modernas.
+- Versiones de Hibernate 3, 4, 5, 6 y 7.
+- XML antiguo con DTD ya obsoletas.
 
-**Parte 2. Jakarta Persistence (`EntityManager`) con Hibernate como proveedor**
+Resultado: mucha confusión si no conoces la historia. Por eso en Internet ves código muy distinto según el año del tutorial.
 
-Después trabajaremos con `EntityManager`, `persistence.xml`, anotaciones estándar, consultas JPQL y relaciones entre entidades, como uno a muchos y muchos a uno.
+!!! note "Importante al consultar ejemplos"
+    Utilizar `Session` con anotaciones JPA no es necesariamente incorrecto. Hibernate admite estas anotaciones también con su API nativa. La compatibilidad de cada configuración y método depende de la versión utilizada.
 
-Este segundo enfoque permite escribir la lógica de persistencia utilizando una **API estándar**, sin depender directamente de los métodos específicos de Hibernate para las operaciones habituales.
+## 4. ¿Qué se usa profesionalmente hoy?
 
-!!! warning "Regla para los ejemplos de la unidad"
-    No mezclaremos las operaciones de `Session` y `EntityManager` dentro de un mismo ejemplo didáctico. Las estudiaremos por separado y explicaremos sus equivalencias cuando corresponda.
+Un enfoque muy habitual en el desarrollo profesional es:
 
-### 5. Resumen para recordar
+**JPA estándar (`EntityManager`) + Hibernate como implementación.**
 
-| Concepto | Qué significa | API o configuración característica |
-|---|---|---|
-| **Hibernate nativo** | Uso directo de la API propia de Hibernate | `Session`, `SessionFactory`, `Transaction`, habitualmente `hibernate.cfg.xml` |
-| **Jakarta Persistence (JPA)** | Especificación estándar de persistencia | `EntityManager`, `@Entity`, `@Id`, habitualmente `persistence.xml` |
-| **Hibernate como proveedor JPA** | Hibernate implementa la especificación Jakarta Persistence | Nuestra aplicación usa `EntityManager`; Hibernate ejecuta las operaciones |
+Es decir, Hibernate se usa «debajo», pero el programador trabaja con la API estándar JPA.
 
-**Idea clave:** Hibernate puede trabajar de las dos maneras. Saber cuál utiliza cada ejemplo es el primer paso para comprenderlo y ejecutarlo correctamente.
+Este enfoque se utiliza, entre otros, en proyectos de:
+
+- Spring Boot.
+- Microservicios Java.
+- API REST.
+- Sistemas empresariales.
+
+Es una forma moderna de trabajar que favorece la portabilidad y la mantenibilidad del código de persistencia.
+
+## 5. ¿Cómo enfocaremos este tema en el módulo?
+
+Para no liarte y para que entiendas todo bien, veremos los dos modos por separado, sin mezclarlos:
+
+### Parte 1: Hibernate nativo (Session API)
+
+Comenzaremos por esta forma de trabajar para aprender cómo funciona un ORM. Vas a ver:
+
+- Qué es una `Session`.
+- Cómo se hace un CRUD básico.
+- Cómo se mapea una clase Java a una tabla.
+- Cómo se genera SQL automáticamente.
+
+### Parte 2: JPA estándar (EntityManager)
+
+Es una forma de trabajo ampliamente utilizada en empresas. Vas a aprender:
+
+- Qué es `EntityManager`.
+- Qué es `persistence.xml`.
+- Cómo se hacen consultas JPQL.
+- Cómo se trabajan relaciones 1-N y N-1.
+
+!!! warning "IMPORTANTE: NO mezclaremos Session y EntityManager"
+    Cada parte se explica y se practica separadamente para evitar confusiones.
+
+## Resumen para que no te confundas
+
+- **Hibernate nativo** → API propia de Hibernate (`Session`).
+- **JPA estándar** → API estándar de persistencia (`EntityManager`).
+- **Hibernate puede trabajar de ambas formas** → por eso hay tantos tutoriales mezclados.
+- **Un enfoque profesional habitual** → JPA + Hibernate (`EntityManager`).
+- Cuando entiendes esta diferencia, **TODO lo demás encaja**.
 
 ---
+
+## Documentación teórica original de referencia
+
+- [Consultar PDF: 1.0 Antes de empezar](../descargas/ut4/teoria/1.0%20Antes%20de%20empezar.pdf)
