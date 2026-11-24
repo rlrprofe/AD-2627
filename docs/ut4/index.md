@@ -31,7 +31,13 @@ La práctica requerirá de un examen oral sobre la entrega realizada.
 
 ## Cómo utilizar estos apuntes
 
-Avanza en orden: comienza por un objeto simple, añade el mapeo, observa sus estados, realiza CRUD y finalmente integra las consultas y el componente DAO. Los fragmentos son didácticos: el **proyecto descargable** reúne las piezas en una aplicación Maven.
+Avanza en orden: comienza por un objeto simple, añade el mapeo, observa sus estados, realiza CRUD y finalmente integra las consultas y el componente DAO. Los fragmentos son didácticos: los **proyectos descargables** acompañan cada apartado, y el proyecto final reúne las piezas en una aplicación Maven.
 
 !!! warning "Alcance"
     Hibernate nativo (`Session`, `SessionFactory`, XML `hbm.xml`) y Jakarta Persistence (`EntityManager`, anotaciones) son dos vías relacionadas, pero no idénticas. Se explican las dos; el proyecto integrador utiliza **Jakarta Persistence con Hibernate como proveedor**.
+
+## Materiales de ejemplo
+
+Esta unidad conserva la organización del curso anterior: **cada documento teórico se estudia junto a su proyecto de ejemplo**. Los apartados 4.2 a 4.7 incluyen descargas y recorridos guiados por las clases reales. En 4.4 encontrarás ejemplos independientes para cada asociación y estrategia de herencia.
+
+[Consulta el índice de proyectos y descargas](08-actividades.md).

@@ -88,3 +88,68 @@ Ejemplo **conceptual**:
     `@Column(name = "descripcion")` en el atributo `nombre`. No hace falta renombrar el atributo Java.
 
 **Referencias:** `2.1 Mapeo OMR con Hibernate nativo.pdf` y `2.2 Mapeo OMR JakartaPersistence.pdf`.
+
+## Recorrido guiado por los dos proyectos del PDF
+
+El documento **2.1** enseña Hibernate nativo mediante un proyecto organizado en modelo, DAO, servicio, controlador y vista. La idea central es que los objetos Java no necesitan anotaciones de persistencia cuando su correspondencia se declara en archivos `*.hbm.xml`.
+
+### Hibernate nativo: piezas que debes localizar
+
+- **`Configuration`** lee la configuración y los mapeos.
+- **`SessionFactory`** se construye normalmente una vez y permite crear sesiones.
+- **`Session`** representa la unidad de trabajo con Hibernate.
+- **`Transaction`** delimita cambios que deben confirmarse o revertirse.
+- **`hibernate.cfg.xml`** configura la conexión y declara los mapeos.
+- **`Cliente.hbm.xml`, `Producto.hbm.xml`, `Pedido.hbm.xml`** describen la relación clase-tabla.
+
+Sigue este orden: abre `pom.xml`; localiza `hibernate.cfg.xml`; compara `Cliente.java` con `Cliente.hbm.xml`; abre `HibernateUtil.java`; después sigue una operación desde `MenuView` hasta `ClienteDao`. No intentes entender todas las capas a la vez.
+
+
+### Proyecto: `demo-hibernate-nativo`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/02-mapeo/demo-hibernate-nativo-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** cómo se conectan `Session`, `SessionFactory`, `hibernate.cfg.xml` y los archivos de mapeo XML.
+
+**Clases de referencia:** `App`, `ClienteController`, `PedidoController`, `ProductoController`, `ClienteDao`, `PedidoDao`, `ProductoDao`, `Cliente`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Jakarta Persistence: la misma idea con otra API
+
+El documento **2.2** utiliza el mismo dominio de clientes, productos y pedidos, pero ahora las entidades se describen mediante anotaciones de `jakarta.persistence.*`. La configuración principal se encuentra en `META-INF/persistence.xml`.
+
+El cambio fundamental no es la base de datos, sino la **API de trabajo**: `EntityManagerFactory` y `EntityManager` sustituyen al uso directo de `SessionFactory` y `Session` en los ejemplos. Hibernate sigue actuando como proveedor ORM.
+
+
+### Proyecto: `demo-jackarta-hibernate`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/02-mapeo/demo-jackarta-hibernate-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** las anotaciones de `Cliente`, `Producto` y `Pedido`, `persistence.xml` y la clase `JPAUtil`.
+
+**Clases de referencia:** `App`, `ClienteController`, `PedidoController`, `ProductoController`, `ClienteDao`, `PedidoDao`, `ProductoDao`, `Cliente`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Actividad comparativa
+
+Abre ambos proyectos y completa:
+
+| Pregunta | Hibernate nativo | Jakarta Persistence |
+|---|---|---|
+| ¿Dónde se configura la conexión? | `hibernate.cfg.xml` | `persistence.xml` |
+| ¿Dónde se describe el mapeo? | `*.hbm.xml` | Anotaciones en las entidades |
+| ¿Qué clase gestiona las operaciones? | `Session` | `EntityManager` |
+| ¿Qué clase crea esos objetos? | `SessionFactory` | `EntityManagerFactory` |
+
+??? success "Comprobación"
+    Ambas opciones permiten persistir entidades. La diferencia principal está en las interfaces y los mecanismos de configuración que utilizamos; Hibernate puede intervenir en ambos casos.
+
+
+## Documentación teórica original de referencia
+
+- [Consultar PDF: 2.1 Mapeo OMR con Hibernate nativo](../descargas/ut4/teoria/2.1%20Mapeo%20OMR%20con%20Hibernate%20nativo.pdf)
+- [Consultar PDF: 2.2 Mapeo OMR JakartaPersistence](../descargas/ut4/teoria/2.2%20Mapeo%20OMR%20JakartaPersistence.pdf)

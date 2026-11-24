@@ -139,16 +139,17 @@ nav:
       - Ejercicios, proyecto y descargas: ut3/08-actividades-descargas.md
 
   - "UT4 · Persistencia con ORM (Hibernate)":
-      - "Guía de la unidad": ut4/index.md
+      - Guía de la unidad: ut4/index.md
       - "Antes de empezar": ut4/00-antes-de-empezar.md
       - "4.1. Introducción al ORM": ut4/01-introduccion.md
       - "4.2. Configuración y mapeo": ut4/02-mapeo.md
-      - "4.3. Clases y estados": ut4/03-estados.md
-      - "4.4. Relaciones": ut4/04-relaciones.md
+      - "4.3. Clases persistentes y estados": ut4/03-estados.md
+      - "4.4. Relaciones entre entidades": ut4/04-relaciones.md
       - "4.5. CRUD y transacciones": ut4/05-crud.md
       - "4.6. Consultas HQL y SQL": ut4/06-consultas.md
-      - "4.7. Desarrollo con ORM": ut4/07-desarrollo.md
+      - "4.7. Desarrollo de aplicaciones con ORM": ut4/07-desarrollo.md
       - "4.8. Actividades y descargas": ut4/08-actividades.md
+
   - "Anexo · Apache Maven":
       - Guía del anexo: anexo-maven/index.md
       - "Introducción a Maven": anexo-maven/01-introduccion.md

@@ -62,3 +62,39 @@ if (p != null) {
     Si ambos pertenecen a una única transacción y ejecutamos `rollback()`, ninguno debe quedar confirmado. Si los confirmamos en transacciones distintas, el primero podría permanecer.
 
 **Referencia:** `5.1_Operaciones_CRUD.pdf`.
+
+## Ejemplo completo del PDF: CRUD y estados con MySQL
+
+El documento original empieza explicando por qué `EntityManagerFactory`, `EntityManager`, contexto de persistencia y `EntityTransaction` son piezas diferentes. A continuación estudia **CREATE, READ, UPDATE y DELETE**, incluyendo `persist`, `find`, detección de cambios (*dirty checking*), `merge` y `remove`.
+
+
+### Proyecto: `jpa-demo-crud-estados-mysql`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/05-crud/jpa-demo-crud-estados-mysql-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** `CrudEstadosDemo`, `ClienteDao`, `Cliente` y `Pedido`. Sigue las transacciones y observa el estado de las entidades.
+
+**Clases de referencia:** `CrudEstadosDemo`, `ClienteDao`, `Cliente`, `Pedido`, `JPAUtil`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Guía de lectura del código
+
+1. **Preparación:** abre `pom.xml` y `META-INF/persistence.xml`.
+2. **Utilidad JPA:** abre `JPAUtil.java` y busca cómo se crea `EntityManagerFactory`.
+3. **DAO:** en `ClienteDao.java` localiza los métodos que realizan altas, búsquedas, modificaciones y bajas.
+4. **Demostración:** sigue `CrudEstadosDemo.java` y anota qué operaciones requieren transacción.
+5. **Errores:** identifica dónde se realiza `rollback()` si falla una escritura.
+
+### Actividad de ampliación
+
+Modifica el ejemplo para que no se permita un nombre vacío al crear un cliente. ¿Dónde situarías la validación en una aplicación por capas?
+
+??? success "Orientación"
+    La regla de negocio debe situarse preferentemente en el servicio o en una capa de validación, no en la vista ni mezclada con el código de conexión del DAO.
+
+
+## Documentación teórica original de referencia
+
+- [Consultar PDF: 5.1_Operaciones_CRUD](../descargas/ut4/teoria/5.1_Operaciones_CRUD.pdf)

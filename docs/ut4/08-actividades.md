@@ -39,13 +39,23 @@ Integra `ProductoJpaDAO` detrás de la interfaz `ProductoDAO`, sin escribir cód
 ??? success "Comprobación"
     El controlador solo conoce el servicio; el servicio utiliza la interfaz DAO; la implementación ORM utiliza `EntityManager`.
 
-## Proyecto descargable
+## Catálogo completo de proyectos de ejemplo
 
-- [Proyecto Maven: Gestión de productos con Hibernate/JPA](../descargas/ut4/UT4_Gestion_Productos_Hibernate_Java21_Maven.zip)
-- [Plantilla de configuración y guía de ejecución](../descargas/ut4/UT4_Gestion_Productos_Hibernate_Java21_Maven.zip)
+Los proyectos proceden de las carpetas `code` del curso anterior y se han organizado siguiendo la teoría original. Cada ZIP conserva el código fuente y el POM, adaptado para Java 21.
 
-!!! warning "Antes de ejecutar"
-    Crea la base de datos MySQL, copia `config/bd.properties.example` a `config/bd.properties` y completa tus credenciales. No subas el fichero real al repositorio.
+| Apartado | Proyecto | Descarga |
+|---|---|---|
+| 02-mapeo | `demo-hibernate-nativo` | [Descargar ZIP](../descargas/ut4/02-mapeo/demo-hibernate-nativo-Java21.zip) |\n| 02-mapeo | `demo-jackarta-hibernate` | [Descargar ZIP](../descargas/ut4/02-mapeo/demo-jackarta-hibernate-Java21.zip) |\n| 03-estados | `jpa-hibernate-estados-demo` | [Descargar ZIP](../descargas/ut4/03-estados/jpa-hibernate-estados-demo-Java21.zip) |\n| 04-relaciones | `jpa-demo-relacion-1a1` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-demo-relacion-1a1-Java21.zip) |\n| 04-relaciones | `jpa-demo-relacion-1aN` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-demo-relacion-1aN-Java21.zip) |\n| 04-relaciones | `jpa-demo-relacion-NaN` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-demo-relacion-NaN-Java21.zip) |\n| 04-relaciones | `jpa-herencia-single-table` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-herencia-single-table-Java21.zip) |\n| 04-relaciones | `jpa-herencia-joined` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-herencia-joined-Java21.zip) |\n| 04-relaciones | `jpa-herencia-table-per-class` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-herencia-table-per-class-Java21.zip) |\n| 04-relaciones | `jpa-mappedsuperclass` | [Descargar ZIP](../descargas/ut4/04-relaciones/jpa-mappedsuperclass-Java21.zip) |\n| 05-crud | `jpa-demo-crud-estados-mysql` | [Descargar ZIP](../descargas/ut4/05-crud/jpa-demo-crud-estados-mysql-Java21.zip) |\n| 06-consultas | `jpa-demo-jpql-consultas-mysql` | [Descargar ZIP](../descargas/ut4/06-consultas/jpa-demo-jpql-consultas-mysql-Java21.zip) |\n| 07-desarrollo | `jpa-proyecto` | [Descargar ZIP](../descargas/ut4/07-desarrollo/jpa-proyecto-Java21.zip) |\n
+!!! warning "Configuración MySQL y validación"
+    Los ejemplos incluyen configuraciones de bases de datos diferentes. Antes de ejecutarlos, crea la base correspondiente y sustituye `CAMBIAR_PASSWORD` en el XML de configuración. Los ZIP están preparados como **materiales para revisión**, no como proyectos ya verificados con MySQL. No utilices una base de datos con información importante si el ejemplo tiene `create` o `create-drop`.
+
+## Cómo trabajar con cada proyecto
+
+1. Lee el apartado teórico y descarga el ZIP que aparece en esa misma página.
+2. Descomprime el proyecto y abre su carpeta en VS Code.
+3. Revisa el `pom.xml`, el XML de configuración y las entidades antes de ejecutar.
+4. Ejecuta `mvn clean test` y, si procede, el método `main` de la demostración.
+5. Compara los resultados con el PDF y contesta las preguntas del apartado.
 
 ## Evaluación
 

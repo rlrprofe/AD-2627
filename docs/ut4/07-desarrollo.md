@@ -57,3 +57,37 @@ Explica por qué `App` no debería contener sentencias SQL ni métodos para most
     Porque son responsabilidades distintas: `App` ensambla; la vista presenta; el controlador coordina; el servicio valida y el DAO accede a datos. Esta organización reduce el acoplamiento y facilita las pruebas.
 
 **Referencia:** carpeta `07-desarrollo-sw-orm` del material del curso anterior y criterios RA3/RA6.e de la programación actual.
+
+## Proyecto del curso anterior: aplicación completa con ORM
+
+La carpeta 07 contiene una aplicación de consola que integra el trabajo con entidades, persistencia, consultas y una organización por capas. Este es el proyecto que utilizaremos para **unir lo aprendido**, en lugar de introducir un dominio nuevo que no aparezca en los documentos.
+
+
+### Proyecto: `jpa-proyecto`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/07-desarrollo/jpa-proyecto-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** `Main`, `ClienteDao`, `PedidoDao`, `DaoSupport`, `ClienteService`, `PedidoService`, `Console` y `JPAUtil`.
+
+**Clases de referencia:** `Main`, `ClienteDao`, `DaoSupport`, `PedidoDao`, `Cliente`, `Pedido`, `ClienteService`, `PedidoService`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Cómo estudiar la aplicación
+
+**Paso 1. Arranque.** Abre `Main.java` y comprueba cómo se crean o utilizan los servicios y el acceso a datos.
+
+**Paso 2. Vista.** En `Console.java`, identifica dónde se leen las opciones y dónde se muestran los mensajes.
+
+**Paso 3. Servicios.** En `ClienteService` y `PedidoService`, observa las operaciones que se ofrecen al resto de la aplicación.
+
+**Paso 4. DAO.** En `ClienteDao`, `PedidoDao` y `DaoSupport`, localiza el acceso ORM y comprueba cómo se cierran los recursos.
+
+**Paso 5. Configuración.** Revisa `JPAUtil` y `persistence.xml`, así como el esquema SQL que necesita la aplicación.
+
+**Paso 6. Comprobación individual.** Explica el recorrido de una operación desde el menú hasta la base de datos y vuelve a la pantalla. Después modifica una validación o añade una consulta sencilla.
+
+### Relación con el RA6.e
+
+La evidencia no consiste solo en que el programa funcione: debes poder identificar el **componente que encapsula el acceso ORM** y justificar por qué las demás capas no necesitan conocer `EntityManager`.

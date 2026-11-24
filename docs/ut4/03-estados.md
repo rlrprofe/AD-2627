@@ -52,3 +52,41 @@ Una relación configurada como `LAZY` puede no cargarse hasta que se accede a el
     Porque el contexto puede acumular entidades, mantener recursos ocupados y mezclar operaciones independientes. Es preferible delimitarlo por unidad de trabajo y cerrarlo al terminar.
 
 **Referencia:** `3.1_Estados_Clases_persistentes.pdf`.
+
+## Laboratorio guiado: observar los estados en ejecución
+
+El PDF distingue **Transient**, **Persistent/Managed** y **Detached**, y analiza el problema de las relaciones `LAZY` cuando se accede a ellas fuera del contexto de persistencia. Es un contenido que se entiende mejor ejecutando el programa y siguiendo los objetos con el depurador.
+
+
+### Proyecto: `jpa-hibernate-estados-demo`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/03-estados/jpa-hibernate-estados-demo-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** la clase `EstadosDemo`, los cambios de estado de `Cliente` y la relación con `Pedido`.
+
+**Clases de referencia:** `EstadosDemo`, `JPAUtil`, `Cliente`, `Pedido`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Secuencia de comprobación
+
+1. Abre `EstadosDemo.java` y localiza el momento en que se construye un objeto con `new`.
+2. Busca dónde se abre el `EntityManager` y dónde comienza la transacción.
+3. Localiza `persist`, `find`, `detach`, `merge` o `close` **si aparecen en el ejemplo**.
+4. Añade puntos de ruptura antes y después de las operaciones de persistencia.
+5. Comprueba qué ocurre si accedes a una relación de carga diferida después de cerrar el contexto.
+
+### Preguntas de comprensión
+
+**¿Un objeto `Detached` deja de existir?** No. Sigue siendo un objeto Java, pero ya no está gestionado por ese contexto.
+
+**¿Cerrar el `EntityManager` borra las filas?** No. Cierra el contexto; los cambios confirmados en la base de datos permanecen.
+
+??? success "Actividad: clasificar estados"
+    `new Cliente(...)` → nuevo; `persist(cliente)` en un contexto activo → gestionado; `close()` → separado. `remove(cliente)` marca para eliminación una entidad gestionada.
+
+
+## Documentación teórica original de referencia
+
+- [Consultar PDF: 3.1_Estados_Clases_persistentes](../descargas/ut4/teoria/3.1_Estados_Clases_persistentes.pdf)

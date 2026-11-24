@@ -67,3 +67,45 @@ Corrige esta consulta:
     Para JPQL/HQL: `SELECT p FROM Producto p WHERE p.precio > :minimo` y después `setParameter("minimo", minimo)`. `SELECT *` corresponde a SQL, no a una selección de entidad JPQL.
 
 **Referencia:** `6.1_HQL.pdf`.
+
+## Ejemplo del PDF: consultas JPQL sobre clientes y pedidos
+
+El documento original comienza comparando SQL con HQL/JPQL: **SQL consulta tablas y columnas; JPQL consulta entidades y propiedades Java**. También explica los alias, la navegación por relaciones, los parámetros y las consultas tipadas.
+
+
+### Proyecto: `jpa-demo-jpql-consultas-mysql`
+
+**[Descargar proyecto Maven Java 21](../descargas/ut4/06-consultas/jpa-demo-jpql-consultas-mysql-Java21.zip)**
+
+Este es el ejemplo asociado a la teoría del curso anterior. **Qué debes observar:** `DemoConsultasJPQL`, `SeedDao`, `Cliente` y `Pedido`; analiza cada consulta y el tipo de resultado.
+
+**Clases de referencia:** `DemoConsultasJPQL`, `SeedDao`, `Cliente`, `Pedido`, `JPAUtil`.
+
+!!! warning "Preparación y límites de la revisión"
+    El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por `CAMBIAR_PASSWORD`. Debes preparar la base MySQL correspondiente. **No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven**.
+
+### Recorrido de aprendizaje
+
+1. Ejecuta la preparación de datos del ejemplo (`SeedDao`) después de configurar una base de pruebas.
+2. Abre `DemoConsultasJPQL.java` y localiza consultas que devuelven entidades completas.
+3. Identifica los alias (`c`, `p` u otros) y las propiedades Java utilizadas.
+4. Busca consultas con `WHERE`, `ORDER BY`, parámetros y navegación por asociaciones.
+5. Contrasta una consulta JPQL con su equivalente SQL sobre las tablas.
+
+### SQL nativo y el CE f) del RA3
+
+Aunque el documento se centra en HQL/JPQL, la programación 2026-2027 también exige evidencias de **consultas SQL**. Añade al ejemplo una consulta SQL nativa ejecutada desde `EntityManager` y explica qué devuelve.
+
+```java
+Object total = em.createNativeQuery(
+        "SELECT COUNT(*) FROM clientes").getSingleResult();
+System.out.println("Clientes: " + total);
+```
+
+??? success "Actividad"
+    JPQL: `SELECT c FROM Cliente c ORDER BY c.nombre` consulta la entidad `Cliente`. SQL nativo: `SELECT * FROM clientes ORDER BY nombre` consulta directamente la tabla.
+
+
+## Documentación teórica original de referencia
+
+- [Consultar PDF: 6.1_HQL](../descargas/ut4/teoria/6.1_HQL.pdf)
