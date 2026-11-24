@@ -3616,7 +3616,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3644,7 +3644,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3807,6 +3807,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-del-pdf-consultas-jpql-sobre-clientes-y-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo del PDF: consultas JPQL sobre clientes y pedidos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplo del PDF: consultas JPQL sobre clientes y pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-demo-jpql-consultas-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-demo-jpql-consultas-mysql
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recorrido-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorrido de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-nativo-y-el-ce-f-del-ra3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL nativo y el CE f) del RA3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3830,7 +3891,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -4359,6 +4420,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-del-pdf-consultas-jpql-sobre-clientes-y-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo del PDF: consultas JPQL sobre clientes y pedidos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplo del PDF: consultas JPQL sobre clientes y pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-demo-jpql-consultas-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-demo-jpql-consultas-mysql
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recorrido-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorrido de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-nativo-y-el-ce-f-del-ra3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL nativo y el CE f) del RA3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4422,6 +4544,38 @@
 <p>Para JPQL/HQL: <code>SELECT p FROM Producto p WHERE p.precio &gt; :minimo</code> y después <code>setParameter("minimo", minimo)</code>. <code>SELECT *</code> corresponde a SQL, no a una selección de entidad JPQL.</p>
 </details>
 <p><strong>Referencia:</strong> <code>6.1_HQL.pdf</code>.</p>
+<h2 id="ejemplo-del-pdf-consultas-jpql-sobre-clientes-y-pedidos">Ejemplo del PDF: consultas JPQL sobre clientes y pedidos<a class="headerlink" href="#ejemplo-del-pdf-consultas-jpql-sobre-clientes-y-pedidos" title="Permanent link">&para;</a></h2>
+<p>El documento original comienza comparando SQL con HQL/JPQL: <strong>SQL consulta tablas y columnas; JPQL consulta entidades y propiedades Java</strong>. También explica los alias, la navegación por relaciones, los parámetros y las consultas tipadas.</p>
+<h3 id="proyecto-jpa-demo-jpql-consultas-mysql">Proyecto: <code>jpa-demo-jpql-consultas-mysql</code><a class="headerlink" href="#proyecto-jpa-demo-jpql-consultas-mysql" title="Permanent link">&para;</a></h3>
+<p><strong><a href="../../descargas/ut4/06-consultas/jpa-demo-jpql-consultas-mysql-Java21.zip">Descargar proyecto Maven Java 21</a></strong></p>
+<p>Este es el ejemplo asociado a la teoría del curso anterior. <strong>Qué debes observar:</strong> <code>DemoConsultasJPQL</code>, <code>SeedDao</code>, <code>Cliente</code> y <code>Pedido</code>; analiza cada consulta y el tipo de resultado.</p>
+<p><strong>Clases de referencia:</strong> <code>DemoConsultasJPQL</code>, <code>SeedDao</code>, <code>Cliente</code>, <code>Pedido</code>, <code>JPAUtil</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Preparación y límites de la revisión</p>
+<p>El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por <code>CAMBIAR_PASSWORD</code>. Debes preparar la base MySQL correspondiente. <strong>No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven</strong>.</p>
+</div>
+<h3 id="recorrido-de-aprendizaje">Recorrido de aprendizaje<a class="headerlink" href="#recorrido-de-aprendizaje" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ejecuta la preparación de datos del ejemplo (<code>SeedDao</code>) después de configurar una base de pruebas.</li>
+<li>Abre <code>DemoConsultasJPQL.java</code> y localiza consultas que devuelven entidades completas.</li>
+<li>Identifica los alias (<code>c</code>, <code>p</code> u otros) y las propiedades Java utilizadas.</li>
+<li>Busca consultas con <code>WHERE</code>, <code>ORDER BY</code>, parámetros y navegación por asociaciones.</li>
+<li>Contrasta una consulta JPQL con su equivalente SQL sobre las tablas.</li>
+</ol>
+<h3 id="sql-nativo-y-el-ce-f-del-ra3">SQL nativo y el CE f) del RA3<a class="headerlink" href="#sql-nativo-y-el-ce-f-del-ra3" title="Permanent link">&para;</a></h3>
+<p>Aunque el documento se centra en HQL/JPQL, la programación 2026-2027 también exige evidencias de <strong>consultas SQL</strong>. Añade al ejemplo una consulta SQL nativa ejecutada desde <code>EntityManager</code> y explica qué devuelve.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Object</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">em</span><span class="p">.</span><span class="na">createNativeQuery</span><span class="p">(</span>
+<span class="w">        </span><span class="s">"SELECT COUNT(*) FROM clientes"</span><span class="p">).</span><span class="na">getSingleResult</span><span class="p">();</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Clientes: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">total</span><span class="p">);</span>
+</code></pre></div>
+<details class="success">
+<summary>Actividad</summary>
+<p>JPQL: <code>SELECT c FROM Cliente c ORDER BY c.nombre</code> consulta la entidad <code>Cliente</code>. SQL nativo: <code>SELECT * FROM clientes ORDER BY nombre</code> consulta directamente la tabla.</p>
+</details>
+<h2 id="documentacion-teorica-original-de-referencia">Documentación teórica original de referencia<a class="headerlink" href="#documentacion-teorica-original-de-referencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../descargas/ut4/teoria/6.1_HQL.pdf">Consultar PDF: 6.1_HQL</a></li>
+</ul>
 
 
 

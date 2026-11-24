@@ -3678,6 +3678,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#desarrollo-de-los-contenidos-del-documento-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desarrollo de los contenidos del documento original
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desarrollo de los contenidos del documento original">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistencia-y-arquitectura-de-una-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistencia y arquitectura de una aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-problema-resuelve-el-mapeo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué problema resuelve el mapeo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacion-razonada-entre-jdbc-y-orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación razonada entre JDBC y ORM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades-de-aprendizaje-del-material-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades de aprendizaje del material original
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3729,7 +3801,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3757,7 +3829,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3841,7 +3913,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -4381,6 +4453,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#desarrollo-de-los-contenidos-del-documento-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desarrollo de los contenidos del documento original
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desarrollo de los contenidos del documento original">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistencia-y-arquitectura-de-una-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistencia y arquitectura de una aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-problema-resuelve-el-mapeo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué problema resuelve el mapeo?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacion-razonada-entre-jdbc-y-orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparación razonada entre JDBC y ORM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades-de-aprendizaje-del-material-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades de aprendizaje del material original
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4466,6 +4610,77 @@
 <p>Los objetos desaparecen al finalizar el programa; no hay persistencia. Para conservarlos necesitamos ficheros, una base de datos u otro almacenamiento. Un ORM permite trabajar con objetos sin programar manualmente todas las sentencias CRUD.</p>
 </details>
 <p><strong>Referencia de partida:</strong> PDF <code>1.1 IntroORM.pdf</code> del material del curso anterior.</p>
+<h2 id="desarrollo-de-los-contenidos-del-documento-original">Desarrollo de los contenidos del documento original<a class="headerlink" href="#desarrollo-de-los-contenidos-del-documento-original" title="Permanent link">&para;</a></h2>
+<h3 id="persistencia-y-arquitectura-de-una-aplicacion">Persistencia y arquitectura de una aplicación<a class="headerlink" href="#persistencia-y-arquitectura-de-una-aplicacion" title="Permanent link">&para;</a></h3>
+<p>En una aplicación Java podemos distinguir entre los <strong>datos que solo existen durante la ejecución</strong> y los que deben permanecer cuando el programa termina. Un objeto <code>Producto</code> creado con <code>new</code> no se guarda por sí mismo. La capa de persistencia se encarga de transformar ese estado temporal en datos almacenados y de recuperarlos cuando sea necesario.</p>
+<p>El PDF original presenta las capas habituales de una aplicación. La <strong>vista</strong> se comunica con el usuario; la <strong>lógica de negocio</strong> aplica las reglas; y la <strong>persistencia</strong> accede al almacenamiento. Estas capas no son una característica exclusiva de Hibernate: también se utilizan con JDBC. Lo que cambia es <strong>cómo se implementa el acceso a los datos</strong>.</p>
+<h3 id="que-problema-resuelve-el-mapeo">¿Qué problema resuelve el mapeo?<a class="headerlink" href="#que-problema-resuelve-el-mapeo" title="Permanent link">&para;</a></h3>
+<p>En Java trabajamos con objetos, atributos y referencias. En MySQL trabajamos con tablas, columnas y claves foráneas. El ORM resuelve buena parte de la traducción entre ambos modelos.</p>
+<p>Considera una clase <code>Cliente</code> con <code>id</code>, <code>nombre</code> y una colección de pedidos. En la base de datos podríamos tener las tablas <code>clientes</code> y <code>pedidos</code>, relacionadas mediante <code>cliente_id</code>. El ORM necesita saber qué atributo representa la clave primaria y cómo se relacionan las entidades; después puede construir las operaciones SQL necesarias.</p>
+<h3 id="comparacion-razonada-entre-jdbc-y-orm">Comparación razonada entre JDBC y ORM<a class="headerlink" href="#comparacion-razonada-entre-jdbc-y-orm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>JDBC</th>
+<th>Hibernate/JPA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escritura de SQL</td>
+<td>Habitualmente manual</td>
+<td>Gran parte generada por el ORM</td>
+</tr>
+<tr>
+<td>Conversión fila-objeto</td>
+<td>La programa el desarrollador</td>
+<td>Se basa en el mapeo</td>
+</tr>
+<tr>
+<td>Control de consultas</td>
+<td>Muy directo</td>
+<td>Requiere conocer el SQL generado</td>
+</tr>
+<tr>
+<td>Relaciones</td>
+<td>Se resuelven manualmente</td>
+<td>Se pueden expresar con anotaciones</td>
+</tr>
+<tr>
+<td>Transacciones</td>
+<td><code>Connection</code></td>
+<td><code>EntityTransaction</code> o API nativa</td>
+</tr>
+<tr>
+<td>Curva de aprendizaje</td>
+<td>Menor al principio</td>
+<td>Mayor: estados, contexto y asociaciones</td>
+</tr>
+</tbody>
+</table>
+<p>El ORM <strong>no es siempre mejor</strong>. Para consultas muy específicas o tareas sencillas, JDBC puede ser suficiente. Hibernate resulta especialmente útil cuando tenemos muchas entidades y queremos mantener el código centrado en el modelo de objetos.</p>
+<h2 id="actividades-de-aprendizaje-del-material-original">Actividades de aprendizaje del material original<a class="headerlink" href="#actividades-de-aprendizaje-del-material-original" title="Permanent link">&para;</a></h2>
+<p><strong>Actividad A. Memoria o persistencia.</strong> Clasifica: una partida que desaparece al cerrar el juego, un pedido que podemos consultar al día siguiente, un formulario sin enviar, un documento guardado en la nube y una variable local <code>int</code>.</p>
+<details class="success">
+<summary>Solución orientativa</summary>
+<p>Partida que desaparece, formulario sin enviar y variable local: <strong>memoria temporal</strong>. Pedido consultable y documento guardado: <strong>persistencia</strong>.</p>
+</details>
+<p><strong>Actividad B. Comparación.</strong> Completa una tabla con quién escribe el SQL, cantidad de código, portabilidad, curva de aprendizaje, control del rendimiento e integración con POO.</p>
+<details class="success">
+<summary>Orientación</summary>
+<p>JDBC proporciona control directo y exige más transformación manual. ORM reduce código repetitivo y encaja con entidades Java, pero obliga a entender su configuración y el SQL que genera.</p>
+</details>
+<p><strong>Actividad C. Arquitectura por capas.</strong> Elige una aplicación (tienda, biblioteca o reservas) e identifica clases de vista, negocio y persistencia. Explica dónde encajan JDBC y ORM.</p>
+<details class="success">
+<summary>Orientación</summary>
+<p>En una tienda: <code>MenuVista</code>, <code>ProductoService</code> y <code>ProductoDAO</code>. JDBC o Hibernate son <strong>alternativas de implementación</strong> de la persistencia, no sustitutos de la vista ni de las reglas de negocio.</p>
+</details>
+<h2 id="documentacion-teorica-original-de-referencia">Documentación teórica original de referencia<a class="headerlink" href="#documentacion-teorica-original-de-referencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../descargas/ut4/teoria/1.1%20IntroORM.pdf">Consultar PDF: 1.1 IntroORM</a></li>
+<li><a href="../../descargas/ut4/teoria/1.2%20ActividadesAprendizaje.pdf">Consultar PDF: 1.2 ActividadesAprendizaje</a></li>
+</ul>
 
 
 

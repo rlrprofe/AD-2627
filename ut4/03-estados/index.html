@@ -29,7 +29,7 @@
     
     
       
-        <title>4.3. Clases y estados - Acceso a Datos - 2º DAM</title>
+        <title>4.3. Clases persistentes y estados - Acceso a Datos - 2º DAM</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.3. Clases y estados
+              4.3. Clases persistentes y estados
             
           </span>
         </div>
@@ -3625,7 +3625,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3643,7 +3643,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3734,6 +3734,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#laboratorio-guiado-observar-los-estados-en-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio guiado: observar los estados en ejecución
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio guiado: observar los estados en ejecución">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-hibernate-estados-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-hibernate-estados-demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secuencia-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secuencia de comprobación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-de-comprension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de comprensión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3757,7 +3818,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3841,7 +3902,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -4381,6 +4442,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#laboratorio-guiado-observar-los-estados-en-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio guiado: observar los estados en ejecución
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio guiado: observar los estados en ejecución">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-hibernate-estados-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-hibernate-estados-demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secuencia-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secuencia de comprobación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-de-comprension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de comprensión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4462,6 +4584,35 @@
 <p>Porque el contexto puede acumular entidades, mantener recursos ocupados y mezclar operaciones independientes. Es preferible delimitarlo por unidad de trabajo y cerrarlo al terminar.</p>
 </details>
 <p><strong>Referencia:</strong> <code>3.1_Estados_Clases_persistentes.pdf</code>.</p>
+<h2 id="laboratorio-guiado-observar-los-estados-en-ejecucion">Laboratorio guiado: observar los estados en ejecución<a class="headerlink" href="#laboratorio-guiado-observar-los-estados-en-ejecucion" title="Permanent link">&para;</a></h2>
+<p>El PDF distingue <strong>Transient</strong>, <strong>Persistent/Managed</strong> y <strong>Detached</strong>, y analiza el problema de las relaciones <code>LAZY</code> cuando se accede a ellas fuera del contexto de persistencia. Es un contenido que se entiende mejor ejecutando el programa y siguiendo los objetos con el depurador.</p>
+<h3 id="proyecto-jpa-hibernate-estados-demo">Proyecto: <code>jpa-hibernate-estados-demo</code><a class="headerlink" href="#proyecto-jpa-hibernate-estados-demo" title="Permanent link">&para;</a></h3>
+<p><strong><a href="../../descargas/ut4/03-estados/jpa-hibernate-estados-demo-Java21.zip">Descargar proyecto Maven Java 21</a></strong></p>
+<p>Este es el ejemplo asociado a la teoría del curso anterior. <strong>Qué debes observar:</strong> la clase <code>EstadosDemo</code>, los cambios de estado de <code>Cliente</code> y la relación con <code>Pedido</code>.</p>
+<p><strong>Clases de referencia:</strong> <code>EstadosDemo</code>, <code>JPAUtil</code>, <code>Cliente</code>, <code>Pedido</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Preparación y límites de la revisión</p>
+<p>El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por <code>CAMBIAR_PASSWORD</code>. Debes preparar la base MySQL correspondiente. <strong>No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven</strong>.</p>
+</div>
+<h3 id="secuencia-de-comprobacion">Secuencia de comprobación<a class="headerlink" href="#secuencia-de-comprobacion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Abre <code>EstadosDemo.java</code> y localiza el momento en que se construye un objeto con <code>new</code>.</li>
+<li>Busca dónde se abre el <code>EntityManager</code> y dónde comienza la transacción.</li>
+<li>Localiza <code>persist</code>, <code>find</code>, <code>detach</code>, <code>merge</code> o <code>close</code> <strong>si aparecen en el ejemplo</strong>.</li>
+<li>Añade puntos de ruptura antes y después de las operaciones de persistencia.</li>
+<li>Comprueba qué ocurre si accedes a una relación de carga diferida después de cerrar el contexto.</li>
+</ol>
+<h3 id="preguntas-de-comprension">Preguntas de comprensión<a class="headerlink" href="#preguntas-de-comprension" title="Permanent link">&para;</a></h3>
+<p><strong>¿Un objeto <code>Detached</code> deja de existir?</strong> No. Sigue siendo un objeto Java, pero ya no está gestionado por ese contexto.</p>
+<p><strong>¿Cerrar el <code>EntityManager</code> borra las filas?</strong> No. Cierra el contexto; los cambios confirmados en la base de datos permanecen.</p>
+<details class="success">
+<summary>Actividad: clasificar estados</summary>
+<p><code>new Cliente(...)</code> → nuevo; <code>persist(cliente)</code> en un contexto activo → gestionado; <code>close()</code> → separado. <code>remove(cliente)</code> marca para eliminación una entidad gestionada.</p>
+</details>
+<h2 id="documentacion-teorica-original-de-referencia">Documentación teórica original de referencia<a class="headerlink" href="#documentacion-teorica-original-de-referencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../descargas/ut4/teoria/3.1_Estados_Clases_persistentes.pdf">Consultar PDF: 3.1_Estados_Clases_persistentes</a></li>
+</ul>
 
 
 

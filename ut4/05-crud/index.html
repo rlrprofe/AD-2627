@@ -3616,7 +3616,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3644,7 +3644,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3801,6 +3801,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-completo-del-pdf-crud-y-estados-con-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo completo del PDF: CRUD y estados con MySQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplo completo del PDF: CRUD y estados con MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-demo-crud-estados-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-demo-crud-estados-mysql
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guia-de-lectura-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guía de lectura del código
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-de-ampliacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad de ampliación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3852,7 +3913,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -4403,6 +4464,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ejemplo-completo-del-pdf-crud-y-estados-con-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo completo del PDF: CRUD y estados con MySQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplo completo del PDF: CRUD y estados con MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-demo-crud-estados-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-demo-crud-estados-mysql
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guia-de-lectura-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guía de lectura del código
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actividad-de-ampliacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad de ampliación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4465,6 +4587,34 @@
 <p>Si ambos pertenecen a una única transacción y ejecutamos <code>rollback()</code>, ninguno debe quedar confirmado. Si los confirmamos en transacciones distintas, el primero podría permanecer.</p>
 </details>
 <p><strong>Referencia:</strong> <code>5.1_Operaciones_CRUD.pdf</code>.</p>
+<h2 id="ejemplo-completo-del-pdf-crud-y-estados-con-mysql">Ejemplo completo del PDF: CRUD y estados con MySQL<a class="headerlink" href="#ejemplo-completo-del-pdf-crud-y-estados-con-mysql" title="Permanent link">&para;</a></h2>
+<p>El documento original empieza explicando por qué <code>EntityManagerFactory</code>, <code>EntityManager</code>, contexto de persistencia y <code>EntityTransaction</code> son piezas diferentes. A continuación estudia <strong>CREATE, READ, UPDATE y DELETE</strong>, incluyendo <code>persist</code>, <code>find</code>, detección de cambios (<em>dirty checking</em>), <code>merge</code> y <code>remove</code>.</p>
+<h3 id="proyecto-jpa-demo-crud-estados-mysql">Proyecto: <code>jpa-demo-crud-estados-mysql</code><a class="headerlink" href="#proyecto-jpa-demo-crud-estados-mysql" title="Permanent link">&para;</a></h3>
+<p><strong><a href="../../descargas/ut4/05-crud/jpa-demo-crud-estados-mysql-Java21.zip">Descargar proyecto Maven Java 21</a></strong></p>
+<p>Este es el ejemplo asociado a la teoría del curso anterior. <strong>Qué debes observar:</strong> <code>CrudEstadosDemo</code>, <code>ClienteDao</code>, <code>Cliente</code> y <code>Pedido</code>. Sigue las transacciones y observa el estado de las entidades.</p>
+<p><strong>Clases de referencia:</strong> <code>CrudEstadosDemo</code>, <code>ClienteDao</code>, <code>Cliente</code>, <code>Pedido</code>, <code>JPAUtil</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Preparación y límites de la revisión</p>
+<p>El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por <code>CAMBIAR_PASSWORD</code>. Debes preparar la base MySQL correspondiente. <strong>No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven</strong>.</p>
+</div>
+<h3 id="guia-de-lectura-del-codigo">Guía de lectura del código<a class="headerlink" href="#guia-de-lectura-del-codigo" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Preparación:</strong> abre <code>pom.xml</code> y <code>META-INF/persistence.xml</code>.</li>
+<li><strong>Utilidad JPA:</strong> abre <code>JPAUtil.java</code> y busca cómo se crea <code>EntityManagerFactory</code>.</li>
+<li><strong>DAO:</strong> en <code>ClienteDao.java</code> localiza los métodos que realizan altas, búsquedas, modificaciones y bajas.</li>
+<li><strong>Demostración:</strong> sigue <code>CrudEstadosDemo.java</code> y anota qué operaciones requieren transacción.</li>
+<li><strong>Errores:</strong> identifica dónde se realiza <code>rollback()</code> si falla una escritura.</li>
+</ol>
+<h3 id="actividad-de-ampliacion">Actividad de ampliación<a class="headerlink" href="#actividad-de-ampliacion" title="Permanent link">&para;</a></h3>
+<p>Modifica el ejemplo para que no se permita un nombre vacío al crear un cliente. ¿Dónde situarías la validación en una aplicación por capas?</p>
+<details class="success">
+<summary>Orientación</summary>
+<p>La regla de negocio debe situarse preferentemente en el servicio o en una capa de validación, no en la vista ni mezclada con el código de conexión del DAO.</p>
+</details>
+<h2 id="documentacion-teorica-original-de-referencia">Documentación teórica original de referencia<a class="headerlink" href="#documentacion-teorica-original-de-referencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../descargas/ut4/teoria/5.1_Operaciones_CRUD.pdf">Consultar PDF: 5.1_Operaciones_CRUD</a></li>
+</ul>
 
 
 

@@ -29,7 +29,7 @@
     
     
       
-        <title>4.7. Desarrollo con ORM - Acceso a Datos - 2º DAM</title>
+        <title>4.7. Desarrollo de aplicaciones con ORM - Acceso a Datos - 2º DAM</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.7. Desarrollo con ORM
+              4.7. Desarrollo de aplicaciones con ORM
             
           </span>
         </div>
@@ -3616,7 +3616,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3644,7 +3644,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3737,7 +3737,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -3755,7 +3755,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -3854,6 +3854,56 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proyecto-del-curso-anterior-aplicacion-completa-con-orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto del curso anterior: aplicación completa con ORM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto del curso anterior: aplicación completa con ORM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-estudiar-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo estudiar la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relacion-con-el-ra6e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relación con el RA6.e
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4403,6 +4453,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#proyecto-del-curso-anterior-aplicacion-completa-con-orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto del curso anterior: aplicación completa con ORM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proyecto del curso anterior: aplicación completa con ORM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proyecto-jpa-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proyecto: jpa-proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-estudiar-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo estudiar la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relacion-con-el-ra6e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relación con el RA6.e
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4498,6 +4598,25 @@
 <p>Porque son responsabilidades distintas: <code>App</code> ensambla; la vista presenta; el controlador coordina; el servicio valida y el DAO accede a datos. Esta organización reduce el acoplamiento y facilita las pruebas.</p>
 </details>
 <p><strong>Referencia:</strong> carpeta <code>07-desarrollo-sw-orm</code> del material del curso anterior y criterios RA3/RA6.e de la programación actual.</p>
+<h2 id="proyecto-del-curso-anterior-aplicacion-completa-con-orm">Proyecto del curso anterior: aplicación completa con ORM<a class="headerlink" href="#proyecto-del-curso-anterior-aplicacion-completa-con-orm" title="Permanent link">&para;</a></h2>
+<p>La carpeta 07 contiene una aplicación de consola que integra el trabajo con entidades, persistencia, consultas y una organización por capas. Este es el proyecto que utilizaremos para <strong>unir lo aprendido</strong>, en lugar de introducir un dominio nuevo que no aparezca en los documentos.</p>
+<h3 id="proyecto-jpa-proyecto">Proyecto: <code>jpa-proyecto</code><a class="headerlink" href="#proyecto-jpa-proyecto" title="Permanent link">&para;</a></h3>
+<p><strong><a href="../../descargas/ut4/07-desarrollo/jpa-proyecto-Java21.zip">Descargar proyecto Maven Java 21</a></strong></p>
+<p>Este es el ejemplo asociado a la teoría del curso anterior. <strong>Qué debes observar:</strong> <code>Main</code>, <code>ClienteDao</code>, <code>PedidoDao</code>, <code>DaoSupport</code>, <code>ClienteService</code>, <code>PedidoService</code>, <code>Console</code> y <code>JPAUtil</code>.</p>
+<p><strong>Clases de referencia:</strong> <code>Main</code>, <code>ClienteDao</code>, <code>DaoSupport</code>, <code>PedidoDao</code>, <code>Cliente</code>, <code>Pedido</code>, <code>ClienteService</code>, <code>PedidoService</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Preparación y límites de la revisión</p>
+<p>El proyecto conserva su estructura y dependencias del curso anterior. Se ha cambiado la configuración de compilación a Java 21 y se han sustituido las contraseñas de ejemplo por <code>CAMBIAR_PASSWORD</code>. Debes preparar la base MySQL correspondiente. <strong>No se ha verificado todavía la ejecución real con MySQL ni la compilación Maven</strong>.</p>
+</div>
+<h3 id="como-estudiar-la-aplicacion">Cómo estudiar la aplicación<a class="headerlink" href="#como-estudiar-la-aplicacion" title="Permanent link">&para;</a></h3>
+<p><strong>Paso 1. Arranque.</strong> Abre <code>Main.java</code> y comprueba cómo se crean o utilizan los servicios y el acceso a datos.</p>
+<p><strong>Paso 2. Vista.</strong> En <code>Console.java</code>, identifica dónde se leen las opciones y dónde se muestran los mensajes.</p>
+<p><strong>Paso 3. Servicios.</strong> En <code>ClienteService</code> y <code>PedidoService</code>, observa las operaciones que se ofrecen al resto de la aplicación.</p>
+<p><strong>Paso 4. DAO.</strong> En <code>ClienteDao</code>, <code>PedidoDao</code> y <code>DaoSupport</code>, localiza el acceso ORM y comprueba cómo se cierran los recursos.</p>
+<p><strong>Paso 5. Configuración.</strong> Revisa <code>JPAUtil</code> y <code>persistence.xml</code>, así como el esquema SQL que necesita la aplicación.</p>
+<p><strong>Paso 6. Comprobación individual.</strong> Explica el recorrido de una operación desde el menú hasta la base de datos y vuelve a la pantalla. Después modifica una validación o añade una consulta sencilla.</p>
+<h3 id="relacion-con-el-ra6e">Relación con el RA6.e<a class="headerlink" href="#relacion-con-el-ra6e" title="Permanent link">&para;</a></h3>
+<p>La evidencia no consiste solo en que el programa funcione: debes poder identificar el <strong>componente que encapsula el acceso ORM</strong> y justificar por qué las demás capas no necesitan conocer <code>EntityManager</code>.</p>
 
 
 

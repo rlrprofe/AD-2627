@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#antes-de-empezar-hibernate-nativo-y-jakarta-persistence" class="md-skip">
+        <a href="#antes-de-empezar-la-unidad" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -3585,10 +3585,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-primero-aparecio-hibernate-nativo" class="md-nav__link">
+  <a href="#1-hibernate-nacio-primero-anos-20012006" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Primero apareció Hibernate nativo
+        1. Hibernate nació primero (años 2001–2006)
       
     </span>
   </a>
@@ -3596,10 +3596,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-despues-aparecio-jpa-actualmente-jakarta-persistence" class="md-nav__link">
+  <a href="#2-mas-tarde-aparecio-jpa-java-persistence-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Después apareció JPA, actualmente Jakarta Persistence
+        2. Más tarde apareció JPA (Java Persistence API)
       
     </span>
   </a>
@@ -3607,10 +3607,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-por-que-hay-ejemplos-tan-distintos-en-internet" class="md-nav__link">
+  <a href="#3-entonces-que-paso-se-mezclaron-las-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. ¿Por qué hay ejemplos tan distintos en Internet?
+        3. Entonces… ¿qué pasó? Se mezclaron las API
       
     </span>
   </a>
@@ -3618,10 +3618,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-que-enfoque-utilizaremos-en-esta-unidad" class="md-nav__link">
+  <a href="#4-que-se-usa-profesionalmente-hoy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. ¿Qué enfoque utilizaremos en esta unidad?
+        4. ¿Qué se usa profesionalmente hoy?
       
     </span>
   </a>
@@ -3629,10 +3629,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-resumen-para-recordar" class="md-nav__link">
+  <a href="#5-como-enfocaremos-este-tema-en-el-modulo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Resumen para recordar
+        5. ¿Cómo enfocaremos este tema en el módulo?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ¿Cómo enfocaremos este tema en el módulo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1-hibernate-nativo-session-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1: Hibernate nativo (Session API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2-jpa-estandar-entitymanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2: JPA estándar (EntityManager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-para-que-no-te-confundas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen para que no te confundas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
       
     </span>
   </a>
@@ -3718,7 +3768,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3746,7 +3796,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3830,7 +3880,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -4305,10 +4355,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-primero-aparecio-hibernate-nativo" class="md-nav__link">
+  <a href="#1-hibernate-nacio-primero-anos-20012006" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Primero apareció Hibernate nativo
+        1. Hibernate nació primero (años 2001–2006)
       
     </span>
   </a>
@@ -4316,10 +4366,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-despues-aparecio-jpa-actualmente-jakarta-persistence" class="md-nav__link">
+  <a href="#2-mas-tarde-aparecio-jpa-java-persistence-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Después apareció JPA, actualmente Jakarta Persistence
+        2. Más tarde apareció JPA (Java Persistence API)
       
     </span>
   </a>
@@ -4327,10 +4377,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-por-que-hay-ejemplos-tan-distintos-en-internet" class="md-nav__link">
+  <a href="#3-entonces-que-paso-se-mezclaron-las-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. ¿Por qué hay ejemplos tan distintos en Internet?
+        3. Entonces… ¿qué pasó? Se mezclaron las API
       
     </span>
   </a>
@@ -4338,10 +4388,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-que-enfoque-utilizaremos-en-esta-unidad" class="md-nav__link">
+  <a href="#4-que-se-usa-profesionalmente-hoy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. ¿Qué enfoque utilizaremos en esta unidad?
+        4. ¿Qué se usa profesionalmente hoy?
       
     </span>
   </a>
@@ -4349,10 +4399,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-resumen-para-recordar" class="md-nav__link">
+  <a href="#5-como-enfocaremos-este-tema-en-el-modulo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Resumen para recordar
+        5. ¿Cómo enfocaremos este tema en el módulo?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ¿Cómo enfocaremos este tema en el módulo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1-hibernate-nativo-session-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1: Hibernate nativo (Session API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2-jpa-estandar-entitymanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2: JPA estándar (EntityManager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-para-que-no-te-confundas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen para que no te confundas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-teorica-original-de-referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación teórica original de referencia
       
     </span>
   </a>
@@ -4379,79 +4479,105 @@
   
 
 
-<h1 id="antes-de-empezar-hibernate-nativo-y-jakarta-persistence">Antes de empezar: Hibernate nativo y Jakarta Persistence<a class="headerlink" href="#antes-de-empezar-hibernate-nativo-y-jakarta-persistence" title="Permanent link">&para;</a></h1>
-<p>Antes de comenzar a trabajar con persistencia en Java, conviene aclarar una cuestión que genera confusión al consultar vídeos, tutoriales y ejemplos de Internet: <strong>Hibernate se ha utilizado de distintas formas a lo largo de su evolución</strong>. Por eso encontraremos ejemplos con API, ficheros de configuración y versiones diferentes.</p>
-<h3 id="1-primero-aparecio-hibernate-nativo">1. Primero apareció Hibernate nativo<a class="headerlink" href="#1-primero-aparecio-hibernate-nativo" title="Permanent link">&para;</a></h3>
-<p>Hibernate nació como una herramienta de mapeo objeto-relacional y originalmente ofrecía <strong>su propia API</strong>, basada en elementos como:</p>
+<h1 id="antes-de-empezar-la-unidad">Antes de empezar la unidad<a class="headerlink" href="#antes-de-empezar-la-unidad" title="Permanent link">&para;</a></h1>
+<p>Antes de comenzar a trabajar con persistencia en Java, es importante aclarar algo que genera mucha confusión en vídeos, tutoriales y ejemplos de Internet.</p>
+<p>Hibernate se ha usado de muchas formas diferentes a lo largo de más de 20 años, y por eso hoy existen varias API, varios tipos de configuración y muchos tutoriales mezclados.</p>
+<h2 id="1-hibernate-nacio-primero-anos-20012006">1. Hibernate nació primero (años 2001–2006)<a class="headerlink" href="#1-hibernate-nacio-primero-anos-20012006" title="Permanent link">&para;</a></h2>
+<p>En sus inicios, Hibernate funcionaba solo con su propia API, usando:</p>
 <ul>
-<li><code>SessionFactory</code>: fábrica que permite crear sesiones.</li>
-<li><code>Session</code>: objeto utilizado para interactuar con la persistencia.</li>
-<li><code>Transaction</code>: mecanismo para delimitar transacciones.</li>
-<li><code>hibernate.cfg.xml</code>: fichero de configuración habitual en ejemplos de Hibernate nativo.</li>
+<li><code>SessionFactory</code></li>
+<li><code>Session</code></li>
+<li><code>Transaction</code></li>
+<li><code>hibernate.cfg.xml</code></li>
 </ul>
-<p>A esta forma de trabajar la llamaremos <strong>Hibernate nativo (Session API)</strong>. Encontrarás muchos tutoriales antiguos —y también ejemplos actuales— que utilizan esta API.</p>
-<h3 id="2-despues-aparecio-jpa-actualmente-jakarta-persistence">2. Después apareció JPA, actualmente Jakarta Persistence<a class="headerlink" href="#2-despues-aparecio-jpa-actualmente-jakarta-persistence" title="Permanent link">&para;</a></h3>
-<p>Más tarde se definió una API estándar de persistencia, conocida originalmente como <strong>JPA (Java Persistence API)</strong>. En documentación antigua verás importaciones como <code>javax.persistence.*</code>. En el ecosistema Jakarta EE actual se utiliza <strong>Jakarta Persistence</strong>, con importaciones <code>jakarta.persistence.*</code>.</p>
+<p>Esto se llama <strong>Hibernate nativo</strong>. Muchos tutoriales antiguos están escritos así.</p>
+<h2 id="2-mas-tarde-aparecio-jpa-java-persistence-api">2. Más tarde apareció JPA (Java Persistence API)<a class="headerlink" href="#2-mas-tarde-aparecio-jpa-java-persistence-api" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
-<p class="admonition-title">Terminología de estos apuntes</p>
-<p>Cuando en esta unidad aparezca «JPA», nos referiremos a la API estándar <strong>Jakarta Persistence</strong>. Los ejemplos modernos utilizarán <code>jakarta.persistence.*</code>.</p>
+<p class="admonition-title">Nota de terminología: JPA vs Jakarta Persistence</p>
+<p>En muchos materiales antiguos verás «JPA (Java Persistence API)» y paquetes <code>javax.persistence.*</code>. Actualmente, el estándar se llama <strong>Jakarta Persistence</strong> y los paquetes han pasado a <code>jakarta.persistence.*</code>. En esta unidad, cuando digamos «JPA» nos referiremos a Jakarta Persistence, y por eso en el código usaremos <code>jakarta.persistence</code>.</p>
 </div>
-<p><strong>JPA/Jakarta Persistence es una especificación</strong>, no un motor ORM que funcione por sí solo. Define contratos y anotaciones que debe proporcionar una implementación, como <strong>Hibernate</strong>. Entre sus elementos principales están:</p>
+<p>JPA es una especificación estándar de persistencia en Java que define cómo deben trabajar las implementaciones ORM que se ajustan a ella. Pero:</p>
 <ul>
-<li><code>EntityManager</code>: interfaz estándar para gestionar entidades persistentes.</li>
-<li><code>persistence.xml</code>: fichero habitual para declarar una unidad de persistencia.</li>
-<li><code>@Entity</code>, <code>@Id</code>, <code>@Column</code> y otras anotaciones estándar para describir el mapeo.</li>
+<li>JPA no es un framework.</li>
+<li>JPA no funciona sola.</li>
+<li>JPA necesita una implementación.</li>
 </ul>
-<p>Hibernate puede utilizarse como <strong>proveedor de Jakarta Persistence</strong>, de manera que el código de nuestra aplicación trabaja con la API estándar y Hibernate realiza las operaciones de persistencia.</p>
-<h3 id="3-por-que-hay-ejemplos-tan-distintos-en-internet">3. ¿Por qué hay ejemplos tan distintos en Internet?<a class="headerlink" href="#3-por-que-hay-ejemplos-tan-distintos-en-internet" title="Permanent link">&para;</a></h3>
-<p>Porque durante años han coexistido distintas versiones y formas de trabajar. Es posible encontrar:</p>
+<p>Una de las implementaciones más utilizadas es precisamente <strong>Hibernate</strong>.</p>
+<p>A partir de ese momento:</p>
 <ul>
-<li>Código que utiliza <code>Session</code> y código que utiliza <code>EntityManager</code>.</li>
-<li>Anotaciones de <code>javax.persistence</code> y de <code>jakarta.persistence</code>.</li>
-<li>Configuraciones mediante <code>hibernate.cfg.xml</code> o <code>persistence.xml</code>.</li>
-<li>Ejemplos correspondientes a distintas versiones de Hibernate, con métodos y configuraciones que han cambiado.</li>
+<li>Se introduce <code>EntityManager</code>.</li>
+<li>Se usa <code>persistence.xml</code>.</li>
+<li>Aparecen las anotaciones estándar (<code>@Entity</code>, <code>@Id</code>, <code>@Column</code>, etc.).</li>
 </ul>
-<p><strong>No debemos copiar fragmentos de tutoriales diferentes sin comprobar su versión y la API que utilizan.</strong> Una combinación de ejemplos incompatibles puede producir errores difíciles de interpretar.</p>
-<h3 id="4-que-enfoque-utilizaremos-en-esta-unidad">4. ¿Qué enfoque utilizaremos en esta unidad?<a class="headerlink" href="#4-que-enfoque-utilizaremos-en-esta-unidad" title="Permanent link">&para;</a></h3>
-<p>Estudiaremos las dos formas <strong>de manera diferenciada</strong> para comprender sus conceptos sin mezclar las API en un mismo ejemplo:</p>
-<p><strong>Parte 1. Hibernate nativo (<code>Session</code>)</strong></p>
-<p>Comenzaremos por reconocer <code>SessionFactory</code>, <code>Session</code> y <code>Transaction</code>, comprender el mapeo de una clase Java a una tabla, realizar operaciones CRUD sencillas y observar el SQL que genera Hibernate.</p>
-<p><strong>Parte 2. Jakarta Persistence (<code>EntityManager</code>) con Hibernate como proveedor</strong></p>
-<p>Después trabajaremos con <code>EntityManager</code>, <code>persistence.xml</code>, anotaciones estándar, consultas JPQL y relaciones entre entidades, como uno a muchos y muchos a uno.</p>
-<p>Este segundo enfoque permite escribir la lógica de persistencia utilizando una <strong>API estándar</strong>, sin depender directamente de los métodos específicos de Hibernate para las operaciones habituales.</p>
+<p>Y Hibernate decide soportar esta nueva API también.</p>
+<h2 id="3-entonces-que-paso-se-mezclaron-las-api">3. Entonces… ¿qué pasó? Se mezclaron las API<a class="headerlink" href="#3-entonces-que-paso-se-mezclaron-las-api" title="Permanent link">&para;</a></h2>
+<p>Durante años se podían usar:</p>
+<ul>
+<li>La API original de Hibernate (<code>Session</code>).</li>
+<li>La API estándar JPA (<code>EntityManager</code>).</li>
+<li>Y las dos juntas, según el proyecto.</li>
+</ul>
+<p>Con el tiempo, los tutoriales mezclaron:</p>
+<ul>
+<li><code>Session</code> + anotaciones JPA.</li>
+<li><code>EntityManager</code> + <code>hibernate.cfg.xml</code>.</li>
+<li><code>.get()</code>, método marcado como obsoleto en Hibernate 7.</li>
+<li>Configuraciones antiguas y modernas.</li>
+<li>Versiones de Hibernate 3, 4, 5, 6 y 7.</li>
+<li>XML antiguo con DTD ya obsoletas.</li>
+</ul>
+<p>Resultado: mucha confusión si no conoces la historia. Por eso en Internet ves código muy distinto según el año del tutorial.</p>
+<div class="admonition note">
+<p class="admonition-title">Importante al consultar ejemplos</p>
+<p>Utilizar <code>Session</code> con anotaciones JPA no es necesariamente incorrecto. Hibernate admite estas anotaciones también con su API nativa. La compatibilidad de cada configuración y método depende de la versión utilizada.</p>
+</div>
+<h2 id="4-que-se-usa-profesionalmente-hoy">4. ¿Qué se usa profesionalmente hoy?<a class="headerlink" href="#4-que-se-usa-profesionalmente-hoy" title="Permanent link">&para;</a></h2>
+<p>Un enfoque muy habitual en el desarrollo profesional es:</p>
+<p><strong>JPA estándar (<code>EntityManager</code>) + Hibernate como implementación.</strong></p>
+<p>Es decir, Hibernate se usa «debajo», pero el programador trabaja con la API estándar JPA.</p>
+<p>Este enfoque se utiliza, entre otros, en proyectos de:</p>
+<ul>
+<li>Spring Boot.</li>
+<li>Microservicios Java.</li>
+<li>API REST.</li>
+<li>Sistemas empresariales.</li>
+</ul>
+<p>Es una forma moderna de trabajar que favorece la portabilidad y la mantenibilidad del código de persistencia.</p>
+<h2 id="5-como-enfocaremos-este-tema-en-el-modulo">5. ¿Cómo enfocaremos este tema en el módulo?<a class="headerlink" href="#5-como-enfocaremos-este-tema-en-el-modulo" title="Permanent link">&para;</a></h2>
+<p>Para no liarte y para que entiendas todo bien, veremos los dos modos por separado, sin mezclarlos:</p>
+<h3 id="parte-1-hibernate-nativo-session-api">Parte 1: Hibernate nativo (Session API)<a class="headerlink" href="#parte-1-hibernate-nativo-session-api" title="Permanent link">&para;</a></h3>
+<p>Comenzaremos por esta forma de trabajar para aprender cómo funciona un ORM. Vas a ver:</p>
+<ul>
+<li>Qué es una <code>Session</code>.</li>
+<li>Cómo se hace un CRUD básico.</li>
+<li>Cómo se mapea una clase Java a una tabla.</li>
+<li>Cómo se genera SQL automáticamente.</li>
+</ul>
+<h3 id="parte-2-jpa-estandar-entitymanager">Parte 2: JPA estándar (EntityManager)<a class="headerlink" href="#parte-2-jpa-estandar-entitymanager" title="Permanent link">&para;</a></h3>
+<p>Es una forma de trabajo ampliamente utilizada en empresas. Vas a aprender:</p>
+<ul>
+<li>Qué es <code>EntityManager</code>.</li>
+<li>Qué es <code>persistence.xml</code>.</li>
+<li>Cómo se hacen consultas JPQL.</li>
+<li>Cómo se trabajan relaciones 1-N y N-1.</li>
+</ul>
 <div class="admonition warning">
-<p class="admonition-title">Regla para los ejemplos de la unidad</p>
-<p>No mezclaremos las operaciones de <code>Session</code> y <code>EntityManager</code> dentro de un mismo ejemplo didáctico. Las estudiaremos por separado y explicaremos sus equivalencias cuando corresponda.</p>
+<p class="admonition-title">IMPORTANTE: NO mezclaremos Session y EntityManager</p>
+<p>Cada parte se explica y se practica separadamente para evitar confusiones.</p>
 </div>
-<h3 id="5-resumen-para-recordar">5. Resumen para recordar<a class="headerlink" href="#5-resumen-para-recordar" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Concepto</th>
-<th>Qué significa</th>
-<th>API o configuración característica</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Hibernate nativo</strong></td>
-<td>Uso directo de la API propia de Hibernate</td>
-<td><code>Session</code>, <code>SessionFactory</code>, <code>Transaction</code>, habitualmente <code>hibernate.cfg.xml</code></td>
-</tr>
-<tr>
-<td><strong>Jakarta Persistence (JPA)</strong></td>
-<td>Especificación estándar de persistencia</td>
-<td><code>EntityManager</code>, <code>@Entity</code>, <code>@Id</code>, habitualmente <code>persistence.xml</code></td>
-</tr>
-<tr>
-<td><strong>Hibernate como proveedor JPA</strong></td>
-<td>Hibernate implementa la especificación Jakarta Persistence</td>
-<td>Nuestra aplicación usa <code>EntityManager</code>; Hibernate ejecuta las operaciones</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Idea clave:</strong> Hibernate puede trabajar de las dos maneras. Saber cuál utiliza cada ejemplo es el primer paso para comprenderlo y ejecutarlo correctamente.</p>
+<h2 id="resumen-para-que-no-te-confundas">Resumen para que no te confundas<a class="headerlink" href="#resumen-para-que-no-te-confundas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Hibernate nativo</strong> → API propia de Hibernate (<code>Session</code>).</li>
+<li><strong>JPA estándar</strong> → API estándar de persistencia (<code>EntityManager</code>).</li>
+<li><strong>Hibernate puede trabajar de ambas formas</strong> → por eso hay tantos tutoriales mezclados.</li>
+<li><strong>Un enfoque profesional habitual</strong> → JPA + Hibernate (<code>EntityManager</code>).</li>
+<li>Cuando entiendes esta diferencia, <strong>TODO lo demás encaja</strong>.</li>
+</ul>
 <hr />
+<h2 id="documentacion-teorica-original-de-referencia">Documentación teórica original de referencia<a class="headerlink" href="#documentacion-teorica-original-de-referencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../descargas/ut4/teoria/1.0%20Antes%20de%20empezar.pdf">Consultar PDF: 1.0 Antes de empezar</a></li>
+</ul>
 
 
 

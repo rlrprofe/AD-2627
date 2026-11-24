@@ -3616,7 +3616,7 @@
   <span class="md-ellipsis">
     
   
-    4.3. Clases y estados
+    4.3. Clases persistentes y estados
   
 
     
@@ -3644,7 +3644,7 @@
   <span class="md-ellipsis">
     
   
-    4.4. Relaciones
+    4.4. Relaciones entre entidades
   
 
     
@@ -3728,7 +3728,7 @@
   <span class="md-ellipsis">
     
   
-    4.7. Desarrollo con ORM
+    4.7. Desarrollo de aplicaciones con ORM
   
 
     
@@ -3864,10 +3864,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyecto-descargable" class="md-nav__link">
+  <a href="#catalogo-completo-de-proyectos-de-ejemplo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyecto descargable
+        Catálogo completo de proyectos de ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-trabajar-con-cada-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo trabajar con cada proyecto
       
     </span>
   </a>
@@ -4382,10 +4393,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proyecto-descargable" class="md-nav__link">
+  <a href="#catalogo-completo-de-proyectos-de-ejemplo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proyecto descargable
+        Catálogo completo de proyectos de ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-trabajar-con-cada-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo trabajar con cada proyecto
       
     </span>
   </a>
@@ -4490,15 +4512,36 @@
 <summary>Comprobación</summary>
 <p>El controlador solo conoce el servicio; el servicio utiliza la interfaz DAO; la implementación ORM utiliza <code>EntityManager</code>.</p>
 </details>
-<h2 id="proyecto-descargable">Proyecto descargable<a class="headerlink" href="#proyecto-descargable" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../../descargas/ut4/UT4_Gestion_Productos_Hibernate_Java21_Maven.zip">Proyecto Maven: Gestión de productos con Hibernate/JPA</a></li>
-<li><a href="../../descargas/ut4/UT4_Gestion_Productos_Hibernate_Java21_Maven.zip">Plantilla de configuración y guía de ejecución</a></li>
-</ul>
+<h2 id="catalogo-completo-de-proyectos-de-ejemplo">Catálogo completo de proyectos de ejemplo<a class="headerlink" href="#catalogo-completo-de-proyectos-de-ejemplo" title="Permanent link">&para;</a></h2>
+<p>Los proyectos proceden de las carpetas <code>code</code> del curso anterior y se han organizado siguiendo la teoría original. Cada ZIP conserva el código fuente y el POM, adaptado para Java 21.</p>
+<table>
+<thead>
+<tr>
+<th>Apartado</th>
+<th>Proyecto</th>
+<th>Descarga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>02-mapeo</td>
+<td><code>demo-hibernate-nativo</code></td>
+<td><a href="../../descargas/ut4/02-mapeo/demo-hibernate-nativo-Java21.zip">Descargar ZIP</a></td>
+</tr>
+</tbody>
+</table>
 <div class="admonition warning">
-<p class="admonition-title">Antes de ejecutar</p>
-<p>Crea la base de datos MySQL, copia <code>config/bd.properties.example</code> a <code>config/bd.properties</code> y completa tus credenciales. No subas el fichero real al repositorio.</p>
+<p class="admonition-title">Configuración MySQL y validación</p>
+<p>Los ejemplos incluyen configuraciones de bases de datos diferentes. Antes de ejecutarlos, crea la base correspondiente y sustituye <code>CAMBIAR_PASSWORD</code> en el XML de configuración. Los ZIP están preparados como <strong>materiales para revisión</strong>, no como proyectos ya verificados con MySQL. No utilices una base de datos con información importante si el ejemplo tiene <code>create</code> o <code>create-drop</code>.</p>
 </div>
+<h2 id="como-trabajar-con-cada-proyecto">Cómo trabajar con cada proyecto<a class="headerlink" href="#como-trabajar-con-cada-proyecto" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Lee el apartado teórico y descarga el ZIP que aparece en esa misma página.</li>
+<li>Descomprime el proyecto y abre su carpeta en VS Code.</li>
+<li>Revisa el <code>pom.xml</code>, el XML de configuración y las entidades antes de ejecutar.</li>
+<li>Ejecuta <code>mvn clean test</code> y, si procede, el método <code>main</code> de la demostración.</li>
+<li>Compara los resultados con el PDF y contesta las preguntas del apartado.</li>
+</ol>
 <h2 id="evaluacion">Evaluación<a class="headerlink" href="#evaluacion" title="Permanent link">&para;</a></h2>
 <p>Según la programación: <strong>40 % prueba objetiva</strong> y <strong>60 % práctica(s)</strong>. La práctica debe permitir evidenciar los CE del RA3 y el componente ORM del RA6.e; puede incluir comprobación individual de funcionamiento y explicación.</p>
 <div class="admonition note">
